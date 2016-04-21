@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use CPAN::Distribution;
+use CPAN::Plugin::Sysdeps;
+use Getopt::Long;
+
+sub usage (;$) {
+    my $msg = shift;
+    if ($msg) { warn $msg, "\n" }
+    die "usage: $0 [--cpandist Dist-Name | --cpanmod Mod::Name]\n";
+}
+
+GetOptions(
+	   'cpandist|dist=s'       => \my $cpandist,
+	   'cpanmod|mod=s'         => \my $cpanmod,
+	   'os=s'                  => \my $os,
+	   'linuxdistro=s'         => \my $linuxdistro,
+	   'linuxdistroversion=s'  => \my $linuxdistroversion,
+	   'linuxdistrocodename=s' => \my $linuxdistrocodename,
+	  )
+    or usage;
+
+($cpandist or $cpanmod) or usage;
+
+if ($cpandist) {
+    if (!$cpanmod) {
+	($cpanmod = $cpandist) =~ s{-[\d\.]+$}{}; # XXX hack
+	$cpanmod =~ s{-}{::}g; # XXX hack
+    }
+} else {
+    ($cpandist = $cpanmod) =~ s{::}{-}g; # XXX hack
+}
+
+my $dist = CPAN::Distribution->new(
+				   ID           => "X/XX/XXX/$cpandist.tar.gz", # XXX
+				   CONTAINSMODS => {$cpanmod=>1},
+				  );
+
+my $sysdeps = CPAN::Plugin::Sysdeps->new({
+					  os                  => $os,
+					  linuxdistro         => $linuxdistro,
+					  linuxdistroversion  => $linuxdistroversion,
+					  linuxdistrocodename => $linuxdistrocodename,
+					 });
+my @packages = $sysdeps->_map_cpandist($dist);
+if (@packages) {
+    print join("\n", @packages), "\n";
+}
