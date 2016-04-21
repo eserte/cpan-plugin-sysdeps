@@ -98,15 +98,17 @@ sub post_get {
     my @packages = $self->_map_cpandist($dist);
     if (@packages) {
 	my @uninstalled_packages = $self->_filter_uninstalled_packages(@packages);
-	my @cmds = $self->_install_packages_commands(@uninstalled_packages);
-	for my $cmd (@cmds) {
-	    if ($self->{dryrun}) {
-		warn "DRYRUN: @$cmd\n";
-	    } else {
-		warn "INFO: run @$cmd...\n";
-		system @$cmd;
-		if ($? != 0) {
-		    die "@$cmd failed, stop installation";
+	if (@uninstalled_packages) {
+	    my @cmds = $self->_install_packages_commands(@uninstalled_packages);
+	    for my $cmd (@cmds) {
+		if ($self->{dryrun}) {
+		    warn "DRYRUN: @$cmd\n";
+		} else {
+		    warn "INFO: run @$cmd...\n";
+		    system @$cmd;
+		    if ($? != 0) {
+			die "@$cmd failed, stop installation";
+		    }
 		}
 	    }
 	}
@@ -171,16 +173,28 @@ sub _map_cpandist {
 		$self->_debug(' ' x $level . " match '$key' against '", $match, "'");
 		if ($key eq 'cpandist') {
 		    return 0 if !$smartmatch->($dist->base_id, $match);
+		} elsif ($key eq 'cpanmod') {
+		    my $found = 0;
+		    for my $mod ($dist->containsmods) {
+			$self->_debug(' ' x $level . "  found module '$mod' in dist, check now against '", $match, "'");
+			if ($smartmatch->($mod, $match)) {
+			    $found = 1;
+			    last;
+			}
+		    }
+		    return 0 if !$found;
 		} elsif ($key eq 'os') {
 		    return 0 if !$smartmatch->($^O, $match);
 		} elsif ($key eq 'linuxdistro') {
 		    if ($match =~ m{^~(debian|redhat)}) {
 			my $method = "_is_linux_$1_like";
+			$self->_debug("translate $match to $method");
 			return 0 if !$self->$method($self->{linuxdistro});
 		    } elsif ($match =~ m{^~}) {
 			die "'like' matches only for debian and redhat";
+		    } else {
+			return 0 if !$smartmatch->($self->{linuxdistro}, $match);
 		    }
-		    return 0 if !$smartmatch->($self->{linuxdistro}, $match);
 		} elsif ($key eq 'linuxdistroversion') {
 		    return 0 if !$smartmatch->($self->{linuxdistroversion}, $match); # XXX should do a numerical comparison instead!
 		} elsif ($key eq 'linuxdistrocodename') {
@@ -201,6 +215,8 @@ sub _map_cpandist {
 	    return ref $res->{package} eq 'ARRAY' ? @{ $res->{package} } : $res->{package};
 	}
     }
+
+    ();
 }
 
 sub _filter_uninstalled_packages {
@@ -215,28 +231,28 @@ sub _filter_uninstalled_packages {
 
 sub _install_packages_commands {
     my($self, @packages) = @_;
-    my @precmd;
-    my @cmd;
+    my @pre_cmd;
+    my @install_cmd;
     if ($< != 0) {
-	push @cmd, 'sudo';
+	push @install_cmd, 'sudo';
     }
-    push @cmd, $self->{installer};
+    push @install_cmd, $self->{installer};
     if ($self->{batch}) {
 	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
-	    push @cmd, '-y';
+	    push @install_cmd, '-y';
 	} else {
 	    warn "batch=1 NYI for $self->{installer}";
 	}
     } else {
 	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
-	    @precmd = ('sh', '-c', 'echo "Install package(s) @packages? (y/N) "; read yn; [ "$yn" = "y" ]');
+	    @pre_cmd = ('sh', '-c', 'echo "Install package(s) @packages? (y/N) "; read yn; [ "$yn" = "y" ]');
 	} else {
 	    warn "batch=0 NYI for $self->{installer}";
 	}
     }
-    push @cmd, @packages;
+    push @install_cmd, @packages;
 
-    ((@precmd ? \@precmd : ()), \@cmd);
+    ((@pre_cmd ? \@pre_cmd : ()), \@install_cmd);
 }
 
 1;
