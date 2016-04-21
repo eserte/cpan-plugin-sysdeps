@@ -19,8 +19,15 @@ sub new {
     my $debug = 0;
     my @additional_mappings;
     my @args_errors;
+    my $options;
     for my $arg (@args) {
-	if      ($arg =~ m{^(apt-get|aptitude|pkg|yum)$}) { # XXX are there more package installers?
+	if (ref $arg eq 'HASH') {
+	    if ($options) {
+		die "Cannot handle multiple option hashes";
+	    } else {
+		$options = $arg;
+	    }
+	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum)$}) { # XXX are there more package installers?
 	    $installer = $1;
 	} elsif ($arg eq 'batch') {
 	    $batch = 1;
@@ -41,20 +48,35 @@ sub new {
 	die 'Unrecognized ' . __PACKAGE__ . ' argument' . (@args_errors != 1 ? 's' : '') . ": @args_errors\n";
     }
 
+    my $os                  = $options->{os} || $^O;
     my $linuxdistro         = '';
     my $linuxdistroversion  = 0;
     my $linuxdistrocodename = '';
-    if ($^O eq 'linux') {
+    if ($os eq 'linux') {
 	# XXX fallback if lsb_release is unavailable?
-	chomp($linuxdistro         = lc `lsb_release -is`);
-	chomp($linuxdistroversion  =    `lsb_release -rs`); # XXX make it a version object? or make sure it's just X.Y?
-	chomp($linuxdistrocodename =    `lsb_release -cs`);
+	if (defined $options->{linuxdistro}) {
+	    $linuxdistro = $options->{linuxdistro};
+	} else {
+	    chomp($linuxdistro = lc `lsb_release -is`);
+	}
+
+	if (defined $options->{linuxdistroversion}) {
+	    $linuxdistroversion = $options->{linuxdistroversion};
+	} else {
+	    chomp($linuxdistroversion = `lsb_release -rs`); # XXX make it a version object? or make sure it's just X.Y?
+	}
+
+	if (defined $options->{linuxdistrocodename}) {
+	    $linuxdistrocodename = $options->{linuxdistrocodename};
+	} else {
+	    chomp($linuxdistrocodename = `lsb_release -cs`);
+	}
     }
 
     if (!$installer) {
-	if      ($^O eq 'freebsd') {
+	if      ($os eq 'freebsd') {
 	    $installer = 'pkg';
-	} elsif ($^O eq 'linux') {
+	} elsif ($os eq 'linux') {
 	    if      (__PACKAGE__->_is_linux_debian_like($linuxdistro)) {
 		$installer = 'apt-get';
 	    } elsif (__PACKAGE__->_is_linux_fedora_like($linuxdistro)) {
@@ -63,7 +85,7 @@ sub new {
 		die __PACKAGE__ . " has no support for linux distribution $linuxdistro $linuxdistroversion\n";
 	    }
 	} else {
-	    die __PACKAGE__ . " has no support for operating system $^O\n";
+	    die __PACKAGE__ . " has no support for operating system $os\n";
 	}
     }
 
@@ -83,6 +105,7 @@ sub new {
 	 batch               => $batch,
 	 dryrun              => $dryrun,
 	 debug               => $debug,
+	 os                  => $os,
 	 linuxdistro         => $linuxdistro,
 	 linuxdistroversion  => $linuxdistroversion,
 	 linuxdistrocodename => $linuxdistrocodename,
@@ -186,7 +209,7 @@ sub _map_cpandist {
 		    }
 		    return 0 if !$found && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'os') {
-		    return 0 if !$smartmatch->($^O, $match) && !$TRAVERSE_ONLY;
+		    return 0 if !$smartmatch->($self->{os}, $match) && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'linuxdistro') {
 		    if ($match =~ m{^~(debian|fedora)}) {
 			my $method = "_is_linux_$1_like";
@@ -226,7 +249,7 @@ sub _filter_uninstalled_packages {
     if ($self->{linuxdistro} eq 'debian') {
 	warn "NYI: should use something like ~/devel/deb-install.pl, go on without filtering...";
     } else {
-	warn "check for installed packages is NYI for $^O/$self->{linuxdistro}";
+	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
     }
     @packages;
 }
