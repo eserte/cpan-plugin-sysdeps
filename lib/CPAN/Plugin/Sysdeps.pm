@@ -8,6 +8,8 @@ our $VERSION = '0.01';
 use Hash::Util 'lock_keys';
 use List::Util 'first';
 
+our $TRAVERSE_ONLY; # only for testing
+
 sub new {
     my($class, @args) = @_;
 
@@ -163,16 +165,16 @@ sub _map_cpandist {
 	    if (ref $key_or_subentry eq 'ARRAY') {
 		$self->_debug(' ' x $level . ' traverse another tree level');
 		my $res = $handle_mapping_entry->($key_or_subentry, $level+1);
-		return $res if $res;
+		return $res if $res && !$TRAVERSE_ONLY;
 	    } elsif (ref $key_or_subentry eq 'CODE') {
 		my $res = $key_or_subentry->($self, $dist);
-		return $res if $res;
+		return $res if $res && !$TRAVERSE_ONLY;
 	    } else {
 		my $key = $key_or_subentry;
 		my $match = $entry->[++$map_i];
 		$self->_debug(' ' x $level . " match '$key' against '", $match, "'");
 		if ($key eq 'cpandist') {
-		    return 0 if !$smartmatch->($dist->base_id, $match);
+		    return 0 if !$smartmatch->($dist->base_id, $match) && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'cpanmod') {
 		    my $found = 0;
 		    for my $mod ($dist->containsmods) {
@@ -182,23 +184,23 @@ sub _map_cpandist {
 			    last;
 			}
 		    }
-		    return 0 if !$found;
+		    return 0 if !$found && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'os') {
-		    return 0 if !$smartmatch->($^O, $match);
+		    return 0 if !$smartmatch->($^O, $match) && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'linuxdistro') {
 		    if ($match =~ m{^~(debian|fedora)}) {
 			my $method = "_is_linux_$1_like";
 			$self->_debug("translate $match to $method");
-			return 0 if !$self->$method($self->{linuxdistro});
+			return 0 if !$self->$method($self->{linuxdistro}) && !$TRAVERSE_ONLY;
 		    } elsif ($match =~ m{^~}) {
 			die "'like' matches only for debian and fedora";
 		    } else {
-			return 0 if !$smartmatch->($self->{linuxdistro}, $match);
+			return 0 if !$smartmatch->($self->{linuxdistro}, $match) && !$TRAVERSE_ONLY;
 		    }
 		} elsif ($key eq 'linuxdistroversion') {
-		    return 0 if !$smartmatch->($self->{linuxdistroversion}, $match); # XXX should do a numerical comparison instead!
+		    return 0 if !$smartmatch->($self->{linuxdistroversion}, $match) && !$TRAVERSE_ONLY; # XXX should do a numerical comparison instead!
 		} elsif ($key eq 'linuxdistrocodename') {
-		    return 0 if !$smartmatch->($self->{linuxdistrocodename}, $match); # XXX should also do a smart codename comparison additionally!
+		    return 0 if !$smartmatch->($self->{linuxdistrocodename}, $match) && !$TRAVERSE_ONLY; # XXX should also do a smart codename comparison additionally!
 		} elsif ($key eq 'package') {
 		    $self->_debug(' ' x $level . " found $match"); # XXX array?
 		    return { package => $match };
@@ -211,7 +213,7 @@ sub _map_cpandist {
 
     for my $entry (@{ $self->{mapping} || [] }) {
 	my $res = $handle_mapping_entry->($entry, 0);
-	if ($res) {
+	if ($res && !$TRAVERSE_ONLY) {
 	    return ref $res->{package} eq 'ARRAY' ? @{ $res->{package} } : $res->{package};
 	}
     }

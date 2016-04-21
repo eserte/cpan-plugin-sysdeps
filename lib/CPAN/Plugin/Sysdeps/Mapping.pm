@@ -5,8 +5,6 @@ use warnings;
 
 sub mapping {
     (
-     [
-
 #	# for UUID (seen for dist LZAP/UUID-0.05.tar.gz) and for Data::UUID::LibUUID
 #	package { "e2fsprogs-libuuid": ensure => installed }
 #	# for XML::LibXSLT
@@ -893,6 +891,7 @@ sub mapping {
 #	package { "libxslt-devel": ensure => installed }
 
 
+     [
       #cpandist => qr{^(Cairo-\d|Prima-Cairo-\d)}, # XXX base id or full dist name with author?
       cpanmod => ['Cairo', 'Prima::Cairo'],
       [os => 'freebsd',
