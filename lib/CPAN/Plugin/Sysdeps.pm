@@ -55,7 +55,7 @@ sub new {
 	} elsif ($^O eq 'linux') {
 	    if      (__PACKAGE__->_is_linux_debian_like($linuxdistro)) {
 		$installer = 'apt-get';
-	    } elsif (__PACKAGE__->_is_linux_redhat_like($linuxdistro)) {
+	    } elsif (__PACKAGE__->_is_linux_fedora_like($linuxdistro)) {
 		$installer = 'yum';
 	    } else {
 		die __PACKAGE__ . " has no support for linux distribution $linuxdistro $linuxdistroversion\n";
@@ -121,9 +121,9 @@ sub _is_linux_debian_like {
     $linuxdistro =~ m{^(debian|ubuntu|linuxmint)$};
 }
 
-sub _is_linux_redhat_like {
+sub _is_linux_fedora_like {
     my(undef, $linuxdistro) = @_;
-    $linuxdistro =~ m{^(redhat|fedora|centos)$};
+    $linuxdistro =~ m{^(fedora|redhat|centos)$};
 }
 
 sub _debug {
@@ -186,12 +186,12 @@ sub _map_cpandist {
 		} elsif ($key eq 'os') {
 		    return 0 if !$smartmatch->($^O, $match);
 		} elsif ($key eq 'linuxdistro') {
-		    if ($match =~ m{^~(debian|redhat)}) {
+		    if ($match =~ m{^~(debian|fedora)}) {
 			my $method = "_is_linux_$1_like";
 			$self->_debug("translate $match to $method");
 			return 0 if !$self->$method($self->{linuxdistro});
 		    } elsif ($match =~ m{^~}) {
-			die "'like' matches only for debian and redhat";
+			die "'like' matches only for debian and fedora";
 		    } else {
 			return 0 if !$smartmatch->($self->{linuxdistro}, $match);
 		    }
