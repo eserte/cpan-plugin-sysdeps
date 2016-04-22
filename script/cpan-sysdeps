@@ -19,6 +19,8 @@ GetOptions(
 	   'linuxdistro=s'         => \my $linuxdistro,
 	   'linuxdistroversion=s'  => \my $linuxdistroversion,
 	   'linuxdistrocodename=s' => \my $linuxdistrocodename,
+	   'uninstalled'           => \my $uninstalled,
+	   'debug'                 => \my $debug,
 	  )
     or usage;
 
@@ -43,8 +45,13 @@ my $sysdeps = CPAN::Plugin::Sysdeps->new({
 					  linuxdistro         => $linuxdistro,
 					  linuxdistroversion  => $linuxdistroversion,
 					  linuxdistrocodename => $linuxdistrocodename,
-					 });
+					 },
+					 ($debug ? 'debug' : ()),
+					);
 my @packages = $sysdeps->_map_cpandist($dist);
 if (@packages) {
+    if ($uninstalled) {
+	@packages = $sysdeps->_filter_uninstalled_packages(@packages);
+    }
     print join("\n", @packages), "\n";
 }
