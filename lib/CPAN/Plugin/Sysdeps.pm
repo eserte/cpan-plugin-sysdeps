@@ -303,11 +303,12 @@ sub _install_packages_commands {
 	}
     } else {
 	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
-	    @pre_cmd = ('sh', '-c', 'echo "Install package(s) @packages? (y/N) "; read yn; [ "$yn" = "y" ]');
+	    @pre_cmd = ('sh', '-c', 'echo "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
 	} else {
 	    warn "batch=0 NYI for $self->{installer}";
 	}
     }
+    push @install_cmd, 'install'; # XXX is this universal?
     push @install_cmd, @packages;
 
     ((@pre_cmd ? \@pre_cmd : ()), \@install_cmd);
