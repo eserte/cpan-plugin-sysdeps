@@ -3,913 +3,1380 @@ package CPAN::Plugin::Sysdeps::Mapping;
 use strict;
 use warnings;
 
+# shortcuts
+use constant os_freebsd  => (os => 'freebsd');
+use constant like_debian => (linuxdistro => '~debian');
+
 sub mapping {
     (
-#	# for UUID (seen for dist LZAP/UUID-0.05.tar.gz) and for Data::UUID::LibUUID
-#	package { "e2fsprogs-libuuid": ensure => installed }
-#	# for XML::LibXSLT
-#	package { "libxslt": ensure => installed }
-#	# for HTML::Tidy
-#	package { "tidyp": ensure => installed }
-#	# for Linux::Inotify2
-#	package { "libinotify": ensure => installed }
-#	# for DNS::LDNS
-#	package { "ldns": ensure => installed }
-#	# for Text::Aspell
-#	# "aspell" alone is not enough, test needs also English directories
-#	package { "aspell": ensure => installed }
-#	package { "en-aspell": ensure => installed }
-#	# for File::MimeInfo
-#	# actually, this module installs without the package, but
-#        # depending modules like IO-All which really use it may fail
-#	package { "shared-mime-info": ensure => installed }
-#	# provides pkg-config, needed by various modules (e.g.
-#        # Alien-RRDtool)
-#	package { "pkgconf": ensure => installed }
-#	# for Imager: optional but useful dependencies (freetype2 is also useful for Tk)
-#	package { "freetype2": ensure => installed }
-#	package { "giflib-nox11": ensure => installed }
-#	package { "png": ensure => installed }
-#	package { "tiff": ensure => installed }
-#	package { "jpeg": ensure => installed }
-#        # for Imager::Font::T1
-#	package { "t1lib": ensure => installed }
-#	# for Net::LibIDN
-#	package { "libidn": ensure => installed }
-#	# for Cairo and Prima::Cairo
-#	package { "cairo": ensure => installed }
-#	# for Pango
-#	package { "pango": ensure => installed }
-#	# probably needed by Alien-Uninum
-#	package { "gmp": ensure => installed }
-#	# for Text-VimColor
-#	package { "vim": ensure => installed }
-#	# for Tk, Prima...
+     [cpanmod => 'AI::PBDD',
+      [like_debian,
+       # but does not work, kernel.h is also required
+       [package => 'libbdd-dev']]],
+
+     [cpanmod => ['Algorithm::ConstructDFA::XS', 'Algorithm::LibLinear'],
+      [like_debian,
+       [package => 'g++']],
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Alien::ffmpeg',
+      [os_freebsd,
+       [package => 'yasm']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => ['Alien::FFTW3', 'Math::FFTW'],
+      [os_freebsd,
+       [package => 'fftw3']],
+      [like_debian,
+       [package => 'libfftw3-dev']]],
+
+     [cpanmod => 'Alien::HDF4',
+      [os_freebsd,
+       [package => 'hdf']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Alien::LibUSBx',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libudev-dev']]],
+
+     [cpanmod => 'Alien::LibYAML',
+      [like_debian,
+       [package => 'autoconf']],
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Alien::libtermkey',
+      [linuxdistrocodename => ['squeeze','wheezy'],
+       [package => ['libtool', 'libncurses5-dev']],
+       [package => ['libtool-bin', 'libncurses5-dev']]],
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Alien::ProtoBuf',
+      # but why? shouldn't an alien module care about its own external library?
+      [os_freebsd,
+       [package => 'protobuf']],
+      [like_debian,
+       [package => 'libprotobuf-dev']]],
+
+     [# probably needed by much more CPAN distributions...
+      cpanmod => 'Alien::RRDtool',
+      [os_freebsd,
+       [package => 'pkgconf', # provides pkg-config
+       ]]],
+
+     [cpanmod => 'Alien::SVN',
+      [os_freebsd,
+       [package => 'apr']],
+      [like_debian,
+       [package => ['libapr1-dev', 'libaprutil1-dev']]]],
+
+     [cpanmod => 'Alien::unibilium',
+      [like_debian,
+       [linuxdistrocodename => ['squeeze','wheezy'],
+	[package => 'libtool']],
+       [package => 'libtool-bin']],
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Alien-Uninum', # probably!
+      [os_freebsd,
+       [package => 'gmp']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Alien::wxWidgets',
+      [like_debian,
+       [package => 'libgtk2.0-dev']],
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Archive::Rar',
+      [os_freebsd,
+       [package => 'rar'], # restricted, no binary package available, must build from ports
+      ],
+      [like_debian,
+       [package => 'rar']]],
+
+     [cpanmod => 'Archive::SevenZip',
+      [os_freebsd,
+       [package => 'p7zip']],
+      [like_debian,
+       [package => 'p7zip-full']]],
+
+     [cpanmod => 'Astro::FITS::CFITSIO',
+      [os_freebsd,
+       [package => 'cfitsio']],
+      [like_debian,
+       [package => 'libcfitsio3-dev']]],
+
+     [cpanmod => 'Audio::Extract::PCM',
+      # but does not work with freebsd, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=205732
+      [package => 'sox']],
+
+     [cpanmod => 'Audio::FLAC::Decoder',
+      [os_freebsd,
+       [package => 'flac']],
+      [like_debian,
+       [package => 'libflac-dev']]],
+
+     [cpanmod => 'Audio::GSM',
+      [os_freebsd,
+       [package => 'gsm']],
+      [like_debian,
+       [package => 'libgsm1-dev']]],
+
+     [cpanmod => 'Audio::LibSampleRate',
+      [os_freebsd,
+       [package => 'libsamplerate']],
+      [like_debian,
+       [package => 'libsamplerate0-dev']]],
+
+     [cpanmod => 'Audio::PortAudio',
+      # XXX what about freebsd?
+      [like_debian,
+       # conflicts with libjack0
+       [package => 'portaudio19-dev']]],
+
+     [cpanmod => 'Audio::SndFile',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libsndfile1-dev']]],
+
+     [cpanmod => 'Audio::TagLib',
+      [os_freebsd,
+       [package => 'taglib']],
+      [like_debian,
+       # but does not work, because the module wants taglib 1.9.1, but wheezy has 1.7.2-1
+       [package => 'libtag1-dev']]],
+
+     [cpanmod => 'Authen::SASL::Cyrus',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libsasl2-dev']]],
+
+     [cpanmod => 'BerkeleyDB',
+      [os_freebsd,
+       # FreeBSD has libdb in the base system, but this version is too old.
+       # Make sure that a corresponding distroprefs file matches this library.
+       [package => 'db48']],
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => 'libdb4.8-dev']],
+       [linuxdistrocodename => 'wheezy',
+	[package => 'libdb5.1-dev']],
+       [package => 'libdb5.3-dev']]],
+
+     [cpanmod => 'Bio::HTSTools',
+      [os_freebsd,
+       # htslib exists, but does not seem to be compatible with the perl module
+       [package => 'htslib']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Bio::Phylo::Beagle',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libhmsbeagle-dev']]],
+
+     [cpanmod => 'Bio::SCF',
+      [os_freebsd,
+       [package => 'io_lib']],
+      [like_debian,
+       [package => 'libstaden-read-dev']]],
+
+     [cpanmod => 'Cache::Memcached::XS',
+      [os_freebsd,
+       [package => 'libmemcache']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => 'libmemcache-dev']],
+       [package => []], # in jessie there's no package containing include/memcache.h
+      ]],
+
+     [cpanmod => 'Cache::RedisDB',
+      # real testing with redis-server
+      [os_freebsd,
+       [package => 'redis']],
+      [like_debian,
+       [package => 'redis-server']]],
+
+     [cpanmod => ['Cairo', 'Prima::Cairo'],
+      [os_freebsd,
+       [package => 'cairo']],
+      [like_debian,
+       [package => 'libcairo2-dev']]],
+
+     [cpanmod => 'CDB::TinyCDB',
+      [os_freebsd,
+       [package => 'tinycdb']],
+      [like_debian,
+       [package => 'libcdb-dev']]],
+
+     [cpanmod => 'Chipcard::PCSC',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libpcsclite-dev']]],
+
+     [cpanmod => ['ClamAV::Client', 'File::Scan::ClamAV'],
+      [os_freebsd,
+       [package => 'clamav']],
+      [like_debian,
+       [package => ['clamav-daemon', 'clamav-data']]]],
+
+     [cpanmod => ['Compress::LZMA::Simple', 'Compress::Raw::Lzma'],
+      [os_freebsd,
+       [package => 'lzmalib']],
+      [like_debian,
+       # probably this one does not work with Compress::LZMA::Simple under debian
+       [package => 'liblzma-dev']]],
+
+     [cpanmod => 'Compress::LZO',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'liblzo2-dev']]],
+
+     [cpanmod => 'Config::Augeas',
+      [os_freebsd,
+       [package => 'augeas']],
+      [like_debian,
+       # but the wheezy version is too old, module wants 1.0.0, wheezy has 0.10.0
+       [package => 'libaugeas-dev']]],
+
+     [cpanmod => 'Crypt::Cracklib',
+      [os_freebsd,
+       [package => 'cracklib']],
+      [like_debian,
+       [package => 'libcrack2-dev']]],
+
+     [cpanmod => 'Crypt::DH::GMP',
+      [os_freebsd,
+       [package => 'gmp']],
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => 'libgmp3-dev']],
+       [package => 'libgmp-dev']]],
+
+     [cpanmod => 'Crypt::MCrypt',
+      [os_freebsd,
+       [package => 'libmcrypt']],
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => []], # N/A in squeeze
+       ],
+       [package => 'libmcrypt-dev']]],
+
+     [cpanmod => ['Crypt::OpenSSL::Random', 'Net::SSLeay'],
+      # freebsd has all libssl in the base system
+      [like_debian,
+       [package => 'libssl-dev']]],
+
+     [cpanmod => 'Crypt::OTR',
+      [os_freebsd,
+       [package => 'libotr']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => 'libotr2-dev']],
+       [package => 'libotr5-dev']]],
+
+     [cpanmod => 'Crypt::Sodium',
+      [os_freebsd,
+       [package => 'libsodium']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []], # not available before jessie
+       ],
+       [package => 'libsodium-dev']]],
+
+     [cpanmod => 'CSS::Croco',
+      [os_freebsd,
+       [package => 'libcroco']],
+      [like_debian,
+       [package => 'libcroco3-dev']]],
+
+     [cpanmod => 'Curses::UI::Mousehandler::GPM',
+      [like_debian,
+       [package => 'libgpm-dev']]],
+
+     [cpanmod => 'Database::Cassandra::Client',
+      [os_freebsd,
+       # but does not work, and neither does cassandra2
+       [package => 'cassandra']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => ['Data::UUID::LibUUID', 'UUID'],
+      [os_freebsd,
+       [package => 'e2fsprogs-libuuid']],
+      [like_debian,
+       [package => 'uuid-dev']]],
+
+     [cpanmod => 'Date::LibICal',
+      [os_freebsd,
+       [package => 'libical']],
+      [like_debian,
+       [package => 'libical-dev']]],
+
+     [cpanmod => 'DateLocale',
+      [os_freebsd,
+       [package => 'gettext-tools']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'DateTime::Astro',
+      [os_freebsd,
+       [package => 'mpfr']],
+      [like_debian,
+       [package => 'libmpfr-dev']]],
+
+     [cpanmod => 'DB_File',
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => 'libdb4.8-dev']],
+       [linuxdistrocodename => 'wheezy',
+	[package => 'libdb5.1-dev']],
+       [package => 'libdb5.3-dev']],
+      # FreeBSD has libdb in the base system
+     ],
+
+     [cpanmod => 'DBD::Firebird',
+      [os_freebsd,
+       [package => 'firebird25-server']],
+      [like_debian,
+       [package => 'firebird-dev']]],
+
+     [cpanmod => 'DBD::ODBC',
+      [os_freebsd,
+       [package => 'unixODBC']],
+      [like_debian,
+       [package => 'unixodbc-dev']]],
+
+     [cpanmod => 'DBD::Pg',
+      [os_freebsd,
+       [package => 'postgresql93-server']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Deliantra::Client',
+      [os_freebsd,
+       [package => ['sdl2', 'sdl2_image', 'sdl2_mixer']]],
+      [like_debian,
+       [package => ['libsdl1.2-dev', 'libsdl-image1.2-dev', 'libsdl-mixer1.2-dev']]]],
+
+     [cpanmod => 'Device::Cdio',
+      [like_debian,
+       # but still does not work
+       [package => ['libcdio-dev', 'libiso9660-dev']]]],
+
+     [cpanmod => 'Device::Velleman::K8055::libk8055',
+      [os_freebsd,
+       [package => 'libk8055']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'DLM::Client',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libdlm-dev']]],
+     
+     [cpanmod => 'DNS::LDNS',
+      [os_freebsd,
+       [package => 'ldns']],
+      [like_debian,
+       [package => 'libldns-dev']]],
+
+     [cpanmod => 'DVD::Read',
+      [os_freebsd,
+       [package => 'libdvdread']],
+      [like_debian,
+       [package => 'libdvdread-dev']]],
+
+     [cpanmod => 'EFL',
+      [os_freebsd,
+       # build is not successful anyway (Evas.h cannot be found), additionally the prereqs install also gcc on a freebsd10 system
+       [package => ['evas-core', 'elementary']]],
+      # what about debian?
+     ],
+
+     [cpanmod => 'EV::ADNS',
+      [os_freebsd,
+       [package => 'adns']],
+      [like_debian,
+       [package => 'libadns1-dev']]],
+
+     [cpanmod => 'Event::Lib',
+      [os_freebsd,
+       [package => 'libevent2']],
+      [like_debian,
+       [package => 'libevent-dev']]],
+
+     [cpanmod => 'File::LibMagic',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libmagic-dev']]],
+
+     [cpanmod => 'File::MimeInfo',
+      [os_freebsd,
+       [# actually, this module installs without the package, but
+        # depending modules like IO-All which really use it may fail
+	[package => 'shared-mime-info']]]],
+
+     [cpanmod => 'File::Rdiff',
+      [os_freebsd,
+       [package => 'librsync']],
+      [like_debian,
+       [package => 'librsync-dev']]],
+
+     [cpanmod => 'Finance::MICR::GOCR::Check',
+      [package => 'gocr']],
+
+     [cpanmod => 'FTDI::D2XX',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libftdi-dev']]],
+
+     [cpanmod => 'Fuse',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libfuse-dev']]],
+
+     [cpanmod => 'Gearman::XS',
+      [os_freebsd,
+       [package => 'gearmand'], # not for small disks, needs boost-libs
+      ],
+      [like_debian,
+       [package => 'libgearman-dev']]],
+
+     [cpanmod => 'Geo::Hex::V3::XS',
+      [package => 'cmake']],
+
+     [cpanmod => 'Geo::Shapelib',
+      [os_freebsd,
+       [package => 'shapelib']],
+      [like_debian,
+       [package => 'libshp-dev']]],
+
+     [cpanmod => 'Gimp',
+      [os_freebsd,
+       [package => 'gimp-app']],
+      [like_debian,
+       [package => 'libgimp2.0-dev'], # 90 MB for package + deps
+      ]],
+
+     [cpanmod => 'Git::Raw',
+      [os_freebsd,
+       [package => 'libssh2']],
+      [like_debian,
+       [package => 'libssh2-1-dev']],
+      # libgit2 is already bundled with Git::Raw
+     ],
+
+     [cpanmod => 'Git::XS',
+      [os_freebsd,
+       [package => 'libgit2']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []]], # N/A
+       [package => 'libgit2-dev']]],
+
+     [cpanmod => 'Glib::Object::Introspection',
+      [os_freebsd,
+       [package => 'gobject-introspection']],
+      [like_debian,
+       [package => 'libgirepository1.0-dev']]],
+
+     [cpanmod => 'Gnome2',
+      [os_freebsd,
+       [package => 'libgnomeui']],
+      [like_debian,
+       [package => 'libgnomeui-dev']]],
+
+     [cpanmod => 'Gnome2::Canvas',
+      [os_freebsd,
+       [package => 'libgnomecanvas']],
+      [like_debian,
+       [package => 'libgnomecanvas2-dev']]],
+
+     [cpanmod => 'Gnome2::GConf',
+      [os_freebsd,
+       [package => 'gconf2']],
+      [like_debian,
+       [package => 'libgconf2-dev']]],
+
+     [cpanmod => 'Gnome2::Wnck',
+      [os_freebsd,
+       [package => 'libwnck']],
+      [like_debian,
+       [package => 'libwnck-dev']]],
+
+     [cpanmod => 'Gnome2::VFS',
+      [os_freebsd,
+       [package => 'gnome-vfs']],
+      [like_debian,
+       [package => 'libgnomevfs2-dev']]],
+
+     [cpanmod => 'GnuPG::Interface',
+      [os_freebsd,
+       [package => 'gnupg1'] #  XXX what about gnupg (version 2)?
+      ],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Goo::Canvas',
+      [os_freebsd,
+       [package => 'goocanvas']],
+      [like_debian,
+       [package => 'libgoocanvas-dev']]],
+
+     [cpanmod => 'Google::ProtocolBuffers::Dynamic',
+      [os_freebsd,
+       [package => 'protobuf']],
+      [like_debian,
+       [package => 'libprotoc-dev']]],
+
+     [cpanmod => 'Graphics::GnuplotIF',
+      [package => 'gnuplot']],
+
+     [cpanmod => 'Graphics::Plotter',
+      [package => 'plotutils']],
+
+     [cpanmod => ['Graphics::SANE', 'Sane'],
+      [os_freebsd,
+       [package => 'sane-backends']],
+      [like_debian,
+       [package => 'libsane-dev']]],
+
+     [cpanmod => 'GraphViz',
+      # package named the same in freebsd and debian, maybe everywhere?
+      [package => 'graphviz']],
+
+     [cpanmod => 'GSM::Gnokii',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libgnokii-dev']]],
+
+     [cpanmod => 'Gtk3',
+      [os_freebsd,
+       # additionally dbus has to be enabled and started
+       [package => ['gtk3', 'dbus']]],
+      [like_debian,
+       [package => 'libgtk-3-dev']]],
+
+     [cpanmod => 'Heimdal::Kadm5',
+      [os_freebsd,
+       [package => 'heimdal']],
+      [like_debian,
+       # conflicts with libkrb5-dev
+       [package => 'heimdal-dev']]],
+
+     [cpanmod => 'Hiredis::Raw',
+      [os_freebsd,
+       [package => 'hiredis']],
+      [like_debian,
+       [package => 'libhiredis-dev']]],
+
+     [cpanmod => 'Hobocamp',
+      # XXX what about freebsd
+      [like_debian,
+       [package => ['dialog', 'libncursesw5-dev']]]],
+
+     [cpanmod => 'HTML::CTPP2',
+      [os_freebsd,
+       [package => 'ctpp2']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []], # not available before jessie
+       ],
+       [package => 'libctpp2-dev']]],
+
+     [cpanmod => 'HTML::Tidy',
+      [os_freebsd,
+       [package => 'tidyp']],
+      # linux: Alien::Tidyp works fine, no external dependency required
+     ],
+
+     [cpanmod => 'HTTP::Soup::Gnome',
+      [os_freebsd,
+       [package => 'libsoup-gnome']],
+      [like_debian,
+       [package => 'libsoup-gnome2.4-dev']]],
+
+     [cpanmod => 'Image::GeoTIFF::Tiled',
+      [os_freebsd,
+       [package => ['libgeotiff', 'tiff']]],
+      [like_debian,
+       [package => ['libgeotiff-dev']]], # conflict between libtiff4 and libtiff5 possible
+     ],
+
+     [cpanmod => 'Image::Imlib2',
+      [os_freebsd,
+       [package => 'imlib2']],
+      [like_debian,
+       [package => 'libimlib2-dev']]],
+
+     [cpanmod => 'Image::LibExif',
+      [os_freebsd,
+       [package => 'libexif']],
+      [like_debian,
+       [package => 'libexif-dev']]],
+
+     [cpanmod => 'Image::Libpuzzle',
+      [os_freebsd,
+       [package => 'libpuzzle']],
+      [like_debian,
+       [package => 'libpuzzle-dev']]],
+
+     [cpanmod => 'Image::LibRSVG',
+      [os_freebsd,
+       [package => 'librsvg2']],
+      [like_debian,
+       [package => 'librsvg2-dev']]],
+
+     [cpanmod => 'Image::Magick',  # typically needs manual work
+      [os_freebsd,
+       [package => 'ImageMagick']],
+      [like_debian,
+       [package => 'libmagickcore-dev']]],
+
+     [cpanmod => 'Image::PNGwriter',
+      [os_freebsd,
+       [package => 'pngwriter']],
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => 'libpngwriter0-dev']],
+       # not available in wheezy and later
+       ]],
+
+     [cpanmod => 'Image::Ocrad',
+      [os_freebsd,
+       [package => 'ocrad']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Image::Resize::OpenCV',
+      [os_freebsd,
+       [package => 'opencv']],
+      [like_debian,
+       [package => 'libcv-dev']]],
+
+     [cpanmod => 'Image::SubImageFind',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libmagick++-dev']]],
+
+     [cpanmod => 'Imager',
+      [os_freebsd,
+       [package => [qw(freetype2 giflib-nox11 png tiff jpeg)]]],
+      # XXX TBD linux
+     ],
+
+     [cpanmod => 'Imager::Font::T1',
+      [os_freebsd,
+       [package => 't1lib']],
+      [linuxdistro => 'linuxmint',
+       [package => 'libt1-dev']], # still available in Mint 17
+      [like_debian,
+       linuxdistrocodename => [qw(squeeze wheezy)],
+       [package => 'libt1-dev']],
+      # not available anymore since jessie
+      # XXX TBD how's the state in Ubuntu?
+     ],
+
+     [cpanmod => 'Inline::Java',
+      [os_freebsd,
+       [package => 'openjdk8']],
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package =>  'openjdk-6-jdk']],
+       [package => 'openjdk-7-jdk']]],
+
+     [cpanmod => 'Inline::Lua',
+      [os_freebsd,
+       # does not work, see https://rt.cpan.org/Ticket/Display.html?id=93690
+       [package => 'lua']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Inline::Python',
+      [os_freebsd,
+       [package => 'python']],
+      [like_debian,
+       [package => 'python2.7-dev']]],
+
+     [cpanmod => 'Inline::Ruby',
+      [os_freebsd,
+       [package => 'ruby']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => 'ruby1.8-dev']],
+       [package => 'ruby2.1-dev']]],
+
+     [cpanmod => 'IPC::MMA',
+      [os_freebsd,
+       [package => 'mm']],
+      [like_debian,
+       [package => 'libmm-dev']]],
+
+     [cpanmod => 'JavaScript::V8',
+      [os_freebsd,
+       [package => 'v8']],
+      # XXX what about debian?
+     ],
+
+#	# for some Judy-using modules (XXX which one?)
+#	package { "Judy": ensure => installed } # XXX this is freebsd; what about debian?
+
+     # XXX needs verification; maybe more latex-related modules should be listed here?
+     [cpanmod => ['LaTeX::Driver', 'Template::Plugin::Latex'],
+      [os_freebsd,
+       [package => ['texlive-base', 'tex-formats']]],
+      [like_debian,
+       [package => ['texlive-latex-base', 'texlive-latex-extra']]]],
+
+     [cpanmod => 'Lib::IXP',
+      [package => 'libixp']],
+
+     [cpanmod => 'LibJIT',
+      [os_freebsd,
+       [package => 'libjit']],
+      # XXX what aout debian?
+     ],
+
+     [cpanmod => 'Libssh::Session',
+      [os_freebsd,
+       # compiles only with freebsd 10, but not with freebsd 9
+       [package => 'libssh']],
+      [like_debian,
+       # but does not work
+       [package => 'libssh-dev']]],
+
+     [cpanmod => 'Lingua::NATools',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'sqlite3']]],
+
+     [cpanmod => 'Linux::ACL',
+      [like_debian,
+       [package => 'libacl1-dev']]],
+
+     [cpanmod => 'Linux::Inotify2',
+      [os_freebsd,
+       [package => 'libinotify']],
+      [like_debian,
+       [package => 'libc6-dev']]],
+
+     [cpanmod => 'Linux::Prctl',
+      [like_debian,
+       [package => 'libcap-dev']]],
+
+     [cpanmod => 'Linux::Sysfs',
+      [like_debian,
+       [package => 'libsysfs-dev']]],
+
+     [cpanmod => 'Linux::Systemd::Journal',
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy', 'jessie'],
+	[package => 'libsystemd-journal-dev']],
+       # sid and probably stretch
+       [package => 'libsystemd-dev']]],
+
+     [cpanmod => 'LMDB_File',
+      [os_freebsd,
+       [package => 'lmdb']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []], # not available before jessie
+       ],
+       [package => 'liblmdb-dev']]],
+
+     [cpanmod => 'Locale::gettext', # gettext distribution
+      [os_freebsd,
+       [package => 'gettext']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Lucene',
+      [os_freebsd,
+       [package => 'clucene']],
+      [like_debian,
+       [package => 'libclucene-dev']]],
+
+     [cpanmod => 'Mail::DMARC::opendmarc',
+      [os_freebsd,
+       [package => 'opendmarc']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []]],
+       [package => 'libopendmarc-dev']]],
+
+     [cpanmod => 'Mail::OpenDKIM',
+      [os_freebsd,
+       [package => 'opendkim']],
+      [like_debian,
+       [package => 'libopendkim-dev']]],
+
+     [cpanmod => 'Math::GammaFunction',
+      [os_freebsd,
+       # NOTE there's an entry in .cpan/prefs/01.DISABLED.yml
+       [package => 'libRmath']],
+      [like_debian,
+       # not for small disks, installs about ~85MB
+       [package => 'r-mathlib']]],
+
+     [cpanmod => 'Math::GAP',
+      [package => 'gap'], # needs 1-1.2GB of disk space
+     ],
+
+     [cpanmod => 'Math::GSL',
+      [os_freebsd,
+       [package => 'gsl']],
+      [like_debian,
+       [package => 'libgsl0-dev']]],
+
+     [cpanmod => 'Math::MPC',
+      [os_freebsd,
+       [package => 'mpc']],
+      [like_debian,
+       [package => 'libmpc-dev']]],
+
+     [cpanmod => 'Math::MPFI',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libmpfi-dev']]],
+
+     [cpanmod => 'Math::RngStream',
+      [os_freebsd,
+       [package => 'rngstreams']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'MaxMind::DB::Reader::XS',
+      [os_freebsd,
+       # but tests fail
+       [package => 'libmaxminddb']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'MIDI::ALSA',
+      [os_freebsd,
+       [package => ['alsa-lib', 'alsa-utils']]],
+      [like_debian,
+       [package => 'alsa-utils']]],
+
+     [cpanmod => 'MP3::ID3Lib',
+      [os_freebsd,
+       [package => 'id3lib']],
+      [like_debian,
+       [package => 'libid3-3.8.3-dev']]],
+
+     [cpanmod => 'modperl2',
+      # XXX what about freebsd?
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => 'apache2-prefork-dev']],
+       [package => 'apache2-dev']]],
+
+     [cpanmod => 'NanoMsg::Raw',
+      [os_freebsd,
+       [package => 'nanomsg']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []], # not available before jessie
+       ],
+       [package => 'libnanomsg-dev']]],
+
+     [cpanmod => 'Net::DBus::GLib',
+      [os_freebsd,
+       [package => 'dbus-glib']],
+      [like_debian,
+       [package => 'libdbus-glib-1-dev']]],
+
+     [cpanmod => 'Net::Jabber::Loudmouth',
+      [os_freebsd,
+       [package => 'loudmouth']],
+      [like_debian,
+       [package => 'libloudmouth1-dev']]],
+
+     [cpanmod => 'Net::Libdnet',
+      [os_freebsd,
+       [package => 'libdnet']],
+      [like_debian,
+       # but does not work without applying the patch manually - see https://rt.cpan.org/Ticket/Display.html?id=106021
+       [package => 'libdumbnet-dev']]],
+
+     [cpanmod => 'Net::LibIDN',
+      [os_freebsd,
+       [package => 'libidn']],
+      [os => '~debian',
+       [package => 'libidn11-dev']]],
+
+     [cpanmod => 'Net::NfDump',
+      [like_debian,
+       [package => ['flex', 'byacc']]],
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Net::LibAsyncNS',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libasyncns-dev']]],
+
+     [cpanmod => 'Net::LibNIDS',
+      [os_freebsd,
+       # but does not work (no libnids.so in freebsd port, just .a)
+       [package => ['libnids', 'libnet']]],
+      [like_debian,
+       [package => ['libnids-dev', 'libnet1-dev']]]],
+
+     [cpanmod => 'Net::LibNIDS',
+      [os_freebsd,
+       # but does not work
+       [package => ['libpcap', 'libnids']]],
+      [like_debian,
+       [package => 'libpcap0.8-dev']]],
+
+     [cpanmod => 'Net::Pcap',
+      [like_debian,
+       [package => 'libpcap0.8-dev']]],
+
+     [cpanmod => 'Net::oRTP',
+      [os_freebsd,
+       [package => 'ortp']],
+      [like_debian,
+       [package => 'libortp-dev']]],
+
+     [cpanmod => 'Net::RabbitMQ::Client',
+      [os_freebsd,
+       [package => 'rabbitmq-c-devel']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Net::SIGTRAN::SCTP',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libsctp-dev']]],
+
+     [cpanmod => 'Net-Silk',
+      [os_freebsd,
+       [package => 'silktools']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Net::SSH2',
+      [os_freebsd,
+       [package => 'libssh2']],
+      [like_debian,
+       [package => 'libssh2-1-dev']]],
+
+     [cpanmod => 'Net::WDNS',
+      [os_freebsd,
+       [package => 'wdns']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => ['Net::ZooKeeper', 'ZooKeeper'],
+      [os_freebsd,
+       [package => 'libzookeeper']],
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => []]], # not available
+       [package => ['libzookeeper-mt-dev', 'zookeeperd']]]],
+
+     [cpanmod => 'Ogg::Vorbis::Decoder',
+      [os_freebsd,
+       [package => 'libvorbis']],
+      [like_debian,
+       [package => 'libvorbis-dev']]],
+
+     [cpanmod => 'OpenGL',
+      [os_freebsd,
+       [package => 'freeglut']],
+      [like_debian,
+       [package => ['freeglut3-dev', 'libxmu-dev']]]],
+
+     [cpanmod => 'OpenGL::FTGL',
+      [like_debian,
+       # but does not work, lookup into wrong freetype directory
+       [package => ['libftgl-dev', 'libfreetype6-dev']]]],
+
+     [cpanmod => 'PAM',
+      [like_debian,
+       [package => 'libpam0g-dev']]],
+
+     [cpanmod => 'Pango',
+      [os_freebsd,
+       [package => 'pango']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Parallel::Pvm',
+      [os_freebsd,
+       [package => 'pvm']],
+      [like_debian,
+       [package => 'pvm-dev']]],
+
+     [cpanmod => 'Passwd::Keyring::Gnome',
+      [os_freebsd,
+       [package => 'gnome-keyring']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'PerlQt',
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => 'libqt3-mt-dev']],
+       [package => []] # no libqt3 anymore for wheezy
+      ]],
+
+     [cpanmod => 'Pod::Spelling',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'ispell']]],
+
+     [cpanmod => 'Pod::Weaver::Plugin::Ditaa',
+      [package => 'ditaa']],
+
+     [cpanmod => 'Poppler',
+      [os_freebsd,
+       [package => ['poppler', 'poppler-glib']]],
+      [like_debian,
+       [package => ['libpoppler-dev', 'libpoppler-glib-dev']]]],
+
+#	# for Prima...
 #	package { "libX11": ensure => installed }
-#	# for XFT support in Tk
-#	package { "libXft": ensure => installed }
-#	# for Gimp module
-#	package { "gimp-app": ensure => installed }
-#	# for DBD::Pg
-#	package { "postgresql93-server": ensure => installed }
-#	# for Alien::libtermkey and Alien::unibilium
-#	if $lsbdistcodename == "squeeze" or $lsbdistcodename == "wheezy" {
-#	    package { "libtool": ensure => installed }
-#	} else {
-#	    package { "libtool-bin": ensure => installed }
-#        }
-#	# for JavaScript::V8
-#	package { "v8": ensure => installed }
-#	## for Archive::Rar
-#	## -> restricted, no binary package available, must build from ports
-#	#package { "rar": ensure => installed }
-#	# for BerkeleyDB - db48 matches the current distroprefs file for freebsd-10
-#	package { "db48": ensure => installed }
-#	# for Net::SSH2 and Git::Raw
-#	package { "libssh2": ensure => installed }
-#	# not needed for Git::Raw - should be already bundled - package { "libgit2": ensure => installed }
-#	# for Locale::gettext (gettext distribution)
-#	package { "gettext": ensure => installed }
-#	# TeX stuff
-#	if !$common::small_disk {
-#	    # for Template::Plugin::Latex, LaTeX::Driver (and probably other latex-using modules)
-#	    ## package { "teTeX-base": ensure => installed } --- old, not anymore in ports - see https://svnweb.freebsd.org/ports?view=revision&revision=362648 and https://forums.freebsd.org/threads/tetex-removed-from-ports-tex-live-is-now-the-default-tex.47334/
-#            package { "texlive-base": ensure => installed }
-#	    # for LaTeX::Driver (and probably other latex-using modules)
-#	    ## package { "dvipsk-tetex": ensure => installed } - XXX replacement?
-#            package { "tex-formats": ensure => installed }
-#        }
-#	# for Mail::OpenDKIM
-#	package { "opendkim": ensure => installed }
-#	# for ZMQ::FFI (seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists)
-#	package { "libzmq4": ensure => installed }
-#	# for Sys::Virt (but the latest Sys::Virt usually needs the latest libvirt)
-#	package { "libvirt": ensure => installed }
-#	# for some Judy-using modules (probably)
-#	package { "Judy": ensure => installed }
-#	# for Math::GSL
-#	package { "gsl": ensure => installed }
-#	## various rpm using tools
+
+     [cpanmod => 'PulseAudio',
+      [package => 'pulseaudio']],
+
+     [cpanmod => 'Qstruct',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'ragel']]],
+
+     [cpanmod => 'RPC::Xmlrpc_c::Client',
+      [os_freebsd,
+       [package => 'xmlrpc-c']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => 'libxmlrpc-c3-dev']],
+       [package => 'libxmlrpc-core-c3-dev']]],
+
+#	## various rpm using tools --- XXX which one exactly?
 #	## XXX disabled because package was not yet built (last check 2014-08-10)
 #	## see http://portsmon.freebsd.org/portoverview.py?category=archivers&portname=rpm5
 #	#package { "rpm5": ensure => installed }
-#	# for GnuPG::Interface
-#        # XXX what about gnupg (version 2)?
-#	package { "gnupg1": ensure => installed }
-#	# for Template-Plugin-React
-#	package { "swig13": ensure => installed }
-#	# for Crypt::Sodium
-#	package { "libsodium": ensure => installed }
-#	# theoretically for Alien::FFTW3 (but does not work anyway); for Math::FFTW
-#	package { "fftw3": ensure => installed }
-#	# for GraphViz
-#	package { "graphviz": ensure => installed }
-#	# for X::Osd
-#	package { "xosd": ensure => installed }
-#	# for Alien::ffmpeg
-#	package { "yasm": ensure => installed }
-#	# for Git::XS
-#	package { "libgit2": ensure => installed }
-#	# for Wx
-#	package { "wx30-gtk2": ensure => installed }
-#	# for Gtk3
-#	package { "gtk3": ensure => installed }
-#        package { "dbus": ensure => installed }
-#        include freebsd_dbus
-#	# for DBD::ODBC
-#	package { "unixODBC": ensure => installed }
-#	# for Image::Magick (but typically needs manual work)
-#	package { "ImageMagick": ensure => installed }
-#	## for Inline::Lua (does not work, see https://rt.cpan.org/Ticket/Display.html?id=93690, therefore not active)
-#	#package { "lua": ensure => installed }
-#	# for DBD::Firebird
-#	package { "firebird25-server": ensure => installed }
-#	## theoretically for Net::LibNIDS, but does not work (no libnids.so in freebsd port, just .a)
-#	#package { "libnids": ensure => installed }
-#	#package { "libnet": ensure => installed }
-#	# for Tcl (compiles, but the tests hang for perls 5.18.x and newer)
-#	package { "tcl84": ensure => installed }
-#	# for MIDI::ALSA
-#	package { "alsa-lib": ensure => installed }
-#	package { "alsa-utils": ensure => installed }
-#	# for Net::Libdnet
-#	package { "libdnet": ensure => installed }
-#	# for Image::PNGwriter
-#	package { "pngwriter": ensure => installed }
-#	# for Image::LibRSVG
-#	package { "librsvg2": ensure => installed }
-#	# for Image::Resize::OpenCV
-#	package { "opencv": ensure => installed }
-#	# for Astro::FITS::CFITSIO
-#	package { "cfitsio": ensure => installed }
-#	# for Crypt::Cracklib
-#	package { "cracklib": ensure => installed }
-#	# for Image::GeoTIFF::Tiled (additionally tiff is needed)
-#	package { "libgeotiff": ensure => installed }
-#	# for Ogg::Vorbis::Decoder
-#	package { "libvorbis": ensure => installed }
-#	# for Poppler
-#	package { "poppler": ensure => installed }
-#	package { "poppler-glib": ensure => installed }
-#	# for Spread (net/spread also exists, refering to version 3, but tests seem to pass with version 4)
-#	package { "spread4": ensure => installed }
-#	# for Sys::Hwloc
-#	package { "hwloc": ensure => installed }
-#	# for Video::FFmpeg
-#	package { "ffmpeg": ensure => installed }
-#	# for Sword
-#	package { "sword": ensure => installed }
-#	# for ZOOM::IRSpy
-#	package { "yaz": ensure => installed }
-#	# for Lib::IXP
-#	package { "libixp": ensure => installed }
-#	# for CDB::TinyCDB
-#	package { "tinycdb": ensure => installed }
-#	# for Deliantra::Client
-#	package { "sdl2": ensure => installed }
-#	package { "sdl2_image": ensure => installed }
-#	package { "sdl2_mixer": ensure => installed }
-#	# for DVD::Read
-#	package { "libdvdread": ensure => installed }
-#	# for Alien::SVN
-#	package { "apr": ensure => installed }
-#	# for Gnome2
-#	package { "libgnomeui": ensure => installed }
-#	# for Gnome2::Canvas
-#	package { "libgnomecanvas": ensure => installed }
-#	# for Gnome2::GConf
-#	package { "gconf2": ensure => installed }
-#	# for Gnome2::VFS
-#	package { "gnome-vfs": ensure => installed }
-#	# for IPC::MMA
-#	package { "mm": ensure => installed }
-#	# for Heimdal::Kadm5
-#	package { "heimdal": ensure => installed }
-#	# for Graphics::GnuplotIF
-#	if !$common::small_disk {
-#	    # gnuplot deps include texlive-texmf and texlive-base, all deps take more than 1GB of space
-#	    package { "gnuplot": ensure => installed }
-#	}
-#	# for Bio::SCF
-#	package { "io_lib": ensure => installed }
-#	# for CSS::Croco
-#	package { "libcroco": ensure => installed }
-#	# for Device::Velleman::K8055::libk8055
-#	package { "libk8055": ensure => installed }
-#	if false {
-#	    # for EFL --- build is not successful anyway (Evas.h cannot be found), additionally the prereqs install also gcc on a freebsd10 system
-#	    package { "evas-core": ensure => installed }
-#	    package { "elementary": ensure => installed }
-#	}
-#	# for Net::DBus::GLib
-#	package { "dbus-glib": ensure => installed }
-#	# for Audio::FLAC::Decoder
-#	package { "flac": ensure => installed }
-#	# for Graphics::SANE
-#	package { "sane-backends": ensure => installed }
-#	# for Compress::LZMA::Simple
-#	package { "lzmalib": ensure => installed }
-#	# for File::Rdiff
-#	package { "librsync": ensure => installed }
-#	# for Math::RngStream
-#	package { "rngstreams": ensure => installed }
-#	# for MP3::ID3Lib
-#	package { "id3lib": ensure => installed }
-#	# for Text::Kakasi
-#	package { "ja-kakasi": ensure => installed }
-#	# for XML::Xerces ("You must use Xerces-C-2.7.0")
-#	package { "xerces-c2": ensure => installed }
-#	# for Gnome2::Wnck
-#	package { "libwnck": ensure => installed }
-#	# for File::Scan::ClamAV
-#	package { "clamav": ensure => installed }
-#	# for Lucene
-#	package { "clucene": ensure => installed }
-#	# for Math::GAP
-#	if !$common::small_disk {
-#	    # needs >1GB of disk space
-#	    package { "gap": ensure => installed }
-#	}
-#	# for Cache::Memcached::XS
-#	package { "libmemcache": ensure => installed }
-#	# for Graphics::Plotter
-#	package { "plotutils": ensure => installed }
-#	# for Image::Ocrad
-#	package { "ocrad": ensure => installed }
-#	# for Inline::Ruby
-#	package { "ruby": ensure => installed }
-#	## for Math::GammaFunction
-#	## NOTE don't install it --- see .cpan/prefs/01.DISABLED.yml why
-#	#if $kernelversion >= 10 {
-#	#    # don't install package, because it has gcc as a dependency, which is unwanted on 10.0 smokers
-#	#} else {
-#	#    package { "libRmath": ensure => installed }
-#	#}
-#	# for Net::Jabber::Loudmouth
-#	package { "loudmouth": ensure => installed }
-#	# for Net::oRTP
-#	package { "ortp": ensure => installed }
-#	# for Parallel::Pvm
-#	package { "pvm": ensure => installed }
-#	# for Search::Namazu
-#	package { "namazu3": ensure => installed }
-#	# for Search::Odeum
-#	package { "qdbm": ensure => installed }
-#	# for Speech::Recognizer::SPX
-#	package { "pocketsphinx": ensure => installed }
-#	# for Sys::Gamin
-#	package { "gamin": ensure => installed } # note: possible conflict with fam
-#	# for Text::CSV::LibCSV
-#	package { "libcsv": ensure => installed }
-#	# for Text::Migemo
-#	package { "ja-migemo": ensure => installed }
-#	# for XML::WBXML
-#	package { "wbxml2": ensure => installed }
-#	# for Math::MPC
-#	package { "mpc": ensure => installed }
-#	# for Date::LibICal
-#	package { "libical": ensure => installed }
-#	# for RPC::Xmlrpc_c::Client
-#	package { "xmlrpc-c": ensure => installed }
-#	# for Crypt::MCrypt
-#	package { "libmcrypt": ensure => installed }
-#	# for Term::EditLine
-#	package { "libedit": ensure => installed }
-#	# for Audio::GSM
-#	package { "gsm": ensure => installed }
-#	# for Mail::DMARC::opendmarc
-#	package { "opendmarc": ensure => installed }
-#	# for Finance::MICR::GOCR::Check
-#	package { "gocr": ensure => installed }
-#	# for various SVN:: modules
-#	package { "subversion": ensure => installed }
-#	# for X11::XCB
-#	package { "xcb-util-wm": ensure => installed }
-#	# various modules using java
-#	if !$common::small_disk {
-#	    package { "openjdk8": ensure => installed }
-#        }
-#	## Text::BibTeX --- not needed: btparse is bundled in the distribution
-#	#package { "btparse": ensure => installed }
-#	# for UDT::Simple
-#	package { "udt": ensure => installed }
-#	# for Net::ZooKeeper and ZooKeeper
-#	if !$common::small_disk { # needs java
-#	    package { "libzookeeper": ensure => installed }
-#        }
-#	# for Crypt::OTR
-#	package { "libotr": ensure => installed }
-#	# for XML::Saxon::XSLT2
-#	if !$common::small_disk { # needs java
-#	    package { "saxon-he": ensure => installed }
-#        }
-#	# for Event::Lib
-#	package { "libevent2": ensure => installed }
-#	# for Config::Augeas
-#	package { "augeas": ensure => installed }
-#	# for Audio::TagLib
-#	package { "taglib": ensure => installed }
-#	# for Net::WDNS
-#	package { "wdns": ensure => installed }
-#	# for EV::ADNS
-#	package { "adns": ensure => installed }
-#	# for Gearman::XS
-#	if !$common::small_disk { # needs boost-libs
-#	    package { "gearmand": ensure => installed }
-#        }
-#	## for Database::Cassandra::Client --- but does not work, and neither does cassandra2
-#	#package { "cassandra": ensure => installed }
-#        # for Passwd::Keyring::Gnome
-#        package { "gnome-keyring": ensure => installed }
-#	# for Inline::Python
-#	package { "python": ensure => installed }
-#	# for Unix::Statgrab
-#	package { "libstatgrab": ensure => installed }
-#        # for LMDB_File
-#        package { "lmdb": ensure => installed }
-#	# for DateTime-Astro
-#	package { "mpfr": ensure => installed }
-#        # for Net-Silk
-#        package { "silktools": ensure => installed }
-#        # for Tree::Suffix
-#        package { "libstree": ensure => installed }
-#        # for Cache::RedisDB (real testing with redis-server)
-#        package { "redis": ensure => installed }
-#        # for Glib::Object::Introspection
-#        package { "gobject-introspection": ensure => installed }
-#        # for HTTP::Soup::Gnome
-#        package { "libsoup-gnome": ensure => installed }
-#        # for NanoMsg::Raw
-#        package { "nanomsg": ensure => installed }
-#        # for HTML::CTPP2
-#        package { "ctpp2": ensure => installed }
-#        # Store::CouchDB (tests pass also without, but most tests are skipped)
-#        package { "couchdb": ensure => installed }
-#        # Text::Bidi (otherwise real tests are skipped) (anyway,
-#        # version of fribidi available in 2015-04 is too old, so tests
-#        # are still skipped)
-#        package { "fribidi": ensure => installed }
-#	# for Goo::Canvas
-#	package { "goocanvas": ensure => installed }
-#        # for Text::Hunspell
-#        package { "hunspell": ensure => installed }
-#        # for Search::Xapian
-#        package { "xapian-core": ensure => installed }
-#        # for Geo::Hex::V3::XS
-#        package { "cmake": ensure => installed }
-#        # for Term::VTerm
-#        package { "libvterm": ensure => installed }
-#        # for WWW::Mechanize::PhantomJS
-#        package { "phantomjs": ensure => installed }
-#        # for DateLocale
-#        package { "gettext-tools": ensure => installed }
-#        # for Pod::Weaver::Plugin::Ditaa
-#        package { "ditaa": ensure => installed }
-#        # for Audio::LibSampleRate
-#        package { "libsamplerate": ensure => installed }
-#        # for WWW::Bootstrap
-#        package { "npm": ensure => installed }
-#        # for LibJIT
-#        package { "libjit": ensure => installed }
-#        # for Net::RabbitMQ::Client
-#        package { "rabbitmq-c-devel": ensure => installed }
-#        # for Geo::Shapelib
-#        package { "shapelib": ensure => installed }
-#        # for Image::Imlib2
-#        package { "imlib2": ensure => installed }
-#        # for Image::Libpuzzle
-#        package { "libpuzzle": ensure => installed }
-#        # for Alien::HDF4
-#        package { "hdf": ensure => installed }
-#        # for Tie::Cvs
-#        package { "cvs": ensure => installed }
-#	# for OpenGL
-#	package { "freeglut": ensure => installed }
-#        # for Net::LibNIDS (but does not work)
-#        package { "libpcap": ensure => installed }
-#        package { "libnids": ensure => installed }
-#        ## for Bio::HTSTools - htslib exists, but does not seem to be compatible with the perl module
-#        #package { "htslib": ensure => installed }
-#        ## for Audio::Extract::PCM --- does not work, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=205732
-#        #package { "sox": ensure => installed }
-#        # for SNMP::OID::Translate
-#        package { "net-snmp": ensure => installed }
-#        # for Libssh::Session (compiles only with freebsd 10, but not with freebsd 9)
-#        package { "libssh": ensure => installed }
-#        # for Alien::ProtoBuf (but why? shouldn't an alien module care about its own module?)
-#        package { "protobuf": ensure => installed }
-#        # for MaxMind::DB::Reader::XS (but tests fail)
-#        package { "libmaxminddb": ensure => installed }
-#        # for XML::Sablotron (compiles only with perl < 5.14, see https://rt.cpan.org/Ticket/Display.html?id=66849)
-#        package { "Sablot": ensure => installed }
-#        # for Hiredis::Raw
-#        package { "hiredis": ensure => installed }
-#        # for PulseAudio
-#        package { "pulseaudio": ensure => installed }
-#        # for Google::ProtocolBuffers::Dynamic
-#        package { "protobuf": ensure => installed }
-#        # for Archive::SevenZip
-#        package { "p7zip": ensure => installed }
-####### END FreeBSD #####
-#    } elsif $operatingsystem == "Debian" {
-####### Debian #####
-#	# for Net::SSLeay and Crypt::OpenSSL::Random
-#	package { "libssl-dev": ensure => installed }
-#	# for XML::Parser
-#	package { "libexpat1-dev": ensure => installed }
-#	# for Net::ZooKeeper
-#	if $lsbdistcodename == "squeeze" {
-#	    # not available
-#	} else {
-#	    package { "libzookeeper-mt-dev": ensure => installed }
-#	    package { "zookeeperd": ensure => installed }
-#	}
-#	# for Crypt::DH::GMP
-#	if $lsbdistcodename == "squeeze" {
-#	    package { "libgmp3-dev": ensure => installed }
-#	} else {
-#	    package { "libgmp-dev": ensure => installed }
-#	}
-#	# for GraphViz
-#	package { "graphviz": ensure => installed }
-#	# for Fuse
-#	package { "libfuse-dev": ensure => installed }
-#	# check: gdbm needed for XML::LibXSLT ?!
-#	# for Git::XS
-#	if $lsbdistcodename == "squeeze" {
-#	    # not available
-#	} elsif $lsbdistcodename == "wheezy" {
-#	    # not available
-#	} else {
-#	    package { "libgit2-dev": ensure => installed }
-#	}
-#	# for SVN::Hooks
-#	package { "subversion": ensure => installed }
-#	# for Algorithm::ConstructDFA::XS and Algorithm::LibLinear
-#	package { "g++": ensure => installed }
-#	# for Alien::LibYAML
-#	package { "autoconf": ensure => installed }
-#	# for Alien::SVN
-#	package { "libapr1-dev": ensure => installed }
-#	# for Alien::SVN
-#	package { "libaprutil1-dev": ensure => installed }
-#	# for Alien::libtermkey
-#	package { "libncurses5-dev": ensure => installed }
-#	# for Alien::libtermkey and Alien::unibilium
-#	package { "libtool": ensure => installed }
-#	# for Alien::wxWidgets
-#	package { "libgtk2.0-dev": ensure => installed }
-#	# for DBD::Firebird
-#	package { "firebird-dev": ensure => installed }
-#	# for DB_File and BerkeleyDB
-#	if $::lsbdistcodename == 'squeeze' {
-#	    package { "libdb4.8-dev": ensure => installed }
-#	} elsif $::lsbdistcodename == 'wheezy' {
-#	    package { "libdb5.1-dev": ensure => installed }
-#	} else {
-#	    package { "libdb5.3-dev": ensure => installed }
-#        }
-#	# for Term::ReadLine::Gnu
-#	package { "libreadline6-dev": ensure => installed }
-#	# for URPM (but does not work anyway with the librpm version as found on squeeze)
-#	package { "librpm-dev": ensure => installed }
-#	# for UUID
-#	package { "uuid-dev": ensure => installed }
-#	# for X11::GUITest
-#	package { "libxt-dev": ensure => installed }
-#	package { "libxtst-dev": ensure => installed }
-#	# for XML::LibXSLT
-#	package { "libxslt1-dev": ensure => installed }
-#	# for Text::Aspell
-#	package { "libaspell-dev": ensure => installed }
-#	# for ZMQ::FFI
-#	package { "libzmq-dev": ensure => installed }
-#	# for Net::SSH2 (and maybe Git::Raw)
-#	package { "libssh2-1-dev": ensure => installed }
-#	# for Net-NfDump
-#	package { "flex": ensure => installed }
-#	# for Net-NfDump
-#	package { "byacc": ensure => installed }
-#	# for DateTime-Astro
-#	package { "libmpfr-dev": ensure => installed }
-#	if $lsbdistcodename == "squeeze" {
-#	    # for Image::PNGwriter
-#	    package { "libpngwriter0-dev": ensure => installed }
-#	} # not available in wheezy
-#	# for Math::GSL
-#	package { "libgsl0-dev": ensure => installed }
-#	# for Image::LibRSVG
-#	package { "librsvg2-dev": ensure => installed }
-#	# for Image::Resize::OpenCV
-#	package { "libcv-dev": ensure => installed }
-#	# for Astro::FITS::CFITSIO
-#	package { "libcfitsio3-dev": ensure => installed }
-#	# for Crypt::Cracklib
-#	package { "libcrack2-dev": ensure => installed }
-#	## for Image::GeoTIFF::Tiled XXX conflict between libtiff5 and libtiff4, cannot use this
-#	#package { "libgeotiff-dev": ensure => installed }
-#	# for Tk::TIFF
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#	    package { "libtiff4-dev": ensure => installed }
-#        } else {
-#	    package { "libtiff5-dev": ensure => installed }
-#        }
-#	# for Image::LibExif
-#	package { "libexif-dev": ensure => installed }
-#	# for Ogg::Vorbis::Decoder
-#	package { "libvorbis-dev": ensure => installed }
-#	# for Poppler
-#	package { "libpoppler-dev": ensure => installed }
-#	package { "libpoppler-glib-dev": ensure => installed }
-#	if $lsbdistcodename == "squeeze" {
-#	    # for Spread
-#	    package { "libspread1-dev": ensure => installed }
-#	} # not available in wheezy
-#	# for Sys::Hwloc
-#	package { "libhwloc-dev": ensure => installed }
-#	# various Tcl+Tk stuff
-#	package { "tcl8.5-dev": ensure => installed }
-#	package { "tk8.5-dev": ensure => installed }
-#	# for Video::FFmpeg
-#	package { "ffmpeg": ensure => installed }
-#	# for Sword
-#	package { "libsword-dev": ensure => installed }
-#	# for Tcl::Tk (snit package)
-#	package { "tcllib": ensure => installed }
-#	# for ZOOM::IRSpy
-#	package { "libyaz4-dev": ensure => installed }
-#	# for Lib::IXP
-#	package { "libixp": ensure => installed }
-#	# for CDB::TinyCDB
-#	package { "libcdb-dev": ensure => installed }
-#	# for FTDI::D2XX (XXX does not work?)
-#	package { "libftdi-dev": ensure => installed }
-#	# for Deliantra::Client
-#	package { "libsdl1.2-dev": ensure => installed }
-#	package { "libsdl-image1.2-dev": ensure => installed }
-#	package { "libsdl-mixer1.2-dev": ensure => installed }
-#	# for DVD::Read
-#	package { "libdvdread-dev": ensure => installed }
-#	# for Gnome2
-#	package { "libgnomeui-dev": ensure => installed }
-#	# for Gnome2::Canvas
-#	package { "libgnomecanvas2-dev": ensure => installed }
-#	# for Gnome2::GConf
-#	package { "libgconf2-dev": ensure => installed }
-#	# for Gnome2::VFS
-#	package { "libgnomevfs2-dev": ensure => installed }
-#	# for IPC::MMA
-#	package { "libmm-dev": ensure => installed }
-#	## for Heimdal::Kadm5 XXX conflicts with libkrb5-dev
-#	#package { "heimdal-dev": ensure => installed }
-#	# for Graphics::GnuplotIF
-#	package { "gnuplot": ensure => installed }
-#	# for CSS::Croco
-#	package { "libcroco3-dev": ensure => installed }
-#	# for Net::DBus::GLib
-#	package { "libdbus-glib-1-dev": ensure => installed }
-#	# for Lingua::NATools
-#	package { "sqlite3": ensure => installed }
-#	# for Compress::Raw::Lzma
-#	package { "liblzma-dev": ensure => installed }
-#	# for Compress::LZO
-#	package { "liblzo2-dev": ensure => installed }
-#	# for Audio::FLAC::Decoder
-#	package { "libflac-dev": ensure => installed }
-#	# for Graphics::SANE (no chance for pass reports) and Sane (has pass reports)
-#	package { "libsane-dev": ensure => installed }
-#	## for Compress::LZMA::Simple (looks like this is the wrong dependency, does not work with wheezy/jessie)
-#	#package { "lzma-dev": ensure => installed }
-#	# for File::Rdiff
-#	package { "librsync-dev": ensure => installed }
-#	# for MP3::ID3Lib
-#	package { "libid3-3.8.3-dev": ensure => installed }
-#	# for Text::Kakasi (but there are linking errors on Debian)
-#	package { "libkakasi2-dev": ensure => installed }
-#	## for XML::Xerces XXX probably needs setting of XERCES_* variables?
-#	# package { "libxerces-c2-dev": ensure => installed }
-#	# for Gnome2::Wnck
-#	package { "libwnck-dev": ensure => installed }
-#	## for File::Scan::ClamAV
-#        ## XXX disabled because it occupies some 150MB of data, but package
-#        ## XXX does not look maintained for more than five years.
-#        ## XXX ClamAV::Client does not have any tests.
-#	#package { "clamav-daemon": ensure => installed }
-#	#package { "clamav-data": ensure => installed }
-#	# for Lucene
-#	package { "libclucene-dev": ensure => installed }
-#	# for Math::GAP
-#        # rationale for this condition: Math::GAP had no release since 2007,
-#        # so it's probably stable (in a biologist sense...). Additionally,
-#        # I don't plan to add more perl versions to cvrsnica-freebsd-92. So
-#        # safe >1.2GB by not requiring this package...
-#        if $::hostname != "cvrsnica-freebsd-92" {
-#	    package { "gap": ensure => installed }
-#        }
-#	# for Cache::Memcached::XS
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#	     package { "libmemcache-dev": ensure => installed }
-#        } else {
-#             # in jessie there's no package containing include/memcache.h
-#        }
-#	# for Graphics::Plotter
-#	package { "plotutils": ensure => installed }
-#	# for Inline::Ruby
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#	    package { "ruby1.8-dev": ensure => installed }
-#        } else {
-#	    package { "ruby2.1-dev": ensure => installed }
-#        }
-#	# for Math::FFTW, theoretically also for Alien::FFTW3 (but does not work because of too low version in Debian/squeeze)
-#	package { "libfftw3-dev": ensure => installed }
-#	# for Net::Jabber::Loudmouth
-#	package { "libloudmouth1-dev": ensure => installed }
-#	# for Net::oRTP
-#	package { "libortp-dev": ensure => installed }
-#	# for Parallel::Pvm
-#	package { "pvm-dev": ensure => installed }
-#	# for Search::Odeum
-#	package { "libqdbm-dev": ensure => installed }
-#	# for Sys::Gamin
-#	package { "libfam-dev": ensure => installed }
-#	# for XML::WBXML
-#	package { "libwbxml2-dev": ensure => installed }
-#	# for MIDI::ALSA
-#	package { "alsa-utils": ensure => installed }
-#	# for modperl2
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#	    package { "apache2-prefork-dev": ensure => installed }
-#        } else {
-#            # jessie and later
-#	    package { "apache2-dev": ensure => installed }
-#        }
-#	# for Template::Plugin::Latex (and probably other latex-using modules)
-#	package { "texlive-latex-base": ensure => installed }
-#	# for LaTeX::Driver (and probably other latex-using modules)
-#	package { "texlive-latex-extra": ensure => installed }
-#	# for Pod::Spelling
-#	package { "ispell": ensure => installed }
-#	# for Math::MPC
-#	package { "libmpc-dev": ensure => installed }
-#	# for Alien::LibUSBx
-#	package { "libudev-dev": ensure => installed }
-#	# for Date::LibICal
-#	package { "libical-dev": ensure => installed }
-#	# for RPC::Xmlrpc_c::Client
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#	    package { "libxmlrpc-c3-dev": ensure => installed }
-#        } else {
-#	    package { "libxmlrpc-core-c3-dev": ensure => installed }
-#        }
-#	# Crypt::MCrypt -> XXX not available in debian/squeeze
-#	# for Term::EditLine
-#	package { "libedit-dev": ensure => installed }
-#	# for Audio::GSM
-#	package { "libgsm1-dev": ensure => installed }
-#	# for Mail::DMARC::opendmarc -> XXX not available in debian/squeeze and in debian/wheezy
-#	# for File::LibMagic
-#	package { "libmagic-dev": ensure => installed }
+
+     [cpanmod => 'Search::Namazu',
+      [os_freebsd,
+       [package => 'namazu3']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Search::Odeum',
+      [os_freebsd,
+       [package => 'qdbm']],
+      [like_debian,
+       [package => 'libqdbm-dev']]],
+
+     [cpanmod => 'Search::Xapian',
+      [os_freebsd,
+       [package => 'xapian-core']],
+      [like_debian,
+       [package => 'libxapian-dev']]],
+
+     [cpanmod => 'SGML::Parser::OpenSP',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'libosp-dev']]],
+
+     [cpanmod => 'SNMP::OID::Translate',
+      [os_freebsd,
+       [package => 'net-snmp']],
+      [like_debian,
+       [package => ['libsnmp-dev', 'snmp-mibs-downloader']]]],
+
+     [cpanmod => 'Speech::Recognizer::SPX',
+      [os_freebsd,
+       [package => 'pocketsphinx']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Spread',
+      [os_freebsd,
+       # net/spread also exists, refering to version 3, but tests seem to pass with version 4
+       [package => 'spread4']],
+      [like_debian,
+       [linuxdistrocodename => 'squeeze',
+	[package => 'libspread1-dev']],
+       # not available in wheezy and later
+      ]],
+
+     [cpanmod => 'Store::CouchDB',
+      # tests pass also without, but most tests are skipped
+      [os_freebsd,
+       [package => 'couchdb']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'jessie'],
+	[package => []], # not available in jessie, just wheezy and sid
+       ],
+       [package => 'couchdb']]],
+
+     [cpanmod => 'SVN::Hooks', # XXX maybe more SVN::* modules?
+      [package => 'subversion']],
+
+     [cpanmod => 'Sword',
+      [os_freebsd,
+       [package => 'sword']],
+      [like_debian,
+       [package => 'libsword-dev']]],
+
+     [cpanmod => 'Sys::Gamin',
+      [os_freebsd,
+       [package => 'gamin'], # note: possible conflict with fam XXX maybe specify an alternative?
+      ],
+      [like_debian,
+       [package => 'libfam-dev']]],
+
+     [cpanmod => 'Sys::Hwloc',
+      [os_freebsd,
+       [package => 'hwloc']],
+      [like_debian,
+       [package => 'libhwloc-dev']]],
+
+     [cpanmod => 'Sys::Virt', # but the latest Sys::Virt usually needs the latest libvirt
+      [os_freebsd,
+       [package => 'libvirt']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Tcl',
+      [os_freebsd,
+       # compiles, but the tests hang for perls 5.18.x and newer
+       [package => 'tcl84']],
+      [like_debian,
+       [package => 'tcl8.5-dev']]],
+
+     [cpanmod => 'Tcl::Tk', # XXX maybe also Tkx?
+      # XXX what about freebsd?
+      [like_debian,
+       # tcllib is needed for the snit package
+       [package => ['tk8.5-dev', 'tcllib']]]],
+
+     [cpanmod => 'Template::Plugin::React',
+      [os_freebsd,
+       [package => 'swig13']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Term::EditLine',
+      [os_freebsd,
+       [package => 'libedit']],
+      [like_debian,
+       [package => 'libedit-dev']]],
+
+     [cpanmod => 'Term::ReadLine::Gnu',
+      [like_debian,
+       [package => 'libreadline6-dev']],
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Term::VTerm',
+      [os_freebsd,
+       [package => 'libvterm']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []]],
+       # currently (2015-10) only available in experimental
+       # (which is included in my jessie&sid VMs)
+       [package => 'libvterm-dev']]],
+
+     [cpanmod => 'Text::Aspell',
+      [os_freebsd,
+       [# "aspell" alone is not enough, test needs also English direcotries
+	package => ['aspell', 'en-aspell']]],
+      [like_debian,
+       [package => 'libaspell-dev']]],
+
+     [cpanmod => 'Text::Bidi',
+      # otherwise real tests are skipped
+      [os_freebsd,
+       # anyway, version of fribidi available in 2015-04 is too old, so tests are still skipped
+       [package => 'fribidi']],
+      [like_debian,
+       # on wheezy the library is too old, so tests are anyway skipped
+       [package => 'libfribidi-dev']]],
+
+     [cpanmod => 'Text::CSV::LibCSV',
+      [os_freebsd,
+       [package => 'libcsv']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Text::Hunspell',
+      [os_freebsd,
+       [package => 'hunspell']],
+      [like_debian,
+       [package => 'libhunspell-dev']]],
+
+     [cpanmod => 'Text::Kakasi',
+      [os_freebsd,
+       [package => 'ja-kakasi']],
+      [like_debian,
+       # but there are linking errors on Debian
+       [package => 'libkakasi2-dev']]],
+
+     [cpanmod => 'Text::Migemo',
+      [os_freebsd,
+       [package => 'ja-migemo']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Text::VimColor',
+      [package => 'vim']],
+
+     [cpanmod => 'Tie::Cvs',
+      [package => 'cvs']],
+
+     [cpanmod => 'Tree::Suffix',
+      [os_freebsd,
+       [package => 'libstree']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Tk',
+      [os_freebsd,
+       [# freetype2 and libXft are optional, but highly recommended as it provides nicer fonts
+	package => ['freetype2', 'libXft', 'libX11']]],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'Tk::TIFF',
+      [os_freebsd,
+       [package => 'tiff']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => 'libtiff4-dev']],
+       [package => 'libtiff5-dev']]],
+
+     [cpanmod => 'UDT::Simple',
+      [os_freebsd,
+       [package => 'udt']],
+      [like_debian,
+       [package => 'libudt-dev']]],
+
+     [cpanmod => 'Unix::Statgrab',
+      [os_freebsd,
+       [package => 'libstatgrab']],
+      [like_debian,
+       # unfortunately does not work in wheezy, the library version is too old for the module
+       [package => 'libstatgrab-dev']]],
+
+     [cpanmod => 'URPM',
+      [like_debian,
+       [package => 'librpm-dev']], # but does not work anyway with the librpm version as found on squeeze
+      # XXX what about freebsd?
+     ],
+
+     [cpanmod => 'Video::FFmpeg',
+      [package => 'ffmpeg']],
+
+     [cpanmod => 'WWW::Bootstrap',
+      [os_freebsd,
+       [package => 'npm']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'WWW::Mechanize::PhantomJS',
+      [os_freebsd,
+       [package => 'phantomjs']],
+      # for debian no package available, but see https://gist.github.com/julionc/7476620
+     ],
+
+     [cpanmod => 'Wx',
+      [os_freebsd,
+       [package => 'wx30-gtk2']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'XML::LibXSLT',
+      [os_freebsd,
+       [package => 'libxslt']],
+      # XXX check: gdbm needed for XML::LibXSLT in debian?!
+      [like_debian,
+       [package => 'libxslt1-dev']],
+      [linuxdistro => '~fedora',
+       [package => 'libxslt-devel']]],
+
+     [cpanmod => 'XML::Parser',
+      [os_freebsd,
+       [package => 'expat2']],
+      [like_debian,
+       [package => 'libexpat1-dev']]],
+
+     [cpanmod => 'XML::Sablotron',
+      # compiles only with perl < 5.14, see https://rt.cpan.org/Ticket/Display.html?id=66849
+      [os_freebsd,
+       [package => 'Sablot']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'XML::Saxon::XSLT2', # needs java
+      [os_freebsd,
+       [package => 'saxon-he']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'XML::WBXML',
+      [os_freebsd,
+       [package => 'wbxml2']],
+      [like_debian,
+       [package => 'libwbxml2-dev']]],
+
+     [cpanmod => 'XML::Xerces', # "You must use Xerces-C-2.7.0"
+      [os_freebsd,
+       [package => 'xerces-c2']],
+      [like_debian,
+       # probably needs setting of XERCES_* variables?
+       [package => 'libxerces-c2-dev']]],
+
+     [cpanmod => 'X::Osd',
+      [os_freebsd,
+       [package => 'xosd']],
+      # XXX what about debian?
+     ],
+
+     [cpanmod => 'X11::GUITest',
+      [like_debian,
+       [package => ['libxt-dev', 'libxtst-dev']]],
+      # XXX what about freebsd
+     ],
+
+     [cpanmod => 'X11::XCB',
+      [os_freebsd,
+       [package => 'xcb-util-wm']],
+      [like_debian,
+       [package => ['xsltproc', 'libxcb-util0-dev', 'libxcb-xinerama0-dev', 'libxcb-icccm4-dev']]]],
+
+     [cpanmod => 'ZMQ::FFI',
+      [os_freebsd,
+       [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists
+      [like_debian,
+       [package => 'libzmq-dev']]],
+
+     [cpanmod => 'ZOOM::IRSpy',
+      [os_freebsd,
+       [package => 'yaz']],
+      [like_debian,
+       [package => 'libyaz4-dev']]],
+
+# XXX find out which modules:
 #	# various wordnet-using modules
 #	package { "wordnet-base": ensure => installed }
-#	# for Archive::Rar
-#	package { "rar": ensure => installed }
-#	# for PerlQt
-#	if $lsbdistcodename == "squeeze" {
-#	    package { "libqt3-mt-dev": ensure => installed }
-#	} # no libqt3 anymore for wheezy
-#	# for Image::Magick
-#	package { "libmagickcore-dev": ensure => installed }
-#	# for Finance::MICR::GOCR::Check
-#	package { "gocr": ensure => installed }
-#	# for Math::MPFI
-#	package { "libmpfi-dev": ensure => installed }
-#	# for Image::SubImageFind
-#	package { "libmagick++-dev": ensure => installed }
-#	# for Authen::SASL::Cyrus
-#	package { "libsasl2-dev": ensure => installed }
-#	# for Hobocamp
-#	package { "dialog": ensure => installed }
-#	package { "libncursesw5-dev": ensure => installed }
-#	# for Crypt::OTR
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#	    package { "libotr2-dev": ensure => installed }
-#        } else {
-#	    package { "libotr5-dev": ensure => installed }
-#        }
-#	# for AI::PBDD (but does not work, kernel.h is also required)
-#	package { "libbdd-dev": ensure => installed }
-#	# for Device::Cdio (but still does not work)
-#	package { "libcdio-dev": ensure => installed }
-#	package { "libiso9660-dev": ensure => installed }
-#	# for Inline::Java
-#	if $::lsbdistcodename == "squeeze" {
-#	    package { "openjdk-6-jdk": ensure => installed }
-#        } else {
-#	    package { "openjdk-7-jdk": ensure => installed }
-#        }
-#	# for DLM::Client
-#	package { "libdlm-dev": ensure => installed }
-#	# for OpenGL::FTGL (but does not work, lookup into wrong freetype directory)
-#	package { "libftgl-dev": ensure => installed }
-#	package { "libfreetype6-dev": ensure => installed }
-#	# for Goo::Canvas
-#	package { "libgoocanvas-dev": ensure => installed }
-#	# for Bio::Phylo::Beagle
-#	package { "libhmsbeagle-dev": ensure => installed }
-#	# for Audio::SndFile
-#	package { "libsndfile1-dev": ensure => installed }
-#	# for SGML::Parser::OpenSP
-#	package { "libosp-dev": ensure => installed }
-#	# for PAM
-#	package { "libpam0g-dev": ensure => installed }
-#	# for EV::ADNS
-#	package { "libadns1-dev": ensure => installed }
-#	# for Linux::Prctl
-#	package { "libcap-dev": ensure => installed }
-#	# for Audio::PortAudio XXX conflicts with libjack0
-#	# package { "portaudio19-dev": ensure => installed }
-#	# for Net::SIGTRAN::SCTP
-#	package { "libsctp-dev": ensure => installed }
-#	# for Chipcard::PCSC
-#	package { "libpcsclite-dev": ensure => installed }
-#	# for GSM::Gnokii
-#	package { "libgnokii-dev": ensure => installed }
-#	# for Imager::Font::T1
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#	    package { "libt1-dev": ensure => installed }
-#        } else {
-#            # not available anymore since jessie?
-#        }
-#	# for X11::XCB
-#	package { "xsltproc": ensure => installed }
-#	package { "libxcb-util0-dev": ensure => installed }
-#	package { "libxcb-xinerama0-dev": ensure => installed }
-#	package { "libxcb-icccm4-dev": ensure => installed }
-#	# for gimp module # 90 MB for package + deps
-#	package { "libgimp2.0-dev": ensure => installed }
-#	# for UDT::Simple
-#	package { "libudt-dev": ensure => installed }
-#	# for Math::GammaFunction
-#	# not for small disks, installs about ~85MB
-#	if !$common::small_disk {
-#	    package { "r-mathlib": ensure => installed }
-#	}
-#	# for Bio::SCF
-#	package { "libstaden-read-dev": ensure => installed }
-#	# for Glib::Object::Introspection
-#	package { "libgirepository1.0-dev": ensure => installed }
-#	# for Gtk3
-#	package { "libgtk-3-dev": ensure => installed }
-#	# for Linux::ACL
-#	package { "libacl1-dev": ensure => installed }
-#	# for Unix::Statgrab (unfortunately does not work in wheezy, the library version is too old for the module)
-#	package { "libstatgrab-dev": ensure => installed }
-#	# for Inline::Python
-#	package { "python2.7-dev": ensure => installed }
-#	# for Event::Lib
-#	package { "libevent-dev": ensure => installed }
-#	# for OpenGL
-#	package { "freeglut3-dev": ensure => installed }
-#        package { "libxmu-dev": ensure => installed }
-#	# for Config::Augeas (but the wheezy version is too old, module wants 1.0.0, wheezy has 0.10.0)
-#	package { "libaugeas-dev": ensure => installed }
-#	# for Audio::TagLib (but does not work, because the module wants taglib 1.9.1, but wheezy has 1.7.2-1)
-#	package { "libtag1-dev": ensure => installed }
-#	# for Net::LibAsyncNS
-#	package { "libasyncns-dev": ensure => installed }
-#	# for Gearman::XS
-#	package { "libgearman-dev": ensure => installed }
-#	# for Qstruct
-#	package { "ragel": ensure => installed }
-#        # for Curses::UI::Mousehandler::GPM
-#        package { "libgpm-dev": ensure => installed }
-#        # for HTTP::Soup::Gnome
-#        package { "libsoup-gnome2.4-dev": ensure => installed }
-#       	# for Crypt::Sodium
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#            # not available before jessie
-#        } else {
-#	    package { "libsodium-dev": ensure => installed }
-#        }
-#        # for Term::VTerm
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#            # currently (2015-10) only available in experimental
-#            # (which is included in my jessie&sid VMs)
-#        } else {
-#            package { "libvterm-dev": ensure => installed }
-#        }
-#        # for Linux::Systemd::Journal
-#        if $::lsbdistcodename == 'sid' {
-#            package { "libsystemd-dev": ensure => installed }
-#        } else {
-#            package { "libsystemd-journal-dev": ensure => installed }
-#        }
-#        # for Cache::RedisDB (real testing with redis-server)
-#        package { "redis-server": ensure => installed }
-#        # for NanoMsg::Raw
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#            # not available before jessie
-#        } else {
-#            package { "libnanomsg-dev": ensure => installed }
-#        }
-#        # for HTML::CTPP2
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#            # not available before jessie
-#        } else {
-#            package { "libctpp2-dev": ensure => installed }
-#        }
-#        # Store::CouchDB (tests pass also without, but most tests are skipped)
-#        if $::lsbdistcodename == 'jessie' {
-#            # not available in jessie, just wheezy and sid
-#        } else {
-#            package { "couchdb": ensure => installed }
-#        }
-#        # Text::Bidi (otherwise real tests are skipped, but on wheezy
-#        # the library is too old, so tests are anyway skipped)
-#        package { "libfribidi-dev": ensure => installed }
-#        # for Text::Hunspell
-#        package { "libhunspell-dev": ensure => installed }
-#        # for Search::Xapian
-#        package { "libxapian-dev": ensure => installed }
-#        # for Geo::Hex::V3::XS
-#        package { "cmake": ensure => installed }
-#        # for Net::Pcap (also needed for Net::LibNIDS)
-#        package { "libpcap0.8-dev": ensure => installed }
-#        # for WWW::Mechanize::PhantomJS
-#        # no package available, but see https://gist.github.com/julionc/7476620
-#	# for Net::Libdnet
-#        # XXX but does not work without applying the patch manually - see https://rt.cpan.org/Ticket/Display.html?id=106021
-#	package { "libdumbnet-dev": ensure => installed }
-#	# for Mail::OpenDKIM
-#	package { "libopendkim-dev": ensure => installed }
-#        # for Pod::Weaver::Plugin::Ditaa
-#        package { "ditaa": ensure => installed }
-#        # for Audio::LibSampleRate
-#        package { "libsamplerate0-dev": ensure => installed }
-#        # for Geo::Shapelib
-#        package { "libshp-dev": ensure => installed }
-#        # for Image::Imlib2
-#        package { "libimlib2-dev": ensure => installed }
-#        # for Image::Libpuzzle
-#        package { "libpuzzle-dev": ensure => installed }
-#        # for Tie::Cvs
-#        package { "cvs": ensure => installed }
-#        # for Linux::Sysfs
-#        package { "libsysfs-dev": ensure => installed }
-#        # for Net::LibNIDS
-#        package { "libnids-dev": ensure => installed }
-#        package { "libnet1-dev": ensure => installed }
-#        # for Audio::Extract::PCM
-#        package { "sox": ensure => installed }
-#        # for SNMP::OID::Translate (but tests fail)
-#        package { "libsnmp-dev": ensure => installed }
-#        # for Libssh::Session (but does not work)
-#        package { "libssh-dev": ensure => installed }
-#        # for Alien::ProtoBuf (but why? shouldn't an alien module care about its own module?)
-#        package { "libprotobuf-dev": ensure => installed }
-#	# for DBD::ODBC
-#	package { "unixodbc-dev": ensure => installed }
-#        # for LMDB_File
-#	if $::lsbdistcodename == "squeeze" or $::lsbdistcodename == "wheezy" {
-#            # not available before jessie
-#        } else {
-#            package { "liblmdb-dev": ensure => installed }
-#        }
-#        # for SNMP::OID::Translate
-#        package { "snmp-mibs-downloader": ensure => installed }
-#        # for Hiredis::Raw
-#        package { "libhiredis-dev": ensure => installed }
-#        # for PulseAudio
-#        package { "pulseaudio": ensure => installed }
-#        # for Google::ProtocolBuffers::Dynamic
-#        package { "libprotoc-dev": ensure => installed }
-#        # for Archive::SevenZip
-#        package { "p7zip-full": ensure => installed }
-####### END Debian #####
-#    } elsif ($operatingsystem == "RedHat") { # includes CentOS
-#	# for XML::LibXSLT - unfortunately the version which comes with epel for CentOS6 is not sufficient
-#	package { "libxslt-devel": ensure => installed }
 
-
-     [
-      #cpandist => qr{^(Cairo-\d|Prima-Cairo-\d)}, # XXX base id or full dist name with author?
-      cpanmod => ['Cairo', 'Prima::Cairo'],
-      [os => 'freebsd',
-       [package => 'cairo']],
-      [linuxdistro => '~debian',
-       [package => 'libcairo2-dev']]],
-
-#     [cpandist => qr{^(Cairo-\d|Prima-Cairo-\d)}, # XXX base id or full dist name with author?
-#      sub {
-#	  my($self, $dist) = @_;
-#	  if ($dist->base_id =~ m{^(Cairo-\d|Prima-Cairo-\d)}) {
-#	      if ($^O eq 'freebsd') {
-#		  return { package => 'cairo' };
-#	      } elsif ($^O eq 'linux' && $self->{linuxdistro} =~ m{^(debian|ubuntu|linuxmint)$}) {
-#		  return { package => 'libcairo2-dev' };
-#	      }
-#	  }
-#      }],
     );
 }
 
