@@ -10,3 +10,5 @@ matrix:
     - perl: "5.10"
     - perl: "5.8"
 sudo: false
+script:
+ - perl Makefile.PL && env HARNESS_TIMER=1 make disttest
