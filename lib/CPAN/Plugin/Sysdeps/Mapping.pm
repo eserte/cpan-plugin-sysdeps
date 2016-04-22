@@ -90,6 +90,9 @@ sub mapping {
       # XXX what about debian?
      ],
 
+     [cpanmod => 'Alien::uPB',
+      [package => 'unzip']],
+
      [cpanmod => 'Alien::wxWidgets',
       [like_debian,
        [package => 'libgtk2.0-dev']],
@@ -301,7 +304,7 @@ sub mapping {
 
      [cpanmod => 'Curses::UI::Mousehandler::GPM',
       [like_debian,
-       [package => 'libgpm-dev']]],
+       [package => 'libgpm-dev', 'libncursesw5-dev']]],
 
      [cpanmod => 'Database::Cassandra::Client',
       [os_freebsd,
@@ -376,7 +379,7 @@ sub mapping {
      [cpanmod => 'Device::Velleman::K8055::libk8055',
       [os_freebsd,
        [package => 'libk8055']],
-      # XXX what about debian?
+      # not available on debian
      ],
 
      [cpanmod => 'DLM::Client',
@@ -400,8 +403,9 @@ sub mapping {
       [os_freebsd,
        # build is not successful anyway (Evas.h cannot be found), additionally the prereqs install also gcc on a freebsd10 system
        [package => ['evas-core', 'elementary']]],
-      # what about debian?
-     ],
+      [like_debian,
+       # here too: build is not successful anyway (Evas.h cannot be found)
+       [package => ['libevas-dev', 'libelementary-dev']]]],
 
      [cpanmod => 'EV::ADNS',
       [os_freebsd,
@@ -549,7 +553,10 @@ sub mapping {
       [package => 'gnuplot']],
 
      [cpanmod => 'Graphics::Plotter',
-      [package => 'plotutils']],
+      [os_freebsd,
+       [package => 'plotutils']],
+      [like_debian,
+       [package => 'libplot-dev']]],
 
      [cpanmod => ['Graphics::SANE', 'Sane'],
       [os_freebsd,
@@ -659,21 +666,18 @@ sub mapping {
        ]],
 
      [cpanmod => 'Image::Ocrad',
-      [os_freebsd,
-       [package => 'ocrad']],
-      # XXX what about debian?
-     ],
+      [package => 'ocrad']],
 
      [cpanmod => 'Image::Resize::OpenCV',
       [os_freebsd,
        [package => 'opencv']],
       [like_debian,
-       [package => 'libcv-dev']]],
+       [package => ['libcv-dev', 'libhighgui-dev']]]],
 
      [cpanmod => 'Image::SubImageFind',
       # XXX what about freebsd?
       [like_debian,
-       [package => 'libmagick++-dev']]],
+       [package => ['libmagick++-dev', 'graphicsmagick-libmagick-dev-compat']]]],
 
      [cpanmod => 'Imager',
       [os_freebsd,
@@ -708,8 +712,8 @@ sub mapping {
       [os_freebsd,
        # does not work, see https://rt.cpan.org/Ticket/Display.html?id=93690
        [package => 'lua']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'liblua5.1-0-dev']]],
 
      [cpanmod => 'Inline::Python',
       [os_freebsd,
