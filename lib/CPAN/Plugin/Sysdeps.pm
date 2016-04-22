@@ -281,3 +281,154 @@ sub _install_packages_commands {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+CPAN::Plugin::Sysdeps - a CPAN.pm plugin for installing system dependencies
+
+=head1 SYNOPSIS
+
+In the CPAN.pm shell:
+
+    o conf plugin_list push CPAN::Plugin::Sysdeps
+    o conf commit
+
+=head1 DESCRIPTION
+
+B<CPAN::Plugin::Sysdeps> is a plugin for L<CPAN.pm|CPAN> to install
+non-CPAN dependencies automatically. Currently, the list of required
+system dependencies is maintained in a static data structure in
+L<CPAN::Plugin::Sysdeps::Mapping>. Supported operations systems and
+distributions are FreeBSD and Debian-like Linux distributions.
+
+The plugin may be configured like this:
+
+    o conf plugin_list CPAN::Plugin::Sysdeps,arg1,arg2,...
+
+Possible arguments are:
+
+=over
+
+=item C<apt-get>, C<aptitude>, <pkg>, <yum>
+
+Force a particular installer for system packages. If not set, then the
+plugin find a default for the current operating system or linux
+distributions:
+
+=over
+
+=item Debian-like distributions: C<apt-get>
+
+=item Fedora-like distributions: C<yum>
+
+=item FreeBSD: C<pkg>
+
+=back
+
+Additionally, L<sudo(1)> is prepended before the installer programm if
+the current user is not a privileged one.
+
+=item C<batch>
+
+Don't ask any questions.
+
+=item C<interactive>
+
+Be interactive, especially ask for confirmation before installing a
+system package.
+
+=item C<dryrun>
+
+Only log installation actions.
+
+=item C<mapping=I<perlmod|file>>
+
+Prepend another static mapping from cpan modules or distributions to
+system packages. This should be specified as a perl module
+(I<Foo::Bar>) or an absolute file name. The mapping file is supposed
+to just return the mapping data structure as described below.
+
+=back
+
+=head2 MAPPING
+
+!This description is subject to change!
+
+A mapping is tree-like data structure expressed as nested arrays. The
+top-level nodes usually specify a cpan module or distribution to
+match, and a leaf should specify the dependent system packages.
+
+A sample mapping may look like this:
+
+    (
+     [cpanmod => ['BerkeleyDB', 'DB_File'],
+      [os => 'freebsd',
+       [package => 'db48']],
+      [linuxdistro => '~debian',
+       [linuxdistrocodename => 'squeeze',
+	[package => 'libdb4.8-dev']],
+       [linuxdistrocodename => 'wheezy',
+	[package => 'libdb5.1-dev']],
+       [package => 'libdb5.3-dev']]],
+    );
+
+The nodes are key-value pairs. The values may be strings, arrays of
+strings (meaning that any of the strings may match), or compiled
+regular expressions.
+
+Supported keywords are:
+
+=over
+
+=item cpanmod => I<$value>
+
+Match a CPAN module name (e.g. C<Foo::Bar>).
+
+=item cpandist => I<$value>
+
+Match a CPAN distribution name (e.g. C<Foo-Bar-1.23>). Note that
+currently only the base_id is matched; this may change!
+
+=item os => I<$value>
+
+Match a operating system (perl's C<$^O> value).
+
+=item linuxdistro => I<$value>
+
+Match a linux distribution name, as returned by C<lsb_release -is>.
+The distribution name is lowercased.
+
+There are special values C<~debian> to match Debian-like distributions
+(Ubuntu and LinuxMint) and C<~fedora> to match Fedora-like
+distributions (RedHat and CentOS).
+
+=item linuxdistrocodename => I<$value>
+
+Match a linux distribution version using its code name (e.g.
+C<jessie>).
+
+TODO: it should be possible to express comparisons with code names,
+e.g. '>=squeeze'.
+
+=item linuxdistroversion => I<$value>
+
+Match a linux distribution versions. Comparisons like '>=8.0' are
+possible.
+
+=item package => I<$value>
+
+Specify the dependent system packages.
+
+=back
+
+=head1 AUTHOR
+
+Slaven Rezic
+
+=head1 SEE ALSO
+
+L<CPAN>, L<apt-get(1)>, L<aptitude(1)>, L<pkg(8)>, L<yum(1)>.
+
+=cut
