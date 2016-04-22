@@ -285,7 +285,7 @@ sub _find_missing_deb_packages {
 
 sub _filter_uninstalled_packages {
     my($self, @packages) = @_;
-    if ($self->{linuxdistro} eq 'debian') {
+    if ($self->_is_linux_debian_like($self->{linuxdistro})) {
 	my @plain_packages;
 	my @missing_packages;
 	for my $package_spec (@packages) {
