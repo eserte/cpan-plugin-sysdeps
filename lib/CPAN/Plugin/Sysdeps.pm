@@ -493,6 +493,6 @@ Slaven Rezic
 
 =head1 SEE ALSO
 
-L<CPAN>, L<apt-get(1)>, L<aptitude(1)>, L<pkg(8)>, L<yum(1)>.
+L<cpan-sysdeps>, L<CPAN>, L<apt-get(1)>, L<aptitude(1)>, L<pkg(8)>, L<yum(1)>.
 
 =cut
