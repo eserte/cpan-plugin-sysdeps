@@ -247,7 +247,40 @@ sub _map_cpandist {
 sub _filter_uninstalled_packages {
     my($self, @packages) = @_;
     if ($self->{linuxdistro} eq 'debian') {
-	warn "NYI: should use something like ~/devel/deb-install.pl, go on without filtering...";
+	# taken from ~/devel/deb-install.pl
+	my @missing_packages;
+	my %seen_packages;
+	my @cmd = ('dpkg-query', '-W', '-f=${Package} ${Status}\n', @packages);
+	open my $fh, '-|', @cmd
+	    or die "Error while running '@cmd': $!";
+	while(<$fh>) {
+	    chomp;
+	    if (m{^(\S+) (.*)}) {
+		if ($2 ne 'install ok installed') {
+		    push @missing_packages, $1;
+		} else {
+		    $seen_packages{$1} = 1;
+		}
+	    } else {
+		warn "ERROR: cannot parse $_, ignore line...\n";
+	    }
+	}
+	for my $package (@packages) {
+	    if (!$seen_packages{$package}) {
+		push @missing_packages, $package;
+	    }
+	}
+	@packages = @missing_packages;
+    } elsif ($self->{os} eq 'freebsd') {
+	my @missing_packages;
+	for my $package (@packages) {
+	    my @cmd = ('pkg', 'info', '--exists', $package);
+	    system @cmd;
+	    if ($? != 0) {
+		push @missing_packages, $package;
+	    }
+	}
+	@packages = @missing_packages;
     } else {
 	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
     }
