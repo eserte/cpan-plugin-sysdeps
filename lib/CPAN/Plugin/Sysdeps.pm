@@ -213,7 +213,7 @@ sub _map_cpandist {
 		} elsif ($key eq 'linuxdistro') {
 		    if ($match =~ m{^~(debian|fedora)}) {
 			my $method = "_is_linux_$1_like";
-			$self->_debug("translate $match to $method");
+			$self->_debug(' ' x $level . " translate $match to $method");
 			return 0 if !$self->$method($self->{linuxdistro}) && !$TRAVERSE_ONLY;
 		    } elsif ($match =~ m{^~}) {
 			die "'like' matches only for debian and fedora";
