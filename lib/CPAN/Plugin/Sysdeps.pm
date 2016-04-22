@@ -48,6 +48,10 @@ sub new {
 	die 'Unrecognized ' . __PACKAGE__ . ' argument' . (@args_errors != 1 ? 's' : '') . ": @args_errors\n";
     }
 
+    if (exists $ENV{CPAN_PLUGIN_SYSDEPS_DEBUG}) {
+	$debug = $ENV{CPAN_PLUGIN_SYSDEPS_DEBUG};
+    }
+
     my $os                  = $options->{os} || $^O;
     my $linuxdistro         = '';
     my $linuxdistroversion  = 0;
