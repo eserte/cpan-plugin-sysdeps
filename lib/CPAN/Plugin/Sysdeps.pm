@@ -369,7 +369,7 @@ distributions are FreeBSD and Debian-like Linux distributions.
 
 The plugin may be configured like this:
 
-    o conf plugin_list CPAN::Plugin::Sysdeps,arg1,arg2,...
+    o conf plugin_list CPAN::Plugin::Sysdeps=arg1,arg2,...
 
 Possible arguments are:
 
@@ -407,6 +407,11 @@ system package.
 
 Only log installation actions.
 
+=item C<debug>
+
+Turn debugging on. Alternatively the environment variable
+C<CPAN_PLUGIN_SYSDEPS_DEBUG> may be set to a true value.
+
 =item C<mapping=I<perlmod|file>>
 
 Prepend another static mapping from cpan modules or distributions to
@@ -418,7 +423,7 @@ to just return the mapping data structure as described below.
 
 =head2 MAPPING
 
-!This description is subject to change!
+!This implementation is subject to change!
 
 A mapping is tree-like data structure expressed as nested arrays. The
 top-level nodes usually specify a cpan module or distribution to
@@ -484,6 +489,9 @@ possible.
 =item package => I<$value>
 
 Specify the dependent system packages.
+
+For some distributions (currently: debian-like ones) it is possible to
+specify alternatives in the form C<package1 | package2 | ...>.
 
 =back
 
