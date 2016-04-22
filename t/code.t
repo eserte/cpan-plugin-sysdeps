@@ -13,7 +13,7 @@ my $cpandist = CPAN::Distribution->new(
 				      );
 
 {
-    my $p = CPAN::Plugin::Sysdeps->new('apt-get', 'batch', 'dryrun', 'debug', "mapping=$FindBin::RealBin/mapping/code.pl");
+    my $p = CPAN::Plugin::Sysdeps->new('apt-get', 'batch', 'dryrun', "mapping=$FindBin::RealBin/mapping/code.pl");
     $p->post_get($cpandist);
     pass 'traverse only did not fail';
 }

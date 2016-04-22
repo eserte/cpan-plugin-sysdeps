@@ -13,14 +13,14 @@ my $cpandist = CPAN::Distribution->new(
 				      );
 
 {
-    my $p = CPAN::Plugin::Sysdeps->new('apt-get', 'batch', 'dryrun', 'debug');
+    my $p = CPAN::Plugin::Sysdeps->new('apt-get', 'batch', 'dryrun');
     local $CPAN::Plugin::Sysdeps::TRAVERSE_ONLY = 1;
     $p->post_get($cpandist);
     pass 'traverse only did not fail';
 }
 
 {
-    my $p = CPAN::Plugin::Sysdeps->new('apt-get', 'batch', 'dryrun', 'debug', "mapping=$FindBin::RealBin/mapping/fail_likelinuxdistro.pl");
+    my $p = CPAN::Plugin::Sysdeps->new('apt-get', 'batch', 'dryrun', "mapping=$FindBin::RealBin/mapping/fail_likelinuxdistro.pl");
     local $CPAN::Plugin::Sysdeps::TRAVERSE_ONLY = 1;
     eval { $p->post_get($cpandist) };
     like $@, qr{'like' matches only for };
