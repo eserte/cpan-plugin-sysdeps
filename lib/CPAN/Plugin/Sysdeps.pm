@@ -248,32 +248,58 @@ sub _map_cpandist {
     ();
 }
 
+sub _find_missing_deb_packages {
+    my($self, @packages) = @_;
+    # taken from ~/devel/deb-install.pl
+    my %seen_packages;
+    my @missing_packages;
+
+    my @cmd = ('dpkg-query', '-W', '-f=${Package} ${Status}\n', @packages);
+    require IPC::Open3;
+    require Symbol;
+    my $err = Symbol::gensym();
+    my $fh;
+    my $pid = IPC::Open3::open3(undef, $fh, $err, @cmd)
+	or die "Error running '@cmd': $!";
+    while(<$fh>) {
+	chomp;
+	if (m{^(\S+) (.*)}) {
+	    if ($2 ne 'install ok installed') {
+		push @missing_packages, $1;
+	    } else {
+		$seen_packages{$1} = 1;
+	    }
+	} else {
+	    warn "ERROR: cannot parse $_, ignore line...\n";
+	}
+    }
+    waitpid $pid, 0;
+
+    for my $package (@packages) {
+	if (!$seen_packages{$package}) {
+	    push @missing_packages, $package;
+	}
+    }
+    @missing_packages;
+}
+
 sub _filter_uninstalled_packages {
     my($self, @packages) = @_;
     if ($self->{linuxdistro} eq 'debian') {
-	# taken from ~/devel/deb-install.pl
+	my @plain_packages;
 	my @missing_packages;
-	my %seen_packages;
-	my @cmd = ('dpkg-query', '-W', '-f=${Package} ${Status}\n', @packages);
-	open my $fh, '-|', @cmd
-	    or die "Error while running '@cmd': $!";
-	while(<$fh>) {
-	    chomp;
-	    if (m{^(\S+) (.*)}) {
-		if ($2 ne 'install ok installed') {
-		    push @missing_packages, $1;
-		} else {
-		    $seen_packages{$1} = 1;
+	for my $package_spec (@packages) {
+	    if ($package_spec =~ m{\|}) { # has alternatives
+		my @single_packages = split /\s*\|\s*/, $package_spec;
+		my @missing_in_packages_spec = $self->_find_missing_deb_packages(@single_packages);
+		if (@missing_in_packages_spec == @single_packages) {
+		    push @missing_packages, $single_packages[0];
 		}
 	    } else {
-		warn "ERROR: cannot parse $_, ignore line...\n";
+		push @plain_packages, $package_spec;
 	    }
 	}
-	for my $package (@packages) {
-	    if (!$seen_packages{$package}) {
-		push @missing_packages, $package;
-	    }
-	}
+	push @missing_packages, $self->_find_missing_deb_packages(@plain_packages);
 	@packages = @missing_packages;
     } elsif ($self->{os} eq 'freebsd') {
 	my @missing_packages;
