@@ -26,11 +26,11 @@ sub mapping {
       # XXX what about debian?
      ],
 
-     [cpanmod => ['Alien::FFTW3', 'Math::FFTW'],
+     [cpanmod => 'Alien::FFTW3',
       [os_freebsd,
        [package => 'fftw3']],
       [like_debian,
-       [package => 'libfftw3-dev']]],
+       [package => 'libfftw3-dev', 'pkg-config | pkgconf']]],
 
      [cpanmod => 'Alien::HDF4',
       [os_freebsd,
@@ -50,8 +50,9 @@ sub mapping {
      ],
 
      [cpanmod => 'Alien::libtermkey',
-      [linuxdistrocodename => ['squeeze','wheezy'],
-       [package => ['libtool', 'libncurses5-dev']],
+      [like_debian,
+       [linuxdistrocodename => ['squeeze','wheezy'],
+	[package => ['libtool', 'libncurses5-dev']]],
        [package => ['libtool-bin', 'libncurses5-dev']]],
       # XXX what about freebsd?
      ],
@@ -63,17 +64,17 @@ sub mapping {
       [like_debian,
        [package => 'libprotobuf-dev']]],
 
-     [# probably needed by much more CPAN distributions...
-      cpanmod => 'Alien::RRDtool',
+     [cpanmod => 'Alien::RRDtool',
       [os_freebsd,
-       [package => 'pkgconf', # provides pkg-config
-       ]]],
+       [package => 'pkgconf']],
+      [like_debian,
+       [package => 'pkg-config | pkgconf']]], # XXX pkg-config probably needed by much more CPAN distributions...
 
      [cpanmod => 'Alien::SVN',
       [os_freebsd,
        [package => 'apr']],
       [like_debian,
-       [package => ['libapr1-dev', 'libaprutil1-dev']]]],
+       [package => ['libapr1-dev', 'libaprutil1-dev', 'libsqlite3-dev', 'zlib1g-dev']]]],
 
      [cpanmod => 'Alien::unibilium',
       [like_debian,
@@ -83,7 +84,7 @@ sub mapping {
       # XXX what about freebsd?
      ],
 
-     [cpanmod => 'Alien-Uninum', # probably!
+     [cpanmod => 'Alien::Uninum', # probably!
       [os_freebsd,
        [package => 'gmp']],
       # XXX what about debian?
@@ -171,12 +172,12 @@ sub mapping {
 	[package => 'libdb5.1-dev']],
        [package => 'libdb5.3-dev']]],
 
-     [cpanmod => 'Bio::HTSTools',
+     [cpanmod => 'Bio::HTS',
       [os_freebsd,
        # htslib exists, but does not seem to be compatible with the perl module
        [package => 'htslib']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'libhts-dev']]],
 
      [cpanmod => 'Bio::Phylo::Beagle',
       # XXX what about freebsd?
@@ -444,6 +445,12 @@ sub mapping {
       [like_debian,
        [package => 'libfuse-dev']]],
 
+     [cpanmod => 'GD',
+      [os_freebsd,
+       [package => 'gd']],
+      [like_debian,
+       [package => 'libgd-dev']]],
+
      [cpanmod => 'Gearman::XS',
       [os_freebsd,
        [package => 'gearmand'], # not for small disks, needs boost-libs
@@ -671,7 +678,10 @@ sub mapping {
      [cpanmod => 'Imager',
       [os_freebsd,
        [package => [qw(freetype2 giflib-nox11 png tiff jpeg)]]],
-      # XXX TBD linux
+      [like_debian,
+       [linuxdistrocodename => 'wheezy',
+	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
+       [package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev libtiff5-dev)]]],
      ],
 
      [cpanmod => 'Imager::Font::T1',
@@ -819,6 +829,12 @@ sub mapping {
       [like_debian,
        [package => 'libopendkim-dev']]],
 
+     [cpanmod => 'Math::FFTW',
+      [os_freebsd,
+       [package => 'fftw3']],
+      [like_debian,
+       [package => 'libfftw3-dev']]],
+
      [cpanmod => 'Math::GammaFunction',
       [os_freebsd,
        # NOTE there's an entry in .cpan/prefs/01.DISABLED.yml
@@ -960,7 +976,7 @@ sub mapping {
       [like_debian,
        [package => 'libsctp-dev']]],
 
-     [cpanmod => 'Net-Silk',
+     [cpanmod => 'Net::Silk',
       [os_freebsd,
        [package => 'silktools']],
       # XXX what about debian?
