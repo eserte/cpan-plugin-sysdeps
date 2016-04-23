@@ -17,9 +17,9 @@ sub mapping {
        [package => 'libbdd-dev']]],
 
      [cpanmod => ['Algorithm::ConstructDFA::XS', 'Algorithm::LibLinear'],
+      # FreeBSD has c++ in the base system
       [like_debian,
        [package => 'g++']],
-      # XXX what about freebsd?
      ],
 
      [cpanmod => 'Alien::ffmpeg',
@@ -147,13 +147,15 @@ sub mapping {
        [package => 'libsamplerate0-dev']]],
 
      [cpanmod => 'Audio::PortAudio',
-      # XXX what about freebsd?
+      [os_freebsd,
+       [package => ['portaudio', 'pkgconf']]],
       [like_debian,
        # conflicts with libjack0
        [package => 'portaudio19-dev']]],
 
      [cpanmod => 'Audio::SndFile',
-      # XXX what about freebsd?
+      [os_freebsd,
+       [package => ['libsndfile', 'pkgconf']]],
       [like_debian,
        [package => 'libsndfile1-dev']]],
 
@@ -165,7 +167,8 @@ sub mapping {
        [package => ['libtag1-dev', 'g++']]]],
 
      [cpanmod => 'Authen::SASL::Cyrus',
-      # XXX what about freebsd?
+      [os_freebsd,
+       [package => 'cyrus-sasl']],
       [like_debian,
        [package => 'libsasl2-dev']]],
 
@@ -427,7 +430,8 @@ sub mapping {
        [package => 'libevent-dev']]],
 
      [cpanmod => 'ExtUtils::PkgConfig',
-      # XXX what about freebsd?
+      [os_freebsd,
+       [package => 'pkgconf']],
       [like_debian,
        [package => 'pkg-config | pkgconf']]],
 
