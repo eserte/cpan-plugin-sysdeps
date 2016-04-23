@@ -392,6 +392,9 @@ sub _install_packages_commands {
 	}
     }
     push @install_cmd, 'install'; # XXX is this universal?
+    if ($self->{batch} && $self->{installer} eq 'pkg') {
+	push @install_cmd, '-y';
+    }
     push @install_cmd, @packages;
 
     ((@pre_cmd ? \@pre_cmd : ()), \@install_cmd);
