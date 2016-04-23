@@ -23,7 +23,8 @@ sub mapping {
      [cpanmod => 'Alien::ffmpeg',
       [os_freebsd,
        [package => 'yasm']],
-      # XXX what about debian?
+      [like_debian,
+       [package => 'yasm']],
      ],
 
      [cpanmod => 'Alien::FFTW3',
@@ -35,7 +36,9 @@ sub mapping {
      [cpanmod => 'Alien::HDF4',
       [os_freebsd,
        [package => 'hdf']],
-      # XXX what about debian?
+      [like_debian,
+       # "yasm/nasm not found or too old. Use --disable-yasm for a crippled build."
+       [package => 'yasm']],
      ],
 
      [cpanmod => 'Alien::LibUSBx',
@@ -1208,10 +1211,8 @@ sub mapping {
       [os_freebsd,
        [package => 'libvterm']],
       [like_debian,
-       [linuxdistrocodename => ['squeeze', 'wheezy'],
+       [linuxdistrocodename => ['squeeze', 'wheezy', 'jessie'],
 	[package => []]],
-       # currently (2015-10) only available in experimental
-       # (which is included in my jessie&sid VMs)
        [package => 'libvterm-dev']]],
 
      [cpanmod => 'Text::Aspell',
@@ -1233,8 +1234,8 @@ sub mapping {
      [cpanmod => 'Text::CSV::LibCSV',
       [os_freebsd,
        [package => 'libcsv']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'libcsv-dev']]],
 
      [cpanmod => 'Text::Hunspell',
       [os_freebsd,
@@ -1252,8 +1253,8 @@ sub mapping {
      [cpanmod => 'Text::Migemo',
       [os_freebsd,
        [package => 'ja-migemo']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'libmigemo-dev']]],
 
      [cpanmod => 'Text::VimColor',
       [package => 'vim']],
@@ -1302,13 +1303,15 @@ sub mapping {
      ],
 
      [cpanmod => 'Video::FFmpeg',
-      [package => 'ffmpeg']],
+      [package => 'ffmpeg']], # on Debian only found in backports or www.deb-multimedia.org; still does not build because avformat.h is not available
 
      [cpanmod => 'WWW::Bootstrap',
       [os_freebsd,
        [package => 'npm']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy)],
+	[package => []]],
+       [package => 'npm']]],
 
      [cpanmod => 'WWW::Mechanize::PhantomJS',
       [os_freebsd,
@@ -1325,9 +1328,8 @@ sub mapping {
      [cpanmod => 'XML::LibXSLT',
       [os_freebsd,
        [package => 'libxslt']],
-      # XXX check: gdbm needed for XML::LibXSLT in debian?!
       [like_debian,
-       [package => 'libxslt1-dev']],
+       [package => ['libxslt1-dev', 'libgdbm-dev']]],
       [linuxdistro => '~fedora',
        [package => 'libxslt-devel']]],
 
@@ -1361,7 +1363,9 @@ sub mapping {
        [package => 'xerces-c2']],
       [like_debian,
        # probably needs setting of XERCES_* variables?
-       [package => 'libxerces-c2-dev']]],
+       [linuxdistrocodename => ['wheezy'],
+	[package => 'libxerces-c2-dev']],
+       [package => 'libxerces-c-dev']]],
 
      [cpanmod => 'X::Osd',
       [os_freebsd,
