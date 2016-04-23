@@ -109,7 +109,8 @@ sub mapping {
        [package => 'rar'], # restricted, no binary package available, must build from ports
       ],
       [like_debian,
-       [package => 'rar']]],
+       [package => 'rar'], # available in jessie/non-free
+      ]],
 
      [cpanmod => 'Archive::SevenZip',
       [os_freebsd,
@@ -161,14 +162,14 @@ sub mapping {
        [package => 'taglib']],
       [like_debian,
        # but does not work, because the module wants taglib 1.9.1, but wheezy has 1.7.2-1
-       [package => 'libtag1-dev']]],
+       [package => ['libtag1-dev', 'g++']]]],
 
      [cpanmod => 'Authen::SASL::Cyrus',
       # XXX what about freebsd?
       [like_debian,
        [package => 'libsasl2-dev']]],
 
-     [cpanmod => 'BerkeleyDB',
+     [cpanmod => ['BerkeleyDB', 'BDB'],
       [os_freebsd,
        # FreeBSD has libdb in the base system, but this version is too old.
        # Make sure that a corresponding distroprefs file matches this library.
@@ -185,18 +186,19 @@ sub mapping {
        # htslib exists, but does not seem to be compatible with the perl module
        [package => 'htslib']],
       [like_debian,
+       # also does not work...
        [package => 'libhts-dev']]],
 
      [cpanmod => 'Bio::Phylo::Beagle',
       # XXX what about freebsd?
       [like_debian,
-       [package => 'libhmsbeagle-dev']]],
+       [package => ['libhmsbeagle-dev', 'pkg-config | pkgconf']]]],
 
      [cpanmod => 'Bio::SCF',
       [os_freebsd,
        [package => 'io_lib']],
       [like_debian,
-       [package => 'libstaden-read-dev']]],
+       [package => ['libstaden-read-dev', 'zlib1g-dev']]]],
 
      [cpanmod => 'Cache::Memcached::XS',
       [os_freebsd,
@@ -229,7 +231,7 @@ sub mapping {
      [cpanmod => 'Chipcard::PCSC',
       # XXX what about freebsd?
       [like_debian,
-       [package => 'libpcsclite-dev']]],
+       [package => ['bzip2', 'libpcsclite-dev', 'pkg-config | pkgconf']]]], # bzip2 needed for extraction
 
      [cpanmod => ['ClamAV::Client', 'File::Scan::ClamAV'],
       [os_freebsd,
@@ -241,7 +243,7 @@ sub mapping {
       [os_freebsd,
        [package => 'lzmalib']],
       [like_debian,
-       # probably this one does not work with Compress::LZMA::Simple under debian
+       # this one does not work with Compress::LZMA::Simple under debian
        [package => 'liblzma-dev']]],
 
      [cpanmod => 'Compress::LZO',
@@ -254,7 +256,7 @@ sub mapping {
        [package => 'augeas']],
       [like_debian,
        # but the wheezy version is too old, module wants 1.0.0, wheezy has 0.10.0
-       [package => 'libaugeas-dev']]],
+       [package => ['libaugeas-dev', 'pkg-config | pkgconf']]]],
 
      [cpanmod => 'Crypt::Cracklib',
       [os_freebsd,
@@ -309,13 +311,13 @@ sub mapping {
 
      [cpanmod => 'Curses::UI::Mousehandler::GPM',
       [like_debian,
-       [package => 'libgpm-dev', 'libncursesw5-dev']]],
+       [package => ['libgpm-dev', 'libncurses5-dev']]]],
 
      [cpanmod => 'Database::Cassandra::Client',
       [os_freebsd,
        # but does not work, and neither does cassandra2
        [package => 'cassandra']],
-      # XXX what about debian?
+      # cassandra package not available on debian
      ],
 
      [cpanmod => ['Data::UUID::LibUUID', 'UUID'],
@@ -367,14 +369,14 @@ sub mapping {
      [cpanmod => 'DBD::Pg',
       [os_freebsd,
        [package => 'postgresql93-server']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'libpq-dev']]],
 
      [cpanmod => 'Deliantra::Client',
       [os_freebsd,
        [package => ['sdl2', 'sdl2_image', 'sdl2_mixer']]],
       [like_debian,
-       [package => ['libsdl1.2-dev', 'libsdl-image1.2-dev', 'libsdl-mixer1.2-dev']]]],
+       [package => ['libsdl1.2-dev', 'libsdl-image1.2-dev', 'libsdl-mixer1.2-dev', 'libglib2.0-dev']]]],
 
      [cpanmod => 'Device::Cdio',
       [like_debian,
@@ -423,6 +425,11 @@ sub mapping {
        [package => 'libevent2']],
       [like_debian,
        [package => 'libevent-dev']]],
+
+     [cpanmod => 'ExtUtils::PkgConfig',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => 'pkg-config | pkgconf']]],
 
      [cpanmod => 'File::LibMagic',
       # XXX what about freebsd?
@@ -1035,8 +1042,8 @@ sub mapping {
      [cpanmod => 'Pango',
       [os_freebsd,
        [package => 'pango']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'libpango1.0-dev']]],
 
      [cpanmod => 'Parallel::Pvm',
       [os_freebsd,
@@ -1071,8 +1078,10 @@ sub mapping {
       [like_debian,
        [package => ['libpoppler-dev', 'libpoppler-glib-dev']]]],
 
-#	# for Prima...
-#	package { "libX11": ensure => installed }
+     [cpanmod => 'Prima',
+      # XXX what about freebsd?
+      [like_debian,
+       [package => [qw(libx11-dev libxpm-dev libgif-dev libpng12-dev libjpeg-dev), 'pkg-config | pkgconf']]]], # XXX maybe also add libtiff...
 
      [cpanmod => 'PulseAudio',
       [package => 'pulseaudio']],
