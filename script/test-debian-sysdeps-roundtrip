@@ -1,0 +1,80 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use FindBin;
+use blib;
+use Getopt::Long;
+
+defined $ENV{PERL_LOCAL_LIB_ROOT}
+    or die <<"EOF";
+Please make sure local::lib is in effect, e.g. by running
+
+    eval \$($^X -Mlocal::lib)
+
+EOF
+
+my $nodistroprefs;
+GetOptions(
+	   'distroprefs!' => sub {
+	       $nodistroprefs = 1 if !$_[1];
+	   },
+	   'pre=s@' => \my @pre,
+	  )
+    or die "usage?";
+
+my @mod_or_dist = @ARGV;
+if (!@mod_or_dist) {
+    die "Please specify one or more modules or dists!\n";
+}
+
+sub get_package_list {
+    my @package_list;
+    my @cmd = ('dpkg-query', '-W', '-f', '${Package}\n');
+    open my $fh, '-|', @cmd
+	or die "Error while running @cmd: $!";
+    while(<$fh>) {
+	chomp;
+	push @package_list, $_;
+    }
+    close $fh
+	or die "Error while running @cmd: $!";
+    sort @package_list;    
+}
+
+my %prev_installed_debs = map { ($_,1) } get_package_list();
+
+chdir "$FindBin::RealBin/.."
+    or die $!;
+system('make', 'install');
+
+my $srezic_misc_dir = "$ENV{HOME}/src/srezic-misc/scripts";
+
+for my $mod_or_dist (@mod_or_dist) {
+    {
+	my @cmd = (
+		   "$srezic_misc_dir/sudo_keeper", "$srezic_misc_dir/cpan_smoke_modules",
+		   "-notypescript", # because of sudo
+		   ($nodistroprefs ? '-nodistroprefs' : ()),
+		   (map { ('-pre', $_) } @pre),
+		   "-perl", $^X, $mod_or_dist,
+		  );
+	warn "INFO: @cmd\n";
+	system @cmd;
+	if ($? != 0) {
+	    warn "ERROR: No success running @cmd.\n";
+	}
+    }
+
+    my @extra_installed_debs = grep { !$prev_installed_debs{$_} } get_package_list();
+
+    if (@extra_installed_debs) {
+	my @cmd = ('sudo', 'apt-get', 'purge', '-y', @extra_installed_debs);
+	system @cmd;
+	if ($? != 0) {
+	    warn "ERROR: removing @extra_installed_debs failed.\n";
+	}
+    } else {
+	warn "INFO: no extra packages installed.\n";
+    }
+}
