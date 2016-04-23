@@ -548,6 +548,61 @@ specify alternatives in the form C<package1 | package2 | ...>.
 
 =back
 
+=head1 NOTES, LIMITATIONS, BUGS, TODO
+
+=over
+
+=item * Minimal requirements
+
+It is assumed that some dependencies are still installed: a C<make>, a
+suitable C compiler, maybe C<sudo>, C<patch> (e.g. if there are
+distroprefs using patch files) and of course C<perl>. On linux
+systems, C<lsb-release> is usually required (there's limited support
+for lsb-release-less operation on some Debian-like distributions).
+
+=item * Batch mode
+
+Make sure to configure the plugin with the C<batch> keyword (but read
+also L</Conflicting packages>). In F<CPAN/MyConfig.pm>:
+
+  'plugin_list' => [q[CPAN::Plugin::Sysdeps=batch]],
+
+Installation of system packages requires root priviliges. Therefore
+the installer is run using L<sudo(1)> if the executing user is not
+root. To avoid the need to enter a password either make sure that
+running the installer program (C<apt-get> or so) is made password-less
+in the F<sudoers> file, or run a wrapper like
+L<sudo_keeper|https://github.com/eserte/srezic-misc/blob/master/scripts/sudo_keeper>.
+
+=item * Error handling
+
+Failing things in the plugin are causing C<die()> calls. This can
+happen if packages cannot be installed (e.g. because of a bad network
+connection, the package not existing for the current os or
+distribution, package exists only in a "non-free" repository which
+needs to be added to F</etc/apt/sources.list>, another installer
+process having the exclusive lock...).
+
+=item * Conflicting packages
+
+System prerequisites specified in the mapping may conflict with
+already installed packages. Please note that with the "batch"
+configuration already installed conflicting packages are actually
+removed, at least on Debian systems.
+
+=item * Support for more OS and Linux distributions
+
+The default mapping has support for FreeBSD and Debian-like systems
+(but details are missing for distributions like Ubuntu or Mint).
+Support for other systems is missing.
+
+=item * Windows support
+
+Probably it is possible to support Windows by using installer tools
+like chocolatey.
+
+=back
+
 =head1 AUTHOR
 
 Slaven Rezic
