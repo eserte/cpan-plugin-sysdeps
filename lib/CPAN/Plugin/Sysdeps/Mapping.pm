@@ -1022,6 +1022,11 @@ sub mapping {
 	[package => []]], # not available
        [package => ['libzookeeper-mt-dev', 'zookeeperd']]]],
 
+     [cpanmod => 'NewRelic::Agent',
+      # freebsd does not work, bundled .so files are linux-only
+      [like_debian,
+       [package => ['g++', 'libcurl3']]]],
+
      [cpanmod => 'Ogg::Vorbis::Decoder',
       [os_freebsd,
        [package => 'libvorbis']],
