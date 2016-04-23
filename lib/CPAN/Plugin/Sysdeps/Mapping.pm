@@ -3,6 +3,8 @@ package CPAN::Plugin::Sysdeps::Mapping;
 use strict;
 use warnings;
 
+our $VERSION = '0.02';
+
 # shortcuts
 use constant os_freebsd  => (os => 'freebsd');
 use constant like_debian => (linuxdistro => '~debian');
@@ -1343,7 +1345,7 @@ sub mapping {
       # compiles only with perl < 5.14, see https://rt.cpan.org/Ticket/Display.html?id=66849
       [os_freebsd,
        [package => 'Sablot']],
-      # XXX what about debian?
+      # no sablot package on debian
      ],
 
      [cpanmod => 'XML::Saxon::XSLT2', # needs java
@@ -1365,13 +1367,14 @@ sub mapping {
        # probably needs setting of XERCES_* variables?
        [linuxdistrocodename => ['wheezy'],
 	[package => 'libxerces-c2-dev']],
-       [package => 'libxerces-c-dev']]],
+       [package => 'libxerces-c-dev'], # will not work, because jessie has Xerces-C-3.1.1
+      ]],
 
      [cpanmod => 'X::Osd',
       [os_freebsd,
        [package => 'xosd']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'libxosd-dev']]],
 
      [cpanmod => 'X11::GUITest',
       [like_debian,
@@ -1383,13 +1386,22 @@ sub mapping {
       [os_freebsd,
        [package => 'xcb-util-wm']],
       [like_debian,
-       [package => ['xsltproc', 'libxcb-util0-dev', 'libxcb-xinerama0-dev', 'libxcb-icccm4-dev']]]],
+       [package => ['xsltproc', 'xcb-proto', 'libxcb-util0-dev', 'libxcb-xinerama0-dev', 'libxcb-icccm4-dev']]]],
 
-     [cpanmod => ['ZMQ::LibZMQ4', 'ZMQ::FFI'],
+     [cpanmod => 'ZMQ::FFI',
       [os_freebsd,
        [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists
       [like_debian,
        [package => 'libzmq-dev']]],
+
+     [cpanmod => 'ZMQ::LibZMQ4',
+      [os_freebsd,
+       [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists (?)
+      [like_debian,
+#       [linuxdistrocodename => [qw(squeeze wheezy jessie)],
+#	[package => []]], # libzmq5 is ZMQ4.1 (!); according to http://zeromq.org/distro:debian only available in experimental (and probably sid)
+       [package => 'libzmq3-dev'], # note: libzmq3-dev is ZMQ4.0 (!)
+      ]],
 
      [cpanmod => 'ZOOM::IRSpy',
       [os_freebsd,
