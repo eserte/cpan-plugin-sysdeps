@@ -39,7 +39,6 @@ sub new {
 	    push @additional_mappings, $1;
 	} elsif ($arg =~ m{^debug(?:=(\d+))?$}) {
 	    $debug = defined $1 ? $1 : 1;
-	    require Data::Dumper; # we'll need it
 	} else {
 	    push @args_errors, $arg;
 	}
@@ -51,29 +50,32 @@ sub new {
     if (exists $ENV{CPAN_PLUGIN_SYSDEPS_DEBUG}) {
 	$debug = $ENV{CPAN_PLUGIN_SYSDEPS_DEBUG};
     }
+    if ($debug) {
+	require Data::Dumper; # we'll need it
+    }
 
     my $os                  = $options->{os} || $^O;
     my $linuxdistro         = '';
     my $linuxdistroversion  = 0;
     my $linuxdistrocodename = '';
     if ($os eq 'linux') {
-	# XXX fallback if lsb_release is unavailable?
+	my $linux_info = _detect_linux_distribution();
 	if (defined $options->{linuxdistro}) {
 	    $linuxdistro = $options->{linuxdistro};
 	} else {
-	    chomp($linuxdistro = lc `lsb_release -is`);
+	    $linuxdistro = lc $linux_info->{linuxdistro};
 	}
 
 	if (defined $options->{linuxdistroversion}) {
 	    $linuxdistroversion = $options->{linuxdistroversion};
 	} else {
-	    chomp($linuxdistroversion = `lsb_release -rs`); # XXX make it a version object? or make sure it's just X.Y?
+	    $linuxdistroversion = $linux_info->{linuxdistroversion}; # XXX make it a version object? or make sure it's just X.Y?
 	}
 
 	if (defined $options->{linuxdistrocodename}) {
 	    $linuxdistrocodename = $options->{linuxdistrocodename};
 	} else {
-	    chomp($linuxdistrocodename = `lsb_release -cs`);
+	    $linuxdistrocodename = $linux_info->{linuxdistrocodename};
 	}
     }
 
@@ -145,6 +147,58 @@ sub post_get {
 }
 
 # Helpers/Internal functions/methods
+sub _detect_linux_distribution {
+    if (-x '/usr/bin/lsb_release') {
+	_detect_linux_distribution_lsb_release();
+    } else {
+	_detect_linux_distribution_fallback();
+    }
+}
+
+sub _detect_linux_distribution_lsb_release {
+    my %info;
+    my @cmd = ('lsb_release', '-irc');
+    open my $fh, '-|', @cmd
+	or die "Error while running '@cmd': $!";
+    while(<$fh>) {
+	chomp;
+	if      (m{^Distributor ID:\s+(.*)}) {
+	    $info{linuxdistro} = $1;
+	} elsif (m{^Release:\s+(.*)}) {
+	    $info{linuxdistroversion} = $1;
+	} elsif (m{^Codename:\s+(.*)}) {
+	    $info{linuxdistrocodename} = $1;
+	} else {
+	    warn "WARNING: unexpected '@cmd' output '$_'";
+	}
+    }
+    close $fh
+	or die "Error while running '@cmd': $!";
+    \%info;
+}
+
+sub _detect_linux_distribution_fallback {
+    if (open my $fh, '<', '/etc/issue') {
+	chomp(my $line = <$fh>);
+	if      ($line =~ m{^Linux Mint (\d+) (\S+)}) {
+	    return {linuxdistro => 'LinuxMint', linuxdistroversion => $1, linuxdistrocodename => $2};
+	} elsif ($line =~ m{^(Debian) GNU/Linux (\d+)}) {
+	    my %info = (linuxdistro => $1, linuxdistroversion => $2);
+	    $info{linuxdistrocodename} =
+		{
+		 6 => 'squeeze',
+		 7 => 'wheezy',
+		 8 => 'jessie',
+		}->{$info{linuxdistroversion}};
+	    return \%info;
+	} else {
+	    warn "WARNING: don't know how to handle '$line'";
+	}
+    } else {
+	warn "WARNING: no /etc/issue available";
+    }
+}
+
 sub _is_linux_debian_like {
     my(undef, $linuxdistro) = @_;
     $linuxdistro =~ m{^(debian|ubuntu|linuxmint)$};
@@ -266,9 +320,8 @@ sub _find_missing_deb_packages {
 	if (m{^(\S+) (.*)}) {
 	    if ($2 ne 'install ok installed') {
 		push @missing_packages, $1;
-	    } else {
-		$seen_packages{$1} = 1;
 	    }
+	    $seen_packages{$1} = 1;
 	} else {
 	    warn "ERROR: cannot parse $_, ignore line...\n";
 	}
