@@ -12,6 +12,9 @@ use constant like_debian => (linuxdistro => '~debian');
 sub mapping {
     (
      [cpanmod => 'AI::PBDD',
+      [os_freebsd,
+       # but does not work, kernel.h is also required
+       [package => 'bddsolve']],
       [like_debian,
        # but does not work, kernel.h is also required
        [package => 'libbdd-dev']]],
@@ -31,7 +34,7 @@ sub mapping {
 
      [cpanmod => 'Alien::FFTW3',
       [os_freebsd,
-       [package => 'fftw3']],
+       [package => ['fftw3', 'pkgconf']]],
       [like_debian,
        [package => 'libfftw3-dev', 'pkg-config | pkgconf']]],
 
@@ -55,6 +58,8 @@ sub mapping {
      ],
 
      [cpanmod => 'Alien::libtermkey',
+      [os_freebsd,
+       [package => ['libtool', 'gmake', 'pkgconf']]],
       [like_debian,
        [linuxdistrocodename => ['squeeze','wheezy'],
 	[package => ['libtool', 'libncurses5-dev']]],
@@ -71,26 +76,30 @@ sub mapping {
 
      [cpanmod => 'Alien::RRDtool',
       [os_freebsd,
-       [package => 'pkgconf']],
+       [package => ['pkgconf', 'glib', 'cairo', 'pango', 'libxml2']]],
       [like_debian,
        [package => 'pkg-config | pkgconf']]], # XXX pkg-config probably needed by much more CPAN distributions...
 
      [cpanmod => 'Alien::SVN',
       [os_freebsd,
-       [package => 'apr']],
+       # does not work, configure does not recognize sqlite
+       [package => ['apr', 'sqlite3']]],
       [like_debian,
        [package => ['libapr1-dev', 'libaprutil1-dev', 'libsqlite3-dev', 'zlib1g-dev']]]],
 
      [cpanmod => 'Alien::unibilium',
+      # XXX what about freebsd?
+      [os_freebsd,
+       [package => ['gmake', 'libtool', 'pkgconf']]],
       [like_debian,
        [linuxdistrocodename => ['squeeze','wheezy'],
 	[package => 'libtool']],
        [package => 'libtool-bin']],
-      # XXX what about freebsd?
      ],
 
      [cpanmod => 'Alien::Uninum', # probably!
       [os_freebsd,
+       # XXX does not work, configure does not accept -lgmp
        [package => 'gmp']],
       # XXX what about debian?
      ],
@@ -99,10 +108,11 @@ sub mapping {
       [package => 'unzip']],
 
      [cpanmod => 'Alien::wxWidgets',
-      [like_debian,
-       [package => 'libgtk2.0-dev']],
+      [os_freebsd,
       # XXX what about freebsd?
-     ],
+       [package => ['gtk2', 'pkgconf']]],
+      [like_debian,
+       [package => 'libgtk2.0-dev']]],
 
      [cpanmod => 'Archive::Rar',
       [os_freebsd,
@@ -244,19 +254,21 @@ sub mapping {
 
      [cpanmod => ['Compress::LZMA::Simple', 'Compress::Raw::Lzma'],
       [os_freebsd,
+       # this one does not work with Compress::Raw::Lzma under freebsd
        [package => 'lzmalib']],
       [like_debian,
        # this one does not work with Compress::LZMA::Simple under debian
        [package => 'liblzma-dev']]],
 
      [cpanmod => 'Compress::LZO',
-      # XXX what about freebsd?
+      [os_freebsd,
+       [package => 'lzo2']],
       [like_debian,
        [package => 'liblzo2-dev']]],
 
      [cpanmod => 'Config::Augeas',
       [os_freebsd,
-       [package => 'augeas']],
+       [package => ['augeas', 'pkgconf']]],
       [like_debian,
        # but the wheezy version is too old, module wants 1.0.0, wheezy has 0.10.0
        [package => ['libaugeas-dev', 'pkg-config | pkgconf']]]],
@@ -308,7 +320,7 @@ sub mapping {
 
      [cpanmod => 'CSS::Croco',
       [os_freebsd,
-       [package => 'libcroco']],
+       [package => ['libcroco', 'pkgconf']]],
       [like_debian,
        [package => 'libcroco3-dev']]],
 
@@ -393,7 +405,7 @@ sub mapping {
      ],
 
      [cpanmod => 'DLM::Client',
-      # XXX what about freebsd?
+      # libdlm does not seem to exist on FreeBSD
       [like_debian,
        [package => 'libdlm-dev']]],
      
@@ -456,12 +468,12 @@ sub mapping {
       [package => 'gocr']],
 
      [cpanmod => 'FTDI::D2XX',
-      # XXX what about freebsd?
+      # neither libftdi nor libftdi1 seem to work on FreeBSD
       [like_debian,
        [package => 'libftdi-dev']]],
 
      [cpanmod => 'Fuse',
-      # XXX what about freebsd?
+      # Fuse.pm does not work on freebsd
       [like_debian,
        [package => 'libfuse-dev']]],
 
@@ -473,7 +485,7 @@ sub mapping {
 
      [cpanmod => 'Gearman::XS',
       [os_freebsd,
-       [package => 'gearmand'], # not for small disks, needs boost-libs
+       [package => 'gearmand-devel'], # untested; not for small disks, needs boost-libs
       ],
       [like_debian,
        [package => 'libgearman-dev']]],
