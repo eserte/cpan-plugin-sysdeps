@@ -287,6 +287,14 @@ sub mapping {
 	[package => 'libgmp3-dev']],
        [package => 'libgmp-dev']]],
 
+     [cpanmod => 'Crypt::GCrypt',
+      [os_freebsd,
+       # Does not work, see the patches in the p5-Crypt-GCrypt port
+       [package => 'libgcrypt']],
+      [like_debian,
+       # Neither libgcrypt11 nor libgcrypt20 seem to work.
+       [package => 'libgcrypt11-dev']]],
+
      [cpanmod => 'Crypt::MCrypt',
       [os_freebsd,
        [package => 'libmcrypt']],
@@ -976,7 +984,7 @@ sub mapping {
      ],
 
      [cpanmod => 'Net::LibAsyncNS',
-      # XXX what about freebsd?
+      # it seems there's no libasyncns for freebsd
       [like_debian,
        [package => 'libasyncns-dev']]],
 
@@ -1081,9 +1089,9 @@ sub mapping {
 
      [cpanmod => 'Passwd::Keyring::Gnome',
       [os_freebsd,
-       [package => 'gnome-keyring']],
-      # XXX what about debian?
-     ],
+       [package => ['libgnome-keyring', 'pkgconf']]],
+      [like_debian,
+       [package => 'libgnome-keyring-dev']]],
 
      [cpanmod => 'PerlQt',
       [like_debian,
