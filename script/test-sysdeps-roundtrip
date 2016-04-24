@@ -20,6 +20,7 @@ GetOptions(
 	       $nodistroprefs = 1 if !$_[1];
 	   },
 	   'pre=s@' => \my @pre,
+	   'debug' => \my $debug,
 	  )
     or die "usage?";
 
@@ -101,6 +102,7 @@ my $srezic_misc_dir = "$ENV{HOME}/src/srezic-misc/scripts";
 for my $mod_or_dist (@mod_or_dist) {
     {
 	my @cmd = (
+		   ($debug ? ('env', 'CPAN_PLUGIN_SYSDEPS_DEBUG=1') : ()),
 		   "$srezic_misc_dir/sudo_keeper", "$srezic_misc_dir/cpan_smoke_modules",
 		   "-notypescript", # because of sudo
 		   ($nodistroprefs ? '-nodistroprefs' : ()),
