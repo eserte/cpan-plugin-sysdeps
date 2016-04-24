@@ -1382,7 +1382,7 @@ sub mapping {
 
      [cpanmod => 'XML::Parser',
       [os_freebsd,
-       [package => 'expat2']],
+       [package => 'expat']],
       [like_debian,
        [package => 'libexpat1-dev']]],
 
