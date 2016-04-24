@@ -304,6 +304,8 @@ sub _map_cpandist {
 
 sub _find_missing_deb_packages {
     my($self, @packages) = @_;
+    return () if !@packages;
+
     # taken from ~/devel/deb-install.pl
     my %seen_packages;
     my @missing_packages;
