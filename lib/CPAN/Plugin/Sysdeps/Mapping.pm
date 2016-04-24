@@ -441,6 +441,11 @@ sub mapping {
       [like_debian,
        [package => 'libevent-dev']]],
 
+     [cpanmod => 'ExtUtils::CppGuess',
+      # FreeBSD has c++ in the base system
+      [like_debian,
+       [package => 'g++']]],
+
      [cpanmod => 'ExtUtils::PkgConfig',
       [os_freebsd,
        [package => 'pkgconf']],
@@ -481,6 +486,8 @@ sub mapping {
       [os_freebsd,
        [package => 'gd']],
       [like_debian,
+       [linuxdistrocodename => ['precise'],
+	[package => 'libgd-noxpm-dev | libgd2-xpm-dev']],
        [package => 'libgd-dev']]],
 
      [cpanmod => 'Gearman::XS',
