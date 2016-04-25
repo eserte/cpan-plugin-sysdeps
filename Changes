@@ -1,5 +1,12 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.03  2016-04-25
+	- limited support for systems without lsb_release
+	- implemented batch mode on FreeBSD systenms
+	- documentation improvements (new NOTES and CREDITS sections)
+	- mapping update
+	- new test helper: test-sysdeps-roundtrip
+
 0.02  2016-04-23
 	- mapping update
 
