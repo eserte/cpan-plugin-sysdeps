@@ -608,6 +608,38 @@ like chocolatey.
 
 =back
 
+=head1 CREDITS
+
+This module was developed at the Perl QA Hackathon 2016
+L<http://act.qa-hackathon.org/qa2016/>
+which was made possible by the generosity of many sponsors:
+ 
+L<https://www.fastmail.com> FastMail,
+L<https://www.ziprecruiter.com> ZipRecruiter,
+L<http://www.activestate.com> ActiveState,
+L<http://www.opusvl.com> OpusVL,
+L<https://www.strato.com> Strato,
+L<http://www.surevoip.co.uk> SureVoIP,
+L<http://www.cv-library.co.uk> CV-Library,
+L<https://www.iinteractive.com/> Infinity,
+L<https://opensource.careers/perl-careers/> Perl Careers,
+L<https://www.mongodb.com> MongoDB,
+L<https://www.thinkproject.com> thinkproject!,
+L<https://www.dreamhost.com/> Dreamhost,
+L<http://www.perl6.org/> Perl 6,
+L<http://www.perl-services.de/> Perl Services,
+L<https://www.evozon.com/> Evozon,
+L<http://www.booking.com> Booking,
+L<http://eligo.co.uk> Eligo,
+L<http://www.oetiker.ch/> Oetiker+Partner,
+L<http://capside.com/en/> CAPSiDE,
+L<https://www.procura.nl/> Procura,
+L<https://constructor.io/> Constructor.io,
+L<https://metacpan.org/author/BABF> Robbie Bow,
+L<https://metacpan.org/author/RSAVAGE> Ron Savage,
+L<https://metacpan.org/author/ITCHARLIE> Charlie Gonzalez,
+L<https://twitter.com/jscook2345> Justin Cook.
+
 =head1 AUTHOR
 
 Slaven Rezic
