@@ -5,6 +5,7 @@ Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
 script/cpan-sysdeps
+script/test-sysdeps-roundtrip
 t/basic.t
 t/code.t
 t/lib/TestUtil.pm
