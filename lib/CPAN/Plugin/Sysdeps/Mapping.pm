@@ -952,6 +952,12 @@ sub mapping {
        ],
        [package => 'libnanomsg-dev']]],
 
+     [cpanmod => 'Net::DBus',
+      [os_freebsd,
+       [package => ['dbus', 'pkgconf']]],
+      [like_debian,
+       [package => ['libdbus-1-dev', 'pkg-config | pkgconf']]]],
+
      [cpanmod => 'Net::DBus::GLib',
       [os_freebsd,
        [package => 'dbus-glib']],
