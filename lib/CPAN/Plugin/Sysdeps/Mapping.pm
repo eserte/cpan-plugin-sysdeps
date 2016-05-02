@@ -514,7 +514,7 @@ sub mapping {
       [like_debian,
        [package => 'libshp-dev']]],
 
-     [cpanmod => 'Gimp',
+     [cpanmod => ['Gimp', 'Alien::Gimp'],
       [os_freebsd,
        [package => 'gimp-app']],
       [like_debian,
