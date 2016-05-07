@@ -3,7 +3,7 @@ package CPAN::Plugin::Sysdeps::Mapping;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 
 # shortcuts
 use constant os_freebsd  => (os => 'freebsd');
