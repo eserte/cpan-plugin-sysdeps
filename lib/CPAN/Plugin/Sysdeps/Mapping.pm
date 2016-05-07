@@ -114,6 +114,11 @@ sub mapping {
       [like_debian,
        [package => 'libgtk2.0-dev']]],
 
+     [cpanmod => 'App::Stacktrace',
+      # does not work with freebsd anyway
+      [like_debian,
+       [package => 'gdb']]],
+
      [cpanmod => 'Archive::Rar',
       [os_freebsd,
        [package => 'rar'], # restricted, no binary package available, must build from ports
@@ -383,6 +388,11 @@ sub mapping {
       [like_debian,
        [package => 'firebird-dev']]],
 
+     [cpanmod => 'DBD::mysql',
+      # XXX freebad?
+      [like_debian,
+       [package => 'libmysqlclient-dev']]],
+
      [cpanmod => 'DBD::ODBC',
       [os_freebsd,
        [package => 'unixODBC']],
@@ -521,6 +531,12 @@ sub mapping {
        [package => 'libgimp2.0-dev'], # 90 MB for package + deps
       ]],
 
+     [cpanmod => 'GitDDL::Migrator',
+      # XXX freebsd?
+      [like_debian,
+       [package => 'mysql-server-5.5'], # possible alternative: mariadb-server-10.0; mysql-server-core-5.5 is not enough as resolveip is usually required
+      ]],
+
      [cpanmod => 'Git::Raw',
       [os_freebsd,
        [package => 'libssh2']],
@@ -607,7 +623,7 @@ sub mapping {
       [like_debian,
        [package => 'libsane-dev']]],
 
-     [cpanmod => 'GraphViz',
+     [cpanmod => ['GraphViz', 'GraphViz2::Marpa'],
       # package named the same in freebsd and debian, maybe everywhere?
       [package => 'graphviz']],
 
@@ -615,6 +631,11 @@ sub mapping {
       # XXX what about freebsd?
       [like_debian,
        [package => 'libgnokii-dev']]],
+
+     [cpanmod => 'Gtk2',
+      # XXX freebsd?
+      [like_debian,
+       [package => 'libgtk2.0-dev']]],
 
      [cpanmod => 'Gtk3',
       [os_freebsd,
@@ -1044,8 +1065,13 @@ sub mapping {
      [cpanmod => 'Net::WDNS',
       [os_freebsd,
        [package => 'wdns']],
-      # XXX what about debian?
+      # not available for debian/wheezy and jessie
      ],
+
+     [cpanmod => 'Net::Z3950::ZOOM',
+      # XXX freebsd?
+      [like_debian,
+       [package => 'libyaz-dev']]],
 
      [cpanmod => ['Net::ZooKeeper', 'ZooKeeper'],
       [os_freebsd,
@@ -1377,6 +1403,12 @@ sub mapping {
        [package => 'wx30-gtk2']],
       # XXX what about debian?
      ],
+
+     [cpanmod => 'XML::LibXML',
+      [os_freebsd,
+       [package => 'libxml2']],
+      [like_debian,
+       [package => 'libxml2-dev']]],
 
      [cpanmod => 'XML::LibXSLT',
       [os_freebsd,
