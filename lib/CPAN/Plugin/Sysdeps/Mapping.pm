@@ -337,6 +337,11 @@ sub mapping {
       [like_debian,
        [package => 'libcroco3-dev']]],
 
+     [cpanmod => 'Curses',
+      # ncurses.h is included in FreeBSD base install
+      [like_debian,
+       [package => 'libncurses5-dev']]],
+
      [cpanmod => 'Curses::UI::Mousehandler::GPM',
       [like_debian,
        [package => ['libgpm-dev', 'libncurses5-dev']]]],
@@ -366,7 +371,7 @@ sub mapping {
       # XXX what about debian?
      ],
 
-     [cpanmod => 'DateTime::Astro',
+     [cpanmod => ['DateTime::Astro', 'Math::MPFR'],
       [os_freebsd,
        [package => 'mpfr']],
       [like_debian,
@@ -463,6 +468,11 @@ sub mapping {
       # FreeBSD has c++ in the base system
       [like_debian,
        [package => 'g++']]],
+
+     [cpanmod => 'ExtUtils::F77',
+      # XXX FreeBSD?
+      [like_debian,
+       [package => 'gfortran']]],
 
      [cpanmod => 'ExtUtils::PkgConfig',
       [os_freebsd,
@@ -1132,6 +1142,11 @@ sub mapping {
        [package => []] # no libqt3 anymore for wheezy
       ]],
 
+     [cpanmod => 'PGPLOT',
+      # XXX freebsd?
+      [like_debian,
+       [package => 'pgplot5']]],
+
      [cpanmod => 'Pod::Spelling',
       # XXX what about freebsd?
       [like_debian,
@@ -1395,6 +1410,11 @@ sub mapping {
        [linuxdistrocodename => [qw(squeeze wheezy)],
 	[package => []]],
        [package => 'npm']]],
+
+     [cpanmod => 'WWW::Curl',
+      # XXX freebsd?
+      [like_debian,
+       [package => 'libcurl4-openssl-dev | libcurl4-gnutls-dev | libcurl4-nss-dev']]],
 
      [cpanmod => 'WWW::Mechanize::PhantomJS',
       [os_freebsd,
