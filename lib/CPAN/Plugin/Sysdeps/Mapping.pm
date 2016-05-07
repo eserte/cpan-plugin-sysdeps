@@ -1348,10 +1348,14 @@ sub mapping {
      ],
 
      [cpanmod => 'Tk',
+      # freetype2 and libXft are optional, but highly recommended as it provides nicer fonts
+      # jpeg and png is bundled in Tk, but usually the Tk version is older
       [os_freebsd,
-       [# freetype2 and libXft are optional, but highly recommended as it provides nicer fonts
-	package => ['freetype2', 'libXft', 'libX11']]],
-      # XXX what about debian?
+       [package => qw(freetype2 libXft libX11 jpeg png)]],
+      [like_debian,
+       [package => [qw(libx11-dev libfreetype6-dev libxft-dev libpng-dev libz-dev libjpeg-dev)]]],
+      [linuxdistro => '~fedora',
+       [package => [qw(libX11-devel libXft-devel libpng-devel zlib-devel libjpeg-devel)]]],
      ],
 
      [cpanmod => 'Tk::TIFF',
