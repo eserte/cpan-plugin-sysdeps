@@ -1,5 +1,8 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.05  2016-05-09
+	- mapping update: Curses, ExtUtils::F77, Math::MPFR, WWW::Curl
+
 0.04  2016-05-07
 	- mapping update
 
