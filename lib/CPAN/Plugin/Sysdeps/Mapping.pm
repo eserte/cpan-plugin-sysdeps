@@ -59,6 +59,9 @@ sub mapping {
 
      [cpanmod => 'Alien::libtermkey',
       [os_freebsd,
+       [osvers => qr{^\d\d+\.}, # osvers>=10, proxy check for clang system
+	[package => ['libtool', 'gmake', 'pkgconf', 'libtermkey']], # see also RT #91873
+       ],
        [package => ['libtool', 'gmake', 'pkgconf']]],
       [like_debian,
        [linuxdistrocodename => ['squeeze','wheezy'],
