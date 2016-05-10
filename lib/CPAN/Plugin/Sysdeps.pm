@@ -98,7 +98,12 @@ sub new {
     my @mapping;
     for my $mapping (@additional_mappings, 'CPAN::Plugin::Sysdeps::Mapping') {
 	if (-r $mapping) {
-	    push @mapping, require $mapping;
+	    open my $fh, '<', $mapping
+		or die "Can't load $mapping: $!";
+	    local $/;
+	    my $buf = <$fh>;
+	    push @mapping, eval $buf;
+	    die "Error while loading $mapping: $@" if $@;
 	} else {
 	    eval "require $mapping"; die "Can't load $mapping: $@" if $@;
 	    push @mapping, $mapping->mapping;
