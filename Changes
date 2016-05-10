@@ -1,5 +1,11 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.06  2016-05-10
+	- support for osvers (freebsd only)
+	- fix loading of custom mappings
+	- mapping update
+	- more tests
+
 0.05  2016-05-09
 	- mapping update: Curses, ExtUtils::F77, Math::MPFR, WWW::Curl
 

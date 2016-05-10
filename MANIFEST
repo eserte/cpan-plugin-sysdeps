@@ -11,4 +11,6 @@ t/code.t
 t/lib/TestUtil.pm
 t/mapping/code.pl
 t/mapping/fail_likelinuxdistro.pl
+t/mapping/sample.pl
+t/sample.t
 t/traverse.t
