@@ -202,6 +202,7 @@ sub _detect_linux_distribution_fallback {
     } else {
 	warn "WARNING: no /etc/issue available";
     }
+    return {};
 }
 
 sub _is_linux_debian_like {
