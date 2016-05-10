@@ -55,6 +55,7 @@ sub new {
     }
 
     my $os                  = $options->{os} || $^O;
+    my $osvers              = '';
     my $linuxdistro         = '';
     my $linuxdistroversion  = 0;
     my $linuxdistrocodename = '';
@@ -80,6 +81,15 @@ sub new {
 	    $linuxdistrocodename = $options->{linuxdistrocodename};
 	} else {
 	    $linuxdistrocodename = $get_linux_info->()->{linuxdistrocodename};
+	}
+    } elsif ($os eq 'freebsd') {
+	# Note: don't use $Config{osvers}, as this is just the OS
+	# version of the system which built the current perl, not the
+	# actually running OS version.
+	if (defined $options->{osvers}) {
+	    $osvers = $options->{osvers};
+	} else {
+	    chomp($osvers = `/sbin/sysctl -n kern.osrelease`);
 	}
     }
 
@@ -121,6 +131,7 @@ sub new {
 	 dryrun              => $dryrun,
 	 debug               => $debug,
 	 os                  => $os,
+	 osvers              => $osvers,
 	 linuxdistro         => $linuxdistro,
 	 linuxdistroversion  => $linuxdistroversion,
 	 linuxdistrocodename => $linuxdistrocodename,
@@ -278,6 +289,8 @@ sub _map_cpandist {
 		    return 0 if !$found && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'os') {
 		    return 0 if !$smartmatch->($self->{os}, $match) && !$TRAVERSE_ONLY;
+		} elsif ($key eq 'osvers') {
+		    return 0 if !$smartmatch->($self->{osvers}, $match) && !$TRAVERSE_ONLY; # XXX should also be able to do numerical comparisons
 		} elsif ($key eq 'linuxdistro') {
 		    if ($match =~ m{^~(debian|fedora)}) {
 			my $method = "_is_linux_$1_like";
