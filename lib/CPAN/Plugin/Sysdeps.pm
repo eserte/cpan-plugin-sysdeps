@@ -59,23 +59,27 @@ sub new {
     my $linuxdistroversion  = 0;
     my $linuxdistrocodename = '';
     if ($os eq 'linux') {
-	my $linux_info = _detect_linux_distribution();
+	my $linux_info;
+	my $get_linux_info = sub {
+	    return $linux_info if $linux_info;
+	    return $linux_info = _detect_linux_distribution();
+	};
 	if (defined $options->{linuxdistro}) {
 	    $linuxdistro = $options->{linuxdistro};
 	} else {
-	    $linuxdistro = lc $linux_info->{linuxdistro};
+	    $linuxdistro = lc $get_linux_info->()->{linuxdistro};
 	}
 
 	if (defined $options->{linuxdistroversion}) {
 	    $linuxdistroversion = $options->{linuxdistroversion};
 	} else {
-	    $linuxdistroversion = $linux_info->{linuxdistroversion}; # XXX make it a version object? or make sure it's just X.Y?
+	    $linuxdistroversion = $get_linux_info->()->{linuxdistroversion}; # XXX make it a version object? or make sure it's just X.Y?
 	}
 
 	if (defined $options->{linuxdistrocodename}) {
 	    $linuxdistrocodename = $options->{linuxdistrocodename};
 	} else {
-	    $linuxdistrocodename = $linux_info->{linuxdistrocodename};
+	    $linuxdistrocodename = $get_linux_info->()->{linuxdistrocodename};
 	}
     }
 
