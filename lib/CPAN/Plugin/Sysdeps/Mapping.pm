@@ -7,6 +7,7 @@ our $VERSION = '0.06';
 
 # shortcuts
 use constant os_freebsd  => (os => 'freebsd');
+use constant os_windows  => (os => 'MSWin32');
 use constant like_debian => (linuxdistro => '~debian');
 
 sub mapping {
@@ -312,10 +313,12 @@ sub mapping {
        ],
        [package => 'libmcrypt-dev']]],
 
-     [cpanmod => ['Crypt::OpenSSL::Random', 'Net::SSLeay'],
+     [cpanmod => ['Crypt::OpenSSL::Random', 'Net::SSLeay', 'IO::Socket::SSL'],
       # freebsd has all libssl in the base system
       [like_debian,
-       [package => 'libssl-dev']]],
+       [package => 'libssl-dev']],
+      [os_windows,
+       [package => 'openssl.light']]], # XXX create openssl.dev
 
      [cpanmod => 'Crypt::OTR',
       [os_freebsd,
@@ -1423,6 +1426,8 @@ sub mapping {
       [os_freebsd,
        [package => 'phantomjs']],
       # for debian no package available, but see https://gist.github.com/julionc/7476620
+      [os_windows,
+       [package => 'phantomjs']],
      ],
 
      [cpanmod => 'Wx',
