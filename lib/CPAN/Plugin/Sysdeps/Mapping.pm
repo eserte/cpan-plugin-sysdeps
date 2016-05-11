@@ -1424,6 +1424,8 @@ sub mapping {
       [os_freebsd,
        [package => 'phantomjs']],
       # for debian no package available, but see https://gist.github.com/julionc/7476620
+      [os_windows,
+       [package => 'phantomjs']],
      ],
 
      [cpanmod => 'Wx',
