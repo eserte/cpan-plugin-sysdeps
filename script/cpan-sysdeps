@@ -22,6 +22,7 @@ GetOptions(
 	   'linuxdistrocodename=s' => \my $linuxdistrocodename,
 	   'uninstalled'           => \my $uninstalled,
 	   'debug'                 => \my $debug,
+	   'n|dryrun'              => \my $dryrun,
 	  )
     or usage;
 
@@ -49,6 +50,7 @@ my $sysdeps = CPAN::Plugin::Sysdeps->new({
 					  linuxdistrocodename => $linuxdistrocodename,
 					 },
 					 ($debug ? 'debug' : ()),
+					 ($dryrun? 'dryrun' : ()),
 					);
 my @packages = $sysdeps->_map_cpandist($dist);
 if (@packages) {
@@ -57,6 +59,10 @@ if (@packages) {
     }
     print join("\n", @packages), "\n";
 }
+
+# When proposing a dryrun, output the commands we would run:
+$sysdeps->post_get($dist)
+    if $dryrun;
 
 __END__
 
