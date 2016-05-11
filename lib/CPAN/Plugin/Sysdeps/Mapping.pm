@@ -7,6 +7,7 @@ our $VERSION = '0.06';
 
 # shortcuts
 use constant os_freebsd  => (os => 'freebsd');
+use constant os_windows  => (os => 'MSWin32');
 use constant like_debian => (linuxdistro => '~debian');
 
 sub mapping {
