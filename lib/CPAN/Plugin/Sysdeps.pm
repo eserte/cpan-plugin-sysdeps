@@ -27,7 +27,7 @@ sub new {
 	    } else {
 		$options = $arg;
 	    }
-	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum)$}) { # XXX are there more package installers?
+	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum|chocolatey)$}) { # XXX are there more package installers?
 	    $installer = $1;
 	} elsif ($arg eq 'batch') {
 	    $batch = 1;
@@ -104,6 +104,8 @@ sub new {
 	    } else {
 		die __PACKAGE__ . " has no support for linux distribution $linuxdistro $linuxdistroversion\n";
 	    }
+	} elsif( $os eq 'MSWin32' ) {
+	    $installer = 'chocolatey';
 	} else {
 	    die __PACKAGE__ . " has no support for operating system $os\n";
 	}
@@ -142,6 +144,18 @@ sub new {
     $self;
 }
 
+# Run a process in an elevated window, wait for its exit
+sub win32_run_elevated {
+    my( $exe, @args ) = @_;
+    
+    my $args = join " ", map { if(/[ "]/) { s!"!\\"!g; qq{"$_"} } else { $_ }} @args;
+
+    my $ps1 = sprintf q{powershell -NonInteractive -NoProfile -Command "$process = Start-Process '%s' -PassThru -ErrorAction Stop -ArgumentList '%s' -Verb RunAs -Wait; Exit $process.ExitCode"},
+        $exe, $args;
+
+    $ps1
+}
+
 # CPAN.pm plugin hook method
 sub post_get {
     my($self, $dist) = @_;
@@ -156,9 +170,10 @@ sub post_get {
 		    warn "DRYRUN: @$cmd\n";
 		} else {
 		    warn "INFO: run @$cmd...\n";
+
 		    system @$cmd;
 		    if ($? != 0) {
-			die "@$cmd failed, stop installation";
+		    	die "@$cmd failed, stop installation";
 		    }
 		}
 	    }
@@ -351,9 +366,7 @@ sub _find_missing_deb_packages {
 	    warn "ERROR: cannot parse $_, ignore line...\n";
 	}
     }
-    waitpid $pid, 0;
-
-    for my $package (@packages) {
+    waitpid $pid, 0;    for my $package (@packages) {
 	if (!$seen_packages{$package}) {
 	    push @missing_packages, $package;
 	}
@@ -389,6 +402,16 @@ sub _filter_uninstalled_packages {
 	    }
 	}
 	@packages = @missing_packages;
+    } elsif ($self->{os} eq 'MSWin32') {
+	my %installed_packages = map {
+	        /^(.*)\|(.*)$/
+		    or next;
+		$1 => $2
+	    } grep {
+	        /^(.*)\|(.*)$/
+	    }`$self->{installer} list --localonly --limit-output`;
+	my @missing_packages = grep { ! $installed_packages{ $_ }} @packages;
+	@packages = @missing_packages;
     } else {
 	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
     }
@@ -412,6 +435,8 @@ sub _install_packages_commands {
     } else {
 	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
 	    @pre_cmd = ('sh', '-c', 'echo -n "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
+	} elsif ($self->{installer} =~ m{^(chocolatey)$}) {
+	    # Nothing to do here
 	} else {
 	    warn "batch=0 NYI for $self->{installer}";
 	}
@@ -420,7 +445,17 @@ sub _install_packages_commands {
     if ($self->{batch} && $self->{installer} eq 'pkg') {
 	push @install_cmd, '-y';
     }
+
+    if ($self->{batch} && $self->{installer} eq 'chocolatey') {
+	push @install_cmd, '-y';
+    }
+
     push @install_cmd, @packages;
+    
+    if( $self->{os} eq 'MSWin32') {
+        # Wrap the thing in our small powershell program
+        @install_cmd = win32_run_elevated(@install_cmd);
+    };
 
     ((@pre_cmd ? \@pre_cmd : ()), \@install_cmd);
 }
