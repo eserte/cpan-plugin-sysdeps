@@ -23,6 +23,7 @@ GetOptions(
 	   'uninstalled'           => \my $uninstalled,
 	   'debug'                 => \my $debug,
 	   'n|dryrun'              => \my $dryrun,
+	   'run'                   => \my $run,
 	  )
     or usage;
 
@@ -62,7 +63,7 @@ if (@packages) {
 
 # When proposing a dryrun, output the commands we would run:
 $sysdeps->post_get($dist)
-    if $dryrun;
+    if $dryrun or $run;
 
 __END__
 
