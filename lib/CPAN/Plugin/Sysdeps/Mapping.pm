@@ -313,10 +313,12 @@ sub mapping {
        ],
        [package => 'libmcrypt-dev']]],
 
-     [cpanmod => ['Crypt::OpenSSL::Random', 'Net::SSLeay'],
+     [cpanmod => ['Crypt::OpenSSL::Random', 'Net::SSLeay', 'IO::Socket::SSL'],
       # freebsd has all libssl in the base system
       [like_debian,
-       [package => 'libssl-dev']]],
+       [package => 'libssl-dev']],
+      [os_windows,
+       [package => 'openssl.light']]], # XXX create openssl.dev
 
      [cpanmod => 'Crypt::OTR',
       [os_freebsd,
