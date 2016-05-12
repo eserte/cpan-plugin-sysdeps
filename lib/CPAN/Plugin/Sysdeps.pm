@@ -430,12 +430,16 @@ sub _install_packages_commands {
     if ($self->{batch}) {
 	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
 	    push @install_cmd, '-y';
+	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
+	    # see below
 	} else {
 	    warn "batch=1 NYI for $self->{installer}";
 	}
     } else {
 	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
 	    @pre_cmd = ('sh', '-c', 'echo -n "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
+	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
+	    # see below
 	} elsif ($self->{installer} =~ m{^(chocolatey)$}) {
 	    # Nothing to do here
 	} else {
