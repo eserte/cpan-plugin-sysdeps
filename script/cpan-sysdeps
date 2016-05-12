@@ -176,6 +176,10 @@ example on a Debian-like system:
 
     apt-get install $(cpan-sysdeps --uninstalled Foo::Bar)
 
+Or everywhere:
+
+    cpan-sysdeps Foo::Bar --run
+
 =head1 AUTHOR
 
 Slaven Rezic
