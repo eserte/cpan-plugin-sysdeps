@@ -616,6 +616,54 @@ specify alternatives in the form C<package1 | package2 | ...>.
 
 =back
 
+=head1 USE CASES
+
+=head2 CPAN TESTERS
+
+Install system packages automatically while testing CPAN modules. If
+the smoke system runs under an unprivileged user, then a sudoers rule
+has to be added. For such a user named C<cpansand> on a Debian-like
+system this could look like this (two rules for batch and non-batch
+mode):
+
+    cpansand ALL=(ALL) NOPASSWD: /usr/bin/apt-get -y install *
+    cpansand ALL=(ALL) NOPASSWD: /usr/bin/apt-get install *
+
+=head2 USE WITHOUT CPAN.PM
+
+It's possible to use this module also without CPAN.pm through the
+L<cpan-sysdeps> script.
+
+For example, just list the system prereqs for L<Imager> on a FreeBSD
+system:
+
+    $ cpan-sysdeps --cpanmod Imager
+    freetype2
+    giflib-nox11
+    png
+    tiff
+    jpeg
+
+On a Debian system the output will look like:
+
+    libfreetype6-dev
+    libgif-dev
+    libpng12-dev
+    libjpeg-dev
+    libtiff5-dev
+
+Just show the packages which are yet uninstalled:
+
+    $ cpan-sysdeps --cpanmod Imager --uninstalled
+
+Show what L<CPAN::Plugin::Sysdeps> would execute if it was run:
+
+    $ cpan-sysdeps --cpanmod Imager --dryrun
+
+And actually run and install the missing packages:
+
+    $ cpan-sysdeps --cpanmod Imager --run
+
 =head1 NOTES, LIMITATIONS, BUGS, TODO
 
 =over
