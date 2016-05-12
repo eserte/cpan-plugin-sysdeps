@@ -130,6 +130,14 @@ If there happen to be alternatives in the package specifications and
 all of these are not installed, then these will be reduced to the
 first package in the specification.
 
+=item C<--dryrun>
+
+Show the package installation commands which would run.
+
+=item C<--run>
+
+Actually run the package installation commands.
+
 =item C<--debug>
 
 Enable the C<debug> option of L<CPAN::Plugin::Sysdeps>.
