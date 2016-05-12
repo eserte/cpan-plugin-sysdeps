@@ -58,7 +58,7 @@ if (@packages) {
     if ($uninstalled) {
 	@packages = $sysdeps->_filter_uninstalled_packages(@packages);
     }
-    print join("\n", @packages), "\n";
+    print "$_\n" for @packages;
 }
 
 # When proposing a dryrun, output the commands we would run:
