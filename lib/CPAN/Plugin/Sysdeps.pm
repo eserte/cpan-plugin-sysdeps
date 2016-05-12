@@ -486,7 +486,9 @@ B<CPAN::Plugin::Sysdeps> is a plugin for L<CPAN.pm|CPAN> to install
 non-CPAN dependencies automatically. Currently, the list of required
 system dependencies is maintained in a static data structure in
 L<CPAN::Plugin::Sysdeps::Mapping>. Supported operations systems and
-distributions are FreeBSD and Debian-like Linux distributions.
+distributions are FreeBSD and Debian-like Linux distributions. There
+are also some module rules for Fedora-like Linux distributions and
+Windows through chocolatey.
 
 The plugin may be configured like this:
 
@@ -712,11 +714,6 @@ The default mapping has support for FreeBSD and Debian-like systems
 (but details are missing for distributions like Ubuntu or Mint).
 Support for other systems is missing.
 
-=item * Windows support
-
-Probably it is possible to support Windows by using installer tools
-like chocolatey.
-
 =back
 
 =head1 CREDITS
@@ -750,6 +747,10 @@ L<https://metacpan.org/author/BABF> Robbie Bow,
 L<https://metacpan.org/author/RSAVAGE> Ron Savage,
 L<https://metacpan.org/author/ITCHARLIE> Charlie Gonzalez,
 L<https://twitter.com/jscook2345> Justin Cook.
+
+=head1 CONTRIBUTORS
+
+Max Maischein (CORION) - Windows/chocolatey support
 
 =head1 AUTHOR
 
