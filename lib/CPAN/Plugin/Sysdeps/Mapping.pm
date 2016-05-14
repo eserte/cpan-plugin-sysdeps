@@ -26,6 +26,11 @@ sub mapping {
        [package => 'g++']],
      ],
 
+     ## Does not help, tests still fail (Alien-Electron-0.102):
+     #[cpanmod => 'Alien::Electron',
+     # [like_debian,
+     #  [package => 'libnotify4']]],
+
      [cpanmod => 'Alien::ffmpeg',
       [os_freebsd,
        [package => 'yasm']],
@@ -269,6 +274,9 @@ sub mapping {
        # this one does not work with Compress::LZMA::Simple under debian
        [package => 'liblzma-dev']]],
 
+     # Try also the patches listed in
+     # https://rt.cpan.org/Ticket/Display.html?id=86115
+     # (or the corresponding srezic-cpan-distroprefs file)
      [cpanmod => 'Compress::LZO',
       [os_freebsd,
        [package => 'lzo2']],
@@ -753,6 +761,12 @@ sub mapping {
        [package => 'opencv']],
       [like_debian,
        [package => ['libcv-dev', 'libhighgui-dev']]]],
+
+     [cpanmod => 'Image::Scale',
+      [os_freebsd,
+       [package => [qw(png jpeg)]]],
+      [like_debian,
+       [package => [qw(libjpeg-dev libpng12-dev)]]]],
 
      [cpanmod => 'Image::SubImageFind',
       # XXX what about freebsd?
@@ -1248,7 +1262,7 @@ sub mapping {
        ],
        [package => 'couchdb']]],
 
-     [cpanmod => 'SVN::Hooks', # XXX maybe more SVN::* modules?
+     [cpanmod => ['SVN::Hooks', 'SVN::Agent'], # XXX maybe more SVN::* modules?
       [package => 'subversion']],
 
      [cpanmod => 'Sword',
@@ -1386,6 +1400,11 @@ sub mapping {
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => 'libtiff4-dev']],
        [package => 'libtiff5-dev']]],
+
+     [cpanmod => 'Tk::Zinc',
+      # XXX freebsd?
+      [like_debian,
+       [package => ['mesa-common-dev', 'libglu1-mesa-dev']]]],
 
      [cpanmod => 'UDT::Simple',
       [os_freebsd,
