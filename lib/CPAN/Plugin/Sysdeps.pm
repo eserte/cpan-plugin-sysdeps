@@ -446,6 +446,9 @@ sub _install_packages_commands {
 	    warn "batch=0 NYI for $self->{installer}";
 	}
     }
+    if ($self->{installer} eq 'pkg') { # FreeBSD's pkg
+	push @install_cmd, '--option', 'LOCK_RETRIES=86400'; # wait quite long in case there are concurrent pkg runs
+    }
     push @install_cmd, 'install'; # XXX is this universal?
     if ($self->{batch} && $self->{installer} eq 'pkg') {
 	push @install_cmd, '-y';
