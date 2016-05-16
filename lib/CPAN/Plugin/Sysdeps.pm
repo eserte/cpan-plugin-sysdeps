@@ -759,6 +759,14 @@ Max Maischein (CORION) - Windows/chocolatey support
 
 Slaven Rezic
 
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2016 by Slaven ReziE<x0107>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.8 or,
+at your option, any later version of Perl 5 you may have available.
+
 =head1 SEE ALSO
 
 L<cpan-sysdeps>, L<CPAN>, L<apt-get(1)>, L<aptitude(1)>, L<pkg(8)>, L<yum(1)>.
