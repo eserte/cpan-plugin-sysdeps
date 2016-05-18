@@ -1,5 +1,8 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.08  2016-05-18
+	- support for Mac OS X via homebrew
+
 0.07  2016-05-12
 	- support for Windows via chocolatey (thanks CORION!)
 	- new cpan-sysdeps options: --dryrun, --run (CORION)

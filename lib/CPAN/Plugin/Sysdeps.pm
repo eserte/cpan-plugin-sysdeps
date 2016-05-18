@@ -3,7 +3,7 @@ package CPAN::Plugin::Sysdeps;
 use strict;
 use warnings;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 use Hash::Util 'lock_keys';
 use List::Util 'first';
@@ -27,7 +27,7 @@ sub new {
 	    } else {
 		$options = $arg;
 	    }
-	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum|chocolatey)$}) { # XXX are there more package installers?
+	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum|chocolatey|homebrew)$}) { # XXX are there more package installers?
 	    $installer = $1;
 	} elsif ($arg eq 'batch') {
 	    $batch = 1;
@@ -106,6 +106,8 @@ sub new {
 	    }
 	} elsif( $os eq 'MSWin32' ) {
 	    $installer = 'chocolatey';
+	} elsif ($os eq 'darwin') {
+	    $installer = 'homebrew';
 	} else {
 	    die __PACKAGE__ . " has no support for operating system $os\n";
 	}
@@ -413,6 +415,23 @@ sub _filter_uninstalled_packages {
 	    } `$self->{installer} list --localonly --limit-output`;
 	my @missing_packages = grep { ! $installed_packages{ $_ }} @packages;
 	@packages = @missing_packages;
+    } elsif ($self->{installer} eq 'homebrew') {
+	my @missing_packages;
+	for my $package (@packages) {
+	    my @cmd = ('brew', 'ls', '--versions', $package);
+	    open my $fh, '-|', @cmd
+		or die "Error running @cmd: $!";
+	    my $has_package;
+	    while(<$fh>) {
+		$has_package = 1;
+		last;
+	    }
+	    close $fh
+		or die "Error running @cmd: $!";
+	    if (!$has_package) {
+		push @missing_packages, $package;
+	    }
+	}
     } else {
 	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
     }
@@ -423,15 +442,31 @@ sub _install_packages_commands {
     my($self, @packages) = @_;
     my @pre_cmd;
     my @install_cmd;
-    if ($< != 0) {
-	push @install_cmd, 'sudo';
+
+    # sudo or not?
+    if ($self->{installer} eq 'homebrew') {
+	# may run as unprivileged user
+    } else {
+	if ($< != 0) {
+	    push @install_cmd, 'sudo';
+	}
     }
-    push @install_cmd, $self->{installer};
+
+    # the installer executable
+    if ($self->{installer} eq 'homebrew') {
+	push @install_cmd, 'brew';
+    } else {
+	push @install_cmd, $self->{installer};
+    }
+
+    # batch, default or interactive
     if ($self->{batch}) {
 	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
 	    push @install_cmd, '-y';
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
+	} elsif ($self->{installer} eq 'homebrew') {
+	    # batch by default
 	} else {
 	    warn "batch=1 NYI for $self->{installer}";
 	}
@@ -442,18 +477,26 @@ sub _install_packages_commands {
 	    # see below
 	} elsif ($self->{installer} =~ m{^(chocolatey)$}) {
 	    # Nothing to do here
+	} elsif ($self->{installer} eq 'homebrew') {
+	    # the sh builtin echo does not understand -n -> use printf
+	    @pre_cmd = ('sh', '-c', 'printf %s "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
 	} else {
 	    warn "batch=0 NYI for $self->{installer}";
 	}
     }
+
+    # special options
     if ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	push @install_cmd, '--option', 'LOCK_RETRIES=86400'; # wait quite long in case there are concurrent pkg runs
     }
+
+    # the installer subcommand
     push @install_cmd, 'install'; # XXX is this universal?
+
+    # post options
     if ($self->{batch} && $self->{installer} eq 'pkg') {
 	push @install_cmd, '-y';
     }
-
     if ($self->{batch} && $self->{installer} eq 'chocolatey') {
 	push @install_cmd, '-y';
     }
@@ -485,13 +528,14 @@ In the CPAN.pm shell:
 
 =head1 DESCRIPTION
 
-B<CPAN::Plugin::Sysdeps> is a plugin for L<CPAN.pm|CPAN> to install
-non-CPAN dependencies automatically. Currently, the list of required
-system dependencies is maintained in a static data structure in
-L<CPAN::Plugin::Sysdeps::Mapping>. Supported operations systems and
-distributions are FreeBSD and Debian-like Linux distributions. There
-are also some module rules for Fedora-like Linux distributions and
-Windows through chocolatey.
+B<CPAN::Plugin::Sysdeps> is a plugin for L<CPAN.pm|CPAN> (version >=
+2.07) to install non-CPAN dependencies automatically. Currently, the
+list of required system dependencies is maintained in a static data
+structure in L<CPAN::Plugin::Sysdeps::Mapping>. Supported operations
+systems and distributions are FreeBSD and Debian-like Linux
+distributions. There are also some module rules for Fedora-like Linux
+distributions, Windows through chocolatey, and Mac OS X through
+homebrew.
 
 The plugin may be configured like this:
 
@@ -501,7 +545,7 @@ Possible arguments are:
 
 =over
 
-=item C<apt-get>, C<aptitude>, <pkg>, <yum>
+=item C<apt-get>, C<aptitude>, C<pkg>, C<yum>, C<homebrew>
 
 Force a particular installer for system packages. If not set, then the
 plugin find a default for the current operating system or linux
@@ -515,10 +559,15 @@ distributions:
 
 =item FreeBSD: C<pkg>
 
+=item Windows: C<chocolatey>
+
+=item Mac OS X: C<homebrew>
+
 =back
 
 Additionally, L<sudo(1)> is prepended before the installer programm if
-the current user is not a privileged one.
+the current user is not a privileged one, and the installer requires
+elevated privileges.
 
 =item C<batch>
 
@@ -669,17 +718,37 @@ And actually run and install the missing packages:
 
     $ cpan-sysdeps --cpanmod Imager --run
 
+=head2 USE WITH CPAN_SMOKE_MODULES
+
+C<cpan_smoke_modules> is another C<CPAN.pm> wrapper specially designed
+for CPAN Testing (to be found at
+L<https://github.com/eserte/srezic-misc>. If C<CPAN.pm> is already
+configured to use the plugin, then C<cpan_smoke_modules> will also use
+this configuration. But it's also possible to use
+C<cpan_smoke_modules> without changes to C<CPAN/MyConfig.pm>, and even
+with an uninstalled C<CPAN::Plugin::Sysdeps>. This is especially
+interesting when testing changes in the Mapping.pm file. An sample
+run:
+
+    cd .../path/to/CPAN-Plugin-Sysdeps
+    perl Makefile.PL && make all test
+    env PERL5OPT="-Mblib=$(pwd)" cpan_smoke_modules -perl pistachio-perl --cpanconf-unchecked plugin_list=CPAN::Plugin::Sysdeps Imager
+
 =head1 NOTES, LIMITATIONS, BUGS, TODO
 
 =over
 
 =item * Minimal requirements
 
-It is assumed that some dependencies are still installed: a C<make>, a
-suitable C compiler, maybe C<sudo>, C<patch> (e.g. if there are
-distroprefs using patch files) and of course C<perl>. On linux
+CPAN.pm supports the plugin system since 2.07. If the CPAN.pm is
+older, then still the C<cpan-sysdeps> script can be used.
+
+It is assumed that some system dependencies are still installed: a
+C<make>, a suitable C compiler, maybe C<sudo>, C<patch> (e.g. if there
+are distroprefs using patch files) and of course C<perl>. On linux
 systems, C<lsb-release> is usually required (there's limited support
-for lsb-release-less operation on some Debian-like distributions).
+for lsb-release-less operation on some Debian-like distributions). On
+Mac OS X systems C<homebrew> has to be installed.
 
 =item * Batch mode
 

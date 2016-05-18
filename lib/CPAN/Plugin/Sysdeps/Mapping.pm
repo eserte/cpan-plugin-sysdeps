@@ -8,6 +8,7 @@ our $VERSION = '0.07';
 # shortcuts
 use constant os_freebsd  => (os => 'freebsd');
 use constant os_windows  => (os => 'MSWin32');
+use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
 use constant like_debian => (linuxdistro => '~debian');
 
 sub mapping {
@@ -530,7 +531,9 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => ['precise'],
 	[package => 'libgd-noxpm-dev | libgd2-xpm-dev']],
-       [package => 'libgd-dev']]],
+       [package => 'libgd-dev']],
+      [os_darwin,
+       [package => 'libgd']]],
 
      [cpanmod => 'Gearman::XS',
       [os_freebsd,
@@ -780,6 +783,8 @@ sub mapping {
        [linuxdistrocodename => 'wheezy',
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
        [package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev libtiff5-dev)]]],
+      [os_darwin,
+       [package => [qw(freetype giflib libpng jpeg libtiff)]]],
      ],
 
      [cpanmod => 'Imager::Font::T1',
