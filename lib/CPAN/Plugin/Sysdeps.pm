@@ -235,6 +235,8 @@ sub _is_linux_fedora_like {
     $linuxdistro =~ m{^(fedora|redhat|centos)$};
 }
 
+sub _is_apt_installer { shift->{installer} =~m{^(apt-get|aptitude)$} }
+
 # Run a process in an elevated window, wait for its exit
 sub _win32_run_elevated {
     my($exe, @args) = @_;
@@ -379,7 +381,7 @@ sub _find_missing_deb_packages {
 
 sub _filter_uninstalled_packages {
     my($self, @packages) = @_;
-    if ($self->_is_linux_debian_like($self->{linuxdistro})) {
+    if ($self->_is_apt_installer) {
 	my @plain_packages;
 	my @missing_packages;
 	for my $package_spec (@packages) {
@@ -462,7 +464,7 @@ sub _install_packages_commands {
 
     # batch, default or interactive
     if ($self->{batch}) {
-	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
+	if ($self->_is_apt_installer) {
 	    push @install_cmd, '-y';
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
@@ -472,7 +474,7 @@ sub _install_packages_commands {
 	    warn "batch=1 NYI for $self->{installer}";
 	}
     } else {
-	if ($self->{installer} =~ m{^(apt-get|aptitude)$}) {
+	if ($self->_is_apt_installer) {
 	    @pre_cmd = ('sh', '-c', 'echo -n "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
