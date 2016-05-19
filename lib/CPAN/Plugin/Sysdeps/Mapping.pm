@@ -664,7 +664,7 @@ sub mapping {
        [package => 'libsane-dev']]],
 
      [cpanmod => ['GraphViz', 'GraphViz2::Marpa'],
-      # package named the same in freebsd and debian, maybe everywhere?
+      # package named the same in freebsd, debian and macosx/homebrew, maybe everywhere?
       [package => 'graphviz']],
 
      [cpanmod => 'GSM::Gnokii',
@@ -1108,7 +1108,9 @@ sub mapping {
       [os_freebsd,
        [package => 'libssh2']],
       [like_debian,
-       [package => 'libssh2-1-dev']]],
+       [package => 'libssh2-1-dev']],
+      # Net-SSH2-0.58 already installs the homebrew package for libssh2 itself
+     ],
 
      [cpanmod => 'Net::WDNS',
       [os_freebsd,
