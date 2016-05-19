@@ -248,7 +248,9 @@ sub mapping {
       [os_freebsd,
        [package => 'cairo']],
       [like_debian,
-       [package => 'libcairo2-dev']]],
+       [package => 'libcairo2-dev']],
+      [os_darwin,
+       [package => 'cairo']]],
 
      [cpanmod => 'CDB::TinyCDB',
       [os_freebsd,
@@ -493,7 +495,9 @@ sub mapping {
       [os_freebsd,
        [package => 'pkgconf']],
       [like_debian,
-       [package => 'pkg-config | pkgconf']]],
+       [package => 'pkg-config | pkgconf']],
+      [os_darwin,
+       [package => 'pkg-config']]],
 
      [cpanmod => 'File::LibMagic',
       # XXX what about freebsd?
@@ -545,6 +549,15 @@ sub mapping {
      [cpanmod => 'Geo::Hex::V3::XS',
       [package => 'cmake']],
 
+     [cpanmod => 'Geo::Proj4',
+      [os_freebsd,
+       [package => 'libproj4']],
+      [like_debian,
+       [package => 'libproj-dev']],
+      [os_darwin,
+       [package => 'proj']],
+     ],
+      
      [cpanmod => 'Geo::Shapelib',
       [os_freebsd,
        [package => 'shapelib']],
@@ -1146,7 +1159,10 @@ sub mapping {
       [os_freebsd,
        [package => 'pango']],
       [like_debian,
-       [package => 'libpango1.0-dev']]],
+       [package => 'libpango1.0-dev']],
+      [os_darwin,
+       [package => 'pango']],
+     ],
 
      [cpanmod => 'Parallel::Pvm',
       [os_freebsd,
