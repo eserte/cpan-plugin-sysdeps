@@ -432,6 +432,7 @@ sub _filter_uninstalled_packages {
 		push @missing_packages, $package;
 	    }
 	}
+	@packages = @missing_packages;
     } else {
 	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
     }
