@@ -502,7 +502,9 @@ sub mapping {
      [cpanmod => 'File::LibMagic',
       # XXX what about freebsd?
       [like_debian,
-       [package => 'libmagic-dev']]],
+       [package => 'libmagic-dev']],
+      [os_darwin,
+       [package => 'libmagic']]],
 
      [cpanmod => 'File::MimeInfo',
       [os_freebsd,
