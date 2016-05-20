@@ -537,7 +537,7 @@ sub mapping {
 	[package => 'libgd-noxpm-dev | libgd2-xpm-dev']],
        [package => 'libgd-dev']],
       [os_darwin,
-       [package => 'libgd']]],
+       [package => 'gd']]],
 
      [cpanmod => 'Gearman::XS',
       [os_freebsd,
