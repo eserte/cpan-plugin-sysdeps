@@ -1582,3 +1582,35 @@ sub mapping {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+CPAN::Plugin::Sysdeps::Mapping - a static mapping of CPAN modules to system packages
+
+=head1 SYNOPSIS
+
+    # Not supposed to be used directly
+
+=head1 DESCRIPTION
+
+=head2 mapping
+
+This function returns a mapping data structure as described in
+L<CPAN::Plugin::Sysdeps/MAPPING>.
+
+As shortcuts (and to avoid typos) a number of constants like
+C<os_freebsd> or C<like_debian> are defined and may be used in the
+mapping data structure.
+
+=head1 AUTHOR
+
+Slaven Rezic
+
+=head1 SEE ALSO
+
+L<CPAN::Plugin::Sysdeps>.
+
+=cut
+

@@ -673,6 +673,18 @@ specify alternatives in the form C<package1 | package2 | ...>.
 
 =back
 
+=head2 PLUGIN HOOKS
+
+The module implements the following CPAN plugin hooks:
+
+=over
+
+=item new
+
+=item post_get
+
+=back
+
 =head1 USE CASES
 
 =head2 CPAN TESTERS
