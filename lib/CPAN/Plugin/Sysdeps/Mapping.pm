@@ -684,6 +684,12 @@ sub mapping {
       [like_debian,
        [package => 'libgtk-3-dev']]],
 
+     [cpanmod => 'GTop',
+      [os_freebsd,
+       [package => 'libgtop']],
+      [like_debian,
+       [package => 'libgtop2-dev']]],
+
      [cpanmod => 'Heimdal::Kadm5',
       [os_freebsd,
        [package => 'heimdal']],
