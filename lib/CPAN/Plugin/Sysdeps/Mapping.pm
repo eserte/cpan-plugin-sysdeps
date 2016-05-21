@@ -535,8 +535,8 @@ sub mapping {
       [os_freebsd,
        [package => 'gd']],
       [like_debian,
-       [linuxdistrocodename => ['precise'],
-	[package => 'libgd-noxpm-dev | libgd2-xpm-dev']],
+       [linuxdistrocodename => ['precise', 'wheezy'],
+	[package => 'libgd2-noxpm-dev | libgd2-xpm-dev']],
        [package => 'libgd-dev']],
       [os_darwin,
        [package => 'gd']]],
@@ -1028,6 +1028,15 @@ sub mapping {
 	[package => []], # not available before jessie
        ],
        [package => 'libnanomsg-dev']]],
+
+     [cpanmod => 'Net::CDP',
+      [os_freebsd,
+       [package => 'libnet']], # but build failure with Net-CDP-0.09
+      [like_debian,
+       [package => 'libnet1-dev']],
+      [os_darwin,
+       [package => 'libnet']], # but build failure with Net-CDP-0.09
+     ],
 
      [cpanmod => 'Net::DBus',
       [os_freebsd,
