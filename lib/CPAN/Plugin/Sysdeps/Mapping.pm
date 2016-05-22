@@ -499,6 +499,13 @@ sub mapping {
       [os_darwin,
        [package => 'pkg-config']]],
 
+     [cpanmod => 'File::ExtAttr',
+      [like_debian,
+       [package => 'libattr1-dev']],
+      [linuxdistro => '~fedora',
+       [package => 'libattr-devel']],
+     ],
+
      [cpanmod => 'File::LibMagic',
       # XXX what about freebsd?
       [like_debian,
@@ -859,6 +866,8 @@ sub mapping {
       [os_freebsd,
        [package => 'v8']],
       # XXX what about debian?
+      [os_darwin,
+       [package => 'v8']], # but compilation errors (v8-5.0.71.33 <-> JavaScript-V8-0.07)
      ],
 
 #	# for some Judy-using modules (XXX which one?)
@@ -1359,6 +1368,7 @@ sub mapping {
       [like_debian,
        [package => 'libreadline6-dev']],
       # XXX what about freebsd?
+      # XXX no homebrew package for darwin (checked 2016-05-22)
      ],
 
      [cpanmod => 'Term::VTerm',
