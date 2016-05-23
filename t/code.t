@@ -15,6 +15,7 @@ my $cpandist = CPAN::Distribution->new(
 
 my $p = eval { CPAN::Plugin::Sysdeps->new('batch', 'dryrun', "mapping=$FindBin::RealBin/mapping/code.pl") };
 plan skip_all => "Construction failed: $@", 1 if !$p;
+skip_on_darwin_without_homebrew;
 plan 'no_plan';
 
 $p->post_get($cpandist);

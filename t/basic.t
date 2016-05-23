@@ -10,6 +10,7 @@ require_CPAN_Distribution;
 
 my $p = eval { CPAN::Plugin::Sysdeps->new('batch', 'dryrun') };
 plan skip_all => "Construction failed: $@", 1 if !$p;
+skip_on_darwin_without_homebrew;
 plan 'no_plan';
 
 isa_ok $p, 'CPAN::Plugin::Sysdeps';
