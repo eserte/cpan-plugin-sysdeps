@@ -1,5 +1,9 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.10  2016-05-23
+	- mapping update
+	- skip some tests on Mac OS X without homebrew
+
 0.09  2016-05-20
 	- fixes and mapping update
 	- more Pod
