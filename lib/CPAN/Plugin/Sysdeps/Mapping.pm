@@ -207,7 +207,11 @@ sub mapping {
 	[package => 'libdb4.8-dev']],
        [linuxdistrocodename => 'wheezy',
 	[package => 'libdb5.1-dev']],
-       [package => 'libdb5.3-dev']]],
+       [package => 'libdb5.3-dev']],
+      [os_darwin,
+       # Make sure that a corresponding distroprefs file matches this library (see srezic-cpan-distroprefs).
+       [package => 'berkeley-db']],
+     ],
 
      [cpanmod => 'Bio::HTS',
       [os_freebsd,
@@ -413,7 +417,10 @@ sub mapping {
      [cpanmod => 'DBD::mysql',
       # XXX freebad?
       [like_debian,
-       [package => 'libmysqlclient-dev']]],
+       [package => 'libmysqlclient-dev']],
+      [os_darwin,
+       [package => 'mysql-connector-c']],
+     ],
 
      [cpanmod => 'DBD::ODBC',
       [os_freebsd,
