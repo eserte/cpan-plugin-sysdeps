@@ -569,7 +569,7 @@ sub mapping {
       [os_freebsd,
        [package => 'libproj4']],
       [like_debian,
-       [package => 'libproj-dev']],
+       [package => ['libproj-dev', 'proj-bin']]],
       [os_darwin,
        [package => 'proj']],
      ],
