@@ -1463,6 +1463,11 @@ sub mapping {
       [like_debian,
        [package => ['mesa-common-dev', 'libglu1-mesa-dev']]]],
 
+     [cpanmod => ['UAV::Pilot::SDL', 'UAV::Pilot::Video::Ffmpeg'],
+      [like_debian,
+       [package => 'libavcodec-dev']],
+     ],
+
      [cpanmod => 'UDT::Simple',
       [os_freebsd,
        [package => 'udt']],
