@@ -496,7 +496,9 @@ sub mapping {
      [cpanmod => 'ExtUtils::F77',
       # XXX FreeBSD?
       [like_debian,
-       [package => 'gfortran']]],
+       [package => 'gfortran']],
+      # XXX MacOSX: "GNU Fortran is now provided as part of GCC, and can be installed with: brew install gcc"
+     ],
 
      [cpanmod => 'ExtUtils::PkgConfig',
       [os_freebsd,
