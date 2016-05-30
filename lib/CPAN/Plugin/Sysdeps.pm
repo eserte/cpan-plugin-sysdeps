@@ -379,6 +379,29 @@ sub _find_missing_deb_packages {
     @missing_packages;
 }
 
+sub _find_missing_homebrew_packages {
+    my($self, @packages) = @_;
+    return () if !@packages;
+
+    my @missing_packages;
+    for my $package (@packages) {
+	my @cmd = ('brew', 'ls', '--versions', $package);
+	open my $fh, '-|', @cmd
+	    or die "Error running @cmd: $!";
+	my $has_package;
+	while(<$fh>) {
+	    $has_package = 1;
+	    last;
+	}
+	close $fh
+	    or die "Error running @cmd: $!";
+	if (!$has_package) {
+	    push @missing_packages, $package;
+	}
+    }
+    @missing_packages;
+}
+
 sub _filter_uninstalled_packages {
     my($self, @packages) = @_;
     if ($self->_is_apt_installer) {
@@ -418,22 +441,20 @@ sub _filter_uninstalled_packages {
 	my @missing_packages = grep { ! $installed_packages{ $_ }} @packages;
 	@packages = @missing_packages;
     } elsif ($self->{installer} eq 'homebrew') {
+	my @plain_packages;
 	my @missing_packages;
-	for my $package (@packages) {
-	    my @cmd = ('brew', 'ls', '--versions', $package);
-	    open my $fh, '-|', @cmd
-		or die "Error running @cmd: $!";
-	    my $has_package;
-	    while(<$fh>) {
-		$has_package = 1;
-		last;
-	    }
-	    close $fh
-		or die "Error running @cmd: $!";
-	    if (!$has_package) {
-		push @missing_packages, $package;
+	for my $package_spec (@packages) {
+	    if ($package_spec =~ m{\|}) { # has alternatives
+		my @single_packages = split /\s*\|\s*/, $package_spec;
+		my @missing_in_packages_spec = $self->_find_missing_homebrew_packages(@single_packages);
+		if (@missing_in_packages_spec == @single_packages) {
+		    push @missing_packages, $single_packages[0];
+		}
+	    } else {
+		push @plain_packages, $package_spec;
 	    }
 	}
+	push @missing_packages, $self->_find_missing_homebrew_packages(@plain_packages);
 	@packages = @missing_packages;
     } else {
 	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
