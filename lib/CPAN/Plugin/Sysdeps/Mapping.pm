@@ -419,7 +419,7 @@ sub mapping {
       [like_debian,
        [package => 'libmysqlclient-dev']],
       [os_darwin,
-       [package => 'mysql-connector-c']],
+       [package => 'mysql-connector-c | mysql']],
      ],
 
      [cpanmod => 'DBD::ODBC',
