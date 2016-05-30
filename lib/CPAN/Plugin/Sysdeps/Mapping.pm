@@ -549,7 +549,7 @@ sub mapping {
 
      [cpanmod => 'GD',
       [os_freebsd,
-       [package => 'gd']],
+       [package => 'libgd']],
       [like_debian,
        [linuxdistrocodename => ['precise', 'wheezy'],
 	[package => 'libgd2-noxpm-dev | libgd2-xpm-dev']],
