@@ -494,10 +494,10 @@ sub mapping {
        [package => 'g++']]],
 
      [cpanmod => 'ExtUtils::F77',
-      # XXX FreeBSD?
+      # XXX TBD FreeBSD: provided by gcc, which is in the base system for osvers < 10, and has to be installed separately for osvers >= 10
       [like_debian,
        [package => 'gfortran']],
-      # XXX MacOSX: "GNU Fortran is now provided as part of GCC, and can be installed with: brew install gcc"
+      # XXX TBD MacOSX: "GNU Fortran is now provided as part of GCC, and can be installed with: brew install gcc"
      ],
 
      [cpanmod => 'ExtUtils::PkgConfig',
@@ -666,7 +666,7 @@ sub mapping {
       [like_debian,
        [package => 'libprotoc-dev']]],
 
-     [cpanmod => 'Graphics::GnuplotIF',
+     [cpanmod => ['Graphics::GnuplotIF', 'Gnuplot::Simple'],
       [package => 'gnuplot']],
 
      [cpanmod => 'Graphics::Plotter',
@@ -681,7 +681,7 @@ sub mapping {
       [like_debian,
        [package => 'libsane-dev']]],
 
-     [cpanmod => ['GraphViz', 'GraphViz2::Marpa'],
+     [cpanmod => ['GraphViz', 'GraphViz2', 'GraphViz2::Marpa'],
       # package named the same in freebsd, debian and macosx/homebrew, maybe everywhere?
       [package => 'graphviz']],
 
@@ -701,6 +701,13 @@ sub mapping {
        [package => ['gtk3', 'dbus']]],
       [like_debian,
        [package => 'libgtk-3-dev']]],
+
+     [cpanmod => 'Gtk3::WebKit',
+      [os_freebsd,
+       [package => 'webkit-gtk3']],
+      [like_debian,
+       [package => 'libwebkitgtk-3.0-dev']],
+     ],
 
      [cpanmod => 'GTop',
       [os_freebsd,
@@ -1221,7 +1228,8 @@ sub mapping {
       ]],
 
      [cpanmod => 'PGPLOT',
-      # XXX freebsd?
+      [os_freebsd,
+       [package => 'pgplot']],
       [like_debian,
        [package => 'pgplot5']]],
 
