@@ -843,7 +843,8 @@ sub mapping {
       # XXX TBD how's the state in Ubuntu?
      ],
 
-     [cpanmod => 'Inline::Java',
+     # modules just needing java and nothing else:
+     [cpanmod => ['Inline::Java', 'Bio::AssemblyImprovement', 'DBD::JDBC'],
       [os_freebsd,
        [package => 'openjdk8']],
       [like_debian,
