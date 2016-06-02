@@ -422,13 +422,19 @@ sub _filter_uninstalled_packages {
 	@packages = @missing_packages;
     } elsif ($self->{os} eq 'freebsd') {
 	my @missing_packages;
-	for my $package (@packages) {
-	    my @cmd = ('pkg', 'info', '--exists', $package);
-	    system @cmd;
-	    if ($? != 0) {
-		push @missing_packages, $package;
+    PACKAGE_SPEC: for my $package_spec (@packages) {
+	    if ($package_spec =~ m{\|}) { # has alternatives
+		my @single_packages = split /\s*\|\s*/, $package_spec;
+		for my $package (@single_packages) {
+		    my @cmd = ('pkg', 'info', '--exists', $package);
+		    system @cmd;
+		    if ($? == 0) {
+			next PACKAGE_SPEC;
+		    }
+		}
+		push @missing_packages, $single_packages[0];
 	    }
-	}
+	}    
 	@packages = @missing_packages;
     } elsif ($self->{os} eq 'MSWin32') {
 	my %installed_packages = map {
