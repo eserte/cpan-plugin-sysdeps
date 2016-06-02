@@ -822,7 +822,7 @@ sub mapping {
 
      [cpanmod => 'Imager',
       [os_freebsd,
-       [package => [qw(freetype2 giflib-nox11 png tiff jpeg)]]],
+       [package => [qw(freetype2 giflib png tiff), 'jpeg | jpeg-turbo']]], # in former days giflib-nox11 had to be specified
       [like_debian,
        [linuxdistrocodename => 'wheezy',
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
