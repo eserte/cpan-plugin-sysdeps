@@ -6,10 +6,13 @@ use warnings;
 our $VERSION = '0.12';
 
 # shortcuts
+#  os and distros
 use constant os_freebsd  => (os => 'freebsd');
 use constant os_windows  => (os => 'MSWin32');
 use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
 use constant like_debian => (linuxdistro => '~debian');
+#  package shortcuts
+use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
 
 sub mapping {
     (
@@ -419,7 +422,8 @@ sub mapping {
        [package => 'firebird-dev']]],
 
      [cpanmod => 'DBD::mysql',
-      # XXX freebad?
+      [os_freebsd,
+       [package => 'mysql-connector-c | mysql57-client | mysql56-client | mysql55-client | mariadb101-client | mariadb100-client | mariadb55-client | percona56-client | percona55-client']],
       [like_debian,
        [package => 'libmysqlclient-dev']],
       [os_darwin,
@@ -815,7 +819,7 @@ sub mapping {
 
      [cpanmod => 'Image::Scale',
       [os_freebsd,
-       [package => [qw(png jpeg)]]],
+       [package => ['png', freebsd_jpeg]]],
       [like_debian,
        [package => [qw(libjpeg-dev libpng12-dev)]]]],
 
@@ -826,7 +830,7 @@ sub mapping {
 
      [cpanmod => 'Imager',
       [os_freebsd,
-       [package => [qw(freetype2 giflib png tiff), 'jpeg | jpeg-turbo']]], # in former days giflib-nox11 had to be specified
+       [package => [qw(freetype2 giflib png tiff), freebsd_jpeg]]], # in former days giflib-nox11 had to be specified
       [like_debian,
        [linuxdistrocodename => 'wheezy',
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
@@ -1458,7 +1462,7 @@ sub mapping {
       # freetype2 and libXft are optional, but highly recommended as it provides nicer fonts
       # jpeg and png is bundled in Tk, but usually the Tk version is older
       [os_freebsd,
-       [package => qw(freetype2 libXft libX11 jpeg png)]],
+       [package => qw(freetype2 libXft libX11 png), freebsd_jpeg]],
       [like_debian,
        [package => [qw(libx11-dev libfreetype6-dev libxft-dev libpng-dev libz-dev libjpeg-dev)]]],
       [linuxdistro => '~fedora',
