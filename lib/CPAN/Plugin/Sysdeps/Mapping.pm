@@ -118,7 +118,10 @@ sub mapping {
      ],
 
      [cpanmod => 'Alien::uPB',
-      [package => 'unzip']],
+      # freebsd and darwin have /usr/bin/unzip in the base system
+      [os => 'linux',
+       [package => 'unzip']],
+     ],
 
      [cpanmod => 'Alien::wxWidgets',
       [os_freebsd,
