@@ -335,6 +335,10 @@ sub mapping {
       [os_windows,
        [package => 'openssl.light']]], # XXX create openssl.dev
 
+     [cpanmod => 'Crypt::OpenSSL::X509',
+      [os_darwin,
+       [package => 'openssl']]],
+
      [cpanmod => 'Crypt::OTR',
       [os_freebsd,
        [package => 'libotr']],
