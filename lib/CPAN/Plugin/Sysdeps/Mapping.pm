@@ -990,7 +990,7 @@ sub mapping {
       [like_debian,
        [package => 'libopendkim-dev']]],
 
-     [cpanmod => 'Math::FFTW',
+     [cpanmod => ['Math::FFTW', 'PDL::FFTW3'],
       [os_freebsd,
        [package => 'fftw3']],
       [like_debian,
