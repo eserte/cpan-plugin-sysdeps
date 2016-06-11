@@ -3,7 +3,7 @@ package CPAN::Plugin::Sysdeps;
 use strict;
 use warnings;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 use Hash::Util 'lock_keys';
 use List::Util 'first';
@@ -379,6 +379,22 @@ sub _find_missing_deb_packages {
     @missing_packages;
 }
 
+sub _find_missing_freebsd_pkg_packages {
+    my($self, @packages) = @_;
+    return () if !@packages;
+
+    my @missing_packages;
+    for my $package (@packages) {
+	my @cmd = ('pkg', 'info', '--exists', $package);
+	system @cmd;
+	if ($? != 0) {
+	    push @missing_packages, $package;
+	}
+    }
+
+    @missing_packages;
+}
+
 sub _find_missing_homebrew_packages {
     my($self, @packages) = @_;
     return () if !@packages;
@@ -421,20 +437,20 @@ sub _filter_uninstalled_packages {
 	push @missing_packages, $self->_find_missing_deb_packages(@plain_packages);
 	@packages = @missing_packages;
     } elsif ($self->{os} eq 'freebsd') {
+	my @plain_packages;
 	my @missing_packages;
-    PACKAGE_SPEC: for my $package_spec (@packages) {
+	for my $package_spec (@packages) {
 	    if ($package_spec =~ m{\|}) { # has alternatives
 		my @single_packages = split /\s*\|\s*/, $package_spec;
-		for my $package (@single_packages) {
-		    my @cmd = ('pkg', 'info', '--exists', $package);
-		    system @cmd;
-		    if ($? == 0) {
-			next PACKAGE_SPEC;
-		    }
+		my @missing_in_packages_spec = $self->_find_missing_freebsd_pkg_packages(@single_packages);
+		if (@missing_in_packages_spec == @single_packages) {
+		    push @missing_packages, $single_packages[0];
 		}
-		push @missing_packages, $single_packages[0];
+	    } else {
+		push @plain_packages, $package_spec;
 	    }
-	}    
+	}
+	push @missing_packages, $self->_find_missing_freebsd_pkg_packages(@plain_packages);
 	@packages = @missing_packages;
     } elsif ($self->{os} eq 'MSWin32') {
 	my %installed_packages = map {
