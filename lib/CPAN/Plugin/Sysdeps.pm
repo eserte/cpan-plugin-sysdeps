@@ -475,6 +475,8 @@ sub _install_packages_commands {
     # sudo or not?
     if ($self->{installer} eq 'homebrew') {
 	# may run as unprivileged user
+    } elsif ($self->{installer} eq 'chocolatey') {
+	# no sudo on Windows systems?
     } else {
 	if ($< != 0) {
 	    push @install_cmd, 'sudo';
