@@ -418,69 +418,52 @@ sub _find_missing_homebrew_packages {
     @missing_packages;
 }
 
+sub _find_missing_chocolatey_packages {
+    my($self, @packages) = @_;
+    return () if !@packages;
+
+    my %installed_packages = map {
+	    /^(.*)\|(.*)$/
+		or next;
+	    $1 => $2
+	} grep {
+	    /^(.*)\|(.*)$/
+	} `$self->{installer} list --localonly --limit-output`;
+    my @missing_packages = grep { ! $installed_packages{ $_ }} @packages;
+    @missing_packages;
+}
+
 sub _filter_uninstalled_packages {
     my($self, @packages) = @_;
-    if ($self->_is_apt_installer) {
-	my @plain_packages;
-	my @missing_packages;
-	for my $package_spec (@packages) {
-	    if ($package_spec =~ m{\|}) { # has alternatives
-		my @single_packages = split /\s*\|\s*/, $package_spec;
-		my @missing_in_packages_spec = $self->_find_missing_deb_packages(@single_packages);
-		if (@missing_in_packages_spec == @single_packages) {
-		    push @missing_packages, $single_packages[0];
-		}
-	    } else {
-		push @plain_packages, $package_spec;
-	    }
-	}
-	push @missing_packages, $self->_find_missing_deb_packages(@plain_packages);
-	@packages = @missing_packages;
+    my $find_missing_packages;
+    if      ($self->_is_apt_installer) {
+	$find_missing_packages = '_find_missing_deb_packages';
     } elsif ($self->{os} eq 'freebsd') {
-	my @plain_packages;
-	my @missing_packages;
-	for my $package_spec (@packages) {
-	    if ($package_spec =~ m{\|}) { # has alternatives
-		my @single_packages = split /\s*\|\s*/, $package_spec;
-		my @missing_in_packages_spec = $self->_find_missing_freebsd_pkg_packages(@single_packages);
-		if (@missing_in_packages_spec == @single_packages) {
-		    push @missing_packages, $single_packages[0];
-		}
-	    } else {
-		push @plain_packages, $package_spec;
-	    }
-	}
-	push @missing_packages, $self->_find_missing_freebsd_pkg_packages(@plain_packages);
-	@packages = @missing_packages;
+	$find_missing_packages = '_find_missing_freebsd_pkg_packages';
     } elsif ($self->{os} eq 'MSWin32') {
-	my %installed_packages = map {
-	        /^(.*)\|(.*)$/
-		    or next;
-		$1 => $2
-	    } grep {
-	        /^(.*)\|(.*)$/
-	    } `$self->{installer} list --localonly --limit-output`;
-	my @missing_packages = grep { ! $installed_packages{ $_ }} @packages;
-	@packages = @missing_packages;
+	$find_missing_packages = '_find_missing_chocolatey_packages';
     } elsif ($self->{installer} eq 'homebrew') {
-	my @plain_packages;
-	my @missing_packages;
-	for my $package_spec (@packages) {
-	    if ($package_spec =~ m{\|}) { # has alternatives
-		my @single_packages = split /\s*\|\s*/, $package_spec;
-		my @missing_in_packages_spec = $self->_find_missing_homebrew_packages(@single_packages);
-		if (@missing_in_packages_spec == @single_packages) {
-		    push @missing_packages, $single_packages[0];
-		}
-	    } else {
-		push @plain_packages, $package_spec;
-	    }
-	}
-	push @missing_packages, $self->_find_missing_homebrew_packages(@plain_packages);
-	@packages = @missing_packages;
+	$find_missing_packages = '_find_missing_homebrew_packages';
     } else {
 	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
     }
+    if ($find_missing_packages) {
+	my @plain_packages;
+	my @missing_packages;
+	for my $package_spec (@packages) {
+	    if ($package_spec =~ m{\|}) { # has alternatives
+		my @single_packages = split /\s*\|\s*/, $package_spec;
+		my @missing_in_packages_spec = $self->$find_missing_packages(@single_packages);
+		if (@missing_in_packages_spec == @single_packages) {
+		    push @missing_packages, $single_packages[0];
+		}
+	    } else {
+		push @plain_packages, $package_spec;
+	    }
+	}
+	push @missing_packages, $self->$find_missing_packages(@plain_packages);
+	@packages = @missing_packages;
+    } 
     @packages;
 }
 
