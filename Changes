@@ -1,7 +1,10 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
-0.13
+0.13  2016-06-12
+	- handling alternatives for all installers
 	- bugfix for freebsd package resolution
+	- mapping update
+	- more tests
 
 0.12  2016-06-02
 	- mapping update
