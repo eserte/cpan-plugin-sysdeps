@@ -9,6 +9,8 @@ script/cpan-sysdeps
 script/test-sysdeps-roundtrip
 t/basic.t
 t/code.t
+t/filtuninst.t
+t/instcmd.t
 t/lib/TestUtil.pm
 t/mapping/code.pl
 t/mapping/fail_likelinuxdistro.pl
