@@ -677,7 +677,7 @@ sub mapping {
       [like_debian,
        [package => 'libprotoc-dev']]],
 
-     [cpanmod => ['Graphics::GnuplotIF', 'Gnuplot::Simple'],
+     [cpanmod => ['Graphics::GnuplotIF', 'Gnuplot::Simple', 'Chart::Gnuplot'],
       [package => 'gnuplot']],
 
      [cpanmod => 'Graphics::Plotter',
