@@ -1512,6 +1512,12 @@ sub mapping {
      [cpanmod => 'Video::FFmpeg',
       [package => 'ffmpeg']], # on Debian only found in backports or www.deb-multimedia.org; still does not build because avformat.h is not available
 
+     [cpanmod => 'Video::Xine',
+      [os_freebsd,
+       [package => 'libxine']],
+      [like_debian,
+       [package => 'libxine2-dev']]],
+
      [cpanmod => 'WordNet::QueryData',
       [os_freebsd,
        [package => 'wordnet']],
