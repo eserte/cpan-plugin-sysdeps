@@ -7,6 +7,7 @@ use TestUtil;
 use Test::More;
 use CPAN::Plugin::Sysdeps ();
 
+skip_on_darwin_without_homebrew;
 plan 'no_plan';
 
 my $p = CPAN::Plugin::Sysdeps->new('dryrun');
