@@ -96,6 +96,8 @@ sub new {
     if (!$installer) {
 	if      ($os eq 'freebsd') {
 	    $installer = 'pkg';
+	} elsif ($os eq 'gnukfreebsd') {
+	    $installer = 'apt-get';
 	} elsif ($os eq 'linux') {
 	    if      (__PACKAGE__->_is_linux_debian_like($linuxdistro)) {
 		$installer = 'apt-get';
@@ -828,6 +830,10 @@ removed, at least on Debian systems.
 The default mapping has support for FreeBSD and Debian-like systems
 (but details are missing for distributions like Ubuntu or Mint).
 Support for other systems is missing.
+
+=item * Should gnukfreebsd be handled like debian?
+
+Maybe gnukfreebsd should be included in the "like_debian" condition?
 
 =back
 
