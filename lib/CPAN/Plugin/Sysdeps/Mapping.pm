@@ -93,6 +93,10 @@ sub mapping {
       [like_debian,
        [package => 'pkg-config | pkgconf']]], # XXX pkg-config probably needed by much more CPAN distributions...
 
+     [cpanmod => 'Alien::sispmctl',
+      [like_debian,
+       [package => 'libusb-dev']]],
+
      [cpanmod => 'Alien::SVN',
       [os_freebsd,
        # does not work, configure does not recognize sqlite
