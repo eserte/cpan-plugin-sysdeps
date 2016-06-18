@@ -1601,6 +1601,12 @@ sub mapping {
       [like_debian,
        [package => 'libxosd-dev']]],
 
+     [cpanmod => 'X11::FullScreen',
+      [os_freebsd,
+       [package => 'imlib2']],
+      [like_debian,
+       [package => 'imlib2-dev']]],
+
      [cpanmod => 'X11::GUITest',
       [like_debian,
        [package => ['libxt-dev', 'libxtst-dev']]],
