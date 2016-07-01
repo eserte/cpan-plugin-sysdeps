@@ -1200,6 +1200,12 @@ sub mapping {
       [like_debian,
        [package => 'libvorbis-dev']]],
 
+     [cpanmod => 'Ogg::Vorbis::Header',
+      [os_freebsd,
+       [package => 'libogg']],
+      [like_debian,
+       [package => ['libogg-dev', 'libvorbis-dev']]]],
+
      [cpanmod => 'OpenGL',
       [os_freebsd,
        [package => 'freeglut']],
