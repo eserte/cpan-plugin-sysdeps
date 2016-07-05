@@ -1107,7 +1107,7 @@ sub mapping {
      [cpanmod => 'Net::LibIDN',
       [os_freebsd,
        [package => 'libidn']],
-      [os => '~debian',
+      [like_debian,
        [package => 'libidn11-dev']]],
 
      [cpanmod => 'Net::NfDump',
