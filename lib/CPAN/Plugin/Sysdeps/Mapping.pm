@@ -279,7 +279,7 @@ sub mapping {
 
      [cpanmod => ['ClamAV::Client', 'File::Scan::ClamAV'],
       [os_freebsd,
-       [package => 'clamav']],
+       [package => 'clamav']], # additionally freshclam has to be run at least once, and the clamav-clamd service has to be started
       [like_debian,
        [package => ['clamav-daemon', 'clamav-data']]]],
 
@@ -1077,6 +1077,13 @@ sub mapping {
        [package => 'libnet1-dev']],
       [os_darwin,
        [package => 'libnet']], # but build failure with Net-CDP-0.09
+     ],
+
+     [cpanmod => 'Net::CUPS',
+      [os_freebsd,
+       [package => 'cups-filters']],
+      [like_debian,
+       [package => ['libcups2-dev', 'libcupsfilters-dev', 'libcupsimage2-dev']]]
      ],
 
      [cpanmod => 'Net::DBus',
