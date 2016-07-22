@@ -1155,8 +1155,8 @@ sub mapping {
      [cpanmod => 'Net::RabbitMQ::Client',
       [os_freebsd,
        [package => 'rabbitmq-c-devel']],
-      # XXX what about debian?
-     ],
+      [like_debian,
+       [package => 'librabbitmq-dev']]],
 
      [cpanmod => 'Net::SIGTRAN::SCTP',
       # XXX what about freebsd?
