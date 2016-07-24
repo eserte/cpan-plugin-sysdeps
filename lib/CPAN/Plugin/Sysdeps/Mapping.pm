@@ -455,6 +455,11 @@ sub mapping {
       [like_debian,
        [package => ['libsdl1.2-dev', 'libsdl-image1.2-dev', 'libsdl-mixer1.2-dev', 'libglib2.0-dev']]]],
 
+     [cpanmod => 'Devel::IPerl',
+      [like_debian,
+       [package => [qw(libzmq3-dev ipython ipython-notebook libmagic-dev)]], # as specified in https://metacpan.org/source/ZMUGHAL/Devel-IPerl-0.006/README.md
+      ]],
+
      [cpanmod => 'Device::Cdio',
       [like_debian,
        # but still does not work
