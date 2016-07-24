@@ -1156,7 +1156,8 @@ sub mapping {
       [os_freebsd,
        [package => 'rabbitmq-c-devel']],
       [like_debian,
-       [package => 'librabbitmq-dev']]],
+       [package => 'librabbitmq-dev']], # amqp_tcp_socket.h is provided by this package, but compilation still fails
+     ],
 
      [cpanmod => 'Net::SIGTRAN::SCTP',
       # XXX what about freebsd?
@@ -1385,12 +1386,19 @@ sub mapping {
       # XXX what about debian?
      ],
 
+     [cpanmod => 'Systemd::Daemon',
+      [like_debian,
+       [package => 'libsystemd-dev']]],
+
      [cpanmod => 'Tcl',
       [os_freebsd,
-       # compiles, but the tests hang for perls 5.18.x and newer
-       [package => 'tcl84']],
+       [package => 'tcl86 | tcl85 | tcl84']],
       [like_debian,
        [package => 'tcl8.5-dev']]],
+
+     [cpanmod => 'Tcl::pTk',
+      [os_freebsd,
+       [package => 'tk86 | tk85 | tk84']]], # XXX what about debian?
 
      [cpanmod => 'Tcl::Tk', # XXX maybe also Tkx?
       # XXX what about freebsd?
