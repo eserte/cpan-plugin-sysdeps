@@ -1190,7 +1190,8 @@ sub mapping {
      ],
 
      [cpanmod => 'Net::Z3950::ZOOM',
-      # XXX freebsd?
+      [os_freebsd,
+       [package => 'yaz']],
       [like_debian,
        [package => 'libyaz-dev']]],
 
