@@ -722,6 +722,12 @@ sub mapping {
       [like_debian,
        [package => 'libgtk-3-dev']]],
 
+     [cpanmod => 'Gtk3::SourceView',
+      [os_freebsd,
+       [package => 'gtksourceview3']],
+      [like_debian,
+       [package => 'libgtksourceview-3.0-dev']]],
+
      [cpanmod => 'Gtk3::WebKit',
       [os_freebsd,
        [package => 'webkit-gtk3']],
