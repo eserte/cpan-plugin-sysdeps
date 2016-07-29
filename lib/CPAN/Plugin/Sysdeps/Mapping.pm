@@ -558,7 +558,8 @@ sub mapping {
       [package => 'gocr']],
 
      [cpanmod => 'Finance::TA',
-      [os_freebsd => 'ta-lib']], # alternative would be Alien::TALib
+      [os_freebsd,
+       [package => 'ta-lib']]], # alternative would be Alien::TALib
 
      [cpanmod => 'FTDI::D2XX',
       # neither libftdi nor libftdi1 seem to work on FreeBSD
