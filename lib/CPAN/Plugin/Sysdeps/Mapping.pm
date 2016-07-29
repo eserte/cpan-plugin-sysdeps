@@ -557,6 +557,9 @@ sub mapping {
      [cpanmod => 'Finance::MICR::GOCR::Check',
       [package => 'gocr']],
 
+     [cpanmod => 'Finance::TA',
+      [os_freebsd => 'ta-lib']], # alternative would be Alien::TALib
+
      [cpanmod => 'FTDI::D2XX',
       # neither libftdi nor libftdi1 seem to work on FreeBSD
       [like_debian,
