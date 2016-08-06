@@ -1266,6 +1266,12 @@ sub mapping {
       [like_debian,
        [package => 'libgnome-keyring-dev']]],
 
+     [cpanmod => 'PDL::NetCDF',
+      [os_freebsd,
+       [package => 'netcdf']],
+      [like_debian,
+       [package => 'libnetcdf-dev']]],
+
      [cpanmod => 'PerlQt',
       [like_debian,
        [linuxdistrocodename => 'squeeze',
