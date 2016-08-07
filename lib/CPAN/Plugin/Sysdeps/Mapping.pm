@@ -313,7 +313,7 @@ sub mapping {
       [like_debian,
        [package => 'libcrack2-dev']]],
 
-     [cpanmod => 'Crypt::DH::GMP',
+     [cpanmod => ['Crypt::DH::GMP', 'Math::GMPq', 'Math::GMPz'],
       [os_freebsd,
        [package => 'gmp']],
       [like_debian,
