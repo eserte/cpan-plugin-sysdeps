@@ -181,6 +181,12 @@ sub mapping {
       [like_debian,
        [package => 'libsamplerate0-dev']]],
 
+     [cpanmod => 'Audio::Opusfile',
+      [os_freebsd,
+       [package => 'opusfile']],
+      [like_debian,
+       [package => 'libopusfile-dev']]],
+
      [cpanmod => 'Audio::PortAudio',
       [os_freebsd,
        [package => ['portaudio', 'pkgconf']]],
