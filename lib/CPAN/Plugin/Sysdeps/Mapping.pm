@@ -1236,6 +1236,13 @@ sub mapping {
       [like_debian,
        [package => ['libogg-dev', 'libvorbis-dev']]]],
 
+     [cpanmod => 'OIS',
+      ## ois in freebsd ports is 1.2.0, but 1.3.0 is required
+      #[os_freebsd,
+      # [package => 'ois']],
+      [like_debian,
+       [package => 'libois-dev']]],
+
      [cpanmod => 'OpenGL',
       [os_freebsd,
        [package => 'freeglut']],
