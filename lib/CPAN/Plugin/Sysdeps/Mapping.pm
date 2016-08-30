@@ -957,6 +957,10 @@ sub mapping {
        # but does not work
        [package => 'libssh-dev']]],
 
+     [cpanmod => 'libsoldout',
+      [os_freebsd,
+       [package => 'libsoldout']]],
+
      [cpanmod => 'Lingua::NATools',
       # XXX what about freebsd?
       [like_debian,
