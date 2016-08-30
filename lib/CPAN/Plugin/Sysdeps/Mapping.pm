@@ -159,6 +159,13 @@ sub mapping {
       [like_debian,
        [package => 'libcfitsio3-dev']]],
 
+     [cpanmod => 'Astro::WCS::LibWCS',
+      ## not checked:
+      #[os_freebsd,
+      # [package => 'astrometry']],
+      [like_debian,
+       [package => 'libwcstools-dev']]],
+
      [cpanmod => 'Audio::Extract::PCM',
       # but does not work with freebsd, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=205732
       [package => 'sox']],
