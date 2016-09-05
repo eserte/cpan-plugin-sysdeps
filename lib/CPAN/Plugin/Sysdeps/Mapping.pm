@@ -1331,6 +1331,11 @@ sub mapping {
      [cpanmod => 'PulseAudio',
       [package => 'pulseaudio']],
 
+     [cpanmod => 'QDBM_File',
+      # XXX debian has libqdbm-dev, but CPAN mod needs patching for -I
+      [os_freebsd,
+       [package => 'qdbm']]],
+
      [cpanmod => 'Qstruct',
       # XXX what about freebsd?
       [like_debian,
