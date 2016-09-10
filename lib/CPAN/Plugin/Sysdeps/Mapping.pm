@@ -684,7 +684,7 @@ sub mapping {
       [like_debian,
        [package => 'libwnck-dev']]],
 
-     [cpanmod => 'Gnome2::VFS',
+     [cpanmod => ['Gnome2::VFS', 'VFS::Gnome'],
       [os_freebsd,
        [package => 'gnome-vfs']],
       [like_debian,
