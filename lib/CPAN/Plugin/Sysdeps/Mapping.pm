@@ -166,6 +166,12 @@ sub mapping {
       [like_debian,
        [package => 'libwcstools-dev']]],
 
+     [cpanmod => 'Audio::Ao',
+      [os_freebsd,
+       [package => 'libao']],
+      [like_debian,
+       [package => 'libao-dev']]],
+
      [cpanmod => 'Audio::Extract::PCM',
       # but does not work with freebsd, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=205732
       [package => 'sox']],
