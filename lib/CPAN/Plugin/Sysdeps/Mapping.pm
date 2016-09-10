@@ -291,6 +291,12 @@ sub mapping {
       [like_debian,
        [package => 'libcdb-dev']]],
 
+     [cpanmod => 'CDB_File::Generator',
+      [os_freebsd,
+       [package => 'cdb']],
+      [like_debian,
+       [package => 'freecdb']]],
+
      [cpanmod => 'Chipcard::PCSC',
       # XXX what about freebsd?
       [like_debian,
