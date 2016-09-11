@@ -873,7 +873,7 @@ sub mapping {
      [cpanmod => 'Image::SubImageFind',
       # XXX what about freebsd?
       [like_debian,
-       [package => ['libmagick++-dev', 'graphicsmagick-libmagick-dev-compat']]]],
+       [package => ['libmagick++-dev | graphicsmagick-libmagick-dev-compat']]]],
 
      [cpanmod => 'Imager',
       [os_freebsd,
