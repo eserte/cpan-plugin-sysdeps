@@ -285,6 +285,13 @@ sub mapping {
       [os_darwin,
        [package => 'cairo']]],
 
+     [cpanmod => 'Capstone',
+      [os_freebsd,
+       [package => 'capstone']],
+      [like_debian,
+       [package => 'libcapstone-dev']], # but test failures with Capstone 0.6 @ jessie
+     ],
+
      [cpanmod => 'CDB::TinyCDB',
       [os_freebsd,
        [package => 'tinycdb']],
