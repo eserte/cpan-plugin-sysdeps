@@ -757,6 +757,12 @@ sub mapping {
       [like_debian,
        [package => 'libgtk2.0-dev']]],
 
+     [cpanmod => 'Gtk2::ImageView',
+      [os_freebsd,
+       [package => 'gtkimageview']],
+      [like_debian,
+       [package => 'libgtkimageview-dev']]],
+
      [cpanmod => 'Gtk3',
       [os_freebsd,
        # additionally dbus has to be enabled and started
