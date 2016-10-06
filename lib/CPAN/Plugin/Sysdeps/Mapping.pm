@@ -1007,6 +1007,10 @@ sub mapping {
       [like_debian,
        [package => 'libc6-dev']]],
 
+     [cpanmod => 'Linux::Netfilter::Log',
+      [like_debian,
+       [package => 'libnetfilter-log-dev']]],
+
      [cpanmod => 'Linux::Prctl',
       [like_debian,
        [package => 'libcap-dev']]],
