@@ -411,8 +411,9 @@ sub _find_missing_homebrew_packages {
 	    $has_package = 1;
 	    last;
 	}
-	close $fh
-	    or die "Error running @cmd: $!";
+	close $fh; # earlier homebrew versions returned always 0,
+                   # newer (since Oct 2016) return 1 if the package is
+                   # missing
 	if (!$has_package) {
 	    push @missing_packages, $package;
 	}
