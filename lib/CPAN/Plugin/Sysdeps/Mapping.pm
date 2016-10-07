@@ -358,8 +358,10 @@ sub mapping {
        [linuxdistrocodename => 'squeeze',
 	[package => 'libgmp3-dev']],
        [package => 'libgmp-dev']],
-      [os_darwin,
-       [package => 'gmp']]
+      ## Does not work: "Symbol not found: ___gmp_randclear"
+      ## Same problem with homebrew/versions/gmp4
+      #[os_darwin,
+      # [package => 'gmp']]
      ],
 
      [cpanmod => 'Crypt::GCrypt',
