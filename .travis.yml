@@ -1,7 +1,9 @@
 branches:
   except:
     - /appveyor/
+
 language: perl
+
 matrix:
   include:
     - perl: "5.22"
@@ -15,8 +17,25 @@ matrix:
     # Actually the perl here does not matter
     - perl: "5.14"
       env: USE_SYSTEM_PERL=1
+    - perl: "5.18"
+      env: USE_SYSTEM_PERL=1
+      dist: trusty
+    # The perl does not matter here, system perl will be used
+    - perl: "5.18"
+      os: osx
+
 sudo: false
+
 before_install:
  - if [ "$USE_SYSTEM_PERL" = 1 ]; then perlbrew off; fi
+
+install:
+ # cpanm is not available on MacOSX, so don't do anything here
+ # see https://github.com/travis-ci/travis-ci/issues/2314
+ # This works because this module has no dependencies
+ #
+ # On Linux run the normal travis-ci install command.
+ - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cpanm --quiet --installdeps --notest .; fi
+
 script:
  - perl Makefile.PL && env HARNESS_TIMER=1 make disttest
