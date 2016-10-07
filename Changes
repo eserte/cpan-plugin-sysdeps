@@ -1,5 +1,9 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.17  2016-10-07
+	- fix for newer homebrew versions (for "brew ls --versions")
+	- mapping update
+
 0.16  2016-09-17
 	- mapping update
 
