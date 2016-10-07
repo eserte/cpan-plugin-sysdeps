@@ -6,23 +6,25 @@ language: perl
 
 matrix:
   include:
+# First five
     - perl: "5.22"
     - perl: "5.20"
     - perl: "5.18"
     - perl: "5.16"
-    - perl: "5.14"
+    # The perl does not matter here, system perl will be used
+    - perl: "5.18"
+      os: osx
+# Second five
     - perl: "5.12"
     - perl: "5.10"
     - perl: "5.8"
     # Actually the perl here does not matter
     - perl: "5.14"
       env: USE_SYSTEM_PERL=1
+    # Actually the perl here does not matter
     - perl: "5.18"
       env: USE_SYSTEM_PERL=1
       dist: trusty
-    # The perl does not matter here, system perl will be used
-    - perl: "5.18"
-      os: osx
 
 sudo: false
 
