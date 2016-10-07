@@ -12,6 +12,11 @@ matrix:
     - perl: "5.12"
     - perl: "5.10"
     - perl: "5.8"
+    # Actually the perl here does not matter
+    - perl: "5.14"
+      env: USE_SYSTEM_PERL=1
 sudo: false
+before_install:
+ - if [ "$USE_SYSTEM_PERL" = 1 ]; then perlbrew off; fi
 script:
  - perl Makefile.PL && env HARNESS_TIMER=1 make disttest
