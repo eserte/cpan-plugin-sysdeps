@@ -1612,7 +1612,9 @@ sub mapping {
        [package => 'libstatgrab']],
       [like_debian,
        # unfortunately does not work in wheezy, the library version is too old for the module
-       [package => 'libstatgrab-dev']]],
+       [package => 'libstatgrab-dev']],
+      [os_darwin,
+       [package => 'libstatgrab']]],
 
      [cpanmod => 'URPM',
       [like_debian,
