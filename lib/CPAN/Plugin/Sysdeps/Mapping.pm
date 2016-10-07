@@ -453,7 +453,11 @@ sub mapping {
       [os_freebsd,
        [package => 'mpfr']],
       [like_debian,
-       [package => 'libmpfr-dev']]],
+       [package => 'libmpfr-dev']],
+      ## Does not work:
+      #[os_darwin,
+      # [package => 'mpfr']],
+     ],
 
      [cpanmod => 'DB_File',
       [like_debian,
