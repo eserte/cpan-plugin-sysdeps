@@ -174,11 +174,11 @@ C<cpan-sysdeps> may be used to utilize
 L<CPAN::Plugin::Sysdeps::Mapping> outside of L<CPAN.pm|CPAN>. For
 example on a Debian-like system:
 
-    apt-get install $(cpan-sysdeps --uninstalled Foo::Bar)
+    apt-get install $(cpan-sysdeps --uninstalled --cpanmod Foo::Bar)
 
 Or everywhere:
 
-    cpan-sysdeps Foo::Bar --run
+    cpan-sysdeps --cpanmod Foo::Bar --run
 
 =head1 AUTHOR
 
