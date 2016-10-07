@@ -357,7 +357,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => 'squeeze',
 	[package => 'libgmp3-dev']],
-       [package => 'libgmp-dev']]],
+       [package => 'libgmp-dev']],
+      [os_darwin,
+       [package => 'gmp']]
+     ],
 
      [cpanmod => 'Crypt::GCrypt',
       [os_freebsd,
