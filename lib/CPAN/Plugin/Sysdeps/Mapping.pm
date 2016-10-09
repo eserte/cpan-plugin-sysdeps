@@ -1042,7 +1042,11 @@ sub mapping {
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => []], # not available before jessie
        ],
-       [package => 'liblmdb-dev']]],
+       [package => 'liblmdb-dev']],
+      ## does not work, maybe Makefile.PL needs better detection?
+      #[os_darwin,
+      # [package => 'lmdb']],
+     ],
 
      [cpanmod => 'Locale::gettext', # gettext distribution
       [os_freebsd,
