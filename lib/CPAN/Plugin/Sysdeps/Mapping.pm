@@ -973,6 +973,11 @@ sub mapping {
 #	# for some Judy-using modules (XXX which one?)
 #	package { "Judy": ensure => installed } # XXX this is freebsd; what about debian?
 
+     [cpanmod => 'Kafka::Librd',
+      # no package for freebsd
+      [like_debian,
+       [package => 'librdkafka-dev']]],
+
      # XXX needs verification; maybe more latex-related modules should be listed here?
      [cpanmod => ['LaTeX::Driver', 'Template::Plugin::Latex'],
       [os_freebsd,
