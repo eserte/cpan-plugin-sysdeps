@@ -194,6 +194,13 @@ sub mapping {
       [like_debian,
        [package => 'libsamplerate0-dev']]],
 
+     [cpanmod => 'Audio::MPEG',
+      [os_freebsd,
+       [package => 'lame']], # restricted, no binary package available, must build from ports
+      [like_debian,
+       [package => 'libmp3lame-dev']], # but compilation fails
+     ],
+
      [cpanmod => 'Audio::Ofa',
       [os_freebsd,
        [package => 'libofa']],
