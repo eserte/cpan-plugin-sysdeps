@@ -844,6 +844,18 @@ sub mapping {
       [like_debian,
        [package => 'libsoup-gnome2.4-dev']]],
 
+     [cpanmod => 'Image::DecodeQR',
+      #[os_freebsd,
+      # [package => 'opencv']], # package for decodeqr missing
+      [like_debian,
+       [package => ['libopencv-dev', 'libdecodeqr-dev']]]],
+
+     [cpanmod => ['Image::ObjectDetect', 'Image::Resize::OpenCV'],
+      [os_freebsd,
+       [package => 'opencv']],
+      [like_debian,
+       [package => 'libopencv-dev']]],
+
      [cpanmod => 'Image::GeoTIFF::Tiled',
       [os_freebsd,
        [package => ['libgeotiff', 'tiff']]],
