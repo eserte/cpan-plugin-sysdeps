@@ -470,10 +470,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => 'squeeze',
 	[package => 'libdb4.8-dev']],
-       [linuxdistrocodename => 'wheezy',
+       [linuxdistrocodename => ['wheezy', 'precise'],
 	[package => 'libdb5.1-dev']],
-       [package => 'libdb5.3-dev']],
-      # FreeBSD has libdb in the base system
+       [package => 'libdb5.3-dev']], # e.g. jessie, stretch, trusty, xenial, yakkety, zesty
+      # FreeBSD and MacOSX have libdb in the base system
      ],
 
      [cpanmod => 'DBD::Firebird',
