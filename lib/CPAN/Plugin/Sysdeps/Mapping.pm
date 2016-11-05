@@ -247,9 +247,9 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => 'squeeze',
 	[package => 'libdb4.8-dev']],
-       [linuxdistrocodename => 'wheezy',
+       [linuxdistrocodename => ['wheezy', 'precise'],
 	[package => 'libdb5.1-dev']],
-       [package => 'libdb5.3-dev']],
+       [package => 'libdb5.3-dev']], # e.g. jessie, stretch, trusty, xenial, yakkety, zesty
       [os_darwin,
        # Make sure that a corresponding distroprefs file matches this library (see srezic-cpan-distroprefs).
        [package => 'berkeley-db']],
