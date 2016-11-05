@@ -1300,7 +1300,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => 'squeeze',
 	[package => []]], # not available
-       [package => ['libzookeeper-mt-dev', 'zookeeperd']]]],
+       [package => ['libzookeeper-mt-dev', 'zookeeperd']]],
+      [os_darwin,
+       [package => 'zookeeper']],
+     ],
 
      [cpanmod => 'NewRelic::Agent',
       # freebsd does not work, bundled .so files are linux-only
