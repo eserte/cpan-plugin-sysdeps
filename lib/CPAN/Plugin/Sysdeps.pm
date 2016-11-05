@@ -269,6 +269,18 @@ sub _debug {
 sub _map_cpandist {
     my($self, $dist) = @_;
 
+    # compat for older CPAN.pm (1.76)
+    if (!$dist->can('base_id')) {
+	no warnings 'once';
+	*CPAN::Distribution::base_id = sub {
+	    my $self = shift;
+	    my $id = $self->id();
+	    my $base_id = File::Basename::basename($id);
+	    $base_id =~ s{\.(?:tar\.(bz2|gz|Z)|t(?:gz|bz)|zip)$}{}i;
+	    return $base_id;
+	};
+    }
+
     # smartmatch for regexp/string/array without ~~, 5.8.x compat!
     my $smartmatch = sub ($$) {
 	my($left, $right) = @_;
