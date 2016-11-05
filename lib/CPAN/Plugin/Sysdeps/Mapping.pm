@@ -926,7 +926,7 @@ sub mapping {
       [os_freebsd,
        [package => [qw(freetype2 giflib png tiff), freebsd_jpeg]]], # in former days giflib-nox11 had to be specified
       [like_debian,
-       [linuxdistrocodename => 'wheezy',
+       [linuxdistrocodename => ['wheezy', 'precise'],
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
        [package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev libtiff5-dev)]]],
       [os_darwin,
@@ -1627,7 +1627,7 @@ sub mapping {
       [os_freebsd,
        [package => 'tiff']],
       [like_debian,
-       [linuxdistrocodename => ['squeeze', 'wheezy'],
+       [linuxdistrocodename => ['squeeze', 'wheezy', 'precise'],
 	[package => 'libtiff4-dev']],
        [package => 'libtiff5-dev']]],
 
