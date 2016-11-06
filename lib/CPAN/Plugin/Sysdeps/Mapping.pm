@@ -1116,11 +1116,14 @@ sub mapping {
       [package => 'gap'], # needs 1-1.2GB of disk space
      ],
 
-     [cpanmod => 'Math::GSL',
+     [cpanmod => ['Math::GSL', 'PerlGSL::DiffEq'],
       [os_freebsd,
        [package => 'gsl']],
       [like_debian,
-       [package => 'libgsl0-dev']]],
+       [package => 'libgsl0-dev']],
+      [os_darwin,
+       [package => 'gsl']],
+     ],
 
      [cpanmod => 'Math::MPC',
       [os_freebsd,
