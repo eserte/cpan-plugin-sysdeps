@@ -1,7 +1,3 @@
-branches:
-  except:
-    - /appveyor/
-
 language: perl
 
 matrix:
@@ -26,8 +22,6 @@ matrix:
       env: USE_SYSTEM_PERL=1
       dist: trusty
 
-sudo: false
-
 before_install:
  - if [ "$USE_SYSTEM_PERL" = 1 ]; then perlbrew off; fi
 
@@ -41,3 +35,8 @@ install:
 
 script:
  - perl Makefile.PL && env HARNESS_TIMER=1 make disttest
+
+branches:
+  except:
+    - /appveyor/
+sudo: false
