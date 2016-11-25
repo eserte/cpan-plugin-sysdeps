@@ -608,6 +608,14 @@ sub mapping {
       [like_debian,
        [package => 'librsync-dev']]],
 
+     [cpanmod => 'Filesys::SmbClient',
+      ## XXX unclear which package is the correct one
+      #[os_freebsd,
+      # [package => 'samba-libsmbclient | samba41 | samba4']],
+      [like_debian,
+       [package => 'libsmbclient-dev']],
+     ],
+
      [cpanmod => 'Finance::MICR::GOCR::Check',
       [package => 'gocr']],
 
