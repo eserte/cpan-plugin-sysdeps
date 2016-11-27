@@ -1472,7 +1472,8 @@ sub mapping {
      [cpanmod => 'Speech::Recognizer::SPX',
       [os_freebsd,
        [package => 'pocketsphinx']],
-      # XXX what about debian?
+      [like_debian,
+       [package => ['libpocketsphinx-dev', 'libsphinxbase-dev']]],
      ],
 
      [cpanmod => 'Spread',
