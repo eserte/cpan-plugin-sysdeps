@@ -639,6 +639,13 @@ sub mapping {
       [like_debian,
        [package => 'libfuse-dev']]],
 
+     [cpanmod => 'Games::Irrlicht',
+      [os_freebsd,
+       [package => 'irrlicht']], # but does not build
+      [like_debian,
+       [package => 'libirrlicht-dev']], # but does not build
+     ],
+
      [cpanmod => 'GD',
       [os_freebsd,
        [package => 'libgd']],
