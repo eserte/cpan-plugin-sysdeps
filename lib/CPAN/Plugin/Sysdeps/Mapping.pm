@@ -646,6 +646,13 @@ sub mapping {
        [package => 'libirrlicht-dev']], # but does not build
      ],
 
+     [cpanmod => 'Games::Poker::HandEvaluator',
+      [os_freebsd,
+       [package => 'poker-eval']], # but does not build out of the box
+      [like_debian,
+       [package => 'libpoker-eval-dev']], # but does not build out of the box
+     ],
+
      [cpanmod => 'GD',
       [os_freebsd,
        [package => 'libgd']],
