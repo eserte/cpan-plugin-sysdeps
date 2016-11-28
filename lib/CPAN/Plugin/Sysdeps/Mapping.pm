@@ -1177,6 +1177,13 @@ sub mapping {
       # XXX what about debian?
      ],
 
+     [cpanmod => 'Mhash',
+      [os_freebsd,
+       [package => 'mhash']],
+      [like_debian,
+       [package => 'libmhash-dev']],
+     ],
+
      [cpanmod => 'MIDI::ALSA',
       [os_freebsd,
        [package => ['alsa-lib', 'alsa-utils']]],
