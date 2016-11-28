@@ -519,6 +519,12 @@ sub mapping {
        # but still does not work
        [package => ['libcdio-dev', 'libiso9660-dev']]]],
 
+     [cpanmod => 'Device::Serdisp',
+      [os_freebsd,
+       [package => 'serdisplib']], # but segfault in tests
+      # no package for debian
+     ],
+
      [cpanmod => 'Device::Velleman::K8055::libk8055',
       [os_freebsd,
        [package => 'libk8055']],
