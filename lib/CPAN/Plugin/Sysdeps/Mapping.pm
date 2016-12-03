@@ -1017,6 +1017,15 @@ sub mapping {
        [package => 'v8']], # but compilation errors (v8-5.0.71.33 <-> JavaScript-V8-0.07)
      ],
 
+     [cpanmod => 'Jq',
+      [os_freebsd,
+       [package => 'jq']],
+      [like_debian,
+       [package => 'jq']],
+      [os_darwin,
+       [package => 'jq']],
+     ],
+
 #	# for some Judy-using modules (XXX which one?)
 #	package { "Judy": ensure => installed } # XXX this is freebsd; what about debian?
 
