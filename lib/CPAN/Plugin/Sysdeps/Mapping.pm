@@ -540,7 +540,10 @@ sub mapping {
       [os_freebsd,
        [package => 'ldns']],
       [like_debian,
-       [package => 'libldns-dev']]],
+       [package => 'libldns-dev']],
+      # additionally needs to be patched, see https://github.com/eserte/srezic-cpan-distroprefs/blob/master/DNS-LDNS.yml
+      [os_darwin,
+       [package => 'ldns']]],
 
      [cpanmod => 'DVD::Read',
       [os_freebsd,
