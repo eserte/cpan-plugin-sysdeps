@@ -514,6 +514,13 @@ sub mapping {
        [package => [qw(libzmq3-dev ipython ipython-notebook libmagic-dev)]], # as specified in https://metacpan.org/source/ZMUGHAL/Devel-IPerl-0.006/README.md
       ]],
 
+     [cpanmod => 'Devel::Valgrind::Client',
+      [os_freebsd,
+       [package => 'valgrind']], # untested
+      [like_debian,
+       [package => 'valgrind']], # but compilation errors
+     ],
+
      [cpanmod => 'Device::Cdio',
       [like_debian,
        # but still does not work
