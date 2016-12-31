@@ -414,7 +414,10 @@ sub mapping {
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => []], # not available before jessie
        ],
-       [package => 'libsodium-dev']]],
+       [package => 'libsodium-dev']],
+      [os_darwin,
+       [package => 'libsodium']],
+     ],
 
      [cpanmod => 'CSS::Croco',
       [os_freebsd,
