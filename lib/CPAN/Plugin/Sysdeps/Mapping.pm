@@ -1047,6 +1047,11 @@ sub mapping {
       [like_debian,
        [package => 'librdkafka-dev']]],
 
+     [cpanmod => 'Kernel::Keyring',
+      # linux-only
+      [like_debian,
+       [package => 'libkeyutils-dev']]],
+
      # XXX needs verification; maybe more latex-related modules should be listed here?
      [cpanmod => ['LaTeX::Driver', 'Template::Plugin::Latex'],
       [os_freebsd,
