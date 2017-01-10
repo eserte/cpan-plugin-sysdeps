@@ -652,6 +652,13 @@ sub mapping {
       [like_debian,
        [package => 'libfuse-dev']]],
 
+     [cpanmod => 'Games::Chipmunk',
+      [os_freebsd,
+       [package => 'ChipmunkPhysics']],
+      [like_debian,
+       [package => 'chipmunk-dev']],
+     ],
+
      [cpanmod => 'Games::Irrlicht',
       [os_freebsd,
        [package => 'irrlicht']], # but does not build
