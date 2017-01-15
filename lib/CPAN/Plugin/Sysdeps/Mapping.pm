@@ -642,7 +642,7 @@ sub mapping {
       [os_freebsd,
        [package => 'ta-lib']]], # alternative would be Alien::TALib
 
-     [cpanmod => 'FTDI::D2XX',
+     [cpanmod => ['FTDI::D2XX', 'Device::FTDI'],
       # neither libftdi nor libftdi1 seem to work on FreeBSD
       [like_debian,
        [package => 'libftdi-dev']]],
