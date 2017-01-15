@@ -21,6 +21,7 @@ WriteMakefile(
     LICENSE	      => 'perl',
     ABSTRACT          => 'CPAN.pm plugin for installing external dependencies',
     AUTHOR            => 'Slaven Rezic <srezic@cpan.org>',
+    MIN_PERL_VERSION  => 5.006,
 
     ($eumm_recent_enough
      ? (META_ADD => { resources  => { repository => 'git://github.com/eserte/cpan-plugin-sysdeps.git' } }) : ()),
