@@ -1,5 +1,10 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.18  2017-01-15
+	- compat for older CPAN.pm (CPAN::Distribution::base_id may be
+	  missing)
+	- mapping update
+
 0.17  2016-10-07
 	- fix for newer homebrew versions (for "brew ls --versions")
 	- mapping update
