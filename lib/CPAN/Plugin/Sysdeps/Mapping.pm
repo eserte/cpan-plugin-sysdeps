@@ -1222,7 +1222,8 @@ sub mapping {
       [os_freebsd,
        [package => ['alsa-lib', 'alsa-utils']]],
       [like_debian,
-       [package => 'alsa-utils']]],
+       [package => ['libasound2-dev', 'alsa-utils']]],
+     ],
 
      [cpanmod => 'MP3::ID3Lib',
       [os_freebsd,
