@@ -516,6 +516,8 @@ sub _install_packages_commands {
     if ($self->{batch}) {
 	if ($self->_is_apt_installer) {
 	    push @install_cmd, '-y';
+	} elsif ($self->{installer} eq 'yum') {
+	    push @install_cmd, '-y';
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
 	} elsif ($self->{installer} eq 'homebrew') {
@@ -526,6 +528,8 @@ sub _install_packages_commands {
     } else {
 	if ($self->_is_apt_installer) {
 	    @pre_cmd = ('sh', '-c', 'echo -n "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
+	} elsif ($self->{installer} eq 'yum') {
+	    # interactive by default
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
 	} elsif ($self->{installer} =~ m{^(chocolatey)$}) {
