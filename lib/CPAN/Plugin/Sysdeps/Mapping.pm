@@ -11,6 +11,7 @@ use constant os_freebsd  => (os => 'freebsd');
 use constant os_windows  => (os => 'MSWin32');
 use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
 use constant like_debian => (linuxdistro => '~debian');
+use constant like_fedora => (linuxdistro => '~fedora');
 #  package shortcuts
 use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
 
@@ -604,7 +605,7 @@ sub mapping {
      [cpanmod => 'File::ExtAttr',
       [like_debian,
        [package => 'libattr1-dev']],
-      [linuxdistro => '~fedora',
+      [like_fedora,
        [package => 'libattr-devel']],
      ],
 
@@ -680,6 +681,8 @@ sub mapping {
        [linuxdistrocodename => ['precise', 'wheezy'],
 	[package => 'libgd2-noxpm-dev | libgd2-xpm-dev']],
        [package => 'libgd-dev']],
+      [like_fedora,
+       [package => 'gd-devel']],
       [os_darwin,
        [package => 'gd']]],
 
@@ -1696,7 +1699,7 @@ sub mapping {
        [package => qw(freetype2 libXft libX11 png), freebsd_jpeg]],
       [like_debian,
        [package => [qw(libx11-dev libfreetype6-dev libxft-dev libpng-dev libz-dev libjpeg-dev)]]],
-      [linuxdistro => '~fedora',
+      [like_fedora,
        [package => [qw(libX11-devel libXft-devel libpng-devel zlib-devel libjpeg-devel)]]],
      ],
 
@@ -1793,7 +1796,7 @@ sub mapping {
        [package => 'libxslt']],
       [like_debian,
        [package => ['libxslt1-dev', 'libgdbm-dev']]],
-      [linuxdistro => '~fedora',
+      [like_fedora,
        [package => 'libxslt-devel']]],
 
      [cpanmod => 'XML::Parser',
