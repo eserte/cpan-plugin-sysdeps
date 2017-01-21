@@ -1097,8 +1097,11 @@ sub mapping {
        [package => 'libacl1-dev']]],
 
      [cpanmod => 'Linux::Inotify2',
-      [os_freebsd,
-       [package => 'libinotify']],
+      ## This inotify package is not able to run
+      ## Linux::Inotify2, and if installed it
+      ## casues problems with Alien-wxWidgets
+      #[os_freebsd,
+      # [package => 'libinotify']],
       [like_debian,
        [package => 'libc6-dev']]],
 
