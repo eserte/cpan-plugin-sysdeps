@@ -1,5 +1,11 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.19  2017-01-21
+	- batch support for yum
+	- find missing rpm packages
+	- use /etc/redhat-release in _detect_linux_distribution_fallback
+	- mapping update, especially for Fedora/CentOS/RedHat
+
 0.18  2017-01-15
 	- compat for older CPAN.pm (CPAN::Distribution::base_id may be
 	  missing)
