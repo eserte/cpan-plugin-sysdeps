@@ -980,6 +980,8 @@ sub mapping {
        [linuxdistrocodename => ['wheezy', 'precise'],
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
        [package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev libtiff5-dev)]]],
+      [like_fedora,
+       [package => [qw(freetype-devel giflib-devel libpng-devel turbojpeg-devel libtiff-devel)]]],
       [os_darwin,
        [package => [qw(freetype giflib libpng jpeg libtiff)]]],
      ],
