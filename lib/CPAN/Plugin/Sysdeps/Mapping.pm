@@ -1803,7 +1803,10 @@ sub mapping {
       [os_freebsd,
        [package => 'expat']],
       [like_debian,
-       [package => 'libexpat1-dev']]],
+       [package => 'libexpat1-dev']],
+      [like_fedora,
+       [package => 'expat-devel']],
+     ],
 
      [cpanmod => 'XML::Sablotron',
       # compiles only with perl < 5.14, see https://rt.cpan.org/Ticket/Display.html?id=66849
