@@ -205,6 +205,12 @@ sub _detect_linux_distribution_lsb_release {
 }
 
 sub _detect_linux_distribution_fallback {
+    if (open my $fh, '<', '/etc/redhat-release') {
+	my $contents = <$fh>;
+	if ($contents =~ m{^(CentOS|RedHat) Linux release (\d+)\S* \((.*?)\)}) {
+	    return {linuxdistro => $1, linuxdistroversion => $2, linuxdistrocodename => $3};
+	}
+    }
     if (open my $fh, '<', '/etc/issue') {
 	chomp(my $line = <$fh>);
 	if      ($line =~ m{^Linux Mint (\d+) (\S+)}) {
