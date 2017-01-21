@@ -216,6 +216,7 @@ sub _detect_linux_distribution_fallback {
 		 6 => 'squeeze',
 		 7 => 'wheezy',
 		 8 => 'jessie',
+		 9 => 'stretch',
 		}->{$info{linuxdistroversion}};
 	    return \%info;
 	} else {
