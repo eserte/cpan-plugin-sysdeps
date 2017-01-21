@@ -1791,7 +1791,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libxml2']],
       [like_debian,
-       [package => 'libxml2-dev']]],
+       [package => 'libxml2-dev']],
+      [like_fedora,
+       [package => 'libxml2-devel']],
+     ],
 
      [cpanmod => 'XML::LibXSLT',
       [os_freebsd,
