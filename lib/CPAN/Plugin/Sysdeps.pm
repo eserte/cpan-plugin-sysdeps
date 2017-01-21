@@ -400,6 +400,33 @@ sub _find_missing_deb_packages {
     @missing_packages;
 }
 
+sub _find_missing_rpm_packages {
+    my($self, @packages) = @_;
+    return () if !@packages;
+
+    my @missing_packages;
+
+    {
+	my %packages = map{($_,1)} @packages;
+
+	local $ENV{LC_ALL} = 'C';
+	my @cmd = ('rpm', '-q', @packages);
+	open my $fh, '-|', @cmd
+	    or die "Error running '@cmd': $!";
+	while(<$fh>) {
+	    if (m{^package (\S+) is not installed}) {
+		my $package = $1;
+		if (!exists $packages{$package}) {
+		    die "Unexpected: package $package listed as non-installed, but not queries in '@cmd'?!";
+		}
+		push @missing_packages, $package;
+	    }
+	}
+    }
+
+    @missing_packages;
+}
+
 sub _find_missing_freebsd_pkg_packages {
     my($self, @packages) = @_;
     return () if !@packages;
@@ -460,6 +487,8 @@ sub _filter_uninstalled_packages {
     my $find_missing_packages;
     if      ($self->_is_apt_installer) {
 	$find_missing_packages = '_find_missing_deb_packages';
+    } elsif ($self->{installer} eq 'yum') {
+	$find_missing_packages = '_find_missing_rpm_packages';
     } elsif ($self->{os} eq 'freebsd') {
 	$find_missing_packages = '_find_missing_freebsd_pkg_packages';
     } elsif ($self->{os} eq 'MSWin32') {
