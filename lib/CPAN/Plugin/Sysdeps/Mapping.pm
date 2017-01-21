@@ -138,7 +138,10 @@ sub mapping {
      [cpanmod => 'App::Stacktrace',
       # does not work with freebsd anyway
       [like_debian,
-       [package => 'gdb']]],
+       [package => 'gdb']],
+      [like_fedora,
+       [package => 'gdb']],
+     ],
 
      [cpanmod => 'Archive::Rar',
       [os_freebsd,
@@ -296,6 +299,8 @@ sub mapping {
        [package => 'cairo']],
       [like_debian,
        [package => 'libcairo2-dev']],
+      [like_fedora,
+       [package => 'cairo-devel']],
       [os_darwin,
        [package => 'cairo']]],
 
@@ -739,6 +744,11 @@ sub mapping {
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => []]], # N/A
        [package => 'libgit2-dev']]],
+
+     [cpanmod => 'Glib',
+      [like_fedora,
+       [package => 'gobject-introspection-devel']],
+     ],
 
      [cpanmod => 'Glib::Object::Introspection',
       [os_freebsd,
@@ -1430,6 +1440,8 @@ sub mapping {
        [package => 'pango']],
       [like_debian,
        [package => 'libpango1.0-dev']],
+      [like_fedora,
+       [package => 'pango-devel']],
       [os_darwin,
        [package => 'pango']],
      ],
@@ -1629,6 +1641,8 @@ sub mapping {
      [cpanmod => 'Term::ReadLine::Gnu',
       [like_debian,
        [package => 'libreadline6-dev']],
+      [like_fedora,
+       [package => 'readline-devel']],
       # XXX what about freebsd?
       # XXX no homebrew package for darwin (checked 2016-05-22)
      ],
@@ -1741,6 +1755,8 @@ sub mapping {
      [cpanmod => 'URPM',
       [like_debian,
        [package => 'librpm-dev']], # but does not work anyway with the librpm version as found on squeeze
+      [like_fedora,
+       [package => 'rpm-devel']],
       # XXX what about freebsd?
      ],
 
