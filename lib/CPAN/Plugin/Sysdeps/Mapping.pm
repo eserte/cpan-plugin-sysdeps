@@ -1771,7 +1771,10 @@ sub mapping {
      [cpanmod => 'WWW::Curl',
       # XXX freebsd?
       [like_debian,
-       [package => 'libcurl4-openssl-dev | libcurl4-gnutls-dev | libcurl4-nss-dev']]],
+       [package => 'libcurl4-openssl-dev | libcurl4-gnutls-dev | libcurl4-nss-dev']],
+      [like_fedora,
+       [package => 'libcurl-devel']],
+     ],
 
      [cpanmod => 'WWW::Mechanize::PhantomJS',
       [os_freebsd,
