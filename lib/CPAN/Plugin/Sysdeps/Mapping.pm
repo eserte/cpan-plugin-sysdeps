@@ -430,6 +430,8 @@ sub mapping {
 	[package => []], # not available before jessie
        ],
        [package => 'libsodium-dev']],
+      [like_fedora,
+       [package => 'libsodium-devel']],
       [os_darwin,
        [package => 'libsodium']],
      ],
