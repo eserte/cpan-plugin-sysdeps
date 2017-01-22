@@ -398,6 +398,8 @@ sub mapping {
       # freebsd has all libssl in the base system
       [like_debian,
        [package => 'libssl-dev']],
+      [like_fedora,
+       [package => 'openssl-devel']],
       [os_windows,
        [package => 'openssl.light']]], # XXX create openssl.dev
 
