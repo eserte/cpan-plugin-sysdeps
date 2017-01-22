@@ -568,6 +568,8 @@ sub mapping {
        [package => 'ldns']],
       [like_debian,
        [package => 'libldns-dev']],
+      [like_fedora,
+       [package => 'ldns-devel']],
       # additionally needs to be patched, see https://github.com/eserte/srezic-cpan-distroprefs/blob/master/DNS-LDNS.yml
       [os_darwin,
        [package => 'ldns']]],
