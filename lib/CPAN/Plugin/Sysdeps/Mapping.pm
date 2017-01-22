@@ -376,6 +376,8 @@ sub mapping {
        [linuxdistrocodename => 'squeeze',
 	[package => 'libgmp3-dev']],
        [package => 'libgmp-dev']],
+      [like_fedora,
+       [package => 'gmp-devel']],
       ## Does not work: "Symbol not found: ___gmp_randclear"
       ## Same problem with homebrew/versions/gmp4
       #[os_darwin,
