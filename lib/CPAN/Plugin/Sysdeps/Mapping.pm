@@ -88,6 +88,11 @@ sub mapping {
       [like_debian,
        [package => 'libprotobuf-dev']]],
 
+     [cpanmod => 'Alien::raylib',
+      [like_fedora,
+       [package => 'libXrandr-devel']],
+     ],
+
      [cpanmod => 'Alien::RRDtool',
       [os_freebsd,
        [package => ['pkgconf', 'glib', 'cairo', 'pango', 'libxml2']]],
