@@ -481,6 +481,8 @@ sub mapping {
        [package => 'mpfr']],
       [like_debian,
        [package => 'libmpfr-dev']],
+      [like_fedora,
+       [package => 'mpfr-devel']],
       ## Does not work:
       #[os_darwin,
       # [package => 'mpfr']],
