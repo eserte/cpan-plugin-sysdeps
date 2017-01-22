@@ -1132,7 +1132,10 @@ sub mapping {
 
      [cpanmod => 'Linux::Netfilter::Log',
       [like_debian,
-       [package => 'libnetfilter-log-dev']]],
+       [package => 'libnetfilter-log-dev']],
+      [like_fedora,
+       [package => 'libnetfilter_log-devel']],
+     ],
 
      [cpanmod => 'Linux::Prctl',
       [like_debian,
