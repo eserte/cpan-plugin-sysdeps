@@ -1079,7 +1079,10 @@ sub mapping {
      [cpanmod => 'Kernel::Keyring',
       # linux-only
       [like_debian,
-       [package => 'libkeyutils-dev']]],
+       [package => 'libkeyutils-dev']],
+      [like_fedora,
+       [package => 'keyutils-libs-devel']],
+     ],
 
      # XXX needs verification; maybe more latex-related modules should be listed here?
      [cpanmod => ['LaTeX::Driver', 'Template::Plugin::Latex'],
