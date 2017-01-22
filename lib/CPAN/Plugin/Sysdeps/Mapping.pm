@@ -1385,6 +1385,8 @@ sub mapping {
        [package => 'libssh2']],
       [like_debian,
        [package => 'libssh2-1-dev']],
+      [like_fedora,
+       [package => 'libssh2-devel']],
       # Net-SSH2-0.58 already installs the homebrew package for libssh2 itself
      ],
 
