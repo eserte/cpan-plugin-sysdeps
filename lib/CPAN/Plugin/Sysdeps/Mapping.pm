@@ -55,6 +55,8 @@ sub mapping {
       [like_debian,
        # "yasm/nasm not found or too old. Use --disable-yasm for a crippled build."
        [package => ['libhdf4-dev', 'yasm']]],
+      [like_fedora,
+       [package => 'hdf-devel']],
      ],
 
      [cpanmod => 'Alien::LibUSBx',
