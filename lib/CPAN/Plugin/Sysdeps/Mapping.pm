@@ -1610,7 +1610,7 @@ sub mapping {
        ],
        [package => 'couchdb']]],
 
-     [cpanmod => ['SVN::Hooks', 'SVN::Agent'], # XXX maybe more SVN::* modules?
+     [cpanmod => ['SVN::Hooks', 'SVN::Agent', 'SVN::S4'], # XXX maybe more SVN::* modules?
       [package => 'subversion']],
 
      [cpanmod => 'Sword',
