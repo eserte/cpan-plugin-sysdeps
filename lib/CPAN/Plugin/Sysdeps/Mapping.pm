@@ -59,6 +59,15 @@ sub mapping {
        [package => 'hdf-devel']],
      ],
 
+     [cpanmod => 'Alien::IUP',
+      [os_freebsd,
+       [package => [qw(gtk2 cairo freeglut)]]],
+      [like_debian,
+       [package => [qw(libgtk-3-dev libcairo2-dev libx11-dev libglu-dev freeglut3-dev)]]],
+      [like_fedora,
+       [package => [qw(gtk2-devel cairo-devel libX11-devel libGLU-devel freeglut-devel)]]],
+     ],
+
      [cpanmod => 'Alien::LibUSBx',
       # XXX what about freebsd?
       [like_debian,
