@@ -1440,13 +1440,19 @@ sub mapping {
       [os_freebsd,
        [package => 'libvorbis']],
       [like_debian,
-       [package => 'libvorbis-dev']]],
+       [package => 'libvorbis-dev']],
+      [like_fedora,
+       [package => 'libvorbis-devel']],
+     ],
 
      [cpanmod => 'Ogg::Vorbis::Header',
       [os_freebsd,
        [package => 'libogg']],
       [like_debian,
-       [package => ['libogg-dev', 'libvorbis-dev']]]],
+       [package => ['libogg-dev', 'libvorbis-dev']]],
+      [like_fedora,
+       [package => ['libogg-devel', 'libvorbis-devel']]],
+     ],
 
      [cpanmod => 'OIS',
       ## ois in freebsd ports is 1.2.0, but 1.3.0 is required
