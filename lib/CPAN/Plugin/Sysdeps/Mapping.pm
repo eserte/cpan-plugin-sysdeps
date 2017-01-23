@@ -1277,7 +1277,10 @@ sub mapping {
       [os_freebsd,
        [package => 'id3lib']],
       [like_debian,
-       [package => 'libid3-3.8.3-dev']]],
+       [package => 'libid3-3.8.3-dev']],
+      [like_fedora,
+       [package => 'id3lib-devel']],
+     ],
 
      [cpanmod => 'modperl2',
       # XXX what about freebsd?
