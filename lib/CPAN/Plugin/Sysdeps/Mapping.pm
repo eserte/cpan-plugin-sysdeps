@@ -700,6 +700,17 @@ sub mapping {
        [package => 'libpoker-eval-dev']], # but does not build out of the box
      ],
 
+     [cpanmod => 'GCCJIT',
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise)],
+	[package => []]], # N/A in older Debian+Ubuntu versions
+       [linuxdistrocodename => [qw(xenial)],
+	[package => 'libgccjit-5-dev']],
+       [linuxdistrocodename => [qw(stretch)],
+	[package => 'libgccjit-6-dev']],
+      ],
+     ],
+
      [cpanmod => 'GD',
       [os_freebsd,
        [package => 'libgd']],
