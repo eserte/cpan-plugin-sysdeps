@@ -1074,6 +1074,8 @@ sub mapping {
        [package => 'jq']],
       [like_debian,
        [package => 'jq']],
+      [like_fedora,
+       [package => 'jq']],
       [os_darwin,
        [package => 'jq']],
      ],
