@@ -635,6 +635,8 @@ sub mapping {
       # XXX what about freebsd?
       [like_debian,
        [package => 'libmagic-dev']],
+      [like_fedora,
+       [package => 'file-devel']],
       [os_darwin,
        [package => 'libmagic']]],
 
