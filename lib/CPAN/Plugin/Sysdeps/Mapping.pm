@@ -1236,7 +1236,10 @@ sub mapping {
       [os_freebsd,
        [package => 'mpc']],
       [like_debian,
-       [package => 'libmpc-dev']]],
+       [package => 'libmpc-dev']],
+      [like_fedora,
+       [package => 'libmpc-devel']],
+     ],
 
      [cpanmod => 'Math::MPFI',
       # XXX what about freebsd?
