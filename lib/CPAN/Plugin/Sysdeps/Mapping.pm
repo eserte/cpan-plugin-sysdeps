@@ -1698,10 +1698,14 @@ sub mapping {
 
      [cpanmod => 'Text::Aspell',
       [os_freebsd,
-       [# "aspell" alone is not enough, test needs also English direcotries
+       [# "aspell" alone is not enough, test needs also English dictionary
 	package => ['aspell', 'en-aspell']]],
       [like_debian,
-       [package => 'libaspell-dev']]],
+       [package => 'libaspell-dev']],
+      [like_fedora,
+       [# test needs also English dictionary
+	package => ['aspell-devel', 'aspell-en']]],
+     ],
 
      [cpanmod => 'Text::Bidi',
       # otherwise real tests are skipped
