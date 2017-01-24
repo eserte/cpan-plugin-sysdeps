@@ -513,7 +513,10 @@ sub mapping {
       [os_freebsd,
        [package => 'firebird25-server']],
       [like_debian,
-       [package => 'firebird-dev']]],
+       [package => 'firebird-dev']],
+      [like_fedora,
+       [package => 'firebird-devel']],
+     ],
 
      [cpanmod => 'DBD::mysql',
       [os_freebsd,
