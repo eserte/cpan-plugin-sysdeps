@@ -1818,7 +1818,11 @@ sub mapping {
        [package => 'libstatgrab']],
       [like_debian,
        # unfortunately does not work in wheezy, the library version is too old for the module
+       # jessie and later is fine
        [package => 'libstatgrab-dev']],
+      [like_fedora,
+       # package found in CentOS7 is probably too old
+       [package => 'libstatgrab-devel']],
       [os_darwin,
        [package => 'libstatgrab']]],
 
