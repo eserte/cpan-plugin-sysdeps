@@ -1178,7 +1178,10 @@ sub mapping {
 
      [cpanmod => 'Linux::Prctl',
       [like_debian,
-       [package => 'libcap-dev']]],
+       [package => 'libcap-dev']],
+      [like_fedora,
+       [package => 'libcap-devel']],
+     ],
 
      [cpanmod => 'Linux::Sysfs',
       [like_debian,
