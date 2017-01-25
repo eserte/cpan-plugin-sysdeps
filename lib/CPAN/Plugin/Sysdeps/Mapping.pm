@@ -1282,9 +1282,13 @@ sub mapping {
 
      [cpanmod => 'MaxMind::DB::Reader::XS',
       [os_freebsd,
-       # but tests fail
        [package => 'libmaxminddb']],
-      # XXX what about debian?
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise)],
+	package => []], # N/A
+       [package => 'libmaxminddb-dev']], # xenian (but too old), stretch (works)
+      [like_fedora,
+       [package => 'libmaxminddb-devel']], # works
      ],
 
      [cpanmod => 'Mhash',
