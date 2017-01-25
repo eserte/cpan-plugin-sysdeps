@@ -1680,7 +1680,10 @@ sub mapping {
       [os_freebsd,
        [package => 'tcl86 | tcl85 | tcl84']],
       [like_debian,
-       [package => 'tcl8.5-dev']]],
+       [package => 'tcl8.5-dev']],
+      [like_fedora,
+       [package => 'tcl-devel']],
+     ],
 
      [cpanmod => 'Tcl::pTk',
       [os_freebsd,
