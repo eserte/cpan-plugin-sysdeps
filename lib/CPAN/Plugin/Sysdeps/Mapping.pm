@@ -761,7 +761,10 @@ sub mapping {
       [os_freebsd,
        [package => 'shapelib']],
       [like_debian,
-       [package => 'libshp-dev']]],
+       [package => 'libshp-dev']],
+      [like_fedora,
+       [package => 'shapelib-devel']],
+     ],
 
      [cpanmod => ['Gimp', 'Alien::Gimp'],
       [os_freebsd,
