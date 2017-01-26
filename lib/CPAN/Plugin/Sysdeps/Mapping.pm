@@ -473,7 +473,10 @@ sub mapping {
       [os_freebsd,
        [package => 'e2fsprogs-libuuid']],
       [like_debian,
-       [package => 'uuid-dev']]],
+       [package => 'uuid-dev']],
+      [like_fedora,
+       [package => 'libuuid-devel']],
+     ],
 
      [cpanmod => 'Date::LibICal',
       [os_freebsd,
