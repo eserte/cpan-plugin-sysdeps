@@ -1259,6 +1259,8 @@ sub mapping {
        [package => 'gsl']],
       [like_debian,
        [package => 'libgsl0-dev']],
+      [like_fedora,
+       [package => 'gsl-devel']],
       [os_darwin,
        [package => 'gsl']],
      ],
