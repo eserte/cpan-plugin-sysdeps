@@ -1399,18 +1399,11 @@ sub mapping {
      [cpanmod => 'Net::LibNIDS',
       [os_freebsd,
        # but does not work (no libnids.so in freebsd port, just .a)
-       [package => ['libnids', 'libnet']]],
+       [package => ['libnids', 'libnet', 'libpcap']]],
       [like_debian,
-       [package => ['libnids-dev', 'libnet1-dev']]]],
-
-     [cpanmod => 'Net::LibNIDS',
-      [os_freebsd,
-       # but does not work
-       [package => ['libpcap', 'libnids']]],
-      [like_debian,
-       [package => 'libpcap0.8-dev']],
+       [package => ['libnids-dev', 'libnet1-dev', 'libpcap0.8-dev']]],
       [like_fedora,
-       [package => 'libpcap-devel']],
+       [package => ['libnids-devel', 'libnet-devel', 'libpcap-devel']]],
      ],
 
      [cpanmod => 'Net::Pcap',
