@@ -1408,11 +1408,17 @@ sub mapping {
        # but does not work
        [package => ['libpcap', 'libnids']]],
       [like_debian,
-       [package => 'libpcap0.8-dev']]],
+       [package => 'libpcap0.8-dev']],
+      [like_fedora,
+       [package => 'libpcap-devel']],
+     ],
 
      [cpanmod => 'Net::Pcap',
       [like_debian,
-       [package => 'libpcap0.8-dev']]],
+       [package => 'libpcap0.8-dev']],
+      [like_fedora,
+       [package => 'libpcap-devel']],
+     ],
 
      [cpanmod => 'Net::oRTP',
       [os_freebsd,
