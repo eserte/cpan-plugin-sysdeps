@@ -1202,12 +1202,13 @@ sub mapping {
       [like_debian,
        [package => 'libsysfs-dev']]],
 
-     [cpanmod => 'Linux::Systemd::Journal',
+     [cpanmod => ['Linux::Systemd::Journal', 'Log::Journald'],
       [like_debian,
        [linuxdistrocodename => ['squeeze', 'wheezy', 'jessie'],
 	[package => 'libsystemd-journal-dev']],
-       # sid and probably stretch
-       [package => 'libsystemd-dev']]],
+       # sid, stretch and xenial
+       [package => 'libsystemd-dev']],
+     ],
 
      [cpanmod => 'LMDB_File',
       [os_freebsd,
