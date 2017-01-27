@@ -460,7 +460,10 @@ sub mapping {
 
      [cpanmod => 'Curses::UI::Mousehandler::GPM',
       [like_debian,
-       [package => ['libgpm-dev', 'libncurses5-dev']]]],
+       [package => ['libgpm-dev', 'libncurses5-dev']]],
+      [like_fedora,
+       [package => ['gpm-devel']]],
+     ],
 
      [cpanmod => 'Database::Cassandra::Client',
       [os_freebsd,
