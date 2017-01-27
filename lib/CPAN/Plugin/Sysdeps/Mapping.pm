@@ -1092,7 +1092,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => 'ruby1.8-dev']],
-       [package => 'ruby2.1-dev']]],
+       [package => 'ruby2.1-dev']],
+      [like_fedora,
+       [package => 'ruby-devel']],
+     ],
 
      [cpanmod => 'IPC::MMA',
       [os_freebsd,
