@@ -1433,6 +1433,8 @@ sub mapping {
        [package => 'rabbitmq-c-devel']],
       [like_debian,
        [package => 'librabbitmq-dev']], # amqp_tcp_socket.h is provided by this package, but compilation still fails
+      [like_fedora,
+       [package => 'librabbitmq-devel']],
      ],
 
      [cpanmod => 'Net::SIGTRAN::SCTP',
