@@ -999,7 +999,10 @@ sub mapping {
       [os_freebsd,
        [package => 'librsvg2']],
       [like_debian,
-       [package => 'librsvg2-dev']]],
+       [package => 'librsvg2-dev']],
+      [like_fedora,
+       [package => 'librsvg2-devel']],
+     ],
 
      [cpanmod => 'Image::Magick',  # typically needs manual work
       [os_freebsd,
