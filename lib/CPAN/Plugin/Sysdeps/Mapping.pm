@@ -929,6 +929,15 @@ sub mapping {
       [like_debian,
        [package => 'libgtkimageview-dev']]],
 
+     [cpanmod => 'Gtk2::Unique',
+      [os_freebsd,
+       [package => 'unique']],
+      [like_debian,
+       [package => 'libunique-dev']],
+      [like_fedora,
+       [package => 'unique-devel']],
+     ],
+
      [cpanmod => 'Gtk3',
       [os_freebsd,
        # additionally dbus has to be enabled and started
