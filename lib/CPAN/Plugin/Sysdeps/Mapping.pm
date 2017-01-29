@@ -764,7 +764,10 @@ sub mapping {
        [package => 'gearmand-devel'], # untested; not for small disks, needs boost-libs
       ],
       [like_debian,
-       [package => 'libgearman-dev']]],
+       [package => 'libgearman-dev']],
+      [like_fedora,
+       [package => 'libgearman-devel']],
+     ],
 
      [cpanmod => 'Geo::Hex::V3::XS',
       [package => 'cmake']],
