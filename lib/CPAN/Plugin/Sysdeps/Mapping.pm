@@ -422,7 +422,10 @@ sub mapping {
        [linuxdistrocodename => 'squeeze',
 	[package => []], # N/A in squeeze
        ],
-       [package => 'libmcrypt-dev']]],
+       [package => 'libmcrypt-dev']],
+      [like_fedora,
+       [package => [qw(libmcrypt-devel libtool-ltdl-devel)]]],
+     ],
 
      [cpanmod => ['Crypt::OpenSSL::DSA', 'Crypt::OpenSSL::Random', 'Crypt::OpenSSL::X509', 'Net::SSLeay', 'IO::Socket::SSL'],
       # freebsd has all libssl in the base system
