@@ -1446,7 +1446,10 @@ sub mapping {
        [package => 'libdnet']],
       [like_debian,
        # but does not work without applying the patch manually - see https://rt.cpan.org/Ticket/Display.html?id=106021
-       [package => 'libdumbnet-dev']]],
+       [package => 'libdumbnet-dev']],
+      [like_fedora,
+       [package => 'libdnet-devel']],
+     ],
 
      [cpanmod => 'Net::LibIDN',
       [os_freebsd,
