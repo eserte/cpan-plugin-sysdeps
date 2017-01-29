@@ -874,7 +874,10 @@ sub mapping {
       [os_freebsd,
        [package => 'goocanvas']],
       [like_debian,
-       [package => 'libgoocanvas-dev']]],
+       [package => 'libgoocanvas-dev']],
+      [like_fedora,
+       [package => 'goocanvas-devel']],
+     ],
 
      [cpanmod => 'Google::ProtocolBuffers::Dynamic',
       [os_freebsd,
