@@ -1153,6 +1153,12 @@ sub mapping {
       [like_debian,
        [package => 'libmm-dev']]],
 
+     [cpanmod => 'IPC::XPA',
+      # no package for FreeBSD or CentOS7
+      [like_debian,
+       [package => 'libxpa-dev']],
+     ],
+
      [cpanmod => 'JavaScript::V8',
       [os_freebsd,
        [package => 'v8']],
