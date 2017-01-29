@@ -1879,6 +1879,13 @@ sub mapping {
        [package => 'wordnet-base']],
      ],
 
+     [cpanmod => 'WordNet::SenseKey',
+      [os_freebsd,
+       [package => 'wordnet']],
+      [like_debian,
+       [package => 'wordnet-sense-index']],
+     ],
+
      [cpanmod => 'WWW::Bootstrap',
       [os_freebsd,
        [package => 'npm']],
