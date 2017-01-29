@@ -247,7 +247,10 @@ sub mapping {
       [os_freebsd,
        [package => ['libsndfile', 'pkgconf']]],
       [like_debian,
-       [package => 'libsndfile1-dev']]],
+       [package => 'libsndfile1-dev']],
+      [like_fedora,
+       [package => 'libsndfile-devel']],
+     ],
 
      [cpanmod => 'Audio::TagLib',
       [os_freebsd,
