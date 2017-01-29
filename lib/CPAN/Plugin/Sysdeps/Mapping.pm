@@ -500,7 +500,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libical']],
       [like_debian,
-       [package => 'libical-dev']]],
+       [package => 'libical-dev']],
+      [like_fedora,
+       [package => 'libical-devel']],
+     ],
 
      [cpanmod => 'DateLocale',
       [os_freebsd,
