@@ -710,7 +710,10 @@ sub mapping {
      [cpanmod => 'Fuse',
       # Fuse.pm does not work on freebsd
       [like_debian,
-       [package => 'libfuse-dev']]],
+       [package => 'libfuse-dev']],
+      [like_fedora,
+       [package => 'fuse-devel']],
+     ],
 
      [cpanmod => 'Games::Chipmunk',
       [os_freebsd,
