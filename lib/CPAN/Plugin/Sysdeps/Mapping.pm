@@ -1297,7 +1297,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => []]],
-       [package => 'libopendmarc-dev']]],
+       [package => 'libopendmarc-dev']],
+      [like_fedora,
+       [package => 'libopendmarc-devel']],
+     ],
 
      [cpanmod => 'Mail::OpenDKIM',
       [os_freebsd,
