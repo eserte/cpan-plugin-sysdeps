@@ -914,6 +914,15 @@ sub mapping {
       [like_debian,
        [package => 'libgtk2.0-dev']]],
 
+     [cpanmod => 'Gtk2::GladeXML',
+      [os_freebsd,
+       [package => 'libglade2']],
+      [like_debian,
+       [package => 'libglade2-dev']],
+      [like_fedora,
+       [package => 'libglade2-devel']],
+     ],
+
      [cpanmod => 'Gtk2::ImageView',
       [os_freebsd,
        [package => 'gtkimageview']],
