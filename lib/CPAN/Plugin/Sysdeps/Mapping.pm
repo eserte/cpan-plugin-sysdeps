@@ -353,6 +353,12 @@ sub mapping {
       [like_debian,
        [package => ['clamav-daemon', 'clamav-data']]]],
 
+     [cpanmod => 'Comedi::Lib',
+      # Not available for FreeBSD or CentOS7
+      [like_debian,
+       [package => 'libcomedi-dev']],
+     ],
+
      [cpanmod => ['Compress::LZMA::Simple', 'Compress::Raw::Lzma'],
       [os_freebsd,
        # this one does not work with Compress::Raw::Lzma under freebsd
