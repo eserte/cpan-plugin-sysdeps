@@ -621,6 +621,12 @@ sub mapping {
        # here too: build is not successful anyway (Evas.h cannot be found)
        [package => ['libevas-dev', 'libelementary-dev']]]],
 
+     [cpanmod => 'Encode::TECkit',
+      [os_freebsd,
+       [package => 'teckit']],
+      # no package for Debian (jessie, stretch) and CentOS7
+     ],
+
      [cpanmod => 'EV::ADNS',
       [os_freebsd,
        [package => 'adns']],
