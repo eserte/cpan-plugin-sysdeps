@@ -938,6 +938,15 @@ sub mapping {
       [like_debian,
        [package => 'libgtkimageview-dev']]],
 
+     [cpanmod => 'Gtk2::Spell',
+      [os_freebsd,
+       [package => 'gtkspell']],
+      [like_debian,
+       [package => 'libgtkspell-dev']],
+      [like_fedora,
+       [package => 'gtkspell-devel']],
+     ],
+
      [cpanmod => 'Gtk2::Unique',
       [os_freebsd,
        [package => 'unique']],
