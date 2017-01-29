@@ -837,7 +837,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libgnomecanvas']],
       [like_debian,
-       [package => 'libgnomecanvas2-dev']]],
+       [package => 'libgnomecanvas2-dev']],
+      [like_fedora,
+       [package => 'libgnomecanvas-devel']],
+     ],
 
      [cpanmod => 'Gnome2::GConf',
       [os_freebsd,
