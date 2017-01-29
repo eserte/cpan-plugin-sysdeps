@@ -206,7 +206,10 @@ sub mapping {
       [os_freebsd,
        [package => 'gsm']],
       [like_debian,
-       [package => 'libgsm1-dev']]],
+       [package => 'libgsm1-dev']],
+      [like_fedora,
+       [package => 'gsm-devel']],
+     ],
 
      [cpanmod => 'Audio::LibSampleRate',
       [os_freebsd,
