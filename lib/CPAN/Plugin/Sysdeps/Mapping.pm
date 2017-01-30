@@ -1177,6 +1177,15 @@ sub mapping {
        [package => 'libxpa-dev']],
      ],
 
+     [cpanmod => 'IPTables::libiptc',
+      # Does not work with modern Linux distributions:
+      # https://rt.cpan.org/Ticket/Display.html?id=111267
+      [like_debian,
+       [package => 'iptables-dev']],
+      [like_fedora,
+       [package => 'iptables-devel']],
+     ],
+
      [cpanmod => 'JavaScript::V8',
       [os_freebsd,
        [package => 'v8']],
