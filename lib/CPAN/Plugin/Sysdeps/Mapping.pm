@@ -1851,6 +1851,12 @@ sub mapping {
 	[package => []]],
        [package => 'libvterm-dev']]],
 
+     [cpanmod => 'Text::AI::CRM114',
+      [os_freebsd,
+       [package => 'libcrm114']],
+      # No package available for Debian or CentOS7
+     ],
+
      [cpanmod => 'Text::Aspell',
       [os_freebsd,
        [# "aspell" alone is not enough, test needs also English dictionary
