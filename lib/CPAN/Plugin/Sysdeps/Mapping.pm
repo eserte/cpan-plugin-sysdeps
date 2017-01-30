@@ -1706,6 +1706,15 @@ sub mapping {
 #	## see http://portsmon.freebsd.org/portoverview.py?category=archivers&portname=rpm5
 #	#package { "rpm5": ensure => installed }
 
+     [cpanmod => 'RRD::Tweak',
+      [os_freebsd,
+       [package => 'rrdtool']],
+      [like_debian,
+       [package => 'librrd-dev']],
+      [like_fedora,
+       [package => 'rrdtool-devel']],
+     ],
+
      [cpanmod => 'Search::Namazu',
       [os_freebsd,
        [package => 'namazu3']],
