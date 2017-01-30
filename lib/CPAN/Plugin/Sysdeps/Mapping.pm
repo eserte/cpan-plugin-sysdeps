@@ -1696,7 +1696,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => 'libxmlrpc-c3-dev']],
-       [package => 'libxmlrpc-core-c3-dev']]],
+       [package => 'libxmlrpc-core-c3-dev']],
+      [like_fedora,
+       [package => 'xmlrpc-c-devel']],
+     ],
 
 #	## various rpm using tools --- XXX which one exactly?
 #	## XXX disabled because package was not yet built (last check 2014-08-10)
