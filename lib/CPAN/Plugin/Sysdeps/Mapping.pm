@@ -17,6 +17,12 @@ use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
 
 sub mapping {
     (
+     [cpanmod => 'AI::LibNeural',
+      [os_freebsd,
+       [package => 'libneural']], # but marked as broken (unfetchable)
+      # not available for debian or centos
+     ],
+
      [cpanmod => 'AI::PBDD',
       [os_freebsd,
        # but does not work, kernel.h is also required
