@@ -1267,7 +1267,10 @@ sub mapping {
 
      [cpanmod => 'Linux::ACL',
       [like_debian,
-       [package => 'libacl1-dev']]],
+       [package => 'libacl1-dev']],
+      [like_fedora,
+       [package => 'libacl-devel']],
+     ],
 
      [cpanmod => 'Linux::Inotify2',
       ## This inotify package is not able to run
