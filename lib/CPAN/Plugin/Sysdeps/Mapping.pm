@@ -789,6 +789,8 @@ sub mapping {
        [package => ['libproj4', 'proj']]],
       [like_debian,
        [package => ['libproj-dev', 'proj-bin']]],
+      [like_fedora,
+       [package => ['proj-devel', 'proj']]],
       [os_darwin,
        [package => 'proj']],
      ],
