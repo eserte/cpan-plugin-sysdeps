@@ -337,7 +337,10 @@ sub mapping {
       [os_freebsd,
        [package => 'tinycdb']],
       [like_debian,
-       [package => 'libcdb-dev']]],
+       [package => 'libcdb-dev']],
+      [like_fedora,
+       [package => 'tinycdb-devel']],
+     ],
 
      [cpanmod => 'CDB_File::Generator',
       [os_freebsd,
