@@ -198,6 +198,12 @@ sub mapping {
       [like_debian,
        [package => 'libao-dev']]],
 
+     [cpanmod => 'Audio::Audiere',
+      [os_freebsd,
+       [package => 'audiere']], # but compilation failures
+      # no package for Debian & CentOS7
+     ],
+
      [cpanmod => 'Audio::Extract::PCM',
       # but does not work with freebsd, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=205732
       [package => 'sox']],
