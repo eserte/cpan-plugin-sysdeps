@@ -271,6 +271,17 @@ sub mapping {
        # but does not work, because the module wants taglib 1.9.1, but wheezy has 1.7.2-1
        [package => ['libtag1-dev', 'g++']]]],
 
+     [cpanmod => 'Authen::Krb5Password',
+      [os_freebsd,
+       [package => 'heimdal | krb5']],
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie)],
+	[package => 'heimdal-dev | libkrb5-dev']],
+       [package => 'libkrb5-dev']],
+      [like_fedora,
+       [package => 'krb5-devel']],
+     ],
+
      [cpanmod => 'Authen::SASL::Cyrus',
       [os_freebsd,
        [package => 'cyrus-sasl']],
