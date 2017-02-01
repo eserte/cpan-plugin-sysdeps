@@ -920,6 +920,15 @@ sub mapping {
       [like_debian,
        [package => 'libplot-dev']]],
 
+     [cpanmod => 'Graphics::PLplot',
+      [os_freebsd,
+       [package => 'plplot']],
+      [like_debian,
+       [package => 'libplplot-dev']],
+      [like_fedora,
+       [package => 'plplot-devel']],
+     ],
+
      [cpanmod => ['Graphics::SANE', 'Sane'],
       [os_freebsd,
        [package => 'sane-backends']],
