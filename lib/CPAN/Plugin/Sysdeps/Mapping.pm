@@ -492,7 +492,10 @@ sub mapping {
       [os_freebsd,
        [package => ['libcroco', 'pkgconf']]],
       [like_debian,
-       [package => 'libcroco3-dev']]],
+       [package => 'libcroco3-dev']],
+      [like_fedora,
+       [package => 'libcroco-devel']],
+     ],
 
      [cpanmod => 'Curses',
       # ncurses.h is included in FreeBSD base install
