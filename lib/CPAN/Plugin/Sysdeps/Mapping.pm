@@ -649,7 +649,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libdvdread']],
       [like_debian,
-       [package => 'libdvdread-dev']]],
+       [package => 'libdvdread-dev']],
+      [like_fedora,
+       [package => 'libdvdread-devel']],
+     ],
 
      [cpanmod => 'EFL',
       [os_freebsd,
