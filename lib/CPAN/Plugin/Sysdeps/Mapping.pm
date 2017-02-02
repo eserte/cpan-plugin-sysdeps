@@ -972,6 +972,16 @@ sub mapping {
        [package => 'libglade2-devel']],
      ],
 
+     [cpanmod => 'Gtk2::GLExt',
+      # But does not build anywhere...
+      [os_freebsd,
+       [package => 'gtkglext']],
+      [like_debian,
+       [package => 'libgtkglext1-dev']],
+      [like_fedora,
+       [package => 'gtkglext-devel']],
+     ],
+
      [cpanmod => 'Gtk2::ImageView',
       [os_freebsd,
        [package => 'gtkimageview']],
