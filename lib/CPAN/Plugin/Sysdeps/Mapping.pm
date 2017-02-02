@@ -1037,7 +1037,11 @@ sub mapping {
        [package => 'heimdal']],
       [like_debian,
        # conflicts with libkrb5-dev
-       [package => 'heimdal-dev']]],
+       [package => 'heimdal-dev']],
+      [like_fedora,
+       # but does not build
+       [package => 'heimdal-devel']],
+     ],
 
      [cpanmod => 'Hiredis::Raw',
       [os_freebsd,
