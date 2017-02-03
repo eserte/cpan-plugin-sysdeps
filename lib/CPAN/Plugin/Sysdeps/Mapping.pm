@@ -956,7 +956,10 @@ sub mapping {
       [os_freebsd,
        [package => 'sane-backends']],
       [like_debian,
-       [package => 'libsane-dev']]],
+       [package => 'libsane-dev']],
+      [like_fedora,
+       [package => 'sane-backends-devel']],
+     ],
 
      [cpanmod => ['GraphViz', 'GraphViz2', 'GraphViz2::Marpa'],
       # package named the same in freebsd, debian and macosx/homebrew, maybe everywhere?
