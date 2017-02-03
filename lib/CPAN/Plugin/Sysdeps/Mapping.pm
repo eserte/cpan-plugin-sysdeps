@@ -863,7 +863,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => []]], # N/A
-       [package => 'libgit2-dev']]],
+       [package => 'libgit2-dev']],
+      [like_fedora,
+       [package => 'libgit2-devel']],
+     ],
 
      [cpanmod => 'Glib',
       [like_fedora,
