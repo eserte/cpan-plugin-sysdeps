@@ -1528,6 +1528,15 @@ sub mapping {
       [like_debian,
        [package => 'libloudmouth1-dev']]],
 
+     [cpanmod => 'Net::LDAPxs',
+      [os_freebsd,
+       [package => 'ldapsdk']], # but package seems to be broken and unmaintained
+      [like_debian,
+       [package => 'libldap2-dev']],
+      [like_fedora,
+       [package => 'openldap-devel']],
+     ],
+     
      [cpanmod => 'Net::Libdnet',
       [os_freebsd,
        [package => 'libdnet']],
