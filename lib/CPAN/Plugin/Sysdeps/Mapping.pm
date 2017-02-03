@@ -632,7 +632,10 @@ sub mapping {
      [cpanmod => 'DLM::Client',
       # libdlm does not seem to exist on FreeBSD
       [like_debian,
-       [package => 'libdlm-dev']]],
+       [package => 'libdlm-dev']],
+      [like_fedora,
+       [package => 'dlm-devel']],
+     ],
      
      [cpanmod => 'DNS::LDNS',
       [os_freebsd,
