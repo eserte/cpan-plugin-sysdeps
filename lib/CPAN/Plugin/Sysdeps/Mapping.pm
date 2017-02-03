@@ -1405,7 +1405,10 @@ sub mapping {
       [os_freebsd,
        [package => 'fftw3']],
       [like_debian,
-       [package => 'libfftw3-dev']]],
+       [package => 'libfftw3-dev']],
+      [like_fedora,
+       [package => 'fftw-devel']],
+     ],
 
      [cpanmod => 'Math::GammaFunction',
       [os_freebsd,
