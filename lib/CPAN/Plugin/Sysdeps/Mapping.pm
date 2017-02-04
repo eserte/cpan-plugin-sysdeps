@@ -701,6 +701,8 @@ sub mapping {
       # XXX TBD FreeBSD: provided by gcc, which is in the base system for osvers < 10, and has to be installed separately for osvers >= 10
       [like_debian,
        [package => 'gfortran']],
+      [like_fedora,
+       [package => 'gcc-gfortran']],
       # XXX TBD MacOSX: "GNU Fortran is now provided as part of GCC, and can be installed with: brew install gcc"
      ],
 
