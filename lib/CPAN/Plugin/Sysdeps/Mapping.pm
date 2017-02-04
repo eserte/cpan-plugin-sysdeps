@@ -47,6 +47,8 @@ sub mapping {
        [package => 'yasm']],
       [like_debian,
        [package => 'yasm']],
+      [like_fedora,
+       [package => 'yasm']],
      ],
 
      [cpanmod => 'Alien::FFTW3',
