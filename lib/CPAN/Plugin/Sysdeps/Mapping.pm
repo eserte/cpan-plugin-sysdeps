@@ -1578,7 +1578,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libidn']],
       [like_debian,
-       [package => 'libidn11-dev']]],
+       [package => 'libidn11-dev']],
+      [like_fedora,
+       [package => 'libidn-devel']],
+     ],
 
      [cpanmod => 'Net::NfDump',
       [like_debian,
