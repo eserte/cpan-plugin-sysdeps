@@ -689,7 +689,9 @@ sub mapping {
       [os_freebsd,
        [package => 'adns']],
       [like_debian,
-       [package => 'libadns1-dev']]],
+       [package => 'libadns1-dev']],
+      # no package available for CentOS7
+     ],
 
      [cpanmod => 'Event::Lib',
       [os_freebsd,
