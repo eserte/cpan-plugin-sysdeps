@@ -1048,7 +1048,10 @@ sub mapping {
        # additionally dbus has to be enabled and started
        [package => ['gtk3', 'dbus']]],
       [like_debian,
-       [package => 'libgtk-3-dev']]],
+       [package => 'libgtk-3-dev']],
+      [like_fedora,
+       [package => 'gtk3-devel']],
+     ],
 
      [cpanmod => 'Gtk3::SourceView',
       [os_freebsd,
