@@ -416,7 +416,10 @@ sub mapping {
       [os_freebsd,
        [package => 'cracklib']],
       [like_debian,
-       [package => 'libcrack2-dev']]],
+       [package => 'libcrack2-dev']],
+      [like_fedora,
+       [package => 'cracklib-devel']],
+     ],
 
      [cpanmod => ['Crypt::DH::GMP', 'Math::GMPq', 'Math::GMPz', 'Math::BigInt::GMP'],
       [os_freebsd,
