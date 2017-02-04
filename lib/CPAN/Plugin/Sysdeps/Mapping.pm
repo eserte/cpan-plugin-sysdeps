@@ -1231,8 +1231,7 @@ sub mapping {
       [like_debian,
        linuxdistrocodename => [qw(squeeze wheezy)],
        [package => 'libt1-dev']],
-      # not available anymore since jessie
-      # XXX TBD how's the state in Ubuntu?
+      # not available anymore since jessie, also not in xenial
      ],
 
      # modules just needing java and nothing else:
