@@ -1194,7 +1194,11 @@ sub mapping {
       [os_freebsd,
        [package => ['png', freebsd_jpeg]]],
       [like_debian,
-       [package => [qw(libjpeg-dev libpng12-dev)]]]],
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise xenial)],
+	[package => [qw(libjpeg-dev libpng12-dev)]]],
+       [package => [qw(libjpeg-dev libpng-dev)]],
+      ],
+     ],
 
      [cpanmod => 'Image::SubImageFind',
       # XXX what about freebsd?
@@ -1205,9 +1209,12 @@ sub mapping {
       [os_freebsd,
        [package => [qw(freetype2 giflib png tiff), freebsd_jpeg]]], # in former days giflib-nox11 had to be specified
       [like_debian,
-       [linuxdistrocodename => ['wheezy', 'precise'],
+       [linuxdistrocodename => [qw(wheezy precise)],
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
-       [package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev libtiff5-dev)]]],
+       [linuxdistrocodename => [qw(jessie xenial)],
+	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev libtiff5-dev)]]],
+       [package => [qw(libfreetype6-dev libgif-dev libpng-dev libjpeg-dev libtiff5-dev)]],
+      ],
       [like_fedora,
        [package => [qw(freetype-devel giflib-devel libpng-devel libjpeg-turbo-devel libtiff-devel)]]],
       [os_darwin,
@@ -1794,7 +1801,11 @@ sub mapping {
      [cpanmod => 'Prima',
       # XXX what about freebsd?
       [like_debian,
-       [package => [qw(libx11-dev libxpm-dev libgif-dev libpng12-dev libjpeg-dev), 'pkg-config | pkgconf']]]], # XXX maybe also add libtiff...
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise xenial)],
+	[package => [qw(libx11-dev libxpm-dev libgif-dev libpng12-dev libjpeg-dev), 'pkg-config | pkgconf']]], # XXX maybe also add libtiff...
+       [package => [qw(libx11-dev libxpm-dev libgif-dev libpng-dev libjpeg-dev), 'pkg-config | pkgconf']], # XXX maybe also add libtiff...
+      ],
+     ],
 
      [cpanmod => 'PulseAudio',
       [package => 'pulseaudio']],
