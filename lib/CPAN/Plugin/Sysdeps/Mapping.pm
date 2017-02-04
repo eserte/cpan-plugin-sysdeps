@@ -898,7 +898,10 @@ sub mapping {
       [os_freebsd,
        [package => 'gconf2']],
       [like_debian,
-       [package => 'libgconf2-dev']]],
+       [package => 'libgconf2-dev']],
+      [like_fedora,
+       [package => 'GConf2-devel']],
+     ],
 
      [cpanmod => 'Gnome2::Wnck',
       [os_freebsd,
