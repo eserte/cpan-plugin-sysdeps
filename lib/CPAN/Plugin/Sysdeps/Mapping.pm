@@ -1296,6 +1296,8 @@ sub mapping {
       [os_freebsd,
        [package => 'v8']],
       # XXX what about debian?
+      [like_fedora,
+       [package => 'v8-devel']], # but problems with Devel-CheckLib and compilation errors
       [os_darwin,
        [package => 'v8']], # but compilation errors (v8-5.0.71.33 <-> JavaScript-V8-0.07)
      ],
