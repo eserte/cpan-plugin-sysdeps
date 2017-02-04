@@ -703,8 +703,11 @@ sub mapping {
        [package => 'pkgconf']],
       [like_debian,
        [package => 'pkg-config | pkgconf']],
+      [like_fedora,
+       [package => 'pkgconfig']],
       [os_darwin,
-       [package => 'pkg-config']]],
+       [package => 'pkg-config']],
+     ],
 
      [cpanmod => 'File::ExtAttr',
       [like_debian,
