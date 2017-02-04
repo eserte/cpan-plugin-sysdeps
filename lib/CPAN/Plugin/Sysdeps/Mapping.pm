@@ -1138,7 +1138,10 @@ sub mapping {
       [os_freebsd,
        [package => 'imlib2']],
       [like_debian,
-       [package => 'libimlib2-dev']]],
+       [package => 'libimlib2-dev']],
+      [like_fedora,
+       [package => 'imlib2-devel']],
+     ],
 
      [cpanmod => 'Image::LibExif',
       [os_freebsd,
