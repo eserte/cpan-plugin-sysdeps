@@ -595,7 +595,10 @@ sub mapping {
       [os_freebsd,
        [package => 'postgresql93-server']],
       [like_debian,
-       [package => 'libpq-dev']]],
+       [package => 'libpq-dev']],
+      [like_fedora,
+       [package => [qw(postgresql postgresql-devel)]]],
+     ],
 
      [cpanmod => 'Deliantra::Client',
       [os_freebsd,
