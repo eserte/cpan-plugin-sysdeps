@@ -1760,7 +1760,9 @@ sub mapping {
       [os_freebsd,
        [package => 'pgplot']],
       [like_debian,
-       [package => 'pgplot5']]],
+       [package => 'pgplot5']],
+      # no pgplot package for CentOS7
+     ],
 
      [cpanmod => 'Pod::Spelling',
       # XXX what about freebsd?
