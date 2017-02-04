@@ -352,6 +352,11 @@ sub mapping {
       [os_darwin,
        [package => 'cairo']]],
 
+     [cpanmod => 'Cairo::GObject',
+      [like_fedora,
+       [package => 'cairo-gobject-devel']],
+     ],
+
      [cpanmod => 'Capstone',
       [os_freebsd,
        [package => 'capstone']],
