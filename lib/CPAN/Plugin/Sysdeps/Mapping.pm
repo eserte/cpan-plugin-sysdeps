@@ -125,7 +125,10 @@ sub mapping {
        # does not work, configure does not recognize sqlite
        [package => ['apr', 'sqlite3']]],
       [like_debian,
-       [package => ['libapr1-dev', 'libaprutil1-dev', 'libsqlite3-dev', 'zlib1g-dev']]]],
+       [package => ['libapr1-dev', 'libaprutil1-dev', 'libsqlite3-dev', 'zlib1g-dev']]],
+      [like_fedora,
+       [package => [qw(apr-devel apr-util-devel sqlite-devel)]]],
+     ],
 
      [cpanmod => 'Alien::unibilium',
       # XXX what about freebsd?
