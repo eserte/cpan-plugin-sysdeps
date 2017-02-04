@@ -985,7 +985,10 @@ sub mapping {
      [cpanmod => 'Gtk2',
       # XXX freebsd?
       [like_debian,
-       [package => 'libgtk2.0-dev']]],
+       [package => 'libgtk2.0-dev']],
+      [like_fedora,
+       [package => 'gtk2-devel']],
+     ],
 
      [cpanmod => 'Gtk2::GladeXML',
       [os_freebsd,
