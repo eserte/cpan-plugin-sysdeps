@@ -2103,6 +2103,8 @@ sub mapping {
        [package => 'wordnet']],
       [like_debian,
        [package => 'wordnet-base']],
+      [like_fedora,
+       [package => 'wordnet']],
      ],
 
      [cpanmod => 'WordNet::SenseKey',
