@@ -190,7 +190,10 @@ sub mapping {
       [os_freebsd,
        [package => 'cfitsio']],
       [like_debian,
-       [package => 'libcfitsio3-dev']]],
+       [package => 'libcfitsio3-dev']],
+      [like_fedora,
+       [package => 'cfitsio-devel']], # but test fails on CentOS7 (undefined symbol: ffgsky)
+     ],
 
      [cpanmod => 'Astro::WCS::LibWCS',
       ## not checked:
