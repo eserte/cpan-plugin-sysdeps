@@ -190,7 +190,9 @@ sub mapping {
       [os_freebsd,
        [package => 'cfitsio']],
       [like_debian,
-       [package => 'libcfitsio3-dev']],
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise xenial)],
+	[package => 'libcfitsio3-dev']],
+       [package => 'libcfitsio-dev']],
       [like_fedora,
        [package => 'cfitsio-devel']], # but test fails on CentOS7 (undefined symbol: ffgsky)
      ],
