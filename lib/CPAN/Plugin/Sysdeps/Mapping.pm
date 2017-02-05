@@ -424,7 +424,10 @@ sub mapping {
       [os_freebsd,
        [package => 'lzo2']],
       [like_debian,
-       [package => 'liblzo2-dev']]],
+       [package => 'liblzo2-dev']],
+      [like_fedora,
+       [package => 'lzo-devel']],
+     ],
 
      [cpanmod => 'Config::Augeas',
       [os_freebsd,
