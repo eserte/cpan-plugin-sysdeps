@@ -49,6 +49,8 @@ sub mapping {
        [package => 'yasm']],
       [like_fedora,
        [package => 'yasm']],
+      [os_darwin,
+       [package => 'yasm']],
      ],
 
      [cpanmod => 'Alien::FFTW3',
@@ -398,13 +400,17 @@ sub mapping {
        [package => 'libcomedi-dev']],
      ],
 
-     [cpanmod => ['Compress::LZMA::Simple', 'Compress::Raw::Lzma'],
+     [cpanmod => 'Compress::LZMA::Simple',
       [os_freebsd,
-       # this one does not work with Compress::Raw::Lzma under freebsd
        [package => 'lzmalib']],
+     ],
+      
+     [cpanmod => 'Compress::Raw::Lzma',
       [like_debian,
-       # this one does not work with Compress::LZMA::Simple under debian
-       [package => 'liblzma-dev']]],
+       [package => 'liblzma-dev']],
+      [os_darwin,
+       [package => 'xz']],
+     ],
 
      # Try also the patches listed in
      # https://rt.cpan.org/Ticket/Display.html?id=86115
@@ -420,7 +426,10 @@ sub mapping {
        [package => ['augeas', 'pkgconf']]],
       [like_debian,
        # but the wheezy version is too old, module wants 1.0.0, wheezy has 0.10.0
-       [package => ['libaugeas-dev', 'pkg-config | pkgconf']]]],
+       [package => ['libaugeas-dev', 'pkg-config | pkgconf']]],
+      [os_darwin,
+       [package => 'augeas']],
+     ],
 
      [cpanmod => 'Crypt::Cracklib',
       [os_freebsd,
@@ -560,9 +569,8 @@ sub mapping {
        [package => 'libmpfr-dev']],
       [like_fedora,
        [package => 'mpfr-devel']],
-      ## Does not work:
-      #[os_darwin,
-      # [package => 'mpfr']],
+      [os_darwin,
+       [package => 'mpfr']],
      ],
 
      [cpanmod => 'DB_File',
@@ -608,6 +616,8 @@ sub mapping {
        [package => 'libpq-dev']],
       [like_fedora,
        [package => [qw(postgresql postgresql-devel)]]],
+      [os_darwin,
+       [package => 'postgresql']],
      ],
 
      [cpanmod => 'Deliantra::Client',
@@ -692,6 +702,8 @@ sub mapping {
        [package => 'adns']],
       [like_debian,
        [package => 'libadns1-dev']],
+      [os_darwin,
+       [package => 'adns']],
       # no package available for CentOS7
      ],
 
@@ -894,6 +906,8 @@ sub mapping {
      [cpanmod => 'Glib',
       [like_fedora,
        [package => 'gobject-introspection-devel']],
+      [os_darwin,
+       [package => 'glib']],
      ],
 
      [cpanmod => 'Glib::Object::Introspection',
@@ -1110,6 +1124,8 @@ sub mapping {
      [cpanmod => 'HTML::Tidy',
       [os_freebsd,
        [package => 'tidyp']],
+      [os_darwin,
+       [package => 'tidyp']],
       # linux: Alien::Tidyp works fine, no external dependency required
      ],
 
@@ -1145,6 +1161,8 @@ sub mapping {
        [package => 'libimlib2-dev']],
       [like_fedora,
        [package => 'imlib2-devel']],
+      [os_darwin,
+       [package => 'imlib2']],
      ],
 
      [cpanmod => 'Image::LibExif',
@@ -1569,7 +1587,10 @@ sub mapping {
       [os_freebsd,
        [package => ['dbus', 'pkgconf']]],
       [like_debian,
-       [package => ['libdbus-1-dev', 'pkg-config | pkgconf']]]],
+       [package => ['libdbus-1-dev', 'pkg-config | pkgconf']]],
+      [os_darwin,
+       [package => 'dbus']],
+     ],
 
      [cpanmod => 'Net::DBus::GLib',
       [os_freebsd,
@@ -1600,6 +1621,8 @@ sub mapping {
        [package => 'libdumbnet-dev']],
       [like_fedora,
        [package => 'libdnet-devel']],
+      [os_darwin,
+       [package => 'libdnet']],
      ],
 
      [cpanmod => 'Net::LibIDN',
@@ -1609,6 +1632,8 @@ sub mapping {
        [package => 'libidn11-dev']],
       [like_fedora,
        [package => 'libidn-devel']],
+      [os_darwin,
+       [package => 'libidn']],
      ],
 
      [cpanmod => 'Net::NfDump',
@@ -1685,7 +1710,10 @@ sub mapping {
       [os_freebsd,
        [package => 'yaz']],
       [like_debian,
-       [package => 'libyaz-dev']]],
+       [package => 'libyaz-dev']],
+      [os_darwin,
+       [package => 'yaz']],
+     ],
 
      [cpanmod => ['Net::ZooKeeper', 'ZooKeeper'],
       [os_freebsd,
@@ -1999,6 +2027,8 @@ sub mapping {
       [like_fedora,
        [# test needs also English dictionary
 	package => ['aspell-devel', 'aspell-en']]],
+      [os_darwin,
+       [package => 'aspell']],
      ],
 
      [cpanmod => 'Text::Bidi',
@@ -2242,7 +2272,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists
       [like_debian,
-       [package => 'libzmq-dev']]],
+       [package => 'libzmq-dev']],
+      [os_darwin,
+       [package => 'zmq']],
+     ],
 
      [cpanmod => 'ZMQ::LibZMQ4',
       [os_freebsd,
