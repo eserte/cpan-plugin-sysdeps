@@ -427,6 +427,8 @@ sub mapping {
       [like_debian,
        # but the wheezy version is too old, module wants 1.0.0, wheezy has 0.10.0
        [package => ['libaugeas-dev', 'pkg-config | pkgconf']]],
+      [like_fedora,
+       [package => 'augeas-devel']],
       [os_darwin,
        [package => 'augeas']],
      ],
