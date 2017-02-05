@@ -3,9 +3,11 @@ package
 
 use strict;
 use warnings;
-use Exporter 'import';
 
-our @EXPORT = qw(require_CPAN_Distribution skip_on_darwin_without_homebrew);
+require Exporter;
+use vars qw(@ISA @EXPORT);
+@ISA = qw(Exporter);
+@EXPORT = qw(require_CPAN_Distribution skip_on_darwin_without_homebrew);
 
 sub require_CPAN_Distribution () {
     if (!eval { require CPAN::Distribution; 1 }) {
