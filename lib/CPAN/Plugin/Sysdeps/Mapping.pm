@@ -614,7 +614,10 @@ sub mapping {
       [os_freebsd,
        [package => 'unixODBC']],
       [like_debian,
-       [package => 'unixodbc-dev']]],
+       [package => 'unixodbc-dev']],
+      [like_fedora,
+       [package => 'libiodbc-devel']], # but building does not work out of the box, Makefile.PL needs patching
+     ],
 
      [cpanmod => 'DBD::Pg',
       [os_freebsd,
