@@ -1098,6 +1098,8 @@ sub mapping {
        [package => 'webkit-gtk3']],
       [like_debian,
        [package => 'libwebkitgtk-3.0-dev']],
+      [like_fedora,
+       [package => 'webkitgtk3-devel']],
      ],
 
      [cpanmod => 'GTop',
