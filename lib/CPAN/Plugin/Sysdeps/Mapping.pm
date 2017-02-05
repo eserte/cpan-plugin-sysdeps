@@ -2262,9 +2262,11 @@ sub mapping {
        [package => 'imlib2-dev']]],
 
      [cpanmod => 'X11::GUITest',
+      # XXX what about freebsd?
       [like_debian,
        [package => ['libxt-dev', 'libxtst-dev']]],
-      # XXX what about freebsd
+      [like_fedora,
+       [package => 'libXtst-devel']],
      ],
 
      [cpanmod => 'X11::XCB',
