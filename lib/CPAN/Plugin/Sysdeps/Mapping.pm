@@ -2267,7 +2267,7 @@ sub mapping {
       [os_freebsd,
        [package => 'imlib2']],
       [like_debian,
-       [package => 'imlib2-dev']]],
+       [package => 'libimlib2-dev']]],
 
      [cpanmod => 'X11::GUITest',
       # XXX what about freebsd?
