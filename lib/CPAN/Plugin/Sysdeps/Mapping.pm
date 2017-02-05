@@ -1088,7 +1088,10 @@ sub mapping {
       [os_freebsd,
        [package => 'gtksourceview3']],
       [like_debian,
-       [package => 'libgtksourceview-3.0-dev']]],
+       [package => 'libgtksourceview-3.0-dev']],
+      [like_fedora,
+       [package => 'gtksourceview3-devel']],
+     ],
 
      [cpanmod => 'Gtk3::WebKit',
       [os_freebsd,
