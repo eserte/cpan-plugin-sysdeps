@@ -208,7 +208,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libao']],
       [like_debian,
-       [package => 'libao-dev']]],
+       [package => 'libao-dev']],
+      [like_fedora,
+       [package => 'libao-devel']],
+     ],
 
      [cpanmod => 'Audio::Audiere',
       [os_freebsd,
