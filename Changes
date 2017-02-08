@@ -1,5 +1,8 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.21  2017-02-08
+	- mapping update
+
 0.20  2017-02-04
 	- mapping update, especially for Fedora/CentOS/RedHat
 
