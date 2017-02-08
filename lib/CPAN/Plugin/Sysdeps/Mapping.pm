@@ -783,7 +783,10 @@ sub mapping {
       [os_freebsd,
        [package => 'librsync']],
       [like_debian,
-       [package => 'librsync-dev']]],
+       [package => 'librsync-dev']],
+      [like_fedora,
+       [package => 'librsync-devel']], # but compilation failures on CentOS7
+     ],
 
      [cpanmod => 'Filesys::SmbClient',
       ## XXX unclear which package is the correct one
