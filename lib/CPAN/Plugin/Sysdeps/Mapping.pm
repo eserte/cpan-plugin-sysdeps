@@ -227,7 +227,10 @@ sub mapping {
       [os_freebsd,
        [package => 'flac']],
       [like_debian,
-       [package => 'libflac-dev']]],
+       [package => 'libflac-dev']],
+      [like_fedora,
+       [package => 'flac-devel']],
+     ],
 
      [cpanmod => 'Audio::GSM',
       [os_freebsd,
