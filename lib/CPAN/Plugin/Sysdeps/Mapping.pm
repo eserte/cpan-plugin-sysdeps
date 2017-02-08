@@ -476,7 +476,7 @@ sub mapping {
        # Neither libgcrypt11 nor libgcrypt20 seem to work.
        [package => 'libgcrypt11-dev']]],
 
-     [cpanmod => 'Crypt::MCrypt',
+     [cpanmod => ['Crypt::MCrypt', 'Mcrypt'],
       [os_freebsd,
        [package => 'libmcrypt']],
       [like_debian,
