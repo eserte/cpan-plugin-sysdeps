@@ -1715,6 +1715,12 @@ sub mapping {
        [package => 'librabbitmq-devel']],
      ],
 
+     ## conflicts with avahi-app on FreeBSD
+     #[cpanmod => "Net::Rendezvous::Publish::Backend::Howl",
+     # [os_freebsd,
+     #  [package => 'howl']],
+     #],
+
      [cpanmod => 'Net::SIGTRAN::SCTP',
       # XXX what about freebsd?
       [like_debian,
