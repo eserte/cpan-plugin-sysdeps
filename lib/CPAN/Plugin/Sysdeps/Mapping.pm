@@ -1850,6 +1850,14 @@ sub mapping {
      [cpanmod => 'Pod::Weaver::Plugin::Ditaa',
       [package => 'ditaa']],
 
+     [cpanmod => 'POE::Component::NomadJukebox',
+      # but compilation errors on FreeBSD, Debian and Ubuntu
+      [os_freebsd,
+       [package => 'libnjb']],
+      [like_debian,
+       [package => 'libnjb-dev']],
+     ],
+
      [cpanmod => 'Poppler',
       [os_freebsd,
        [package => ['poppler', 'poppler-glib']]],
