@@ -1625,6 +1625,15 @@ sub mapping {
       [like_debian,
        [package => 'libdbus-glib-1-dev']]],
 
+     [cpanmod => 'Net::ESMTP',
+      [os_freebsd,
+       [package => 'libesmtp']],
+      [like_debian,
+       [package => 'libesmtp-dev']],
+      [like_fedora,
+       [package => 'libesmtp-devel']],
+     ],
+
      [cpanmod => 'Net::Jabber::Loudmouth',
       [os_freebsd,
        [package => 'loudmouth']],
