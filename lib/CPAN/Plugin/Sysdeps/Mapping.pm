@@ -435,6 +435,8 @@ sub mapping {
        [package => 'liblzo2-dev']],
       [like_fedora,
        [package => 'lzo-devel']],
+      [os_darwin,
+       [package => 'lzo']],
      ],
 
      [cpanmod => 'Config::Augeas',
@@ -1311,7 +1313,9 @@ sub mapping {
       [os_freebsd,
        [package => 'python']],
       [like_debian,
-       [package => 'python2.7-dev']]],
+       [package => 'python2.7-dev']],
+      # macosx already comes with python, it seems
+     ],
 
      [cpanmod => 'Inline::Ruby',
       [os_freebsd,
