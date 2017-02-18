@@ -626,6 +626,8 @@ sub mapping {
        [package => 'unixodbc-dev']],
       [like_fedora,
        [package => 'libiodbc-devel']], # but building does not work out of the box, Makefile.PL needs patching
+      [os_darwin,
+       [package => 'unixodbc']],
      ],
 
      [cpanmod => 'DBD::Pg',
