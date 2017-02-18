@@ -945,7 +945,10 @@ sub mapping {
       [os_freebsd,
        [package => 'gobject-introspection']],
       [like_debian,
-       [package => 'libgirepository1.0-dev']]],
+       [package => 'libgirepository1.0-dev']],
+      [os_darwin,
+       [package => [qw(gobject-introspection libffi)]]],
+     ],
 
      [cpanmod => 'Gnome2',
       [os_freebsd,
