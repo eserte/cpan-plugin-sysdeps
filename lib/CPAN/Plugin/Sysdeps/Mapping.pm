@@ -197,6 +197,8 @@ sub mapping {
        [package => 'libcfitsio-dev']],
       [like_fedora,
        [package => 'cfitsio-devel']], # but test fails on CentOS7 (undefined symbol: ffgsky)
+      [os_darwin,
+       [package => 'homebrew/science/cfitsio']],
      ],
 
      [cpanmod => 'Astro::WCS::LibWCS',
