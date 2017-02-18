@@ -1122,7 +1122,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libgtop']],
       [like_debian,
-       [package => 'libgtop2-dev']]],
+       [package => 'libgtop2-dev']],
+      [os_darwin,
+       [package => 'libgtop']],
+     ],
 
      [cpanmod => 'Heimdal::Kadm5',
       [os_freebsd,
