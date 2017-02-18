@@ -1896,7 +1896,10 @@ sub mapping {
       [os_freebsd,
        [package => ['poppler', 'poppler-glib']]],
       [like_debian,
-       [package => ['libpoppler-dev', 'libpoppler-glib-dev']]]],
+       [package => ['libpoppler-dev', 'libpoppler-glib-dev']]],
+      [os_darwin,
+       [package => 'poppler']],
+     ],
 
      [cpanmod => 'Prima',
       # XXX what about freebsd?
