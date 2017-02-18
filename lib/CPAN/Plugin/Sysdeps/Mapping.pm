@@ -67,6 +67,8 @@ sub mapping {
        [package => ['libhdf4-dev', 'yasm']]],
       [like_fedora,
        [package => 'hdf-devel']],
+      [os_darwin,
+       [package => 'hdf4']], # but does not work, module expects static libdf.a which is not provided
      ],
 
      [cpanmod => 'Alien::IUP',
@@ -764,6 +766,7 @@ sub mapping {
        [package => 'libattr1-dev']],
       [like_fedora,
        [package => 'libattr-devel']],
+      # no special packages needed on freebsd and macosx
      ],
 
      [cpanmod => 'File::LibMagic',
@@ -1148,7 +1151,9 @@ sub mapping {
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => []], # not available before jessie
        ],
-       [package => 'libctpp2-dev']]],
+       [package => 'libctpp2-dev']],
+      # ctpp2 not available for homebrew
+     ],
 
      [cpanmod => 'HTML::Tidy',
       [os_freebsd,
