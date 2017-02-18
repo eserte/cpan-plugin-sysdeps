@@ -1949,7 +1949,10 @@ sub mapping {
       [os_freebsd,
        [package => 'xapian-core']],
       [like_debian,
-       [package => 'libxapian-dev']]],
+       [package => 'libxapian-dev']],
+      [os_darwin,
+       [package => 'xapian']],
+     ],
 
      [cpanmod => 'SGML::Parser::OpenSP',
       # XXX what about freebsd?
