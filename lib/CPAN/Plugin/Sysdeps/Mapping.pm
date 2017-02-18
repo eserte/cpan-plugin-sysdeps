@@ -2241,8 +2241,13 @@ sub mapping {
      [cpanmod => 'WWW::Mechanize::PhantomJS',
       [os_freebsd,
        [package => 'phantomjs']],
-      # for debian no package available, but see https://gist.github.com/julionc/7476620
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise)],
+	[package => []]], # see also https://gist.github.com/julionc/7476620
+       [package => 'phantomjs']],
       [os_windows,
+       [package => 'phantomjs']],
+      [os_darwin,
        [package => 'phantomjs']],
      ],
 
