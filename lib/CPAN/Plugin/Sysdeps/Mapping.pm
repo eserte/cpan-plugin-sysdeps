@@ -388,6 +388,8 @@ sub mapping {
        [package => 'libcdb-dev']],
       [like_fedora,
        [package => 'tinycdb-devel']],
+      [os_darwin,
+       [package => 'tinycdb']], # but test failures
      ],
 
      [cpanmod => 'CDB_File::Generator',
