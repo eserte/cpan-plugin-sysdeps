@@ -418,8 +418,9 @@ sub mapping {
      ],
 
      [cpanmod => 'Compress::LZMA::Simple',
-      [os_freebsd,
-       [package => 'lzmalib']],
+      ## in the meanwhile, lzma is part of the base install
+      #[os_freebsd,
+      # [package => 'lzmalib']],
      ],
       
      [cpanmod => 'Compress::Raw::Lzma',
