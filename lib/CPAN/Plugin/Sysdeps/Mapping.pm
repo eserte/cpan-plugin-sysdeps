@@ -1831,6 +1831,11 @@ sub mapping {
        # but does not work, lookup into wrong freetype directory
        [package => ['libftgl-dev', 'libfreetype6-dev']]]],
 
+     [cpanmod => 'OpenGL::Modern',
+      [like_fedora,
+       [package => 'mesa-libGLU-devel']],
+     ],
+
      [cpanmod => 'PAM',
       [like_debian,
        [package => 'libpam0g-dev']]],
