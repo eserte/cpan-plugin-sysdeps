@@ -547,7 +547,10 @@ sub mapping {
      [cpanmod => 'Curses',
       # ncurses.h is included in FreeBSD base install
       [like_debian,
-       [package => 'libncurses5-dev']]],
+       [package => 'libncurses5-dev']],
+      [like_fedora,
+       [package => 'ncurses-devel']],
+     ],
 
      [cpanmod => 'Curses::UI::Mousehandler::GPM',
       [like_debian,
