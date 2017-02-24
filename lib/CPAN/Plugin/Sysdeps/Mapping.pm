@@ -1640,6 +1640,8 @@ sub mapping {
        [package => ['dbus', 'pkgconf']]],
       [like_debian,
        [package => ['libdbus-1-dev', 'pkg-config | pkgconf']]],
+      [like_fedora,
+       [package => ['dbus-devel', 'pkgconfig']]],
       [os_darwin,
        [package => 'dbus']],
      ],
