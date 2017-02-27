@@ -1366,7 +1366,8 @@ sub mapping {
      [cpanmod => 'JavaScript::V8',
       [os_freebsd,
        [package => 'v8']],
-      # XXX what about debian?
+      [like_debian,
+       [package => 'libv8-dev']],
       [like_fedora,
        [package => 'v8-devel']], # but problems with Devel-CheckLib and compilation errors
       [os_darwin,
