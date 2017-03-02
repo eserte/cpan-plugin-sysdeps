@@ -682,6 +682,11 @@ sub mapping {
       # no package for debian
      ],
 
+     [cpanmod => 'Device::USB',
+      [like_fedora,
+       [package => 'libusb-devel']], # but testsuite segfaults
+     ],
+
      [cpanmod => 'Device::Velleman::K8055::libk8055',
       [os_freebsd,
        [package => 'libk8055']],
