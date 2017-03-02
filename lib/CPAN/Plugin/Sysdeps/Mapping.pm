@@ -683,6 +683,8 @@ sub mapping {
      ],
 
      [cpanmod => 'Device::USB',
+      [like_debian,
+       [package => 'libusb-dev']],
       [like_fedora,
        [package => 'libusb-devel']], # but testsuite segfaults
      ],
