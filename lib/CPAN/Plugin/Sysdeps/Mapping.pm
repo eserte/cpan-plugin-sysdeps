@@ -1491,9 +1491,8 @@ sub mapping {
 	[package => []], # not available before jessie
        ],
        [package => 'liblmdb-dev']],
-      ## does not work, maybe Makefile.PL needs better detection?
-      #[os_darwin,
-      # [package => 'lmdb']],
+      [os_darwin,
+       [package => 'lmdb']],
      ],
 
      [cpanmod => 'Locale::gettext', # gettext distribution
