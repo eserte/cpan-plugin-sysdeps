@@ -1491,6 +1491,8 @@ sub mapping {
 	[package => []], # not available before jessie
        ],
        [package => 'liblmdb-dev']],
+      [like_fedora,
+       [package => 'lmdb-devel']],
       [os_darwin,
        [package => 'lmdb']],
      ],
