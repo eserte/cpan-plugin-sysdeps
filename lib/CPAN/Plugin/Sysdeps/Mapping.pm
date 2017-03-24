@@ -2372,6 +2372,15 @@ sub mapping {
       [like_debian,
        [package => ['xsltproc', 'xcb-proto', 'libxcb-util0-dev', 'libxcb-xinerama0-dev', 'libxcb-icccm4-dev']]]],
 
+     [cpanmod => 'X11::Xlib',
+      [os_freebsd,
+       [package => 'libXtst']],
+      [like_debian,
+       [package => 'libxtst-dev']],
+      [like_fedora,
+       [package => 'libXtst-devel']],
+     ],
+
      [cpanmod => 'ZMQ::FFI',
       [os_freebsd,
        [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists
