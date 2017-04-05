@@ -1945,6 +1945,17 @@ sub mapping {
       [like_debian,
        [package => 'ragel']]],
 
+     [cpanmod => 're::engine::PCRE2',
+      [os_freebsd,
+       [package => 'pcre2']],
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie)],
+	[package => []]], # not available before stretch; available on Ubuntu/xenial
+       [package => 'libpcre2-dev']],
+      [like_fedora,
+       [package => 'pcre2-devel']],
+     ],
+
      [cpanmod => 'RPC::Xmlrpc_c::Client',
       [os_freebsd,
        [package => 'xmlrpc-c']],
