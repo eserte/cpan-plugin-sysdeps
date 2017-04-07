@@ -1948,6 +1948,14 @@ sub mapping {
       [like_debian,
        [package => 'ragel']]],
 
+     [cpanmod => 're::engine::Hyperscan',
+      # not available on freebsd & CentOS7
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie xenial)],
+	[package => []]], # not available before stretch
+       [package => 'libhyperscan-dev']],
+     ],
+
      [cpanmod => 're::engine::PCRE2',
       [os_freebsd,
        [package => 'pcre2']],
