@@ -1838,7 +1838,10 @@ sub mapping {
       [os_freebsd,
        [package => 'freeglut']],
       [like_debian,
-       [package => ['freeglut3-dev', 'libxmu-dev', 'libxi-dev']]]],
+       [package => ['freeglut3-dev', 'libxmu-dev', 'libxi-dev']]],
+      [like_fedora,
+       [package => ['freeglut-devel', 'libXmu-devel']]],
+     ],
 
      [cpanmod => 'OpenGL::FTGL',
       [like_debian,
