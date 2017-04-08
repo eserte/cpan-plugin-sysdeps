@@ -1565,6 +1565,8 @@ sub mapping {
        [package => 'libmpc-dev']],
       [like_fedora,
        [package => 'libmpc-devel']],
+      [os_darwin,
+       [package => 'libmpc']],
      ],
 
      [cpanmod => 'Math::MPFI',
