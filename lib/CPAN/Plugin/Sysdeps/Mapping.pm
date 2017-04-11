@@ -488,6 +488,14 @@ sub mapping {
        # Neither libgcrypt11 nor libgcrypt20 seem to work.
        [package => 'libgcrypt11-dev']]],
 
+     [cpanmod => 'Crypt::HC128',
+      [os_freebsd,
+       [package => 'wolfssl']],
+      [like_debian,
+       [linuxdistrocodename => 'xenial',
+	[package => 'libwolfssl-dev']]],
+     ],
+
      [cpanmod => ['Crypt::MCrypt', 'Mcrypt'],
       [os_freebsd,
        [package => 'libmcrypt']],
