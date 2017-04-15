@@ -1680,6 +1680,17 @@ sub mapping {
        [package => 'libesmtp-devel']],
      ],
 
+     [cpanmod => 'Net::Ifstat',
+      [os_freebsd,
+       [package => 'ifstat']],
+      [like_debian,
+       [package => 'ifstat']],
+      [like_fedora,
+       [package => 'iproute']],
+      [os_darwin,
+       [package => 'ifstat']],
+     ],
+
      [cpanmod => 'Net::Jabber::Loudmouth',
       [os_freebsd,
        [package => 'loudmouth']],
