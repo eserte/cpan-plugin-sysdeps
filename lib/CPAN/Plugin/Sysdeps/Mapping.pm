@@ -80,6 +80,11 @@ sub mapping {
        [package => [qw(gtk2-devel cairo-devel libX11-devel libGLU-devel freeglut-devel)]]],
      ],
 
+     [cpanmod => 'Alien::LibJIT',
+      [like_debian,
+       [package => [qw(autoconf libtool flex bison texinfo)]]], # but no success building it
+     ],
+
      [cpanmod => 'Alien::LibUSBx',
       # XXX what about freebsd?
       [like_debian,
