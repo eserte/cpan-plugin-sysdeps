@@ -1855,6 +1855,13 @@ sub mapping {
        [package => ['libogg-devel', 'libvorbis-devel']]],
      ],
 
+     [cpanmod => 'Ogre',
+      [os_freebsd,
+       [package => 'ogre3d']], # untested
+      [like_debian,
+       [package => 'libogre-1.9-dev']], # compilation failures
+     ],
+
      [cpanmod => 'OIS',
       ## ois in freebsd ports is 1.2.0, but 1.3.0 is required
       #[os_freebsd,
