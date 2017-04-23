@@ -2022,6 +2022,12 @@ sub mapping {
 #	## XXX disabled because package was not yet built (last check 2014-08-10)
 #	## see http://portsmon.freebsd.org/portoverview.py?category=archivers&portname=rpm5
 #	#package { "rpm5": ensure => installed }
+     [cpanmod => 'RPM2',
+      [like_debian,
+       [package => 'librpm-dev']], # but tests fail
+      [like_fedora,
+       [package => 'rpm-devel']],
+     ],
 
      [cpanmod => 'RRD::Tweak',
       [os_freebsd,
