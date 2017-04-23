@@ -1338,6 +1338,13 @@ sub mapping {
       [like_debian,
        [package => 'liblua5.1-0-dev']]],
 
+     [cpanmod => 'Inline::Perl6',
+      [like_debian,
+       # XXX tests fail on Ubuntu16.04; <dynload.h> missing on stretch
+       [linuxdistrocodename => [qw(stretch xenial)],
+	[package => [qw(moarvm-dev libuv1-dev libatomic-ops-dev libtommath-dev rakudo)]]]],
+     ],
+
      [cpanmod => 'Inline::Python',
       [os_freebsd,
        [package => 'python']],
