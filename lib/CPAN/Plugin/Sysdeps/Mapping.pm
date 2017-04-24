@@ -1706,6 +1706,13 @@ sub mapping {
 	[package => 'apache2-prefork-dev']],
        [package => 'apache2-dev']]],
 
+     [cpanmod => 'MusicBrainz::DiscID',
+      [os_freebsd,
+       [package => 'libdiscid']],
+      [like_debian,
+       [package => 'libdiscid-dev']],
+     ],
+
      [cpanmod => 'NanoMsg::Raw',
       [os_freebsd,
        [package => 'nanomsg']],
