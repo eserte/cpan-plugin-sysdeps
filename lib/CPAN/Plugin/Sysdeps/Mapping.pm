@@ -1225,6 +1225,15 @@ sub mapping {
       # ctpp2 not available for homebrew
      ],
 
+     [cpanmod => 'HTTP::Webdav',
+      [os_freebsd,
+       [package => 'neon | neon29']], # untested
+      [like_debian,
+       [package => 'libneon27-dev | ibneon27-gnutls-dev']], # compilation fails: ne_cookies.h: No such file or directory
+      [like_fedora,
+       [package => 'neon-devel']], # compilation fails: ne_cookies.h: No such file or directory
+     ],
+
      [cpanmod => 'HTML::Tidy',
       [os_freebsd,
        [package => 'tidyp']],
