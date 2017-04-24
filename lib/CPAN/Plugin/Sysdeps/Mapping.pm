@@ -1652,6 +1652,19 @@ sub mapping {
       # XXX what about debian?
      ],
 
+     [cpanmod => 'Math::ThinPlateSpline',
+      [os_freebsd,
+       [package => 'boost-libs']], # untested
+      [like_debian,
+       [linuxdistrocodename => 'jessie',
+	[package => 'libboost1.55-dev']],
+       [linuxdistrocodename => 'xenial',
+	[package => 'libboost1.58-dev']],
+       [linuxdistrocodename => 'stretch',
+	[package => 'libboost1.62-dev']],
+      ],
+     ],
+
      [cpanmod => 'MaxMind::DB::Reader::XS',
       [os_freebsd,
        [package => 'libmaxminddb']],
