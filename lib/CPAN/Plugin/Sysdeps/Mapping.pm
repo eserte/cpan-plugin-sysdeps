@@ -1338,6 +1338,15 @@ sub mapping {
       [like_debian,
        [package => ['libmagick++-dev | graphicsmagick-libmagick-dev-compat']]]],
 
+     [cpanmod => 'Image::XFace', # compiles only for old perls
+      [os_freebsd,
+       [package => 'faces']],
+      [like_debian,
+       [package => 'libcompfaceg1-dev']],
+      [like_fedora,
+       [package => 'compface-devel']],
+     ],
+
      [cpanmod => 'Imager',
       [os_freebsd,
        [package => [qw(freetype2 giflib png tiff), freebsd_jpeg]]], # in former days giflib-nox11 had to be specified
