@@ -1035,6 +1035,11 @@ sub mapping {
       [like_debian,
        [package => 'libgnomevfs2-dev']]],
 
+     [cpanmod => 'Gnome::Sound',
+      [like_debian,
+       [package => 'libgnome2-dev']], # does not work, module does not look into /usr/include/libgnome-2.0/
+     ],
+
      [cpanmod => 'GnuPG::Interface',
       [os_freebsd,
        [package => 'gnupg1'] #  XXX what about gnupg (version 2)?
