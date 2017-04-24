@@ -768,6 +768,11 @@ sub mapping {
       # no package for Debian (jessie, stretch) and CentOS7
      ],
 
+     [cpanmod => 'Erlang::Interface',
+      [like_debian,
+       [package => 'erlang-dev']],
+     ],
+
      [cpanmod => 'EV::ADNS',
       [os_freebsd,
        [package => 'adns']],
