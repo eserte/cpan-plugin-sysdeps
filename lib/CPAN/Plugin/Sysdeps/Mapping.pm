@@ -2079,6 +2079,13 @@ sub mapping {
        [package => 'pcre2-devel']],
      ],
 
+     [cpanmod => 'Remind::Client', # but does not work: "Remind output didn't look right; got: 2017/04/24 it works! today"
+      [os_freebsd,
+       [package => 'remind']],
+      [like_debian,
+       [package => 'remind']],
+     ],
+
      [cpanmod => 'RPC::Xmlrpc_c::Client',
       [os_freebsd,
        [package => 'xmlrpc-c']],
