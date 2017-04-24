@@ -1106,6 +1106,12 @@ sub mapping {
        [package => 'gtk2-devel']],
      ],
 
+     [cpanmod => 'Gtk2::AppIndicator',
+      # no package for freebsd or centos7
+      [like_debian,
+       [package => 'libappindicator-dev']],
+     ],
+
      [cpanmod => 'Gtk2::GladeXML',
       [os_freebsd,
        [package => 'libglade2']],
