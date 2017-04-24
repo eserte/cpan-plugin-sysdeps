@@ -1464,9 +1464,6 @@ sub mapping {
        [package => 'jq']],
      ],
 
-#	# for some Judy-using modules (XXX which one?)
-#	package { "Judy": ensure => installed } # XXX this is freebsd; what about debian?
-
      [cpanmod => 'Kafka::Librd',
       # no package for freebsd
       [like_debian,
@@ -2314,6 +2311,15 @@ sub mapping {
 
      [cpanmod => 'Tie::Cvs',
       [package => 'cvs']],
+
+     [cpanmod => 'Tie::Judy', # but tests fail (hash randomization?)
+      [os_freebsd,
+       [package => 'judy']],
+      [like_debian,
+       [package => 'libjudy-dev']],
+      [like_fedora,
+       [package => 'Judy-devel']],
+     ],
 
      [cpanmod => 'Tree::Suffix',
       [os_freebsd,
