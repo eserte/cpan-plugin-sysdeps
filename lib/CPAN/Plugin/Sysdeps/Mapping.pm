@@ -228,6 +228,15 @@ sub mapping {
       # no package for Debian & CentOS7
      ],
 
+     [cpanmod => 'Audio::CD',
+      [os_freebsd,
+       [package => 'libcdaudio']],
+      [like_debian,
+       [package => 'libcdaudio-dev']],
+      [like_fedora,
+       [package => 'libcdaudio-devel']],
+     ],
+
      [cpanmod => 'Audio::Extract::PCM',
       # but does not work with freebsd, see https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=205732
       [package => 'sox']],
