@@ -470,6 +470,15 @@ sub mapping {
        [package => 'augeas']],
      ],
 
+     [cpanmod => 'Convert::Recode',
+      [os_freebsd,
+       [package => 'recode']],
+      [like_debian,
+       [package => 'recode']],
+      [like_fedora,
+       [package => 'recode']],
+     ],
+
      [cpanmod => 'Crypt::Cracklib',
       [os_freebsd,
        [package => 'cracklib']],
