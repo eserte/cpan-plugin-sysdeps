@@ -1973,7 +1973,10 @@ sub mapping {
 
      [cpanmod => 'PAM',
       [like_debian,
-       [package => 'libpam0g-dev']]],
+       [package => 'libpam0g-dev']],
+      [like_fedora,
+       [package => 'pam-devel']],
+     ],
 
      [cpanmod => 'Pango',
       [os_freebsd,
