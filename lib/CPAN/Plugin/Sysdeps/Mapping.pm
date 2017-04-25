@@ -1421,6 +1421,15 @@ sub mapping {
        [package => 'ruby-devel']],
      ],
 
+     [cpanmod => 'Inline::SLang',
+      [os_freebsd,
+       [package => 'libslang2']], # build error
+      [like_debian,
+       [package => 'libslang2-dev']], # module cannot detect lib location
+      [like_fedora,
+       [package => 'slang-devel']], # module cannot detect lib location
+     ],
+
      [cpanmod => 'IPC::MMA',
       [os_freebsd,
        [package => 'mm']],
