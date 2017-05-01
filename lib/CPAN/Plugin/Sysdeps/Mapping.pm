@@ -1486,6 +1486,15 @@ sub mapping {
        [package => 'keyutils-libs-devel']],
      ],
 
+     [cpanmod => 'Lab::VISA',
+      # no package for freebsd
+      [like_debian,
+       [linuxdistrocodename => [qw(jessie xenial)],
+	[package => 'libvisa-dev']],
+       [package => []], # not available anymore in stretch
+      ],
+     ],
+
      # XXX needs verification; maybe more latex-related modules should be listed here?
      [cpanmod => ['LaTeX::Driver', 'Template::Plugin::Latex'],
       [os_freebsd,
