@@ -2095,6 +2095,8 @@ sub mapping {
        [package => 'libpcre2-dev']],
       [like_fedora,
        [package => 'pcre2-devel']],
+      [os_darwin,
+       [package => 'pcre2']],
      ],
 
      [cpanmod => 'Remind::Client', # but does not work: "Remind output didn't look right; got: 2017/04/24 it works! today"
