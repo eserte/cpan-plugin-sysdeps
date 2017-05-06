@@ -1,5 +1,7 @@
 language: perl
 
+dist: trusty
+
 matrix:
   include:
 # First five
@@ -17,10 +19,10 @@ matrix:
     # Actually the perl here does not matter
     - perl: "5.14"
       env: USE_SYSTEM_PERL=1
+      dist: precise
     # Actually the perl here does not matter
     - perl: "5.18"
       env: USE_SYSTEM_PERL=1
-      dist: trusty
 
 before_install:
  - if [ "$USE_SYSTEM_PERL" = 1 ]; then perlbrew off; fi
