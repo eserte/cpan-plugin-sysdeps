@@ -2154,6 +2154,8 @@ sub mapping {
        [package => 'xapian-core']],
       [like_debian,
        [package => 'libxapian-dev']],
+      [like_fedora,
+       [package => 'xapian-core-devel']],
       [os_darwin,
        [package => 'xapian']],
      ],
