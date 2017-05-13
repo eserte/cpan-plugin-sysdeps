@@ -304,8 +304,11 @@ sub mapping {
       [os_freebsd,
        [package => 'taglib']],
       [like_debian,
-       # but does not work, because the module wants taglib 1.9.1, but wheezy has 1.7.2-1
-       [package => ['libtag1-dev', 'g++']]]],
+       # but does only work with newer debians (like stretch), because the module wants taglib 1.9.1 (e.g. wheezy has 1.7.2-1)
+       [package => ['libtag1-dev', 'g++']]],
+      [os_darwin, # ... but does not seem to build
+       [package => 'taglib']],
+     ],
 
      [cpanmod => 'Authen::Krb5Password',
       [os_freebsd,
