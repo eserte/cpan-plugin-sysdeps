@@ -696,6 +696,13 @@ sub mapping {
        [package => [qw(libzmq3-dev ipython ipython-notebook libmagic-dev)]], # as specified in https://metacpan.org/source/ZMUGHAL/Devel-IPerl-0.006/README.md
       ]],
 
+     [cpanmod => 'Devel::Jemallctl',
+      [like_debian,
+       [package => 'libjemalloc-dev']],
+      [like_fedora,
+       [package => 'jemalloc-devel']],
+     ],
+
      [cpanmod => 'Devel::Valgrind::Client',
       [os_freebsd,
        [package => 'valgrind']], # untested
