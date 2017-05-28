@@ -1088,7 +1088,7 @@ sub mapping {
        [package => 'plplot-devel']],
      ],
 
-     [cpanmod => ['Graphics::SANE', 'Sane'],
+     [cpanmod => ['Graphics::SANE', 'Sane', 'Image::Sane'],
       [os_freebsd,
        [package => 'sane-backends']],
       [like_debian,
