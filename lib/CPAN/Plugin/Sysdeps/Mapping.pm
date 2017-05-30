@@ -488,7 +488,7 @@ sub mapping {
        [package => 'cracklib-devel']],
      ],
 
-     [cpanmod => ['Crypt::DH::GMP', 'Math::GMPq', 'Math::GMPz', 'Math::BigInt::GMP'],
+     [cpanmod => [qw(Crypt::DH::GMP Math::GMPq Math::GMPz Math::BigInt::GMP)],
       [os_freebsd,
        [package => 'gmp']],
       [like_debian,
@@ -497,10 +497,8 @@ sub mapping {
        [package => 'libgmp-dev']],
       [like_fedora,
        [package => 'gmp-devel']],
-      ## Does not work: "Symbol not found: ___gmp_randclear"
-      ## Same problem with homebrew/versions/gmp4
-      #[os_darwin,
-      # [package => 'gmp']]
+      [os_darwin,
+       [package => 'gmp']],
      ],
 
      [cpanmod => 'Crypt::GCrypt',
