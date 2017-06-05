@@ -1148,6 +1148,13 @@ sub mapping {
       [like_debian,
        [package => 'libgtkimageview-dev']]],
 
+     [cpanmod => 'Gtk2::Notify', # but compilation errors, see https://rt.cpan.org/Ticket/Display.html?id=67467
+      [os_freebsd,
+       [package => 'libnotify']],
+      [like_debian,
+       [package => 'libnotify-dev']],
+     ],
+
      [cpanmod => 'Gtk2::Spell',
       [os_freebsd,
        [package => 'gtkspell']],
