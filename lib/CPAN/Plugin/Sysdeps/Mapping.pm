@@ -693,8 +693,11 @@ sub mapping {
 
      [cpanmod => 'Devel::IPerl',
       [like_debian,
+       [linuxdistrocodename => [qw(stretch)],
+	[package => [qw(libzmq3-dev ipython libmagic-dev)]], # ipython-notebook not anymore available, see https://github.com/EntropyOrg/p5-Devel-IPerl/issues/70
        [package => [qw(libzmq3-dev ipython ipython-notebook libmagic-dev)]], # as specified in https://metacpan.org/source/ZMUGHAL/Devel-IPerl-0.006/README.md
-      ]],
+       ]]
+     ],
 
      [cpanmod => 'Devel::Jemallctl',
       [like_debian,
