@@ -2426,6 +2426,19 @@ sub mapping {
       # XXX what about freebsd?
      ],
 
+     [cpanmod => 'UV::Util',
+      [os_freebsd,
+       [package => 'libuv']], # does not work, -I/usr/local/include seems to be missing
+      [like_debian,
+       [linuxdistrocodename => ['squeeze', 'wheezy'],
+	[package => []], # not available before jessie
+       ],
+       [linuxdistrocodename => ['jessie', 'xenial'],
+	[package => 'libuv0.10-dev']], # does not work, probably too old
+       [package => 'libuv1-dev']],
+      [like_fedora,
+       [package => 'libuv-devel']]],
+
      [cpanmod => 'Video::FFmpeg',
       [package => 'ffmpeg']], # on Debian only found in backports or www.deb-multimedia.org; still does not build because avformat.h is not available
 
