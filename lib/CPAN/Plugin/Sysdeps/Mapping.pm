@@ -1434,6 +1434,8 @@ sub mapping {
        [package => 'python']],
       [like_debian,
        [package => 'python2.7-dev']],
+      [like_fedora,
+       [package => 'python-devel']],
       # macosx already comes with python, it seems
      ],
 
