@@ -327,6 +327,15 @@ sub mapping {
       [like_debian,
        [package => 'libsasl2-dev']]],
 
+     [cpanmod => 'Barcode::ZBar',
+      [os_freebsd,
+       [package => 'zbar']],
+      [like_debian,
+       [package => 'libzbar-dev']],
+      [like_fedora,
+       [package => 'zbar-devel']],
+     ],
+
      [cpanmod => ['BerkeleyDB', 'BDB'],
       [os_freebsd,
        # FreeBSD has libdb in the base system, but this version is too old.
