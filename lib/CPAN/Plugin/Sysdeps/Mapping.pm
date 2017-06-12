@@ -1445,7 +1445,10 @@ sub mapping {
       [like_debian,
        [linuxdistrocodename => ['squeeze', 'wheezy'],
 	[package => 'ruby1.8-dev']],
-       [package => 'ruby2.1-dev']],
+       [linuxdistrocodename => 'jessie',
+	[package => 'ruby2.1-dev']],
+       [package => 'ruby2.3-dev'], # xenial, stretch
+      ],
       [like_fedora,
        [package => 'ruby-devel']],
      ],
