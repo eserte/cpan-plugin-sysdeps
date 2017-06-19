@@ -1073,7 +1073,18 @@ sub mapping {
       [like_debian,
        [package => 'libgoocanvas-dev']],
       [like_fedora,
-       [package => 'goocanvas-devel']],
+       [package => 'goocanvas2']],
+     ],
+
+     [cpanmod => 'GooCanvas2',
+      [os_freebsd,
+       [package => 'goocanvas2']],
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie)], # not available before xenial/stretch
+	[package => []]],
+       [package => 'gir1.2-goocanvas-2.0']],
+      [like_fedora,
+       [package => 'goocanvas2-devel']],
      ],
 
      [cpanmod => 'Google::ProtocolBuffers::Dynamic',
