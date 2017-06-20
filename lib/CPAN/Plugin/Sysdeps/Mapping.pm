@@ -665,6 +665,8 @@ sub mapping {
       [os_freebsd,
        [package => 'mysql-connector-c | mysql57-client | mysql56-client | mysql55-client | mariadb101-client | mariadb100-client | mariadb55-client | percona56-client | percona55-client']],
       [like_debian,
+       [linuxdistrocodename => 'stretch',
+	[package => 'default-libmysqlclient-dev']],
        [package => 'libmysqlclient-dev']],
       [like_fedora,
        [package => 'mariadb-devel']],
