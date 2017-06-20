@@ -106,7 +106,8 @@ sub mapping {
        [linuxdistrocodename => ['squeeze','wheezy'],
 	[package => ['libtool', 'libncurses5-dev']]],
        [package => ['libtool-bin', 'libncurses5-dev']]],
-      # XXX what about freebsd?
+      [like_fedora,
+       [package => ['libtool', 'ncurses-devel']]],
      ],
 
      [cpanmod => 'Alien::ProtoBuf',
