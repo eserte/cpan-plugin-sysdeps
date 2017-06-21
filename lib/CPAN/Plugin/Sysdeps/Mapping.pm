@@ -672,6 +672,8 @@ sub mapping {
 	[package => 'default-libmysqlclient-dev']],
        [package => 'libmysqlclient-dev']],
       [like_fedora,
+       [linuxdistroversion => qr{^6\.},
+	[package => 'mysql-devel']],
        [package => 'mariadb-devel']],
       [os_darwin,
        [package => 'mysql-connector-c | mysql']],
