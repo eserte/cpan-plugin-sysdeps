@@ -400,6 +400,8 @@ sub mapping {
 
      [cpanmod => 'Cairo::GObject',
       [like_fedora,
+       [linuxdistroversion => qr{^6\.},
+	[package => []]],
        [package => 'cairo-gobject-devel']],
      ],
 
@@ -1008,6 +1010,8 @@ sub mapping {
 
      [cpanmod => 'Glib',
       [like_fedora,
+       [linuxdistroversion => qr{^6\.},
+	[package => []]],
        [package => 'gobject-introspection-devel']],
       [os_darwin,
        [package => 'glib']],
@@ -1090,6 +1094,8 @@ sub mapping {
 	[package => []]],
        [package => 'gir1.2-goocanvas-2.0']],
       [like_fedora,
+       [linuxdistroversion => qr{^6\.},
+	[package => []]],
        [package => 'goocanvas2-devel']],
      ],
 
@@ -1206,6 +1212,8 @@ sub mapping {
       [like_debian,
        [package => 'libgtk-3-dev']],
       [like_fedora,
+       [linuxdistroversion => qr{^6\.},
+	[package => []]],
        [package => 'gtk3-devel']],
      ],
 
