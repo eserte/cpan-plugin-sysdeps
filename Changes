@@ -1,5 +1,9 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.31  2017-06-23
+	- mapping update
+	- improvement for CentOS 6 in _detect_linux_distribution_fallback
+
 0.30  2017-06-18
 	- mapping update
 
