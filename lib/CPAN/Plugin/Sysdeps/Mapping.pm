@@ -429,6 +429,13 @@ sub mapping {
       [like_debian,
        [package => 'freecdb']]],
 
+     [cpanmod => 'Ceph::Rados',
+      #[os_freebsd,
+      # [package => 'ceph-devel']], # XXX Doesnt build for FreeBSD 10.x
+      [like_debian,
+       [package => 'librados-dev']],
+     ],
+
      [cpanmod => 'Chipcard::PCSC',
       # XXX what about freebsd?
       [like_debian,
