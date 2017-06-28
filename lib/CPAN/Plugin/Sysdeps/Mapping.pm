@@ -2129,6 +2129,8 @@ sub mapping {
 	[package => [qw(libx11-dev libxpm-dev libgif-dev libpng12-dev libjpeg-dev), 'pkg-config | pkgconf']]], # XXX maybe also add libtiff...
        [package => [qw(libx11-dev libxpm-dev libgif-dev libpng-dev libjpeg-dev), 'pkg-config | pkgconf']], # XXX maybe also add libtiff...
       ],
+      [like_fedora,
+       [package => [qw(libXcursor-devel)]]], # XXX probably incomplete
      ],
 
      [cpanmod => 'PulseAudio',
