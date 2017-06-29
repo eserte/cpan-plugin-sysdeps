@@ -2233,6 +2233,16 @@ sub mapping {
       [like_debian,
        [package => 'libosp-dev']]],
 
+     ## version mismatch
+     #[cpanmod => 'SNMP',
+     # [os_freebsd,
+     #  [package => 'net-snmp']],
+     # [like_debian,
+     #  [package => 'libsnmp-dev']],
+     # [like_fedora,
+     #  [package => 'net-snmp-devel']],
+     #],
+
      [cpanmod => 'SNMP::OID::Translate',
       [os_freebsd,
        [package => 'net-snmp']],
