@@ -2325,7 +2325,10 @@ sub mapping {
       # XXX what about freebsd?
       [like_debian,
        # tcllib is needed for the snit package
-       [package => ['tk8.5-dev', 'tcllib']]]],
+       [package => ['tk8.5-dev', 'tcllib']]],
+      [like_fedora,
+       [package => ['tk', 'tcllib']]],
+     ],
 
      [cpanmod => 'Template::Plugin::React',
       [os_freebsd,
