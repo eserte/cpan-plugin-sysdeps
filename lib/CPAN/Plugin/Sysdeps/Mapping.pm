@@ -1845,6 +1845,13 @@ sub mapping {
        [package => 'libesmtp-devel']],
      ],
 
+     [cpanmod => 'Net::Gadu',
+      [os_freebsd,
+       [package => 'pl-libgadu']],
+      [like_debian,
+       [package => 'libgadu-dev']],
+     ],
+
      [cpanmod => 'Net::Ifstat',
       [os_freebsd,
        [package => 'ifstat']],
