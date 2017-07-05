@@ -1803,6 +1803,13 @@ sub mapping {
        ],
        [package => 'libnanomsg-dev']]],
 
+     [cpanmod => 'Net::Bluetooth',
+      [like_debian,
+       [package => 'libbluetooth-dev']],
+      [like_fedora,
+       [package => 'bluez-libs-devel']],
+     ],
+
      [cpanmod => 'Net::CDP',
       [os_freebsd,
        [package => 'libnet']], # but build failure with Net-CDP-0.09
