@@ -2392,7 +2392,10 @@ sub mapping {
        [package => 'fribidi']],
       [like_debian,
        # on wheezy the library is too old, so tests are anyway skipped
-       [package => 'libfribidi-dev']]],
+       [package => 'libfribidi-dev']],
+      [like_fedora,
+       [package => 'fribidi-devel']],
+     ],
 
      [cpanmod => 'Text::CSV::LibCSV',
       [os_freebsd,
