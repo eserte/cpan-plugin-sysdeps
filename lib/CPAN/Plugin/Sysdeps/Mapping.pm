@@ -2674,7 +2674,9 @@ sub mapping {
       [os_freebsd,
        [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists
       [like_debian,
-       [package => 'libzmq-dev']],
+       [linuxdistrocodename => [qw(squeeze wheezy jessie xenial)],
+	[package => 'libzmq-dev']],
+       [package => 'libzmq3-dev']], # e.g. stretch
       [os_darwin,
        [package => 'zmq']],
      ],
