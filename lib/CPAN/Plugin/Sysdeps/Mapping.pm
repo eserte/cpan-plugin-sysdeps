@@ -307,6 +307,8 @@ sub mapping {
       [like_debian,
        # but does only work with newer debians (like stretch), because the module wants taglib 1.9.1 (e.g. wheezy has 1.7.2-1)
        [package => ['libtag1-dev', 'g++']]],
+      [like_fedora,
+       [package => 'taglib-devel']], # at least on centos6 does not work: provided taglib is 1.6.1, but module wants 1.11 or greater
       [os_darwin, # ... but does not seem to build
        [package => 'taglib']],
      ],
