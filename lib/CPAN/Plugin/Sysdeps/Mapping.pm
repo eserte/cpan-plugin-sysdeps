@@ -1974,6 +1974,8 @@ sub mapping {
       [os_freebsd,
        [package => 'libssh2']],
       [like_debian,
+       [linuxdistrocodename => [qw(precise)],
+	[package => [qw(libssh2-1-dev libgcrypt-dev)]]],
        [package => 'libssh2-1-dev']],
       [like_fedora,
        [package => 'libssh2-devel']],
