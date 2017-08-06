@@ -2076,6 +2076,21 @@ sub mapping {
        # but does not work, lookup into wrong freetype directory
        [package => ['libftgl-dev', 'libfreetype6-dev']]]],
 
+     [cpanmod => 'OpenGL::GLFW',
+      [os_freebsd,
+       [package => 'glfw']],
+      [like_debian,
+       [package => 'libglfw3-dev']],
+     ],
+
+     # XXX may be removed if OpenGL::GLFW got its first stable release
+     [cpandist => qr{^OpenGL-GLFW-\d},
+      [os_freebsd,
+       [package => 'glfw']],
+      [like_debian,
+       [package => 'libglfw3-dev']],
+     ],
+
      [cpanmod => 'OpenGL::Modern',
       [like_fedora,
        [package => 'mesa-libGLU-devel']],
