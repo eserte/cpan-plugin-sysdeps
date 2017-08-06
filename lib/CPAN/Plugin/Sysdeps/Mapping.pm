@@ -574,6 +574,23 @@ sub mapping {
 	[package => 'libotr2-dev']],
        [package => 'libotr5-dev']]],
 
+     [cpanmod => 'Crypt::secp256k1',
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise trusty xenial)],
+	[package => []], # not available before stretch
+       ],
+       [package => 'libsecp256k1-dev']],
+     ],
+
+     # XXX may be removed if Crypt::secp256k1 got its first stable release
+     [cpandist => qr{^Crypt-secp256k1-\d},
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise trusty xenial)],
+	[package => []], # not available before stretch
+       ],
+       [package => 'libsecp256k1-dev']],
+     ],
+
      [cpanmod => 'Crypt::Sodium',
       [os_freebsd,
        [package => 'libsodium']],
