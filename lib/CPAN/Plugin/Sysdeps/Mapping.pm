@@ -1696,7 +1696,10 @@ sub mapping {
       [os_freebsd,
        [package => 'opendkim']],
       [like_debian,
-       [package => 'libopendkim-dev']]],
+       [package => 'libopendkim-dev']],
+      [like_fedora,
+       [package => 'libopendkim-devel']],
+     ],
 
      [cpanmod => ['Math::FFTW', 'PDL::FFTW3'],
       [os_freebsd,
