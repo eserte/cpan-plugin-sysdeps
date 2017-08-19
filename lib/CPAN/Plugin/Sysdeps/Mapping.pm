@@ -337,6 +337,8 @@ sub mapping {
        [package => 'libzbar-dev']],
       [like_fedora,
        [package => 'zbar-devel']],
+      [os_darwin,
+       [package => 'zbar']], # but tests fails (Barcode-ZBar-0.04)
      ],
 
      [cpanmod => ['BerkeleyDB', 'BDB'],
