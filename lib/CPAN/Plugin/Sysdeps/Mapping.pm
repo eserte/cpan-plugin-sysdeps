@@ -1125,6 +1125,8 @@ sub mapping {
        [linuxdistroversion => qr{^6\.},
 	[package => []]],
        [package => 'goocanvas2-devel']],
+      [os_darwin,
+       [package => 'goocanvas']], # untested
      ],
 
      [cpanmod => 'Google::ProtocolBuffers::Dynamic',
