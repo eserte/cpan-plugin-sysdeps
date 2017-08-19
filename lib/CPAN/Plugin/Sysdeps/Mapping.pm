@@ -1881,6 +1881,8 @@ sub mapping {
        [package => 'pl-libgadu']],
       [like_debian,
        [package => 'libgadu-dev']],
+      [os_darwin,
+       [package => 'libgadu']]
      ],
 
      [cpanmod => 'Net::Ifstat',
