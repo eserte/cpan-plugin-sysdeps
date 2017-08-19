@@ -1162,6 +1162,8 @@ sub mapping {
        [package => 'libsane-dev']],
       [like_fedora,
        [package => 'sane-backends-devel']],
+      [os_darwin,
+       [package => 'sane-backends']],
      ],
 
      [cpanmod => ['GraphViz', 'GraphViz2', 'GraphViz2::Marpa'],
