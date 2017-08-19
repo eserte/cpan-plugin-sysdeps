@@ -748,6 +748,8 @@ sub mapping {
        [package => 'libjemalloc-dev']],
       [like_fedora,
        [package => 'jemalloc-devel']],
+      [os_darwin,
+       [package => 'jemalloc']],
      ],
 
      [cpanmod => 'Devel::Valgrind::Client',
