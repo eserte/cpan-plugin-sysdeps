@@ -2443,6 +2443,8 @@ sub mapping {
        [package => 'libfribidi-dev']],
       [like_fedora,
        [package => 'fribidi-devel']],
+      [os_darwin,
+       [package => 'fribidi']],
      ],
 
      [cpanmod => 'Text::CSV::LibCSV',
