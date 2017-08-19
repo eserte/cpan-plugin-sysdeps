@@ -1699,6 +1699,8 @@ sub mapping {
        [package => 'libopendkim-dev']],
       [like_fedora,
        [package => 'libopendkim-devel']],
+      [os_darwin,
+       [package => 'libopendkim']],
      ],
 
      [cpanmod => ['Math::FFTW', 'PDL::FFTW3'],
