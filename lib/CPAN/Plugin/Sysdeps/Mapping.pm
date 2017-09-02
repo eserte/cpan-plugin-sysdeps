@@ -720,7 +720,7 @@ sub mapping {
 
      [cpanmod => 'DBD::Pg',
       [os_freebsd,
-       [package => 'postgresql93-server']],
+       [package => 'postgresql95-server | postgresql93-server']],
       [like_debian,
        [package => 'libpq-dev']],
       [like_fedora,
