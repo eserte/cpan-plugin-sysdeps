@@ -2045,7 +2045,7 @@ sub mapping {
       [like_debian,
        [package => ['g++', 'libcurl3']]]],
 
-     [cpanmod => 'Ogg::Vorbis::Decoder',
+     [cpanmod => ['Ogg::Vorbis', 'Ogg::Vorbis::Decoder'],
       [os_freebsd,
        [package => 'libvorbis']],
       [like_debian,
