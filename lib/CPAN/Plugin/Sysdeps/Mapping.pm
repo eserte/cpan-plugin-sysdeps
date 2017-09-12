@@ -2204,7 +2204,9 @@ sub mapping {
        [package => 'ragel']]],
 
      [cpanmod => 're::engine::Hyperscan',
-      # not available on freebsd & CentOS7
+      # not available on CentOS7
+      [os_freebsd,
+       [package => 'hyperscan']],
       [like_debian,
        [linuxdistrocodename => [qw(squeeze wheezy jessie xenial)],
 	[package => []]], # not available before stretch
