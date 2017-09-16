@@ -1049,6 +1049,17 @@ sub mapping {
        [package => 'glib']],
      ],
 
+     [cpanmod => 'Glib::JSON',
+      [os_freebsd,
+       [package => 'json-glib']],
+      [like_debian,
+       [package => 'libjson-glib-dev']],
+      [like_fedora,
+       [package => 'json-glib-devel']],
+      [os_darwin,
+       [package => 'json-glib']],
+     ],
+
      [cpanmod => 'Glib::Object::Introspection',
       [os_freebsd,
        [package => 'gobject-introspection']],
