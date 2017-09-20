@@ -2107,6 +2107,8 @@ sub mapping {
        [package => 'glfw']],
       [like_debian,
        [package => 'libglfw3-dev']],
+      [os_darwin,
+       [package => 'glfw']],
      ],
 
      [cpanmod => 'OpenGL::Modern',
