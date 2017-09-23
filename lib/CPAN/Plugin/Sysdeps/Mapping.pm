@@ -1625,7 +1625,13 @@ sub mapping {
 
      [cpanmod => 'libsoldout',
       [os_freebsd,
-       [package => 'libsoldout']]],
+       [package => 'libsoldout']],
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise trusty)],
+	[package => []], # not available before stretch/xenial
+       ],
+       [package => 'libsoldout1-dev']], # passes with jessie, fails with xenial
+     ],
 
      [cpanmod => 'Lingua::NATools',
       # XXX what about freebsd?
