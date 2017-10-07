@@ -2601,6 +2601,16 @@ sub mapping {
       [like_debian,
        [package => 'libxine2-dev']]],
 
+     [cpanmod => 'Vlc::Engine',
+      [os_freebsd,
+       [package => 'vlc']],
+      [like_debian,
+       [package => 'libvlc-dev']],
+      ## Does not seem to contain include files
+      #[os_darwin,
+      # [package => 'caskroom/cask/vlc']],
+     ],
+
      [cpanmod => 'WordNet::QueryData',
       [os_freebsd,
        [package => 'wordnet']],
