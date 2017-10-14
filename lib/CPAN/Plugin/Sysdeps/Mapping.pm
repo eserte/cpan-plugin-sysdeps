@@ -1381,7 +1381,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libexif']],
       [like_debian,
-       [package => 'libexif-dev']]],
+       [package => 'libexif-dev']],
+      [os_darwin,
+       [package => 'libexif']],
+     ],
 
      [cpanmod => 'Image::Libpuzzle',
       [os_freebsd,
