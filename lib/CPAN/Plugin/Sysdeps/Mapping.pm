@@ -1396,6 +1396,8 @@ sub mapping {
        [package => 'librsvg2-dev']],
       [like_fedora,
        [package => 'librsvg2-devel']],
+      [os_darwin,
+       [package => 'librsvg']],
      ],
 
      [cpanmod => 'Image::Magick',  # typically needs manual work
