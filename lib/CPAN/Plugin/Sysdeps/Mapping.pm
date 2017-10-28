@@ -1971,6 +1971,13 @@ sub mapping {
        [package => 'libidn']],
      ],
 
+     [cpanmod => 'Net::LibLO',
+      [os_freebsd,
+       [package => 'liblo']],
+      [like_debian,
+       [package => 'liblo-dev']],
+     ],
+
      [cpanmod => 'Net::NfDump',
       [like_debian,
        [package => ['flex', 'byacc']]],
