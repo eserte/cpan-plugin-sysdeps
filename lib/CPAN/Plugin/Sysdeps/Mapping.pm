@@ -505,6 +505,11 @@ sub mapping {
        [package => 'recode']],
      ],
 
+     [cpanmod => 'Couchbase',
+      [os_freebsd,
+       [package => 'libcouchbase']],
+     ],
+
      [cpanmod => 'Crypt::Cracklib',
       [os_freebsd,
        [package => 'cracklib']],
