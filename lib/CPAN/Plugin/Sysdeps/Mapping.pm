@@ -1621,7 +1621,9 @@ sub mapping {
 
      [cpanmod => 'LibJIT',
       [os_freebsd,
-       [package => 'libjit']],
+       [osvers => qr{^9\.},
+	[package => 'libjit']],
+       [package => []]], # does not exist in freebsd 10 and later
       # XXX what aout debian?
      ],
 
