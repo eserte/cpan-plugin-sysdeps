@@ -2028,7 +2028,7 @@ sub mapping {
      #],
 
      [cpanmod => 'Net::SIGTRAN::SCTP',
-      # XXX what about freebsd?
+      # no sctp on freebsd or centos
       [like_debian,
        [package => 'libsctp-dev']]],
 
