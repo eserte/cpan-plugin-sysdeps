@@ -2293,6 +2293,17 @@ sub mapping {
        [package => 'rpm-devel']],
      ],
 
+     [cpanmod => ['RPM4', 'URPM'],
+      [os_freebsd,
+       [package => 'rpm4']],
+      [like_debian,
+       [package => 'rpm']],
+      [like_fedora,
+       [package => 'rpm']],
+      [os_darwin,
+       [package => 'rpm']],
+     ],
+
      [cpanmod => 'RRD::Tweak',
       [os_freebsd,
        [package => 'rrdtool']],
