@@ -995,7 +995,7 @@ sub mapping {
 
      [cpanmod => 'Geo::Proj4',
       [os_freebsd,
-       [package => ['libproj4', 'proj']]],
+       [package => 'proj']],
       [like_debian,
        [package => ['libproj-dev', 'proj-bin']]],
       [like_fedora,
