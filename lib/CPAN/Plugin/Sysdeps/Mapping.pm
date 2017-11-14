@@ -11,6 +11,7 @@ use constant os_freebsd  => (os => 'freebsd');
 use constant os_windows  => (os => 'MSWin32');
 use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
 use constant like_debian => (linuxdistro => '~debian');
+use constant before_debian_stretch => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial)]);
 use constant like_fedora => (linuxdistro => '~fedora');
 #  package shortcuts
 use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
@@ -692,7 +693,7 @@ sub mapping {
       [os_freebsd,
        [package => 'firebird25-server']],
       [like_debian,
-       [linuxdistrocodename => [qw(squeeze wheezy jessie precise trusty xenial)],
+       [before_debian_stretch,
 	[package => 'firebird-dev']],
        [package => [qw(firebird-dev firebird3.0-server-core)]] # for stretch (and newer?)
       ],
