@@ -692,7 +692,10 @@ sub mapping {
       [os_freebsd,
        [package => 'firebird25-server']],
       [like_debian,
-       [package => 'firebird-dev']],
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise trusty xenial)],
+	[package => 'firebird-dev']],
+       [package => [qw(firebird-dev firebird3.0-server-core)]] # for stretch (and newer?)
+      ],
       [like_fedora,
        [package => 'firebird-devel']],
      ],
