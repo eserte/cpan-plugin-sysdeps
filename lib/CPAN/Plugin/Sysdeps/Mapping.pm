@@ -1982,6 +1982,15 @@ sub mapping {
        [package => 'liblo-dev']],
      ],
 
+     [cpanmod => 'Net::NATS::Streaming::PB',
+      [os_freebsd,
+       [package => 'protobuf']],
+      [like_debian,
+       [package => 'protobuf-compiler']],
+      [like_fedora,
+       [package => [qw(protobuf-compiler protobuf-devel)]]],
+     ],
+
      [cpanmod => 'Net::NfDump',
       [like_debian,
        [package => ['flex', 'byacc']]],
