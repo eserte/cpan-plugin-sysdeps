@@ -1592,7 +1592,8 @@ sub mapping {
      ],
 
      [cpanmod => 'Kafka::Librd',
-      # no package for freebsd
+      [os_freebsd,
+       [package => 'librdkafka']],
       [like_debian,
        [package => 'librdkafka-dev']]],
 
