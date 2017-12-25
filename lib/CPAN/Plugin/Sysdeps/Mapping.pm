@@ -12,6 +12,7 @@ use constant os_windows  => (os => 'MSWin32');
 use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
 use constant like_debian => (linuxdistro => '~debian');
 use constant before_debian_stretch => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial)]);
+use constant before_debian_buster  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch)]);
 use constant like_fedora => (linuxdistro => '~fedora');
 #  package shortcuts
 use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
@@ -1974,6 +1975,18 @@ sub mapping {
        [package => 'libidn-devel']],
       [os_darwin,
        [package => 'libidn']],
+     ],
+
+     [cpanmod => 'Net::LibIDN2',
+      [os_freebsd,
+       [package => 'libidn2']],
+      [like_debian,
+       [before_debian_buster,
+	[package => []]], # libidn2-0-dev exists, but is too old
+       [package => 'libidn2-dev']],
+      [like_fedora,
+       [package => 'libidn2-devel']],
+      # currently no libidn2 in homebrew
      ],
 
      [cpanmod => 'Net::LibLO',
