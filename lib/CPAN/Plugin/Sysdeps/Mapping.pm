@@ -315,7 +315,7 @@ sub mapping {
        [package => 'taglib']],
      ],
 
-     [cpanmod => 'Authen::Krb5Password',
+     [cpanmod => ['Authen::Krb5Password', 'GSSAPI'],
       [os_freebsd,
        [package => 'heimdal | krb5']],
       [like_debian,
@@ -324,6 +324,8 @@ sub mapping {
        [package => 'libkrb5-dev']],
       [like_fedora,
        [package => 'krb5-devel']],
+      [os_darwin,
+       [package => 'krb5']],
      ],
 
      [cpanmod => 'Authen::SASL::Cyrus',
