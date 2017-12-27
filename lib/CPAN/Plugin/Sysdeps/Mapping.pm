@@ -317,7 +317,7 @@ sub mapping {
 
      [cpanmod => ['Authen::Krb5Password', 'GSSAPI'],
       [os_freebsd,
-       [package => 'heimdal | krb5']],
+       [package => 'krb5 | heimdal']], # heimdal shadows tools like "su", so put it behind krb5
       [like_debian,
        [linuxdistrocodename => [qw(squeeze wheezy jessie)],
 	[package => 'heimdal-dev | libkrb5-dev']],
