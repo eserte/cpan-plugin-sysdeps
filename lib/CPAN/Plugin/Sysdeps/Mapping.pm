@@ -2599,7 +2599,12 @@ sub mapping {
       [like_debian,
        [package => ['mesa-common-dev', 'libglu1-mesa-dev']]]],
 
-     [cpanmod => ['UAV::Pilot::SDL', 'UAV::Pilot::Video::Ffmpeg'],
+     [cpanmod => 'UAV::Pilot::SDL',
+      [like_debian,
+       [package => ['libavcodec-dev', 'libswscale-dev']]],
+     ],
+
+     [cpanmod => 'UAV::Pilot::Video::Ffmpeg',
       [like_debian,
        [package => 'libavcodec-dev']],
      ],
