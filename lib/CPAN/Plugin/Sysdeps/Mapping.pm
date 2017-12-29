@@ -1506,10 +1506,14 @@ sub mapping {
 
      [cpanmod => 'Inline::Lua',
       [os_freebsd,
-       # does not work, see https://rt.cpan.org/Ticket/Display.html?id=93690
        [package => 'lua']],
       [like_debian,
-       [package => 'liblua5.1-0-dev']]],
+       [package => 'liblua5.1-0-dev']],
+      [like_fedora,
+       [package => 'lua-devel']],
+      [os_darwin,
+       [package => 'lua']],
+     ],
 
      [cpanmod => 'Inline::Perl6',
       [like_debian,
