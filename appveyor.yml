@@ -3,15 +3,23 @@ branches:
     - /travis/
 skip_tags: true
 
-cache:
-  - C:\strawberry
+#cache:
+#  - C:\strawberry
+
+environment:
+  matrix:
+    - perl: activeperl
+      make: dmake
+    - perl: strawberryperl
+      make: gmake
 
 install:
-  - if not exist "C:\strawberry" cinst strawberryperl
-  - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
+  - if %perl%==strawberryperl ( if not exist "C:\strawberry" cinst strawberryperl )
+  - if %perl%==strawberryperl   set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - cd C:\projects\%APPVEYOR_PROJECT_NAME%
-  - cpanm --installdeps .
+  - if %perl%==activeperl       ppm install dmake
+  - if %perl%==strawberryperl ( cpanm --installdeps . )
 
 build_script:
   - perl Makefile.PL
-  - gmake test
+  - '%make% test'
