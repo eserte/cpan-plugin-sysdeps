@@ -5,7 +5,6 @@ use warnings;
 
 our $VERSION = '0.43';
 
-use Hash::Util 'lock_keys';
 use List::Util 'first';
 
 our $TRAVERSE_ONLY; # only for testing
@@ -144,7 +143,9 @@ sub new {
 	 mapping             => \@mapping,
 	);
     my $self = bless \%config, $class;
-    lock_keys %$self;
+    if (eval { require Hash::Util; 1 }) {
+	Hash::Util::lock_keys($self);
+    }
     $self;
 }
 
