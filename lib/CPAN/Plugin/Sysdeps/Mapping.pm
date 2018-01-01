@@ -772,9 +772,15 @@ sub mapping {
      ],
 
      [cpanmod => 'Device::Cdio',
+      [os_freebsd,
+       # but it's too old, even on freebsd11 (1.1 needed, 0.94 installed)
+       [package => 'libcdio']],
       [like_debian,
        # but still does not work
-       [package => ['libcdio-dev', 'libiso9660-dev']]]],
+       [package => ['libcdio-dev', 'libiso9660-dev']]],
+      [os_darwin,
+       [package => 'libcdio']],
+     ],
 
      [cpanmod => 'Device::Serdisp',
       [os_freebsd,
