@@ -1512,7 +1512,7 @@ sub mapping {
 
      [cpanmod => 'Inline::Lua',
       [os_freebsd,
-       [package => 'lua']],
+       [package => 'lua53 | lua']],
       [like_debian,
        [package => 'liblua5.1-0-dev']],
       [like_fedora,
