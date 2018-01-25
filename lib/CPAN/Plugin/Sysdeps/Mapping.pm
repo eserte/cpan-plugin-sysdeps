@@ -509,6 +509,18 @@ sub mapping {
        [package => 'recode']],
      ],
 
+     [cpanmod => 'CORBA::ORBit',
+      #[os_freebsd,
+      # [package => 'ORBit']], # does not exist anymore, just ORBit2
+      [like_fedora,
+       [package => [qw(ORBit-devel libIDL-devel)]]
+       # XXX still does not work, at least on CentOS6
+       # either -I/usr/include/libIDL-1.0 or libIDL-2.0 has
+       # to be specified, but not possible in the standard
+       # Makefile.PL
+      ],
+     ],
+
      [cpanmod => 'Couchbase',
       [os_freebsd,
        [package => 'libcouchbase']],
