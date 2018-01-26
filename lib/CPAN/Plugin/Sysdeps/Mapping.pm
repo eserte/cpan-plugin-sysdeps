@@ -120,8 +120,12 @@ sub mapping {
        [package => 'libprotobuf-dev']]],
 
      [cpanmod => 'Alien::raylib',
+      [os_freebsd,
+       [package => [qw(alsa-lib)]]], # XXX maybe more?
+      [like_debian,
+       [package => [qw(libasound2-dev libxcursor-dev libxinerama-dev mesa-common-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev)]]],
       [like_fedora,
-       [package => 'libXrandr-devel']],
+       [package => 'libXrandr-devel']], # XXX maybe more?
      ],
 
      [cpanmod => 'Alien::RRDtool',
