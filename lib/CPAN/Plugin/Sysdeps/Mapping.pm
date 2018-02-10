@@ -952,6 +952,17 @@ sub mapping {
       [os_freebsd,
        [package => 'ta-lib']]], # alternative would be Alien::TALib
 
+     [cpanmod => 'Firefox::Marionette',
+      [os_freebsd,
+       [package => [ 'firefox', 'xorg-vfbserver', 'xauth' ]]],
+      [like_debian,
+       [package => [ 'firefox-esr', 'xvfb', 'xauth' ]]],
+      [like_fedora,
+       [package => [ 'firefox', 'xorg-x11-server-Xvfb', 'xorg-x11-xauth' ]]],
+      [os_windows,
+       [package => [ 'firefox' ]]],
+     ],
+
      [cpanmod => ['FTDI::D2XX', 'Device::FTDI'],
       # neither libftdi nor libftdi1 seem to work on FreeBSD
       [like_debian,
