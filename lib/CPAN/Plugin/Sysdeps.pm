@@ -26,7 +26,7 @@ sub new {
 	    } else {
 		$options = $arg;
 	    }
-	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum|chocolatey|homebrew)$}) { # XXX are there more package installers?
+	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum|dnf|chocolatey|homebrew)$}) { # XXX are there more package installers?
 	    $installer = $1;
 	} elsif ($arg eq 'batch') {
 	    $batch = 1;
@@ -101,7 +101,11 @@ sub new {
 	    if      (__PACKAGE__->_is_linux_debian_like($linuxdistro)) {
 		$installer = 'apt-get';
 	    } elsif (__PACKAGE__->_is_linux_fedora_like($linuxdistro)) {
-		$installer = 'yum';
+                if (_detect_dnf()) {
+                    $installer = 'dnf';
+		} else {
+		    $installer = 'yum';
+		}
 	    } else {
 		die __PACKAGE__ . " has no support for linux distribution $linuxdistro $linuxdistroversion\n";
 	    }
@@ -208,7 +212,7 @@ sub _detect_linux_distribution_lsb_release {
 sub _detect_linux_distribution_fallback {
     if (open my $fh, '<', '/etc/redhat-release') {
 	my $contents = <$fh>;
-	if ($contents =~ m{^(CentOS|RedHat) (Linux )?release (\d+)\S* \((.*?)\)}) {
+	if ($contents =~ m{^(CentOS|RedHat|Fedora) (Linux )?release (\d+)\S* \((.*?)\)}) {
 	    return {linuxdistro => $1, linuxdistroversion => $2, linuxdistrocodename => $3};
 	}
     }
@@ -366,6 +370,21 @@ sub _map_cpandist {
     ();
 }
 
+sub _detect_dnf {
+    my @cmd = ('dnf1', '--help');
+    require IPC::Open3;
+    require Symbol;
+    my $err = Symbol::gensym();
+    my $fh;
+    eval {
+	    if (my $pid = IPC::Open3::open3(undef, $fh, $err, @cmd)) {
+		    waitpid $pid, 0;
+		    return $? == 0;
+		}
+    };
+    return;
+}
+
 sub _find_missing_deb_packages {
     my($self, @packages) = @_;
     return () if !@packages;
@@ -488,7 +507,7 @@ sub _filter_uninstalled_packages {
     my $find_missing_packages;
     if      ($self->_is_apt_installer) {
 	$find_missing_packages = '_find_missing_deb_packages';
-    } elsif ($self->{installer} eq 'yum') {
+    } elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
 	$find_missing_packages = '_find_missing_rpm_packages';
     } elsif ($self->{os} eq 'freebsd') {
 	$find_missing_packages = '_find_missing_freebsd_pkg_packages';
@@ -546,7 +565,7 @@ sub _install_packages_commands {
     if ($self->{batch}) {
 	if ($self->_is_apt_installer) {
 	    push @install_cmd, '-y';
-	} elsif ($self->{installer} eq 'yum') {
+	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
 	    push @install_cmd, '-y';
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
@@ -558,7 +577,7 @@ sub _install_packages_commands {
     } else {
 	if ($self->_is_apt_installer) {
 	    @pre_cmd = ('sh', '-c', 'echo -n "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
-	} elsif ($self->{installer} eq 'yum') {
+	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
 	    # interactive by default
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
@@ -632,7 +651,7 @@ Possible arguments are:
 
 =over
 
-=item C<apt-get>, C<aptitude>, C<pkg>, C<yum>, C<homebrew>
+=item C<apt-get>, C<aptitude>, C<pkg>, C<yum>, C<dnf>, C<homebrew>
 
 Force a particular installer for system packages. If not set, then the
 plugin find a default for the current operating system or linux
@@ -642,7 +661,7 @@ distributions:
 
 =item Debian-like distributions: C<apt-get>
 
-=item Fedora-like distributions: C<yum>
+=item Fedora-like distributions: C<yum> or C<dnf>
 
 =item FreeBSD: C<pkg>
 
@@ -952,6 +971,6 @@ at your option, any later version of Perl 5 you may have available.
 
 =head1 SEE ALSO
 
-L<cpan-sysdeps>, L<CPAN>, L<apt-get(1)>, L<aptitude(1)>, L<pkg(8)>, L<yum(1)>.
+L<cpan-sysdeps>, L<CPAN>, L<apt-get(1)>, L<aptitude(1)>, L<pkg(8)>, L<yum(1)>, L<dnf(1)>.
 
 =cut
