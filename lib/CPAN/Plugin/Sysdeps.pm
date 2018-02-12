@@ -81,7 +81,7 @@ sub new {
 	} else {
 	    $linuxdistrocodename = $get_linux_info->()->{linuxdistrocodename};
 	}
-    } elsif ($os eq 'freebsd') {
+    } elsif (($os eq 'freebsd') || ($os eq 'openbsd')) {
 	# Note: don't use $Config{osvers}, as this is just the OS
 	# version of the system which built the current perl, not the
 	# actually running OS version.
@@ -97,6 +97,8 @@ sub new {
 	    $installer = 'pkg';
 	} elsif ($os eq 'gnukfreebsd') {
 	    $installer = 'apt-get';
+	} elsif ($os eq 'openbsd') {
+	    $installer = 'pkg_add';
 	} elsif ($os eq 'linux') {
 	    if      (__PACKAGE__->_is_linux_debian_like($linuxdistro)) {
 		$installer = 'apt-get';
@@ -463,6 +465,38 @@ sub _find_missing_freebsd_pkg_packages {
     @missing_packages;
 }
 
+sub _find_missing_openbsd_pkg_packages {
+    my($self, @packages) = @_;
+    return () if !@packages;
+
+    require IPC::Open3;
+    require Symbol;
+
+    my @missing_packages;
+    for my $package (@packages) {
+        my $err = Symbol::gensym();
+        my $fh;
+        my $package_in_repository;
+        eval {
+            if (my $pid = IPC::Open3::open3(undef, $fh, $err, 'pkg_info', $package)) {
+                waitpid $pid, 0;
+                if ($? == 0) {
+                    $package_in_repository = 1;
+                }
+            }
+        };
+        if ($package_in_repository) {
+            my @cmd = ('pkg_info', '-q', '-e', "${package}->=0");
+            system @cmd;
+            if ($? != 0) {
+                push @missing_packages, $package;
+            }
+        }
+    }
+
+    @missing_packages;
+}
+
 sub _find_missing_homebrew_packages {
     my($self, @packages) = @_;
     return () if !@packages;
@@ -511,6 +545,8 @@ sub _filter_uninstalled_packages {
 	$find_missing_packages = '_find_missing_rpm_packages';
     } elsif ($self->{os} eq 'freebsd') {
 	$find_missing_packages = '_find_missing_freebsd_pkg_packages';
+    } elsif ($self->{os} eq 'openbsd') {
+	$find_missing_packages = '_find_missing_openbsd_pkg_packages';
     } elsif ($self->{os} eq 'MSWin32') {
 	$find_missing_packages = '_find_missing_chocolatey_packages';
     } elsif ($self->{installer} eq 'homebrew') {
@@ -597,7 +633,9 @@ sub _install_packages_commands {
     }
 
     # the installer subcommand
-    push @install_cmd, 'install'; # XXX is this universal?
+    if ($self->{installer} ne 'pkg_add') {
+        push @install_cmd, 'install';
+    }
 
     # post options
     if ($self->{batch} && $self->{installer} eq 'pkg') {
@@ -605,6 +643,9 @@ sub _install_packages_commands {
     }
     if ($self->{batch} && $self->{installer} eq 'chocolatey') {
 	push @install_cmd, '-y';
+    }
+    if ($self->{batch} && $self->{installer} eq 'pkg_add') {
+	push @install_cmd, '-I';
     }
 
     push @install_cmd, @packages;
