@@ -373,7 +373,7 @@ sub _map_cpandist {
 }
 
 sub _detect_dnf {
-    my @cmd = ('dnf1', '--help');
+    my @cmd = ('dnf', '--help');
     require IPC::Open3;
     require Symbol;
     my $err = Symbol::gensym();
