@@ -470,6 +470,11 @@ sub mapping {
        [package => 'libcomedi-dev']],
      ],
 
+     [cpanmod => 'CommonMark',
+      [os_freebsd,
+       [package => 'cmark']],
+     ],
+
      [cpanmod => 'Compress::LZMA::Simple',
       ## in the meanwhile, lzma is part of the base install
       #[os_freebsd,
