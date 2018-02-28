@@ -288,8 +288,9 @@ sub mapping {
      ],
 
      [cpanmod => 'Audio::Ofa',
-      [os_freebsd,
-       [package => 'libofa']],
+      ## from freebsd's MOVED: "2017-03-01|Has expired: MusicDNS service has been discontinued"
+      #[os_freebsd,
+      # [package => 'libofa']],
       [like_debian,
        [package => 'libofa0-dev']]],
 
