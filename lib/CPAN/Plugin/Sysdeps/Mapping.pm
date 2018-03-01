@@ -8,6 +8,7 @@ our $VERSION = '0.45';
 # shortcuts
 #  os and distros
 use constant os_freebsd  => (os => 'freebsd');
+use constant os_dragonfly => (os => 'dragonfly');
 use constant os_openbsd  => (os => 'openbsd');
 use constant os_windows  => (os => 'MSWin32');
 use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
@@ -198,6 +199,8 @@ sub mapping {
      [cpanmod => 'Archive::SevenZip',
       [os_freebsd,
        [package => 'p7zip']],
+      [os_dragonfly,
+       [package => 'p7zip']],
       [like_debian,
        [package => 'p7zip-full']]],
 
@@ -239,6 +242,8 @@ sub mapping {
      [cpanmod => 'Audio::CD',
       [os_freebsd,
        [package => 'libcdaudio']],
+      [os_dragonfly,
+       [package => 'libcdaudio']],
       [like_debian,
        [package => 'libcdaudio-dev']],
       [like_fedora,
@@ -260,6 +265,8 @@ sub mapping {
 
      [cpanmod => 'Audio::GSM',
       [os_freebsd,
+       [package => 'gsm']],
+      [os_dragonfly,
        [package => 'gsm']],
       [like_debian,
        [package => 'libgsm1-dev']],
@@ -405,6 +412,8 @@ sub mapping {
 
      [cpanmod => ['Cairo', 'Prima::Cairo'],
       [os_freebsd,
+       [package => 'cairo']],
+      [os_dragonfly,
        [package => 'cairo']],
       [os_openbsd,
        [package => 'cairo']],
@@ -734,6 +743,8 @@ sub mapping {
      [cpanmod => 'DBD::Firebird',
       [os_freebsd,
        [package => 'firebird25-server']],
+      [os_dragonfly,
+       [package => 'firebird25-server']],
       [like_debian,
        [before_debian_stretch,
 	[package => 'firebird-dev']],
@@ -746,6 +757,8 @@ sub mapping {
      [cpanmod => 'DBD::mysql',
       [os_freebsd,
        [package => 'mysql-connector-c | mysql57-client | mysql56-client | mysql55-client | mariadb101-client | mariadb100-client | mariadb55-client | percona56-client | percona55-client']],
+      [os_dragonfly,
+       [package => 'mariadb101-client | mariadb100-client | mariadb55-client-5.5.58']],
       [os_openbsd,
        [package => 'mariadb-client']],
       [like_debian,
@@ -763,6 +776,8 @@ sub mapping {
      [cpanmod => 'DBD::ODBC',
       [os_freebsd,
        [package => 'unixODBC']],
+      [os_dragonfly,
+       [package => 'unixODBC']],
       [like_debian,
        [package => 'unixodbc-dev']],
       [like_fedora,
@@ -774,6 +789,8 @@ sub mapping {
      [cpanmod => 'DBD::Pg',
       [os_freebsd,
        [package => 'postgresql95-server | postgresql93-server']],
+      [os_dragonfly,
+       [package => 'postgresql10-server | postgresql96-server | postgresql94-server | postgresql93-server | postgresql92-server']],
       [os_openbsd,
        [package => 'postgresql-server']],
       [like_debian,
@@ -854,6 +871,8 @@ sub mapping {
      
      [cpanmod => 'DNS::LDNS',
       [os_freebsd,
+       [package => 'ldns']],
+      [os_dragonfly,
        [package => 'ldns']],
       [like_debian,
        [package => 'libldns-dev']],
@@ -1040,6 +1059,8 @@ sub mapping {
      [cpanmod => 'GD',
       [os_freebsd,
        [package => 'libgd']],
+      [os_dragonfly,
+       [package => 'libgd']],
       [os_openbsd,
        [package => 'gd']],
       [like_debian,
@@ -1194,6 +1215,8 @@ sub mapping {
       [os_freebsd,
        [package => 'gnupg1'] #  XXX what about gnupg (version 2)?
       ],
+      [os_dragonfly,
+       [package => 'gnupg']],
       [os_openbsd,
        [package => 'gnupg']],
       [like_debian,
@@ -2219,6 +2242,8 @@ sub mapping {
      [cpanmod => 'OpenGL',
       [os_freebsd,
        [package => 'freeglut']],
+      [os_dragonfly,
+       [package => 'freeglut']],
       [like_debian,
        [package => ['freeglut3-dev', 'libxmu-dev', 'libxi-dev']]],
       [like_fedora,
@@ -2253,6 +2278,8 @@ sub mapping {
 
      [cpanmod => 'Pango',
       [os_freebsd,
+       [package => 'pango']],
+      [os_dragonfly,
        [package => 'pango']],
       [os_openbsd,
        [package => 'pango']],
@@ -2694,6 +2721,8 @@ sub mapping {
      [cpanmod => 'Unix::Statgrab',
       [os_freebsd,
        [package => 'libstatgrab']],
+      [os_dragonfly,
+       [package => 'libstatgrab']],
       [os_openbsd,
 	# doesn't work
        [package => 'libstatgrab']],
@@ -2815,6 +2844,8 @@ sub mapping {
      [cpanmod => 'XML::LibXML',
       [os_freebsd,
        [package => 'libxml2']],
+      [os_dragonfly,
+       [package => 'libxml2']],
       [os_openbsd,
 	# doesn't work at the moment
        [package => 'libxml2']],
@@ -2827,6 +2858,8 @@ sub mapping {
      [cpanmod => 'XML::LibXSLT',
       [os_freebsd,
        [package => 'libxslt']],
+      [os_dragonfly,
+       [package => 'libxslt']],
       [os_openbsd,
        [package => 'libxslt']],
       [like_debian,
@@ -2836,6 +2869,8 @@ sub mapping {
 
      [cpanmod => 'XML::Parser',
       [os_freebsd,
+       [package => 'expat']],
+      [os_dragonfly,
        [package => 'expat']],
       [os_openbsd,
        [package => 'expat']],
@@ -2903,6 +2938,8 @@ sub mapping {
      [cpanmod => 'X11::Xlib',
       [os_freebsd,
        [package => 'libXtst']],
+      [os_dragonfly,
+       [package => 'libXtst']],
       [like_debian,
        [package => 'libxtst-dev']],
       [like_fedora,
@@ -2912,6 +2949,8 @@ sub mapping {
      [cpanmod => 'ZMQ::FFI',
       [os_freebsd,
        [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists
+      [os_dragonfly,
+       [package => 'libzmq4']],
       [like_debian,
        [linuxdistrocodename => [qw(squeeze wheezy jessie xenial)],
 	[package => 'libzmq-dev']],
@@ -2923,6 +2962,8 @@ sub mapping {
      [cpanmod => 'ZMQ::LibZMQ4',
       [os_freebsd,
        [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists (?)
+      [os_dragonfly,
+       [package => 'libzmq4']],
       [like_debian,
 #       [linuxdistrocodename => [qw(squeeze wheezy jessie)],
 #	[package => []]], # libzmq5 is ZMQ4.1 (!); according to http://zeromq.org/distro:debian only available in experimental (and probably sid)
