@@ -3,7 +3,7 @@ package CPAN::Plugin::Sysdeps::Mapping;
 use strict;
 use warnings;
 
-our $VERSION = '0.44';
+our $VERSION = '0.45';
 
 # shortcuts
 #  os and distros
@@ -468,6 +468,11 @@ sub mapping {
       # Not available for FreeBSD or CentOS7
       [like_debian,
        [package => 'libcomedi-dev']],
+     ],
+
+     [cpanmod => 'CommonMark',
+      [os_freebsd,
+       [package => 'cmark']],
      ],
 
      [cpanmod => 'Compress::LZMA::Simple',

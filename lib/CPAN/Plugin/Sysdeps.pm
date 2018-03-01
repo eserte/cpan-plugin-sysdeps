@@ -3,7 +3,7 @@ package CPAN::Plugin::Sysdeps;
 use strict;
 use warnings;
 
-our $VERSION = '0.44';
+our $VERSION = '0.45';
 
 use List::Util 'first';
 
@@ -26,7 +26,7 @@ sub new {
 	    } else {
 		$options = $arg;
 	    }
-	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|yum|dnf|chocolatey|homebrew)$}) { # XXX are there more package installers?
+	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|pkg_add|yum|dnf|chocolatey|homebrew)$}) { # XXX are there more package installers?
 	    $installer = $1;
 	} elsif ($arg eq 'batch') {
 	    $batch = 1;
@@ -998,13 +998,15 @@ L<https://twitter.com/jscook2345> Justin Cook.
 
 Max Maischein (CORION) - Windows/chocolatey support
 
+David Dick (DDICK) - OpenBSD and Fedora support
+
 =head1 AUTHOR
 
 Slaven Rezic
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2016,2017 by Slaven ReziE<x0107>
+Copyright (C) 2016,2017,2018 by Slaven ReziE<x0107>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.8 or,
