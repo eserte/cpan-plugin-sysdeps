@@ -2164,6 +2164,8 @@ sub mapping {
      ],
 
      ## conflicts with avahi-app on FreeBSD
+     ## With avahi-app installed, -I/usr/local/include/avahi-compat-howl needs to be specified
+     ## but then the test suite fails
      #[cpanmod => "Net::Rendezvous::Publish::Backend::Howl",
      # [os_freebsd,
      #  [package => 'howl']],
