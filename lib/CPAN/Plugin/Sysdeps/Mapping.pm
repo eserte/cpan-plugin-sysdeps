@@ -1669,6 +1669,15 @@ sub mapping {
        [package => 'iptables-devel']],
      ],
 
+     [cpanmod => 'JavaScript::Lite',
+      [os_freebsd,
+       [package => 'spidermonkey24 | spidermonkey185 | spidermonkey170 | spidermonkey17',]], # needs something like INC=-I/usr/local/include/js-17.0, but does not work (tried 170 and 185)
+      [like_debian,
+       [package => 'libmozjs185-dev']], # needs something like INC=-I/usr/include/js, but does not work
+      [like_fedora,
+       [package => 'js-devel']],
+     ],
+
      [cpanmod => 'JavaScript::V8',
       [os_freebsd,
        [package => 'v8']],
