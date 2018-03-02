@@ -1723,6 +1723,13 @@ sub mapping {
       ],
      ],
 
+     [cpanmod => 'Language::MzScheme',
+      [os_freebsd,
+       [package => 'racket']], # would need something like -I/usr/local/include/racket, but compilation still fails
+      [like_debian,
+       [package => ['racket', 'racket-common']]], # would need something like -I/usr/include/racket, but compilation still fails
+     ],
+
      # XXX needs verification; maybe more latex-related modules should be listed here?
      [cpanmod => ['LaTeX::Driver', 'Template::Plugin::Latex'],
       [os_freebsd,
