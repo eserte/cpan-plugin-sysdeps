@@ -397,7 +397,7 @@ sub mapping {
       [os_freebsd,
        [package => 'libmemcache']],
       [like_debian,
-       [linuxdistrocodename => ['squeeze', 'wheezy'],
+       [linuxdistrocodename => ['squeeze', 'wheezy', 'xenial'], # but tests fail on xenial
 	[package => 'libmemcache-dev']],
        [package => []], # in jessie there's no package containing include/memcache.h
       ]],
