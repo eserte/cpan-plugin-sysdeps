@@ -3,7 +3,7 @@ package CPAN::Plugin::Sysdeps;
 use strict;
 use warnings;
 
-our $VERSION = '0.45';
+our $VERSION = '0.46';
 
 use List::Util 'first';
 
@@ -1000,7 +1000,7 @@ L<https://twitter.com/jscook2345> Justin Cook.
 
 Max Maischein (CORION) - Windows/chocolatey support
 
-David Dick (DDICK) - OpenBSD and Fedora support
+David Dick (DDICK) - OpenBSD, DragonFly BSD and Fedora support
 
 =head1 AUTHOR
 
