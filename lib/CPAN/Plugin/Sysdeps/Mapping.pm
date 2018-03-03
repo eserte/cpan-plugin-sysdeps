@@ -2667,7 +2667,10 @@ sub mapping {
        [package => 'ja-kakasi']],
       [like_debian,
        # but there are linking errors on Debian
-       [package => 'libkakasi2-dev']]],
+       [package => 'libkakasi2-dev']],
+      [os_darwin,
+       [package => 'kakasi']],
+     ],
 
      [cpanmod => 'Text::Migemo',
       [os_freebsd,
