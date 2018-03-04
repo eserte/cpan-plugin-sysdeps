@@ -1004,6 +1004,8 @@ sub mapping {
       [os_openbsd,
        [package => [ 'firefox' ]]],
       [like_debian,
+       [linuxdistrocodename => [qw(trusty xenial)],
+	[package => [qw(firefox xvfb xauth)]]], # there's no firefox-esr for Ubuntu
        [package => [ 'firefox-esr', 'xvfb', 'xauth' ]]],
       [like_fedora,
        [package => [ 'firefox', 'xorg-x11-server-Xvfb', 'xorg-x11-xauth' ]]],
