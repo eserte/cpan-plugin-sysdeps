@@ -1440,7 +1440,7 @@ sub mapping {
        [package => 'neon-devel']], # compilation fails: ne_cookies.h: No such file or directory
      ],
 
-     [cpandist => qr{^HTML-Tidy-5\.},
+     [cpanmod => 'HTML::Tidy5',
       [os_freebsd,
        [package => 'tidy-html5']],
       [like_debian,
