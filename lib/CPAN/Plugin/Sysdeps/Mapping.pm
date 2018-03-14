@@ -1482,7 +1482,7 @@ sub mapping {
        [package => ['libgeotiff-dev']]], # conflict between libtiff4 and libtiff5 possible
      ],
 
-     [cpanmod => 'Image::Imlib2',
+     [cpanmod => ['Image::Imlib2', 'Ithumb::XS'],
       [os_freebsd,
        [package => 'imlib2']],
       [like_debian,
