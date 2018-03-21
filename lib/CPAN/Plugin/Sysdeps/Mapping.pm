@@ -2518,6 +2518,13 @@ sub mapping {
       [like_debian,
        [package => ['libsnmp-dev', 'snmp-mibs-downloader']]]],
 
+     [cpanmod => 'Sort::Naturally::ICU',
+      [os_freebsd,
+       [package => 'icu']], # but build fails
+      [like_debian,
+       [package => 'libicu-dev']],
+     ],
+
      [cpanmod => 'Speech::Recognizer::SPX',
       [os_freebsd,
        [package => 'pocketsphinx']],
