@@ -2487,7 +2487,10 @@ sub mapping {
      [cpanmod => 'Search::Namazu',
       [os_freebsd,
        [package => 'namazu3']],
-      # XXX what about debian?
+      [like_debian,
+       [package => 'libnmz7-dev']],
+      [os_darwin,
+       [package => 'namazu']],
      ],
 
      [cpanmod => 'Search::Odeum',
