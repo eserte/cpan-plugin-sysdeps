@@ -662,6 +662,16 @@ sub mapping {
        [package => 'libsodium']],
      ],
 
+     [cpanmod => 'Crypt::U2F::Server',
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie)],
+	[package => []], # not available before xenial and stretch
+       ],
+       [package => 'libu2f-server-dev']],
+      [os_darwin,
+       [package => 'libu2f-server']],
+     ],
+
      [cpanmod => 'CSS::Croco',
       [os_freebsd,
        [package => ['libcroco', 'pkgconf']]],
