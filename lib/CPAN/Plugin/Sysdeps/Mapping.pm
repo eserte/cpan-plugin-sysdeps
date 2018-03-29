@@ -2627,6 +2627,13 @@ sub mapping {
       # XXX no homebrew package for darwin (checked 2016-05-22)
      ],
 
+     [cpanmod => 'Term::Terminfo',
+      [like_debian,
+       [package => 'libncurses5-dev']],
+      [like_fedora,
+       [package => 'ncurses-devel']],
+     ],
+
      [cpanmod => 'Term::VTerm',
       [os_freebsd,
        [package => 'libvterm']],
