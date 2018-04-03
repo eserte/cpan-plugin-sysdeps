@@ -2805,6 +2805,11 @@ sub mapping {
       # XXX what about freebsd?
      ],
 
+     [cpanmod => 'USB::LibUSB',
+      [like_debian,
+       [package => 'libusb-1.0-0-dev']], # exists on wheezy, but: Minimum required version of libusb-1.0 is 1.0.17. Installed: 1.0.11
+     ],
+
      # Since UV::Util 0.03 Alien::libuv is used
      # But keep this mapping in case somebody wants to
      # force usage of the native system packages.
