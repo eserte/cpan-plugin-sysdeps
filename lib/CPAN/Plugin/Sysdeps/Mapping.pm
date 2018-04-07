@@ -1618,6 +1618,8 @@ sub mapping {
        [linuxdistrocodename => [qw(stretch xenial)],
 	[package => 'openjdk-8-jdk']],
       ],
+      [like_fedora,
+       [package => 'java-1.8.0-openjdk-devel | java-1.7.0-openjdk-devel | java-1.6.0-openjdk-devel']],
      ],
 
      [cpanmod => 'Inline::Lua',
