@@ -608,7 +608,7 @@ sub mapping {
      [cpanmod => ['Crypt::OpenSSL::DSA', 'Crypt::OpenSSL::Random', 'Crypt::OpenSSL::X509', 'Net::SSLeay', 'IO::Socket::SSL'],
       # freebsd has all libssl in the base system
       [like_debian,
-       [package => 'libssl-dev']],
+       [package => ['libssl-dev', 'zlib1g-dev']]],
       [like_fedora,
        [package => 'openssl-devel']],
       [os_windows,
