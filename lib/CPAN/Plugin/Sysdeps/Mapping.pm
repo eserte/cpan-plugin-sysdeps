@@ -2618,7 +2618,8 @@ sub mapping {
        [package => 'tk86 | tk85 | tk84']]], # XXX what about debian?
 
      [cpanmod => 'Tcl::Tk', # XXX maybe also Tkx?
-      # XXX what about freebsd?
+      [os_freebsd,
+       [package => 'tk86 | tk85 | tk84']],
       [like_debian,
        # tcllib is needed for the snit package
        [package => ['tk8.5-dev', 'tcllib']]],
