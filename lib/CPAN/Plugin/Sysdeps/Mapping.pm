@@ -2882,7 +2882,7 @@ sub mapping {
 	[package => []]],
        [package => 'npm']]],
 
-     [cpanmod => 'WWW::Curl',
+     [cpanmod => ['WWW::Curl', 'Net::Curl'],
       [os_openbsd,
 	# doesn't work
        [package => 'curl']],
