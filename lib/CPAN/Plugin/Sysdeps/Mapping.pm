@@ -3021,6 +3021,15 @@ sub mapping {
        [package => 'libXtst-devel']],
      ],
 
+     [cpanmod => 'YAML::LibYAML::API',
+      [os_freebsd,
+       [package => 'libyaml']],
+      [like_debian,
+       [package => 'libyaml-dev']],
+      [like_fedora,
+       [package => 'libyaml-devel']],
+     ],
+
      [cpanmod => 'ZMQ::FFI',
       [os_freebsd,
        [package => 'libzmq4']], # seems to hang with nonthreaded perls on freebsd, wait-and-kill rule exists
