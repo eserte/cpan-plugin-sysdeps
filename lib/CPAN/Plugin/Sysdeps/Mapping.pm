@@ -1441,6 +1441,13 @@ sub mapping {
       # ctpp2 not available for homebrew
      ],
 
+     [cpanmod => 'HTML::Parser',
+      [like_debian,
+       [package => 'libc6-dev']],
+      [like_fedora,
+       [package => 'glibc-headers']],
+     ],
+
      [cpanmod => 'HTTP::Webdav',
       [os_freebsd,
        [package => 'neon | neon29']], # untested
