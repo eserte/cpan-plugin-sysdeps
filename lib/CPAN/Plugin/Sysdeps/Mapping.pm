@@ -2214,7 +2214,7 @@ sub mapping {
      [cpanmod => 'Net::Silk',
       [os_freebsd,
        [package => 'silktools']],
-      # XXX what about debian?
+      # does not seem to exist in debian wheezy..buster, Ubuntu 16.04 or 18.04, or CentOS6
      ],
 
      [cpanmod => 'Net::SSH2',
