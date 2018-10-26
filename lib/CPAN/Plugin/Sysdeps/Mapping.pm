@@ -767,7 +767,7 @@ sub mapping {
 
      [cpanmod => 'DBD::mysql',
       [os_freebsd,
-       [package => 'mysql-connector-c | mysql57-client | mysql56-client | mysql55-client | mariadb101-client | mariadb100-client | mariadb55-client | percona56-client | percona55-client']],
+       [package => 'mysql-connector-c | mysql57-client | mysql56-client | mysql55-client | mariadb103-client | mariadb102-client | mariadb101-client | mariadb100-client | mariadb55-client | percona56-client | percona55-client']],
       [os_dragonfly,
        [package => 'mariadb101-client | mariadb100-client | mariadb55-client-5.5.58']],
       [os_openbsd,
