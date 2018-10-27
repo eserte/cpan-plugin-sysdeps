@@ -514,6 +514,11 @@ sub mapping {
        [package => 'lzo']],
      ],
 
+     [cpanmod => 'Compress::Zstd',
+      [os_freebsd,
+       [package => 'gmake']],
+     ],
+
      [cpanmod => 'Config::Augeas',
       [os_freebsd,
        [package => ['augeas', 'pkgconf']]],
