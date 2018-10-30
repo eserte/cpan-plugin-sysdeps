@@ -754,6 +754,17 @@ sub mapping {
 	[package => 'libdb5.1-dev']],
        [package => 'libdb5.3-dev']], # e.g. jessie, stretch, trusty, xenial, yakkety, zesty
       # FreeBSD and MacOSX have libdb in the base system
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^6\.},
+	package => 'db4-devel'],
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^7\.},
+	package => 'libdb-devel'],
+       [linuxdistro => 'fedora',
+	linuxdistroversion => '28',
+	package => 'libdb-devel'],
+      ],
      ],
 
      [cpanmod => 'DBD::Firebird',
