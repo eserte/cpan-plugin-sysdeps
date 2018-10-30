@@ -1675,6 +1675,12 @@ sub mapping {
        # XXX tests fail on Ubuntu16.04; <dynload.h> missing on stretch
        [linuxdistrocodename => [qw(stretch xenial)],
 	[package => [qw(moarvm-dev libuv1-dev libatomic-ops-dev libtommath-dev rakudo)]]]],
+      [like_fedora,
+       # XXX Does not work, moar.h missing
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^6\.}, # not available
+	package => []],
+       [package => 'moarvm-devel']],
      ],
 
      [cpanmod => 'Inline::Python',
