@@ -1720,7 +1720,12 @@ sub mapping {
       [os_freebsd,
        [package => 'mm']],
       [like_debian,
-       [package => 'libmm-dev']]],
+       [package => 'libmm-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos', # not available for 6 and 7
+	package => []],
+       [package => 'mm-devel']],
+     ],
 
      [cpanmod => 'IPC::XPA',
       # no package for FreeBSD or CentOS7
