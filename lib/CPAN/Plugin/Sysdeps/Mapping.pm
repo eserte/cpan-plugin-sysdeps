@@ -1539,6 +1539,8 @@ sub mapping {
        [package => 'libexif-dev']],
       [os_darwin,
        [package => 'libexif']],
+      [like_fedora,
+       [package => 'libexif-devel']],
      ],
 
      [cpanmod => 'Image::Libpuzzle',
