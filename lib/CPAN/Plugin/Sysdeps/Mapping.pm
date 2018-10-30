@@ -1547,7 +1547,13 @@ sub mapping {
       [os_freebsd,
        [package => 'libpuzzle']],
       [like_debian,
-       [package => 'libpuzzle-dev']]],
+       [package => 'libpuzzle-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^7\.},
+	package => []], # for some reason not available for centos7 (but it is for centos6)
+       [package => 'libpuzzle-devel']],
+     ],
 
      [cpanmod => 'Image::LibRSVG',
       [os_freebsd,
