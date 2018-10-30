@@ -1639,6 +1639,8 @@ sub mapping {
        linuxdistrocodename => [qw(squeeze wheezy)],
        [package => 'libt1-dev']],
       # not available anymore since jessie, also not in xenial
+      [like_fedora,
+       [package => 't1lib-devel']],
      ],
 
      # modules just needing java and nothing else:
