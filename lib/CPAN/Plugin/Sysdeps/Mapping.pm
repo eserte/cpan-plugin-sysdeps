@@ -2752,7 +2752,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libcsv']],
       [like_debian,
-       [package => 'libcsv-dev']]],
+       [package => 'libcsv-dev']],
+      [like_fedora,
+       [package => 'libcsv-devel']],
+     ],
 
      [cpanmod => 'Text::Hunspell',
       [os_freebsd,
