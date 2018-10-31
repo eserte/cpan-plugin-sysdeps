@@ -2711,7 +2711,7 @@ sub mapping {
       [os_freebsd,
        [package => 'libvterm']],
       [like_debian,
-       [linuxdistrocodename => ['squeeze', 'wheezy', 'jessie'],
+       [before_debian_stretch,
 	[package => []]],
        [package => 'libvterm-dev']]],
 
