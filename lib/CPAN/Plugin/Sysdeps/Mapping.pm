@@ -2472,6 +2472,10 @@ sub mapping {
        [linuxdistrocodename => [qw(squeeze wheezy jessie xenial)],
 	[package => []]], # not available before stretch
        [package => 'libhyperscan-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos', # not available for 6 and 7
+	package => []],
+       [package => 'hyperscan-devel']],
      ],
 
      [cpanmod => 're::engine::PCRE2',
