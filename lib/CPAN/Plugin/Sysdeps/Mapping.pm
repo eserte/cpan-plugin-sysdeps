@@ -189,6 +189,15 @@ sub mapping {
        [package => 'gdb']],
      ],
 
+     [cpanmod => 'Archive::Peek::Libarchive',
+      [os_freebsd,
+       [package => 'libarchive']],
+      [like_debian,
+       [package => 'libarchive-dev']],
+      [like_fedora,
+       [package => 'libarchive-devel']],
+     ],
+
      [cpanmod => 'Archive::Rar',
       [os_freebsd,
        [package => 'rar'], # restricted, no binary package available, must build from ports
