@@ -1712,7 +1712,10 @@ sub mapping {
 	[package => 'ruby1.8-dev']],
        [linuxdistrocodename => 'jessie',
 	[package => 'ruby2.1-dev']],
-       [package => 'ruby2.3-dev'], # xenial, stretch
+       [linuxdistrocodename => [qw(xenial stretch)],
+	[package => 'ruby2.3-dev']],
+       [linuxdistrocodename => [qw(bionic buster)],
+	[package => 'ruby2.5-dev']],
       ],
       [like_fedora,
        [package => 'ruby-devel']],
