@@ -1769,7 +1769,7 @@ sub mapping {
       [os_freebsd,
        [package => 'v8']],
       [like_debian,
-       [package => 'libv8-dev']],
+       [package => 'libv8-dev']], # but not anymore in buster, see https://tracker.debian.org/news/876959/libv8-314-removed-from-testing/
       [like_fedora,
        [package => 'v8-devel']], # but problems with Devel-CheckLib and compilation errors
       [os_darwin,
