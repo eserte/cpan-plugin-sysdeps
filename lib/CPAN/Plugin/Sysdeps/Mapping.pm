@@ -1516,7 +1516,7 @@ sub mapping {
       [like_debian,
        [before_debian_stretch,
 	[package => ['libopencv-dev', 'libdecodeqr-dev']]],
-       [package => []], # not available anymore in stretch, but currently available in sid for at least arm64
+       [package => []], # not available anymore in stretch, bionic or buster, but currently available in sid for at least arm64
       ]],
 
      [cpanmod => ['Image::ObjectDetect', 'Image::Resize::OpenCV'],
