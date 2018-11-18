@@ -847,10 +847,10 @@ sub mapping {
 
      [cpanmod => 'Devel::IPerl',
       [like_debian,
-       [linuxdistrocodename => [qw(stretch)],
-	[package => [qw(libzmq3-dev ipython jupyter-console jupyter-notebook libmagic-dev)]],
-       [package => [qw(libzmq3-dev ipython ipython-notebook libmagic-dev)]], # as specified in https://metacpan.org/source/ZMUGHAL/Devel-IPerl-0.006/README.md
-       ]]
+       [before_debian_stretch,
+	[package => [qw(libzmq3-dev ipython ipython-notebook libmagic-dev)]]], # as specified in https://metacpan.org/source/ZMUGHAL/Devel-IPerl-0.006/README.md
+       [package => [qw(libzmq3-dev ipython jupyter-console jupyter-notebook libmagic-dev)]],
+      ],
      ],
 
      [cpanmod => 'Devel::Jemallctl',
