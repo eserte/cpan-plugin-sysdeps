@@ -1251,7 +1251,7 @@ sub mapping {
        [package => 'libgnome2-dev']], # does not work, module does not look into /usr/include/libgnome-2.0/
      ],
 
-     [cpanmod => ['GnuPG', 'GnuPG::Interface', 'Module::Signature'],
+     [cpanmod => ['GnuPG', 'Module::Signature'],
       [os_freebsd,
        [package => 'gnupg1'] #  XXX what about gnupg (version 2)?
       ],
@@ -1263,6 +1263,20 @@ sub mapping {
        [package => 'gnupg']],
       [like_fedora,
        [package => 'gnupg2']],
+     ],
+
+     [cpanmod => 'GnuPG::Interface',
+      [os_freebsd,
+       [package => 'gnupg1'] #  XXX what about gnupg (version 2)?
+      ],
+      [os_dragonfly,
+       [package => 'gnupg']],
+      [os_openbsd,
+       [package => 'gnupg']],
+      [like_debian,
+       [package => 'gnupg']],
+      [like_fedora,
+       [package => 'gnupg']], # does not work with gnupg2
      ],
 
      [cpanmod => 'Goo::Canvas',
