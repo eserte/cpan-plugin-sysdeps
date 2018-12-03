@@ -1655,6 +1655,15 @@ sub mapping {
        [package => [qw(freetype giflib libpng jpeg libtiff)]]],
      ],
 
+     [cpanmod => 'Imager::File::WEBP',
+      [os_freebsd,
+       [package => 'webp']], # but tests fail with "undefined symbol: WebPFree" on older freebsd (9)
+      [like_debian,
+       [package => 'libwebp-dev']], # but tests fail with "undefined symbol: WebPFree" on jessie+xenial
+      [like_fedora,
+       [package => 'libwebp-devel']], # but test or compilation failures with centos6+7; fedora28 works
+     ],
+
      [cpanmod => 'Imager::Font::T1',
       [os_freebsd,
        [package => 't1lib']],
