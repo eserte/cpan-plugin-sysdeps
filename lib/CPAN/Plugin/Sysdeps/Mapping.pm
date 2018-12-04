@@ -1921,6 +1921,10 @@ sub mapping {
 	[package => 'libsystemd-journal-dev']],
        # sid, stretch and xenial
        [package => 'libsystemd-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^7\.},
+	package => 'systemd-devel']],
      ],
 
      [cpanmod => 'LMDB_File',
