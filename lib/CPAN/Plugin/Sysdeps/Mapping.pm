@@ -1693,9 +1693,11 @@ sub mapping {
 	[package => 'openjdk-7-jdk']],
        [linuxdistrocodename => [qw(stretch xenial)],
 	[package => 'openjdk-8-jdk']],
+       [linuxdistrocodename => [qw(buster bionic)],
+	[package => 'openjdk-11-jdk']],
       ],
       [like_fedora,
-       [package => 'java-1.8.0-openjdk-devel | java-1.7.0-openjdk-devel | java-1.6.0-openjdk-devel']],
+       [package => 'java-11-openjdk-devel | java-9-openjdk-devel | java-1.8.0-openjdk-devel | java-1.7.0-openjdk-devel | java-1.6.0-openjdk-devel']],
      ],
 
      [cpanmod => 'Inline::Lua',
