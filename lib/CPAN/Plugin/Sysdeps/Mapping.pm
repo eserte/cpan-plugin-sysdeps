@@ -447,6 +447,11 @@ sub mapping {
        [package => 'capstone']],
       [like_debian,
        [package => 'libcapstone-dev']], # but test failures with Capstone 0.6 @ jessie
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^6\.},
+	package => []], # N/A for centos6
+       [package => 'capstone-devel']],
      ],
 
      [cpanmod => 'CDB::TinyCDB',
