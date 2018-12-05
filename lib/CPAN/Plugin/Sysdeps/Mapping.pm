@@ -1099,6 +1099,9 @@ sub mapping {
        [linuxdistrocodename => [qw(stretch)],
 	[package => 'libgccjit-6-dev']],
       ],
+      [like_fedora,
+       [linuxdistro => 'fedora', # not available for CentOS6 or 7
+	[package => 'libgccjit-devel']]],
      ],
 
      [cpanmod => 'GD',
