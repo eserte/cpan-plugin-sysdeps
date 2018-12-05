@@ -2031,7 +2031,10 @@ sub mapping {
      [cpanmod => 'Math::MPFI',
       # XXX what about freebsd?
       [like_debian,
-       [package => 'libmpfi-dev']]],
+       [package => 'libmpfi-dev']],
+      [like_fedora,
+       [package => 'mpfi-devel']],
+     ],
 
      [cpanmod => 'Math::RngStream',
       [os_freebsd,
