@@ -1411,6 +1411,8 @@ sub mapping {
        [package => 'libnotify']],
       [like_debian,
        [package => 'libnotify-dev']],
+      [like_fedora,
+       [package => 'libnotify-devel']],
      ],
 
      [cpanmod => 'Gtk2::Spell',
