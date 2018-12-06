@@ -1098,6 +1098,10 @@ sub mapping {
 	[package => 'libgccjit-5-dev']],
        [linuxdistrocodename => [qw(stretch)],
 	[package => 'libgccjit-6-dev']],
+       [linuxdistrocodename => [qw(bionic)],
+	[package => 'libgccjit-7-dev']], # use matching with current gcc, don't use libgccjit-8-dev | libgccjit-6-dev | libgccjit-5-dev
+       [linuxdistrocodename => [qw(buster)],
+	[package => 'libgccjit-8-dev']], # use matching with current gcc, don't use libgccjit-7-dev | libgccjit-6-dev
       ],
       [like_fedora,
        [linuxdistro => 'fedora', # not available for CentOS6 or 7
