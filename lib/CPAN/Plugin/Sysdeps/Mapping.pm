@@ -473,7 +473,7 @@ sub mapping {
 
      [cpanmod => 'Ceph::Rados',
       #[os_freebsd,
-      # [package => 'ceph-devel']], # XXX Doesnt build for FreeBSD 10.x
+      # [package => 'ceph']], # XXX installation takes ~375MB --- could it be made smaller?
       [like_debian,
        [package => 'librados-dev']],
      ],
