@@ -476,6 +476,14 @@ sub mapping {
       # [package => 'ceph']], # XXX installation takes ~375MB --- could it be made smaller?
       [like_debian,
        [package => 'librados-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^7\.},
+	package => 'librados2-devel'],
+       [linuxdistro => 'fedora',
+	linuxdistroversion => '28',
+	package => 'librados-devel'], # XXX but compilation errors
+      ],
      ],
 
      [cpanmod => 'Chipcard::PCSC',
