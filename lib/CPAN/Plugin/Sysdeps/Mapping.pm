@@ -1553,13 +1553,19 @@ sub mapping {
        [before_debian_stretch,
 	[package => ['libopencv-dev', 'libdecodeqr-dev']]],
        [package => []], # not available anymore in stretch, bionic or buster, but currently available in sid for at least arm64
-      ]],
+      ],
+      #[like_fedora,
+      # [package => 'opencv-devel']], # package for decodeqr missing
+     ],
 
      [cpanmod => ['Image::ObjectDetect', 'Image::Resize::OpenCV'],
       [os_freebsd,
        [package => 'opencv']],
       [like_debian,
-       [package => 'libopencv-dev']]],
+       [package => 'libopencv-dev']],
+      [like_fedora,
+       [package => 'opencv-devel']], # but compilation fails
+     ],
 
      [cpanmod => 'Image::GeoTIFF::Tiled',
       [os_freebsd,
@@ -1635,7 +1641,10 @@ sub mapping {
       [os_freebsd,
        [package => 'opencv']],
       [like_debian,
-       [package => ['libcv-dev', 'libhighgui-dev']]]],
+       [package => ['libcv-dev', 'libhighgui-dev']]],
+      [like_fedora,
+       [package => 'opencv-devel']], # but compilation fails
+     ],
 
      [cpanmod => 'Image::Scale',
       [os_freebsd,
