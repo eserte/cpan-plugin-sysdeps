@@ -1564,7 +1564,7 @@ sub mapping {
       [like_debian,
        [package => 'libopencv-dev']],
       [like_fedora,
-       [package => 'opencv-devel']], # but compilation fails
+       [package => 'opencv-devel']],
      ],
 
      [cpanmod => 'Image::GeoTIFF::Tiled',
@@ -1643,7 +1643,7 @@ sub mapping {
       [like_debian,
        [package => ['libcv-dev', 'libhighgui-dev']]],
       [like_fedora,
-       [package => 'opencv-devel']], # but compilation fails
+       [package => 'opencv-devel']],
      ],
 
      [cpanmod => 'Image::Scale',
@@ -2794,7 +2794,13 @@ sub mapping {
       [like_debian,
        [before_debian_stretch,
 	[package => []]],
-       [package => 'libvterm-dev']]],
+       [package => 'libvterm-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^6\.},
+	package => []], # N/A for centos6
+       [package => 'libvterm-devel']],
+     ],
 
      [cpanmod => 'Text::AI::CRM114',
       [os_freebsd,
