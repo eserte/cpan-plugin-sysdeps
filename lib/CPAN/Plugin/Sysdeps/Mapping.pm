@@ -968,7 +968,9 @@ sub mapping {
        [package => 'libadns1-dev']],
       [os_darwin,
        [package => 'adns']],
-      # no package available for CentOS7
+      [like_fedora,
+       [linuxdistro => 'fedora', # not available for CentOS6 or 7
+	[package => 'adns-devel']]],
      ],
 
      [cpanmod => 'Event::Lib',
