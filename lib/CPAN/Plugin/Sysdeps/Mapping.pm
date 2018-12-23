@@ -2804,6 +2804,8 @@ sub mapping {
 	linuxdistroversion => qr{^6\.},
 	package => []], # N/A for centos6
        [package => 'libvterm-devel']],
+      [os_darwin,
+       [package => 'libvterm']],
      ],
 
      [cpanmod => 'Text::AI::CRM114',
