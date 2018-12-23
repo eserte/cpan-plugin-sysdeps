@@ -1530,6 +1530,8 @@ sub mapping {
        [before_debian_stretch,
 	[package => []]], # not available?
        [package => 'libtidy-dev']],
+      [like_fedora,
+       [package => 'libtidy-devel']], # but compilation fails on centos6, some test failures on centos7, fedora28 currently OK
       [os_darwin,
        [package => 'tidy-html5']], # but does not work (-L and -I needs to be adjusted, Symbol not found: _tidyBufFree)
      ],
