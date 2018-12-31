@@ -1690,6 +1690,17 @@ sub mapping {
        [package => [qw(freetype giflib libpng jpeg libtiff)]]],
      ],
 
+     [cpanmod => 'Imager::File::JPEG',
+      [os_freebsd,
+       [package => [freebsd_jpeg]]],
+      [like_debian,
+       [package => [qw(libjpeg-dev)]]],
+      [like_fedora,
+       [package => [qw(libjpeg-turbo-devel)]]],
+      [os_darwin,
+       [package => [qw(jpeg)]]],
+     ],
+
      [cpanmod => 'Imager::File::WEBP',
       [os_freebsd,
        [package => 'webp']], # but tests fail with "undefined symbol: WebPFree" on older freebsd (9)
