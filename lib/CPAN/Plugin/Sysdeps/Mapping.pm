@@ -3092,6 +3092,8 @@ sub mapping {
        [package => 'libxml2-dev']],
       [like_fedora,
        [package => 'libxml2-devel']],
+      [os_darwin,
+       [package => []]], # libxml2.dylib is part of the base system
      ],
 
      [cpanmod => 'XML::LibXSLT',
@@ -3104,7 +3106,10 @@ sub mapping {
       [like_debian,
        [package => ['libxslt1-dev', 'libgdbm-dev']]],
       [like_fedora,
-       [package => 'libxslt-devel']]],
+       [package => 'libxslt-devel']],
+      [os_darwin,
+       [package => []]], # libxslt.dylib is part of the base system
+     ],
 
      [cpanmod => 'XML::Parser',
       [os_freebsd,
