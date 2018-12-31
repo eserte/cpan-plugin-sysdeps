@@ -1723,6 +1723,9 @@ sub mapping {
       # not available anymore since jessie, also not in xenial
       [like_fedora,
        [package => 't1lib-devel']],
+      [os_darwin,
+       #[package => 't1lib']], # but tests fail
+       [package => []]], # ... and even worse: if t1lib is installed, then the Imager 1.008 test suite fails (https://rt.cpan.org/Ticket/Display.html?id=128145). So don't install it at all.
      ],
 
      # modules just needing java and nothing else:
