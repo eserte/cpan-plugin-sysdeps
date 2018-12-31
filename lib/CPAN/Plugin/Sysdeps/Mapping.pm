@@ -3047,11 +3047,14 @@ sub mapping {
       [os_openbsd,
 	# doesn't work
        [package => 'curl']],
-      # XXX freebsd?
+      [os_freebsd,
+       [package => 'curl']],
       [like_debian,
        [package => 'libcurl4-openssl-dev | libcurl4-gnutls-dev | libcurl4-nss-dev']],
       [like_fedora,
        [package => 'libcurl-devel']],
+      [os_darwin,
+       [package => []]], # libcurl is in the base system
      ],
 
      [cpanmod => 'WWW::Mechanize::PhantomJS',
