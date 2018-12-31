@@ -1708,6 +1708,8 @@ sub mapping {
        [package => 'libwebp-dev']], # but tests fail with "undefined symbol: WebPFree" on jessie+xenial
       [like_fedora,
        [package => 'libwebp-devel']], # but test or compilation failures with centos6+7; fedora28 works
+      [os_darwin,
+       [package => 'webp']],
      ],
 
      [cpanmod => 'Imager::Font::T1',
