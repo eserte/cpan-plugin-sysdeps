@@ -1508,10 +1508,14 @@ sub mapping {
      ],
 
      [cpanmod => 'HTML::Parser',
+      [os_freebsd,
+       [package => []]],
       [like_debian,
        [package => 'libc6-dev']],
       [like_fedora,
        [package => 'glibc-headers']],
+      [os_darwin,
+       [package => []]],
      ],
 
      [cpanmod => 'HTTP::Webdav',
