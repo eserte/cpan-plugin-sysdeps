@@ -510,7 +510,7 @@ sub mapping {
 
      [cpanmod => 'Compress::LZMA::Simple',
       [os_freebsd,
-       [package => 'lzmalib']],
+       [package => 'lzmalib']], # warning: installing this package would cause subsequent failures in the Compress::Raw::Lzma test suite!
      ],
       
      [cpanmod => 'Compress::Raw::Lzma',
