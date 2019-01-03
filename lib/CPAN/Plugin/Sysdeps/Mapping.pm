@@ -1867,11 +1867,18 @@ sub mapping {
        [package => 'jq']],
      ],
 
+     # XXX check whether Kafka::Librd needs an external librdkafka
+     # at all, or if works with just the Alien package
      [cpanmod => 'Kafka::Librd',
       [os_freebsd,
        [package => 'librdkafka']],
       [like_debian,
-       [package => 'librdkafka-dev']]],
+       [package => 'librdkafka-dev']],
+      [like_fedora,
+       [package => 'librdkafka-devel']],
+      [os_darwin,
+       [package => 'librdkafka']],
+     ],
 
      [cpanmod => 'Kernel::Keyring',
       # linux-only
