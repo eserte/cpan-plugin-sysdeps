@@ -2699,7 +2699,7 @@ sub mapping {
       [like_debian,
        [package => ['libsnmp-dev', 'snmp-mibs-downloader']]]],
 
-     [cpanmod => 'Sort::Naturally::ICU',
+     [cpanmod => ['Sort::Naturally::ICU', 'Unicode::ICU::Collator'],
       [os_freebsd,
        [package => 'icu']], # but build fails
       [like_debian,
