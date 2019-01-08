@@ -2704,6 +2704,8 @@ sub mapping {
        [package => 'icu']], # but build fails
       [like_debian,
        [package => 'libicu-dev']],
+      [like_fedora,
+       [package => 'libicu-devel']],
      ],
 
      [cpanmod => 'Speech::Recognizer::SPX',
