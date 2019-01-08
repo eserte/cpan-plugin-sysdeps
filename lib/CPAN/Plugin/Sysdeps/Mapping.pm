@@ -2701,10 +2701,10 @@ sub mapping {
 
      [cpanmod => ['Sort::Naturally::ICU', 'Unicode::ICU::Collator'],
       [os_freebsd,
-       [package => 'icu']], # but build fails
+       [package => 'icu']], # but Sort::Naturally::ICU build fails
       [like_debian,
        [package => 'libicu-dev']],
-      [like_fedora,
+      [like_fedora, # Sort::Naturally::ICU builds on centos7 and fedora28, missing further packages on centos6
        [package => 'libicu-devel']],
      ],
 
