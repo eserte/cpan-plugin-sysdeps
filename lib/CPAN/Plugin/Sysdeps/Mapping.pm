@@ -1694,6 +1694,17 @@ sub mapping {
        [package => [qw(freetype giflib libpng jpeg libtiff)]]],
      ],
 
+     [cpanmod => 'Imager::File::HEIF',
+      [os_freebsd,
+       [osvers => qr{^[456789]\.},
+	[package => []]],
+       [package => 'libheif']], # but does not seem to work with freebsd 10, only with 11 and later
+      [like_debian,
+       [before_ubuntu_bionic,
+	[package => []]],
+       [package => 'libheif-dev']],
+     ],
+
      [cpanmod => 'Imager::File::JPEG',
       [os_freebsd,
        [package => [freebsd_jpeg]]],
