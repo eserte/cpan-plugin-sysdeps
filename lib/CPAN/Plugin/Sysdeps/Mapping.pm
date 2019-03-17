@@ -1177,7 +1177,7 @@ sub mapping {
      [cpanmod => 'GitDDL::Migrator',
       # XXX freebsd?
       [like_debian,
-       [package => 'mysql-server-5.5'], # possible alternative: mariadb-server-10.0; mysql-server-core-5.5 is not enough as resolveip is usually required
+       [package => ['mysql-server-5.7 | mysql-server-5.5']], # possible alternative: mariadb-server-10.0; mysql-server-core-5.5 is not enough as resolveip is usually required
       ]],
 
      [cpanmod => 'Git::Raw',
