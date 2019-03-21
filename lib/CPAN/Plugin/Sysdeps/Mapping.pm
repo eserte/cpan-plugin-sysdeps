@@ -933,6 +933,16 @@ sub mapping {
       [os_darwin,
        [package => 'ldns']]],
 
+     [cpanmod => 'DNS::Unbound',
+     #[cpandist => qr{^DNS-Unbound-\d},
+      [os_freebsd,
+       [package => 'unbound']], # build problems: port's pkg-config file references ssl & crypto, but these are already in base system
+      [like_debian,
+       [package => 'libunbound-dev']],
+      [like_fedora,
+       [package => 'unbound-devel']],
+     ],
+
      [cpanmod => 'DVD::Read',
       [os_freebsd,
        [package => 'libdvdread']],
