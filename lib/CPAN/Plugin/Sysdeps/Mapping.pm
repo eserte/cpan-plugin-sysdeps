@@ -2533,6 +2533,15 @@ sub mapping {
       [like_debian,
        [package => 'libnetcdf-dev']]],
 
+     [cpanmod => 'PDL::Opt::QP',
+      [os_freebsd,
+       [package => 'blas']],
+      [like_debian,
+       [package => 'libblas-dev']],
+      [like_fedora,
+       [package => 'blas-static']],
+     ],
+
      [cpanmod => 'PerlQt',
       [like_debian,
        [linuxdistrocodename => 'squeeze',
