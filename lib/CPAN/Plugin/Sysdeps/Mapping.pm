@@ -2931,6 +2931,15 @@ sub mapping {
       [like_debian,
        [package => 'libmigemo-dev']]],
 
+     [cpanmod => 'Text::QRCode',
+      [os_freebsd,
+       [package => 'libqrencode']],
+      [like_debian,
+       [package => 'libqrencode-dev']],
+      [like_fedora,
+       [package => 'qrencode-devel']],
+     ],
+
      [cpanmod => 'Text::VimColor',
       [package => 'vim']],
 
