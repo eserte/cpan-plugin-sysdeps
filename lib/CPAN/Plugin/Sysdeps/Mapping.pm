@@ -351,7 +351,7 @@ sub mapping {
        [package => 'krb5']],
      ],
 
-     [cpanmod => 'Authen::SASL::Cyrus',
+     [cpanmod => ['Authen::SASL::Cyrus', 'Authen::SASL::XS'],
       [os_freebsd,
        [package => 'cyrus-sasl']],
       [like_debian,
