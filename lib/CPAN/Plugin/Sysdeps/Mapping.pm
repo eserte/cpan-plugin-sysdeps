@@ -971,7 +971,7 @@ sub mapping {
        [package => 'erlang-dev']],
      ],
 
-     [cpanmod => 'EV::ADNS',
+     [cpanmod => ['EV::ADNS', 'Net::ADNS'],
       [os_freebsd,
        [package => 'adns']],
       [like_debian,
