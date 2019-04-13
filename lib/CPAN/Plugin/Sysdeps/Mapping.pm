@@ -1350,7 +1350,7 @@ sub mapping {
       [like_debian,
        [package => 'libplot-dev']]],
 
-     [cpanmod => 'Graphics::PLplot',
+     [cpanmod => ['Graphics::PLplot', 'PDL::Graphics::PLplot'],
       [os_freebsd,
        [package => 'plplot']],
       [like_debian,
