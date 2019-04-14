@@ -2716,9 +2716,12 @@ sub mapping {
      ],
 
      [cpanmod => 'SGML::Parser::OpenSP',
-      # XXX what about freebsd?
+      # XXX freebsd has textproc/opensp, but the module requires g++, so this will fail on clang++ systems
       [like_debian,
-       [package => 'libosp-dev']]],
+       [package => 'libosp-dev']],
+      [like_fedora,
+       [package => 'opensp-devel']],
+     ],
 
      ## version mismatch
      #[cpanmod => 'SNMP',
