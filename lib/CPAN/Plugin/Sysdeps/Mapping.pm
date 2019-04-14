@@ -488,6 +488,8 @@ sub mapping {
 
      [cpanmod => 'Chipcard::PCSC',
       # XXX what about freebsd?
+      [os_freebsd,
+       [package => 'pcsc-lite']],
       [like_debian,
        [package => ['bzip2', 'libpcsclite-dev', 'pkg-config | pkgconf']]]], # bzip2 needed for extraction
 
