@@ -2930,6 +2930,10 @@ sub mapping {
        [package => 'libkakasi2-dev']],
       [os_darwin,
        [package => 'kakasi']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	package => []], # N/A for centos6+7
+       [package => ['kakasi-devel', 'kakasi-dict']]],
      ],
 
      [cpanmod => 'Text::Migemo',
