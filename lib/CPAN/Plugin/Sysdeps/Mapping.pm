@@ -2987,7 +2987,7 @@ sub mapping {
 
      [cpanmod => 'UAV::Pilot::SDL',
       [like_debian,
-       [package => ['libavcodec-dev', 'libswscale-dev']]],
+       [package => ['libavcodec-dev', 'libswscale-dev', 'libsdl1.2-dev']]],
      ],
 
      [cpanmod => 'UAV::Pilot::Video::Ffmpeg',
