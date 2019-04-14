@@ -2565,6 +2565,11 @@ sub mapping {
        [package => 'ispell']]],
 
      [cpanmod => 'Pod::Weaver::Plugin::Ditaa',
+      [like_fedora,
+       [linuxdistro => 'centos', # no ditaa for centos6 or 7
+	[package => []]],
+       # fallthrough for fedora
+      ],
       [package => 'ditaa']],
 
      [cpanmod => 'POE::Component::NomadJukebox',
