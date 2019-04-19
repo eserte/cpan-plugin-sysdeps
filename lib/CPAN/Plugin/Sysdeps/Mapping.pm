@@ -13,6 +13,7 @@ use constant os_openbsd  => (os => 'openbsd');
 use constant os_windows  => (os => 'MSWin32');
 use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
 use constant like_debian => (linuxdistro => '~debian');
+use constant before_ubuntu_trusty  => (linuxdistrocodename => [qw(squeeze precise wheezy)]);
 use constant before_debian_stretch => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial)]);
 use constant before_ubuntu_bionic  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch)]);
 use constant before_debian_buster  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic)]);
@@ -1626,6 +1627,17 @@ sub mapping {
 	linuxdistroversion => qr{^7\.},
 	package => []], # for some reason not available for centos7 (but it is for centos6)
        [package => 'libpuzzle-devel']],
+     ],
+
+     [cpanmod => 'Image::LibRaw',
+      [os_freebsd,
+       [package => 'libraw']],
+      [like_debian,
+       [before_ubuntu_trusty, # not available in debian/wheezy
+	[package => []]],
+       [package => 'libraw-dev']],
+      [os_darwin,
+       [package => 'libraw']],
      ],
 
      [cpanmod => 'Image::LibRSVG',
