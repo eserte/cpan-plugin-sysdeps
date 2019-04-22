@@ -1640,7 +1640,7 @@ sub mapping {
        [package => 'libraw']],
      ],
 
-     [cpanmod => 'Image::LibRSVG',
+     [cpanmod => ['Image::LibRSVG', 'Gnome2::Rsvg'],
       [os_freebsd,
        [package => 'librsvg2']],
       [like_debian,
