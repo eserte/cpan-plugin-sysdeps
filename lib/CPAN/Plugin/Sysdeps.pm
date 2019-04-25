@@ -349,7 +349,7 @@ sub _map_cpandist {
 		} elsif ($key eq 'osvers') {
 		    return 0 if !$smartmatch->($self->{osvers}, $match) && !$TRAVERSE_ONLY; # XXX should also be able to do numerical comparisons
 		} elsif ($key eq 'linuxdistro') {
-		    if ($match =~ m{^~(debian|fedora)}) {
+		    if ($match =~ m{^~(debian|fedora)$}) {
 			my $method = "_is_linux_$1_like";
 			$self->_debug(' ' x $level . " translate $match to $method");
 			return 0 if !$self->$method($self->{linuxdistro}) && !$TRAVERSE_ONLY;
