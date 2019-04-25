@@ -63,7 +63,8 @@ sub mapping {
       [os_freebsd,
        [package => ['fftw3', 'pkgconf']]],
       [like_debian,
-       [package => 'libfftw3-dev', 'pkg-config | pkgconf']]],
+       [package => ['libfftw3-dev', 'pkg-config | pkgconf']]],
+     ],
 
      [cpanmod => 'Alien::HDF4',
       [os_freebsd,
