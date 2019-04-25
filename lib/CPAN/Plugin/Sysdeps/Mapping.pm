@@ -105,7 +105,7 @@ sub mapping {
 
      [cpanmod => 'Alien::libtermkey',
       [os_freebsd,
-       [osvers => qr{^\d\d+\.}, # osvers>=10, proxy check for clang system
+       [osvers => {'>=', 10}, # proxy check for clang system
 	[package => ['libtool', 'gmake', 'pkgconf', 'libtermkey']], # see also RT #91873
        ],
        [package => ['libtool', 'gmake', 'pkgconf']]],
@@ -439,7 +439,7 @@ sub mapping {
 
      [cpanmod => 'Cairo::GObject',
       [like_fedora,
-       [linuxdistroversion => qr{^6\.},
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	[package => []]],
        [package => 'cairo-gobject-devel']],
      ],
@@ -450,8 +450,7 @@ sub mapping {
       [like_debian,
        [package => 'libcapstone-dev']], # but test failures with Capstone 0.6 @ jessie
       [like_fedora,
-       [linuxdistro => 'centos',
-	linuxdistroversion => qr{^6\.},
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	package => []], # N/A for centos6
        [package => 'capstone-devel']],
      ],
@@ -821,7 +820,7 @@ sub mapping {
 	[package => 'libmysqlclient-dev']],
        [package => 'default-libmysqlclient-dev']],
       [like_fedora,
-       [linuxdistroversion => qr{^6\.},
+       [linuxdistro => 'centos', linuxdistroversion => qr{^6\.},
 	[package => 'mysql-devel']],
        [package => 'mariadb-devel']],
       [os_darwin,
@@ -1217,7 +1216,7 @@ sub mapping {
 
      [cpanmod => 'Glib',
       [like_fedora,
-       [linuxdistroversion => qr{^6\.},
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	[package => []]],
        [package => 'gobject-introspection-devel']],
       [os_darwin,
@@ -1332,7 +1331,7 @@ sub mapping {
 	[package => []]],
        [package => 'gir1.2-goocanvas-2.0']],
       [like_fedora,
-       [linuxdistroversion => qr{^6\.},
+       [linuxdistro => 'centos', linuxdistroversion => qr{^6\.},
 	[package => []]],
        [package => 'goocanvas2-devel']],
       [os_darwin,
@@ -1456,7 +1455,7 @@ sub mapping {
       [like_debian,
        [package => 'libgtk-3-dev']],
       [like_fedora,
-       [linuxdistroversion => qr{^6\.},
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	[package => []]],
        [package => 'gtk3-devel']],
      ],
@@ -1625,7 +1624,7 @@ sub mapping {
        [package => 'libpuzzle-dev']],
       [like_fedora,
        [linuxdistro => 'centos',
-	linuxdistroversion => qr{^7\.},
+	linuxdistroversion => {'>=', 7},
 	package => []], # for some reason not available for centos7 (but it is for centos6)
        [package => 'libpuzzle-devel']],
      ],
@@ -1721,7 +1720,7 @@ sub mapping {
 
      [cpanmod => 'Imager::File::HEIF',
       [os_freebsd,
-       [osvers => qr{^[456789]\.},
+       [osvers => {'>=', 4, '<', 10},
 	[package => []]],
        [package => 'libheif']], # but does not seem to work with freebsd 10, only with 11 and later
       [like_debian,
@@ -1805,7 +1804,7 @@ sub mapping {
       [like_fedora,
        # XXX Does not work, moar.h missing
        [linuxdistro => 'centos',
-	linuxdistroversion => qr{^6\.}, # not available
+	linuxdistroversion => {'<', 7}, # not available
 	package => []],
        [package => 'moarvm-devel']],
      ],
@@ -1952,7 +1951,7 @@ sub mapping {
 
      [cpanmod => 'LibJIT',
       [os_freebsd,
-       [osvers => qr{^9\.},
+       [osvers => {'<', 10},
 	[package => 'libjit']],
        [package => []]], # does not exist in freebsd 10 and later
       # XXX what aout debian?
@@ -2882,8 +2881,7 @@ sub mapping {
 	[package => []]],
        [package => 'libvterm-dev']],
       [like_fedora,
-       [linuxdistro => 'centos',
-	linuxdistroversion => qr{^6\.},
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	package => []], # N/A for centos6
        [package => 'libvterm-devel']],
       [os_darwin,
