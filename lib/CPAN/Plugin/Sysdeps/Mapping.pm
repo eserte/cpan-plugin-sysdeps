@@ -3274,6 +3274,8 @@ sub mapping {
        [package => 'libyaml-dev']],
       [like_fedora,
        [package => 'libyaml-devel']],
+      [os_darwin,
+       [package => 'libyaml']],
      ],
 
      [cpanmod => 'ZMQ::FFI',
