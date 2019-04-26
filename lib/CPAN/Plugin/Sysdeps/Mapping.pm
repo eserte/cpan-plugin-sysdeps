@@ -2190,6 +2190,8 @@ sub mapping {
        [package => 'libdiscid']],
       [like_debian,
        [package => 'libdiscid-dev']],
+      [like_fedora,
+       [package => 'libdiscid-devel']],
      ],
 
      [cpanmod => 'NanoMsg::Raw',
