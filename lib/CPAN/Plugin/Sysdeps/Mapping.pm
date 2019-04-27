@@ -1873,9 +1873,11 @@ sub mapping {
 
      [cpanmod => ['JavaScript::Lite', 'JavaScript::SpiderMonkey'],
       [os_freebsd,
-       [package => 'spidermonkey52 | spidermonkey24 | spidermonkey185 | spidermonkey170 | spidermonkey17',]], # needs something like INC=-I/usr/local/include/js-17.0, but does not work (tried 170 and 185)
+       [package => 'spidermonkey24 | spidermonkey185 | spidermonkey170 | spidermonkey17',]], # needs something like INC=-I/usr/local/include/js-17.0, but does not work (tried 170 and 185); spidermonkey52 exists also, but does not work
       [like_debian,
-       [package => 'libmozjs185-dev']], # needs something like INC=-I/usr/include/js, but does not work
+       [before_ubuntu_bionic,
+	[package => 'libmozjs185-dev']], # needs something like INC=-I/usr/include/js, but does not work
+       [package => []]], # newer debians have libmozjs-52-dev, but neither ::Lite nor ::SpiderMonkey work with it
       [like_fedora,
        [package => 'js-devel']],
      ],
