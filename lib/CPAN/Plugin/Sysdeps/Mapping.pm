@@ -1396,6 +1396,11 @@ sub mapping {
        [package => 'libappindicator-dev']],
      ],
 
+     [cpanmod=> 'Gtk2::CV',
+      [linuxdistro => 'fedora',
+       [package => 'perlmulticore-devel']],
+     ],
+
      [cpanmod => 'Gtk2::GladeXML',
       [os_freebsd,
        [package => 'libglade2']],
