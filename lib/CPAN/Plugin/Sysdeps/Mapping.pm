@@ -1933,7 +1933,7 @@ sub mapping {
      [cpanmod => 'Lab::VISA',
       # no package for freebsd
       [like_debian,
-       [linuxdistrocodename => [qw(jessie xenial)],
+       [linuxdistrocodename => [qw(jessie xenial bionic)],
 	[package => 'libvisa-dev']],
        [package => []], # not available anymore in stretch
       ],
