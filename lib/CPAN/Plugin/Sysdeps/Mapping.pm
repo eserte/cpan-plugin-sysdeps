@@ -117,6 +117,17 @@ sub mapping {
        [package => ['libtool', 'ncurses-devel']]],
      ],
 
+     [cpanmod => 'Alien::NSS', # cannot install external package, see https://github.com/0xxon/alien-nss/issues/5#issuecomment-488220899
+      [os_freebsd,
+       [package => 'nss']],
+      [like_debian,
+       [before_ubuntu_trusty, # at least not available in debian/wheezy
+	[package => []]],
+       [package => 'libnss3-dev']],
+      [like_fedora,
+       [package => 'nss-devel']],
+     ],
+
      [cpanmod => 'Alien::ProtoBuf',
       # but why? shouldn't an alien module care about its own external library?
       [os_freebsd,
