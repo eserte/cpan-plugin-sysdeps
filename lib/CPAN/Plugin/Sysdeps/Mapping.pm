@@ -2263,7 +2263,10 @@ sub mapping {
       [os_freebsd,
        [package => 'dbus-glib']],
       [like_debian,
-       [package => 'libdbus-glib-1-dev']]],
+       [package => 'libdbus-glib-1-dev']],
+      [like_fedora,
+       [package => 'dbus-glib-devel']],
+     ],
 
      [cpanmod => 'Net::ESMTP',
       [os_freebsd,
