@@ -2838,7 +2838,10 @@ sub mapping {
       [os_freebsd,
        [package => 'hwloc']],
       [like_debian,
-       [package => 'libhwloc-dev']]],
+       [package => 'libhwloc-dev']],
+      [like_fedora,
+       [package => 'hwloc-devel']],
+     ],
 
      [cpanmod => 'Sys::Virt', # but the latest Sys::Virt usually needs the latest libvirt
       [os_freebsd,
