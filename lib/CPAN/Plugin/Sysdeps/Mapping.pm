@@ -519,6 +519,9 @@ sub mapping {
       # Not available for FreeBSD or CentOS7
       [like_debian,
        [package => 'libcomedi-dev']],
+      [like_fedora,
+       [linuxdistro => 'fedora',
+	[package => 'comedilib-devel']]], # but still does not build
      ],
 
      [cpanmod => 'CommonMark',
