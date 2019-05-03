@@ -2436,11 +2436,15 @@ sub mapping {
       # not available for debian/wheezy and jessie
      ],
 
-     [cpanmod => 'Net::Z3950::ZOOM',
+     [cpanmod => ['Net::Z3950::ZOOM', 'ZOOM::IRSpy'],
       [os_freebsd,
        [package => 'yaz']],
       [like_debian,
        [package => 'libyaz-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos', linuxdistroversion => qr{^7\.}, # available only for CentOS6, not for 7
+	[package => []]],
+       [package => 'libyaz-devel']],
       [os_darwin,
        [package => 'yaz']],
      ],
