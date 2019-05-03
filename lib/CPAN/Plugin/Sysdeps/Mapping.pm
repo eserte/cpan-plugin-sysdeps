@@ -2446,7 +2446,7 @@ sub mapping {
       # not available for debian/wheezy and jessie
      ],
 
-     [cpanmod => ['Net::Z3950::ZOOM', 'ZOOM::IRSpy'],
+     [cpanmod => ['Net::Z3950::ZOOM', 'Net::Z3950::Simple2ZOOM', 'ZOOM::IRSpy'],
       [os_freebsd,
        [package => 'yaz']],
       [like_debian,
