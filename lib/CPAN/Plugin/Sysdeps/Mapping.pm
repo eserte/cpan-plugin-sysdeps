@@ -414,7 +414,11 @@ sub mapping {
       [os_freebsd,
        [package => 'io_lib']],
       [like_debian,
-       [package => ['libstaden-read-dev', 'zlib1g-dev']]]],
+       [package => ['libstaden-read-dev', 'zlib1g-dev']]],
+      [like_fedora,
+       [linuxdistro => 'fedora', # not available for centos6+7, only for fedora28
+	[package => 'staden-io_lib-devel']]],
+     ],
 
      [cpanmod => 'Cache::Memcached::XS',
       [os_freebsd,
