@@ -2310,8 +2310,10 @@ sub mapping {
        [package => 'pl-libgadu']],
       [like_debian,
        [package => 'libgadu-dev']],
+      [linuxdistro => 'fedora', # not available for centos6+7, only for fedora28
+       [package => 'libgadu-devel']],
       [os_darwin,
-       [package => 'libgadu']]
+       [package => 'libgadu']],
      ],
 
      [cpanmod => 'Net::Ifstat',
