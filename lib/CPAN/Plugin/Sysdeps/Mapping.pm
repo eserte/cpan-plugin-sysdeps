@@ -2049,7 +2049,10 @@ sub mapping {
 
      [cpanmod => 'Linux::Sysfs',
       [like_debian,
-       [package => 'libsysfs-dev']]],
+       [package => 'libsysfs-dev']],
+      [like_fedora,
+       [package => 'libsysfs-devel']]
+     ],
 
      [cpanmod => ['Linux::Systemd::Journal', 'Log::Journald'],
       [like_debian,
