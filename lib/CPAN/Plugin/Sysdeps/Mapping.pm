@@ -1543,6 +1543,15 @@ sub mapping {
       # ctpp2 not available for homebrew
      ],
 
+     [cpanmod => 'HTML::HTMLDoc',
+      [os_freebsd,
+       [package => 'htmldoc']],
+      [like_debian,
+       [before_ubuntu_trusty,
+	[package => []]], # not available in wheezy
+       [package => 'htmldoc']],
+     ],
+
      [cpanmod => 'HTML::Parser',
       [os_freebsd,
        [package => []]],
