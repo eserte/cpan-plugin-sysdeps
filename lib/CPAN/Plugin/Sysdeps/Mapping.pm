@@ -1287,6 +1287,13 @@ sub mapping {
        [package => 'GConf2-devel']],
      ],
 
+     [cpanmod => 'Gnome2::Print',
+      [os_freebsd,
+       [package => 'libgnomeprintui']],
+      [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
+       [package => 'libgnomeprintui22-devel']],
+     ],       
+
      [cpanmod => 'Gnome2::Wnck',
       [os_freebsd,
        [package => 'libwnck']],
