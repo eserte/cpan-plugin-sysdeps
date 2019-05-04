@@ -2816,7 +2816,7 @@ sub mapping {
        [package => ['libpocketsphinx-dev', 'libsphinxbase-dev']]],
      ],
 
-     [cpanmod => 'Spread',
+     [cpanmod => ['Spread', 'Spread::Client::Constant'],
       [os_freebsd,
        # net/spread also exists, refering to version 3, but tests seem to pass with version 4
        [package => 'spread4']],
