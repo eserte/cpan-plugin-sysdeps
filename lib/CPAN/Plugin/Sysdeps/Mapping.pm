@@ -1369,7 +1369,10 @@ sub mapping {
       [os_freebsd,
        [package => 'plotutils']],
       [like_debian,
-       [package => 'libplot-dev']]],
+       [package => 'libplot-dev']],
+      [like_fedora,
+       [package => 'plotutils-devel']],
+     ],
 
      [cpanmod => ['Graphics::PLplot', 'PDL::Graphics::PLplot'],
       [os_freebsd,
