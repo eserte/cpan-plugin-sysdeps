@@ -2591,7 +2591,12 @@ sub mapping {
       [os_freebsd,
        [package => ['libgnome-keyring', 'pkgconf']]],
       [like_debian,
-       [package => 'libgnome-keyring-dev']]],
+       [package => 'libgnome-keyring-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
+	[package => 'gnome-keyring-devel']],
+       [package => 'libgnome-keyring-devel']],
+     ],
 
      [cpanmod => 'PDL::NetCDF',
       [os_freebsd,
