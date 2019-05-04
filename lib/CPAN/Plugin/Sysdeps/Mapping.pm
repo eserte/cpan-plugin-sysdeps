@@ -1060,7 +1060,7 @@ sub mapping {
 
      [cpanmod => 'File::Rdiff',
       [os_freebsd,
-       [package => 'librsync']],
+       [package => 'librsync2 | librsync']],
       [like_debian,
        [package => 'librsync-dev']],
       [like_fedora,
