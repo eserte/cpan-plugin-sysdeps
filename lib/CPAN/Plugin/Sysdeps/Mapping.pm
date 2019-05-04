@@ -2136,7 +2136,10 @@ sub mapping {
        [package => 'libRmath']],
       [like_debian,
        # not for small disks, installs about ~85MB
-       [package => 'r-mathlib']]],
+       [package => 'r-mathlib']],
+      [like_fedora,
+       [package => 'libRmath-devel']],
+     ],
 
      [cpanmod => 'Math::GAP',
       [package => 'gap'], # needs 1-1.2GB of disk space
