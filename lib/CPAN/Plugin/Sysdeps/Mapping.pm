@@ -2313,7 +2313,10 @@ sub mapping {
       [os_freebsd,
        [package => 'loudmouth']],
       [like_debian,
-       [package => 'libloudmouth1-dev']]],
+       [package => 'libloudmouth1-dev']],
+      [like_fedora,
+       [package => 'loudmouth-devel']],
+     ],
 
      [cpanmod => 'Net::LDAPxs',
       [os_freebsd,
