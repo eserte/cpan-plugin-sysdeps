@@ -2405,7 +2405,10 @@ sub mapping {
      [cpanmod => 'Net::LibAsyncNS',
       # it seems there's no libasyncns for freebsd
       [like_debian,
-       [package => 'libasyncns-dev']]],
+       [package => 'libasyncns-dev']],
+      [like_fedora,
+       [package => 'libasyncns-devel']],
+     ],
 
      [cpanmod => 'Net::LibNIDS',
       [os_freebsd,
