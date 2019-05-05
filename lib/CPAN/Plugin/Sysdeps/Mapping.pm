@@ -328,7 +328,10 @@ sub mapping {
        [package => ['portaudio', 'pkgconf']]],
       [like_debian,
        # conflicts with libjack0
-       [package => 'portaudio19-dev']]],
+       [package => 'portaudio19-dev']],
+      [like_fedora,
+       [package => 'portaudio-devel']],
+     ],
 
      [cpanmod => 'Audio::SndFile',
       [os_freebsd,
