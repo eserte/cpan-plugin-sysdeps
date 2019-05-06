@@ -2388,6 +2388,10 @@ sub mapping {
        [package => 'liblo']],
       [like_debian,
        [package => 'liblo-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos', linuxdistroversion => qr{^7\.},
+	[package => []]], # N/A for centos7
+       [package => 'liblo-devel']],
      ],
 
      [cpanmod => 'Net::NATS::Streaming::PB',
