@@ -92,6 +92,13 @@ sub mapping {
        [package => [qw(autoconf libtool flex bison texinfo)]]], # but no success building it
      ],
 
+     [cpanmod => 'Alien::libtickit',
+      [like_debian,
+       [before_ubuntu_bionic,
+	[package => []]],
+       [package => 'libtickit-dev']],
+     ],
+
      [cpanmod => 'Alien::LibUSBx',
       # XXX what about freebsd?
       [like_debian,
