@@ -1308,7 +1308,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libwnck']],
       [like_debian,
-       [package => 'libwnck-dev']]],
+       [package => 'libwnck-dev']],
+      [like_fedora,
+       [package => 'libwnck-devel']],
+     ],
 
      [cpanmod => ['Gnome2::VFS', 'VFS::Gnome'],
       [os_freebsd,
