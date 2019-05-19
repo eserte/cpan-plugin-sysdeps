@@ -2676,6 +2676,8 @@ sub mapping {
        [package => ['poppler', 'poppler-glib']]],
       [like_debian,
        [package => ['libpoppler-dev', 'libpoppler-glib-dev']]],
+      [like_fedora,
+       [package => 'poppler-glib-devel']],
       [os_darwin,
        [package => 'poppler']],
      ],
