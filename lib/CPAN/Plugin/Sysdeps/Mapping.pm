@@ -2515,6 +2515,15 @@ sub mapping {
       [like_debian,
        [package => ['g++', 'libcurl3']]]],
 
+     [cpanmod => 'Ogg::LibOgg',
+      [os_freebsd,
+       [package => 'libogg']],
+      [like_debian,
+       [package => 'libogg-dev']],
+      [like_fedora,
+       [package => 'libogg-devel']],
+     ],
+
      [cpanmod => ['Ogg::Vorbis', 'Ogg::Vorbis::Decoder'],
       [os_freebsd,
        [package => 'libvorbis']],
@@ -2677,7 +2686,7 @@ sub mapping {
       [like_debian,
        [package => ['libpoppler-dev', 'libpoppler-glib-dev']]],
       [like_fedora,
-       [package => 'poppler-glib-devel']],
+       [package => 'poppler-glib-devel']], # but available version too low on CentOS6
       [os_darwin,
        [package => 'poppler']],
      ],
