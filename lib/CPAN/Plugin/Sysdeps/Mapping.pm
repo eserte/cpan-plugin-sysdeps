@@ -2248,6 +2248,13 @@ sub mapping {
 	[package => 'apache2-prefork-dev']],
        [package => 'apache2-dev']]],
 
+     [cpanmod => 'MPV::Simple',
+      [like_debian,
+       [before_ubuntu_trusty,
+	[package => []]],
+       [package => 'libmpv-dev']],
+     ],
+
      [cpanmod => 'MusicBrainz::DiscID',
       [os_freebsd,
        [package => 'libdiscid']],
