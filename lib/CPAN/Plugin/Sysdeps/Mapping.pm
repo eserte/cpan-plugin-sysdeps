@@ -2249,6 +2249,8 @@ sub mapping {
        [package => 'apache2-dev']]],
 
      [cpanmod => 'MPV::Simple',
+      [os_freebsd,
+       [package => 'mpv']],
       [like_debian,
        [before_ubuntu_trusty,
 	[package => []]],
