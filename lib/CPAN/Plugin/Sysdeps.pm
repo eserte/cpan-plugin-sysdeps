@@ -232,10 +232,12 @@ sub _detect_linux_distribution_fallback {
 	    my %info = (linuxdistro => $1, linuxdistroversion => $2);
 	    $info{linuxdistrocodename} =
 		{
-		 6 => 'squeeze',
-		 7 => 'wheezy',
-		 8 => 'jessie',
-		 9 => 'stretch',
+		 6  => 'squeeze',
+		 7  => 'wheezy',
+		 8  => 'jessie',
+		 9  => 'stretch',
+		 10 => 'buster',
+		 11 => 'bullseye',
 		}->{$info{linuxdistroversion}};
 	    return \%info;
 	} elsif ($line =~ m{^(Ubuntu) (\d+\.\d+)}) {
