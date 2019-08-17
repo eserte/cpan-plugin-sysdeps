@@ -3264,7 +3264,7 @@ sub mapping {
 
      [cpanmod => 'Wx',
       [os_freebsd,
-       [package => 'wx30-gtk2']],
+       [package => 'wx30-gtk3 | wx30-gtk2']],
       # XXX what about debian?
       # fedora: no package needed (e.g wxGTK-devel or wxGTK3-devel), works with Alien::wxWidgets
      ],
