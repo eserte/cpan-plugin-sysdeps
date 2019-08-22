@@ -2060,7 +2060,7 @@ sub mapping {
        [package => 'libnetfilter_log-devel']],
      ],
 
-     [cpanmod => 'Linux::Prctl',
+     [cpanmod => ['Linux::Prctl', 'Linux::Capabilities'],
       [like_debian,
        [package => 'libcap-dev']],
       [like_fedora,
