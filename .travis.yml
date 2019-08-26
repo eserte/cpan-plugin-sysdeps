@@ -1,21 +1,28 @@
 language: perl
 
-dist: trusty
-
 matrix:
   include:
-# First five
-    - perl: "5.22"
+# First group
+    - perl: "5.30"
+      dist: xenial
+    - perl: "5.28"
+      dist: xenial
     - perl: "5.20"
-    - perl: "5.18"
+      dist: trusty
     - perl: "5.16"
+      dist: trusty
     # The perl does not matter here, system perl will be used
     - perl: "5.18"
       os: osx
-# Second five
+# Second group
+    - perl: "5.22"
+      dist: xenial
     - perl: "5.12"
+      dist: trusty
     - perl: "5.10"
+      dist: trusty
     - perl: "5.8"
+      dist: trusty
     # Actually the perl here does not matter
     - perl: "5.14"
       env: USE_SYSTEM_PERL=1
@@ -23,6 +30,11 @@ matrix:
     # Actually the perl here does not matter
     - perl: "5.18"
       env: USE_SYSTEM_PERL=1
+      dist: trusty
+    # Actually the perl here does not matter
+    - perl: "5.26"
+      env: USE_SYSTEM_PERL=1
+      dist: xenial
 
 before_install:
  - if [ "$USE_SYSTEM_PERL" = 1 ]; then perlbrew off; fi
