@@ -2241,6 +2241,17 @@ sub mapping {
        [package => 'id3lib-devel']],
      ],
 
+     [cpanmod => 'MP4::LibMP4v2',
+      [os_freebsd,
+       [package => 'mp4v2']],
+      [like_debian,
+       [before_debian_buster,
+	[package => 'libmp4v2-dev']],
+       [package => []]], # not available for buster
+      [like_fedora,
+       [package => 'libmp4v2-devel']],
+     ],
+
      [cpanmod => 'modperl2',
       # XXX what about freebsd?
       [like_debian,
