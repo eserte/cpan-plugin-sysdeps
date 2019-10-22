@@ -702,6 +702,13 @@ sub mapping {
        [package => 'libsecp256k1-dev']],
      ],
 
+     [cpanmod => 'Crypt::LibSCEP',
+      [os_freebsd,
+       [osvers => {'>=', 11},
+	[package => 'libscep']],
+       [package => []]],
+     ],
+
      [cpanmod => 'Crypt::Sodium',
       [os_freebsd,
        [package => 'libsodium']],
