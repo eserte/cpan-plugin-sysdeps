@@ -1968,7 +1968,7 @@ sub mapping {
 
      # XXX check whether Kafka::Librd needs an external librdkafka
      # at all, or if works with just the Alien package
-     [cpanmod => 'Kafka::Librd',
+     [cpanmod => ['Kafka::Librd', 'Net::Kafka'],
       [os_freebsd,
        [package => 'librdkafka']],
       [like_debian,
