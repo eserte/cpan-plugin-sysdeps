@@ -14,6 +14,7 @@ use constant os_windows  => (os => 'MSWin32');
 use constant os_darwin   => (os => 'darwin'); # really means installer=homebrew
 use constant like_debian => (linuxdistro => '~debian');
 use constant before_ubuntu_trusty  => (linuxdistrocodename => [qw(squeeze precise wheezy)]);
+use constant before_ubuntu_xenial  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie)]);
 use constant before_debian_stretch => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial)]);
 use constant before_ubuntu_bionic  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch)]);
 use constant before_debian_buster  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic)]);
@@ -2039,6 +2040,20 @@ sub mapping {
        [package => 'libsoldout1-dev']], # passes with jessie, fails with xenial
      ],
 
+     [#cpanmod => 'Lingua::Identify::CLD2',
+      cpandist => qr{^Lingua-Identify-CLD2-\d}, # XXX until first stable release happens
+      [os_freebsd,
+       [package => 'cld2']],
+      [like_debian,
+       [before_ubuntu_xenial,
+	[package => []]],
+       [package => 'libcld2-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	package => []],
+       [package => 'cld2-devel']],
+     ],
+      
      [cpanmod => 'Lingua::NATools',
       # XXX what about freebsd?
       [like_debian,
