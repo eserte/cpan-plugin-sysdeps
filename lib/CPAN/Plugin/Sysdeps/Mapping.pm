@@ -227,6 +227,15 @@ sub mapping {
        [package => 'rar'], # available in jessie/non-free
       ]],
 
+     [cpanmod => 'Archive::Raw',
+      [os_freebsd,
+       [package => []]], # FreeBSD has archive.h in the base system, and works for freebsd 11 .. 13
+      [like_debian,
+       [package => 'libarchive-dev']], # but seems to work only with bullseye, not with wheezy .. buster
+      [like_fedora,
+       [package => 'libarchive-devel']], # but seems to work only with fedora28, not with CentOS6+7+8
+     ],
+      
      [cpanmod => 'Archive::SevenZip',
       [os_freebsd,
        [package => 'p7zip']],
