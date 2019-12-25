@@ -2577,7 +2577,10 @@ sub mapping {
      [cpanmod => 'NewRelic::Agent',
       # freebsd does not work, bundled .so files are linux-only
       [like_debian,
-       [package => ['g++', 'libcurl3']]]],
+       [before_debian_buster,
+	[package => ['g++', 'libcurl3']]],
+       [package => ['g++', 'libcurl4']]],
+     ],
 
      [cpanmod => 'Ogg::LibOgg',
       [os_freebsd,
