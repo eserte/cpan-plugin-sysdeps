@@ -1987,6 +1987,8 @@ sub mapping {
       [like_debian,
        [package => 'librdkafka-dev']],
       [like_fedora,
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
+	package => []], # N/A for centos6
        [package => 'librdkafka-devel']],
       [os_darwin,
        [package => 'librdkafka']],
