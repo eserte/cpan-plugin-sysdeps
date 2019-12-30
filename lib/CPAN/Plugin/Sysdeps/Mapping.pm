@@ -3206,7 +3206,8 @@ sub mapping {
       [os_darwin,
        [package => 'libstatgrab']]],
 
-     [cpanmod => 'URPM',
+     [#cpanmod => 'URPM', # see https://rt.cpan.org/Ticket/Display.html?id=127881
+      cpandist => qr{^URPM-v\d}, 
       [os_freebsd,
        [package => 'rpm4']],
       [like_debian,
