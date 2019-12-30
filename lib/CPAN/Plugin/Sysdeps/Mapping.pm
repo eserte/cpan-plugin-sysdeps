@@ -2840,7 +2840,7 @@ sub mapping {
        [package => 'rpm-devel']],
      ],
 
-     [cpanmod => ['RPM4', 'URPM'],
+     [cpanmod => 'RPM4',
       [os_freebsd,
        [package => 'rpm4']],
       [like_debian,
@@ -3207,11 +3207,14 @@ sub mapping {
        [package => 'libstatgrab']]],
 
      [cpanmod => 'URPM',
+      [os_freebsd,
+       [package => 'rpm4']],
       [like_debian,
-       [package => 'librpm-dev']], # but does not work anyway with the librpm version as found on squeeze
+       [package => ['rpm', 'librpm-dev']]], # but does not work anyway with the librpm version as found on squeeze
       [like_fedora,
-       [package => 'rpm-devel']],
-      # XXX what about freebsd?
+       [package => ['rpm', 'rpm-build', 'rpm-devel']]],
+      [os_darwin,
+       [package => 'rpm']],
      ],
 
      [cpanmod => 'USB::LibUSB',
