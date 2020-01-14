@@ -3092,6 +3092,17 @@ sub mapping {
        [package => 'libcsv-devel']],
      ],
 
+     [cpanmod => 'Text::Hspell',
+      [like_debian,
+       [before_ubuntu_trusty, # not available for wheezy
+	[package => []]],
+       [package => 'hspell']],
+      [like_fedora,
+       [linuxdistro => 'centos', linuxdistroversion => {'==', 8}, # not available (maybe not yet?) for CentOS8
+	[package => []]],
+       [package => 'hspell-devel']],
+     ],
+
      [cpanmod => 'Text::Hunspell',
       [os_freebsd,
        [package => 'hunspell']],
