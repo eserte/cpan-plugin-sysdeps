@@ -332,7 +332,13 @@ sub mapping {
       #[os_freebsd,
       # [package => 'libofa']],
       [like_debian,
-       [package => 'libofa0-dev']]],
+       [package => 'libofa0-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^[68]\.},
+	package => []], # N/A for centos6+8
+       [package => 'libofa-devel']],
+     ],
 
      [cpanmod => 'Audio::Opusfile',
       [os_freebsd,
