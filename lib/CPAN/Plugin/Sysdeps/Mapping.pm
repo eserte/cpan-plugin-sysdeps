@@ -600,6 +600,11 @@ sub mapping {
        [package => 'augeas']],
      ],
 
+     [cpanmod => 'Config::UCL',
+      [os_freebsd,
+       [package => 'libucl']],
+     ],
+
      [cpanmod => 'Convert::Recode',
       [os_freebsd,
        [package => 'recode']],
