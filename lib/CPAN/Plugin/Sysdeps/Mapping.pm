@@ -600,13 +600,6 @@ sub mapping {
        [package => 'augeas']],
      ],
 
-     [cpanmod => 'Config::UCL',
-      [like_debian,
-       [before_ubuntu_trusty,
-	[package => []]],
-       [package => 'libucl-dev']], # XXX however, does not work because of wrong search path
-     ],
-
      [cpanmod => 'Convert::Recode',
       [os_freebsd,
        [package => 'recode']],
