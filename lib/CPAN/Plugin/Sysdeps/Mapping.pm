@@ -2337,6 +2337,14 @@ sub mapping {
        ],
        [package => 'libnanomsg-dev']]],
 
+     [cpanmod => 'Neo4j::Bolt',
+      [like_debian,
+       [before_debian_stretch,
+	[package => []],
+       ],
+       [package => 'libneo4j-client-dev']],
+     ],
+
      [cpanmod => 'Net::Bluetooth',
       [like_debian,
        [package => 'libbluetooth-dev']],
