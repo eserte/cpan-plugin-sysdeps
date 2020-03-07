@@ -3015,7 +3015,10 @@ sub mapping {
 
      [cpanmod => 'Tcl::pTk',
       [os_freebsd,
-       [package => 'tk86 | tk85 | tk84']]], # XXX what about debian?
+       [package => 'tk86 | tk85 | tk84']],
+      [like_debian,
+       [package => ['tk8.6-dev | tk8.5-dev', 'tcl']]],
+     ],
 
      [cpanmod => 'Tcl::Tk', # XXX maybe also Tkx?
       [os_freebsd,
