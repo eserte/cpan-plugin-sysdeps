@@ -3022,7 +3022,7 @@ sub mapping {
        [package => 'tk86 | tk85 | tk84']],
       [like_debian,
        # tcllib is needed for the snit package
-       [package => ['tk8.5-dev', 'tcllib']]],
+       [package => ['tk8.6-dev | tk8.5-dev', 'tcllib']]],
       [like_fedora,
        [package => ['tk', 'tcllib']]],
      ],
