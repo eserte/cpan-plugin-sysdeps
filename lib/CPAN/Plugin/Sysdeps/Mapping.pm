@@ -2794,6 +2794,21 @@ sub mapping {
        [package => [qw(libXcursor-devel)]]], # XXX probably incomplete
      ],
 
+     [cpanmod => 'Primesieve',
+      [like_debian,
+       [before_ubuntu_xenial,
+	[package => []]],
+       [linuxdistrocodename => [qw(xenial)],
+	[package => 'libprimesieve6-dev']],
+       [linuxdistrocodename => [qw(stretch)],
+	[package => 'libprimesieve7-dev']],
+       [package => 'libprimesieve-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	package => []], # N/A for centos6,7,8
+       [package => 'primesieve-devel']],
+     ],
+
      [cpanmod => 'PulseAudio',
       [package => 'pulseaudio']],
 
