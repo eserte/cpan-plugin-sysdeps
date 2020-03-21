@@ -2810,6 +2810,8 @@ sub mapping {
        [linuxdistro => 'centos',
 	package => []], # N/A for centos6,7,8
        [package => 'primesieve-devel']],
+      [os_darwin,
+       [package => 'primesieve']],
      ],
 
      [cpanmod => 'PulseAudio',
