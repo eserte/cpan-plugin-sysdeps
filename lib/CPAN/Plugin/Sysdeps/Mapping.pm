@@ -2795,6 +2795,9 @@ sub mapping {
      ],
 
      [cpanmod => 'Primesieve',
+      [os_freebsd,
+       [osvers => {'>=', 11},
+	[package => 'primesieve']]],
       [like_debian,
        [before_ubuntu_xenial,
 	[package => []]],
