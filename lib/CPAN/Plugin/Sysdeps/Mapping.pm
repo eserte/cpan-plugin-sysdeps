@@ -1870,6 +1870,8 @@ sub mapping {
 	[package => 'openjdk-11-jdk']],
       ],
       [like_fedora,
+       [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
+	[package => 'java-1.8.0-openjdk-devel | java-1.7.0-openjdk-devel | java-1.6.0-openjdk-devel']],
        [package => 'java-11-openjdk-devel | java-9-openjdk-devel | java-1.8.0-openjdk-devel | java-1.7.0-openjdk-devel | java-1.6.0-openjdk-devel']],
      ],
 
