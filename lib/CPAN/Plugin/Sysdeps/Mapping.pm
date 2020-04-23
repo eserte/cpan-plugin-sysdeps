@@ -2157,6 +2157,8 @@ sub mapping {
       [os_freebsd,
        [package => 'gettext']],
       # XXX what about debian?
+      [os_darwin,
+       [package => 'gettext']],
      ],
 
      [cpanmod => 'Lucene',
