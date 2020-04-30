@@ -3143,6 +3143,10 @@ sub mapping {
      ],
 
      [cpanmod => 'Text::Hspell',
+      [os_freebsd,
+       [osvers => {'>=', 10},
+	[package => 'iw-hspell']],
+       [package => []]], # not available for fbsd9
       [like_debian,
        [before_ubuntu_trusty, # not available for wheezy
 	[package => []]],
