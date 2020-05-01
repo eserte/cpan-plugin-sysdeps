@@ -1418,6 +1418,21 @@ sub mapping {
      [cpanmod => ['Graphics::GnuplotIF', 'Gnuplot::Simple', 'Chart::Gnuplot'],
       [package => 'gnuplot']],
 
+     [cpanmod => 'Graph::Nauty',
+      [os_freebsd,
+       [package => []]], # there is a nauty package, but this seems to be something different
+      [like_debian,
+       [before_ubuntu_trusty,
+	[package => []]],
+       [package => 'libnauty2-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	[package => []]],
+       [package => 'libnauty-devel']],
+      [os_darwin,
+       [package => 'nauty']]
+     ],
+
      [cpanmod => 'Graphics::Plotter',
       [os_freebsd,
        [package => 'plotutils']],
