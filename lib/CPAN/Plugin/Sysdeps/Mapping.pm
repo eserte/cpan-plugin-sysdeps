@@ -528,6 +528,13 @@ sub mapping {
       ],
      ],
 
+     [cpanmod => 'Ceph::Rados::Striper',
+      [like_debian,
+       [before_ubuntu_xenial,
+	[package => []]],
+       [package => 'libradosstriper-dev']],
+     ],
+
      [cpanmod => 'Chipcard::PCSC',
       # XXX what about freebsd?
       [os_freebsd,
