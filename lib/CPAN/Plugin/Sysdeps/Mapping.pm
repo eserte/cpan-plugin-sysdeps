@@ -3338,6 +3338,15 @@ sub mapping {
       [like_debian,
        [package => 'libxine2-dev']]],
 
+     [cpanmod => 'Video::ZVBI',
+      [os_freebsd,
+       [package => 'libzvbi']],
+      [like_debian,
+       [before_ubuntu_trusty,
+	[package => []]],
+       [package => 'libzvbi-dev']],
+     ],
+
      [cpanmod => 'Vlc::Engine',
       [os_freebsd,
        [package => 'vlc']],
