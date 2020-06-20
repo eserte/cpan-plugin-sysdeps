@@ -248,6 +248,7 @@ sub _detect_linux_distribution_fallback {
 		 '14.04' => 'trusty',
 		 '16.04' => 'xenial',
 		 '18.04' => 'bionic',
+		 '20.04' => 'focal',
 		}->{$info{linuxdistroversion}};
 	    return \%info;
 	} else {
