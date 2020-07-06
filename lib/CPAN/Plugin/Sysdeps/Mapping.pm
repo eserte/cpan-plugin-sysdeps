@@ -2740,7 +2740,9 @@ sub mapping {
       [os_freebsd,
        [package => ['libgnome-keyring', 'pkgconf']]],
       [like_debian,
-       [package => 'libgnome-keyring-dev']],
+       [before_debian_buster,
+	[package => 'libgnome-keyring-dev']],
+       [package => []]], # not available for buster and later
       [like_fedora,
        [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	[package => 'gnome-keyring-devel']],
