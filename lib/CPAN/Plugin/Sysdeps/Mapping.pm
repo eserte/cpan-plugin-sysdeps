@@ -1083,6 +1083,11 @@ sub mapping {
        [package => 'pkg-config']],
      ],
 
+     [cpanmod => 'FFI::Platypus::Lang::Pascal',
+      [like_debian,
+       [package => 'fp-compiler']],
+     ],
+
      [cpanmod => 'File::ExtAttr',
       [like_debian,
        [package => 'libattr1-dev']],
