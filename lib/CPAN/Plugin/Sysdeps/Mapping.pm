@@ -2301,6 +2301,8 @@ sub mapping {
      ],
 
      [cpanmod => 'Media::MediaInfoLib',
+      [os_freebsd,
+       [package => 'libmediainfo']],
       [like_debian,
        [before_ubuntu_trusty,
 	[package => []]],
