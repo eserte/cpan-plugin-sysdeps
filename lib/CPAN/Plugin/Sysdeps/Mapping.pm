@@ -2300,6 +2300,15 @@ sub mapping {
        [package => 'libmaxminddb-devel']], # works
      ],
 
+     [cpanmod => 'Media::MediaInfoLib',
+      [like_debian,
+       [before_ubuntu_trusty,
+	[package => []]],
+       [package => 'libmediainfo-dev']],
+      [like_fedora,
+       [package => 'libmediainfo-devel']],
+     ],
+
      [cpanmod => 'Mhash',
       [os_freebsd,
        [package => 'mhash']],
