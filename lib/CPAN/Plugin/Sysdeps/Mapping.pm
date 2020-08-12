@@ -1633,6 +1633,10 @@ sub mapping {
        [before_ubuntu_trusty,
 	[package => []]], # not available in wheezy
        [package => 'htmldoc']],
+      [like_fedora,
+       [linuxdistro => 'centos', linuxdistroversion => {'>=', 8, '<', 9}, # not available (maybe not yet?) for CentOS8
+	[package => []]],
+       [package => 'htmldoc']],
      ],
 
      [cpanmod => 'HTML::Parser',
