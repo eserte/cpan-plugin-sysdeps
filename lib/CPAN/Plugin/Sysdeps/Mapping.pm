@@ -1584,6 +1584,18 @@ sub mapping {
        [package => 'webkitgtk3-devel']],
      ],
 
+     [cpanmod => 'Gtk3::WebKit2',
+      [like_debian,
+       [before_ubuntu_trusty, # at least not available in debian/wheezy
+	[package => []]],
+       [package => 'libwebkit2gtk-4.0-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^[67]\.},
+	package => []], # N/A for centos6+7
+       [package => 'webkit2gtk3-devel']],
+     ],
+
      [cpanmod => 'GTop',
       [os_freebsd,
        [package => 'libgtop']],
