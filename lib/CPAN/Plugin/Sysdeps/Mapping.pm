@@ -1289,8 +1289,6 @@ sub mapping {
       [like_fedora,
        [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	[package => []]],
-       [linuxdistro => 'centos', linuxdistroversion => {'>=', 8},
-	[package => []]],
        [package => 'gobject-introspection-devel']],
       [os_darwin,
        [package => 'glib']],
