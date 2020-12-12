@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - '*travis*'
+      - '*appveyor*'
+      - '*doozer*'
+
+jobs:
+
+  test_on_host:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+     matrix:
+       include:
+         - os: 'ubuntu-20.04'
+         - os: 'ubuntu-18.04'
+         - os: 'ubuntu-16.04'
+    steps:
+    - name: apt hacks
+      # /etc/apt/sources.list should be sufficient; all the other repositories are possibly problematic
+      run: |
+        sudo rm -f /etc/apt/sources.list.d/*.list
+        sudo apt-get update -qq
+      if: "startsWith(matrix.os, 'ubuntu-')"
+    - uses: actions/checkout@v2
+    - name: Build and test
+      run: |
+        set -e
+        sudo apt-get install -q --no-install-recommends cpanminus
+        cpanm --sudo --quiet --notest --installdeps .
+        perl Makefile.PL
+        make distcheck
+        HARNESS_TIMER=1 HARNESS_OPTIONS=j4:c make disttest
+      if: "!startsWith(matrix.os,'windows-')"
+
+  test_in_container:
+    name: Container tests with ${{ matrix.dist }}:${{ matrix.distver }}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.dist }}:${{ matrix.distver }}
+    strategy:
+      matrix:
+        include:
+          - dist:    debian
+            distver: jessie
+          - dist:    debian
+            distver: stretch
+          - dist:    debian
+            distver: buster
+          - dist:    fedora
+            distver: 33
+          - dist:    centos
+            distver: 8
+          - dist:    centos
+            distver: 7
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install cpanminus on Debian
+      run: |
+        set -e
+        apt-get update -qq
+        apt-get install -q --no-install-recommends -y cpanminus make
+      if: "matrix.dist == 'debian'"
+    - name: Install cpanminus on Fedora
+      env:
+        DIST_DISTVER: "${{ matrix.dist }}:${{ matrix.distver }}"
+      run: |
+        set -e
+        yum -y install perl-App-cpanminus
+        if [ $DIST_DISTVER = "centos:7" ]
+        then
+          yum -y install "perl(Test::More)" "perl(CPAN)"
+        fi
+      if: "matrix.dist == 'fedora' || matrix.dist == 'centos'"
+    - name: Build and test
+      run: |
+        set -e
+        cpanm --sudo --quiet --notest --installdeps .
+        perl Makefile.PL
+        make distcheck
+        HARNESS_TIMER=1 HARNESS_OPTIONS=j4:c make disttest
+      if: "!startsWith(matrix.os,'windows-')"
