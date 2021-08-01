@@ -3125,6 +3125,13 @@ sub mapping {
        [package => ['tk', 'tcllib']]],
      ],
 
+     [cpanmod => 'TCOD', # currently (with 0.009) does not work
+      [like_debian,
+       [before_debian_stretch,
+	[package => []]], # not available
+       [package => 'libtcod-dev']],
+     ],
+
      [cpanmod => 'Template::Plugin::React',
       [os_freebsd,
        [package => 'swig13']],
