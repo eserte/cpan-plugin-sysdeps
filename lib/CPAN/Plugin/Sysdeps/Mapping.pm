@@ -1286,6 +1286,8 @@ sub mapping {
      ],
 
      [cpanmod => 'Glib',
+      [like_debian,
+       [package => 'libglib2.0-dev']],
       [like_fedora,
        [linuxdistro => 'centos', linuxdistroversion => {'<', 7},
 	[package => []]],
