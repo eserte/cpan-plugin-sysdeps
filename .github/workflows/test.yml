@@ -18,7 +18,6 @@ jobs:
        include:
          - os: 'ubuntu-20.04'
          - os: 'ubuntu-18.04'
-         - os: 'ubuntu-16.04'
     steps:
     - name: apt hacks
       # /etc/apt/sources.list should be sufficient; all the other repositories are possibly problematic
@@ -56,6 +55,8 @@ jobs:
             distver: 8
           - dist:    centos
             distver: 7
+          - dist:    ubuntu
+            distver: 16.04
     steps:
     - uses: actions/checkout@v2
     - name: Install cpanminus on Debian
@@ -63,7 +64,7 @@ jobs:
         set -e
         apt-get update -qq
         apt-get install -q --no-install-recommends -y cpanminus make
-      if: "matrix.dist == 'debian'"
+      if: "matrix.dist == 'debian' || matrix.dist == 'ubuntu'"
     - name: Install cpanminus on Fedora
       env:
         DIST_DISTVER: "${{ matrix.dist }}:${{ matrix.distver }}"
