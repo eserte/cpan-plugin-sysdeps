@@ -49,6 +49,8 @@ jobs:
             distver: stretch
           - dist:    debian
             distver: buster
+          - dist:    debian
+            distver: bullseye
           - dist:    fedora
             distver: 33
           - dist:    centos
