@@ -3351,7 +3351,7 @@ sub mapping {
       [os_darwin,
        [package => 'libstatgrab']]],
 
-     [cpanmod => ['URPM::Resolve', 'urpmi'],
+     [cpanmod => ['URPM', 'URPM::Resolve', 'urpmi'],
       [os_freebsd,
        [package => 'rpm4']],
       [like_debian,
