@@ -53,7 +53,7 @@ jobs:
             distver: bullseye
           - dist:    fedora
             distver: 33
-          - dist:    centos
+          - dist:    rockylinux
             distver: 8
           - dist:    centos
             distver: 7
@@ -77,7 +77,7 @@ jobs:
         then
           yum -y install "perl(Test::More)" "perl(CPAN)"
         fi
-      if: "matrix.dist == 'fedora' || matrix.dist == 'centos'"
+      if: "matrix.dist == 'fedora' || matrix.dist == 'centos' || matrix.dist == 'rockylinux'"
     - name: Build and test
       run: |
         set -e
