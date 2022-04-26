@@ -220,7 +220,7 @@ sub _detect_linux_distribution_lsb_release {
 sub _detect_linux_distribution_fallback {
     if (open my $fh, '<', '/etc/redhat-release') {
 	my $contents = <$fh>;
-	if ($contents =~ m{^(CentOS|RedHat|Fedora) (?:Linux )?release (\d+)\S*( \((.*?)\))?}) {
+	if ($contents =~ m{^(CentOS|Rocky|RedHat|Fedora) (?:Linux )?release (\d+)\S*( \((.*?)\))?}) {
 	    return {linuxdistro => $1, linuxdistroversion => $2, linuxdistrocodename => defined $3 ? $3 : ''};
 	}
     }
@@ -268,7 +268,7 @@ sub _is_linux_debian_like {
 
 sub _is_linux_fedora_like {
     my(undef, $linuxdistro) = @_;
-    $linuxdistro =~ m{^(fedora|redhat|centos)$};
+    $linuxdistro =~ m{^(fedora|redhat|centos|rocky)$};
 }
 
 sub _is_apt_installer { shift->{installer} =~m{^(apt-get|aptitude)$} }
@@ -827,7 +827,7 @@ The distribution name is lowercased.
 
 There are special values C<~debian> to match Debian-like distributions
 (Ubuntu and LinuxMint) and C<~fedora> to match Fedora-like
-distributions (RedHat and CentOS).
+distributions (RedHat, CentOS and Rocky Linux).
 
 =item linuxdistrocodename => I<$value>
 
