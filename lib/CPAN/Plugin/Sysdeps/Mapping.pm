@@ -411,7 +411,7 @@ sub mapping {
       [os_freebsd,
        # FreeBSD has libdb in the base system, but this version is too old.
        # Make sure that a corresponding distroprefs file matches this library.
-       [package => 'db48']],
+       [package => 'db5']],
       [like_debian,
        [linuxdistrocodename => 'squeeze',
 	[package => 'libdb4.8-dev']],
