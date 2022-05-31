@@ -1858,10 +1858,10 @@ sub mapping {
       [os_freebsd,
        [package => 'libavif']],
       [like_debian,
-       [before_debian_stretch,
+       [before_debian_buster,
 	[package => []]],
-       [linuxdistrocodename => [qw(stretch bionic focal)],
-	[package => []]], # package libavifile-0.7-dev exists, but does not work with the perl module
+       [linuxdistrocodename => ['focal'],
+	[package => []]],
        [package => 'libavif-dev']],
       [like_fedora,
        [linuxdistro => 'centos', # not available for 7 and 8
