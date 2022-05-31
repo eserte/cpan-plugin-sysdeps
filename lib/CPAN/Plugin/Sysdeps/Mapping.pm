@@ -18,6 +18,7 @@ use constant before_ubuntu_xenial  => (linuxdistrocodename => [qw(squeeze precis
 use constant before_debian_stretch => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial)]);
 use constant before_ubuntu_bionic  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch)]);
 use constant before_debian_buster  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic)]);
+use constant before_ubuntu_focal   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster)]);
 use constant like_fedora => (linuxdistro => '~fedora');
 #  package shortcuts
 use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
@@ -1851,6 +1852,21 @@ sub mapping {
        [package => [qw(freetype-devel giflib-devel libpng-devel libjpeg-turbo-devel libtiff-devel)]]],
       [os_darwin,
        [package => [qw(freetype giflib libpng jpeg libtiff)]]],
+     ],
+
+     [cpanmod => 'Imager::File::AVIF',
+      [os_freebsd,
+       [package => 'libavif']],
+      [like_debian,
+       [before_debian_stretch,
+	[package => []]],
+       [linuxdistrocodename => [qw(stretch bionic focal)],
+	[package => []]], # package libavifile-0.7-dev exists, but does not work with the perl module
+       [package => 'libavif-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos', # not available for 7 and 8
+	package => []],
+       [package => 'libavif-devel']],
      ],
 
      [cpanmod => 'Imager::File::HEIF',
