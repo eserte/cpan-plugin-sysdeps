@@ -2584,6 +2584,15 @@ sub mapping {
        [package => 'libasyncns-devel']],
      ],
 
+     [cpanmod => 'Net::LibNFS',
+      [os_freebsd,
+       [package => 'libnfs']],
+      [like_debian,
+       [package => 'libnfs-dev']],
+      [like_fedora,
+       [package => 'libnfs-devel']],
+     ],
+
      [cpanmod => 'Net::LibNIDS',
       [os_freebsd,
        # but does not work (no libnids.so in freebsd port, just .a)
