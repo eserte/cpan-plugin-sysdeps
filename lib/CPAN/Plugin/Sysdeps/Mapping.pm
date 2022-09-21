@@ -852,7 +852,7 @@ sub mapping {
        [linuxdistro => 'centos', # CentOS 7 and 8
 	package => 'libdb-devel'],
        [linuxdistro => 'fedora',
-	linuxdistroversion => '28',
+	linuxdistroversion => { '>=', '28' },
 	package => 'libdb-devel'],
       ],
      ],
