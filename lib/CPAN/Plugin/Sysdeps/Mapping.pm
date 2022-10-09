@@ -142,7 +142,10 @@ sub mapping {
       [os_freebsd,
        [package => 'protobuf']],
       [like_debian,
-       [package => 'libprotobuf-dev']]],
+       [package => 'libprotobuf-dev']],
+      [like_fedora,
+       [package => 'protobuf-devel']],
+     ],
 
      [cpanmod => 'Alien::raylib',
       [os_freebsd,
@@ -1430,7 +1433,10 @@ sub mapping {
       [os_freebsd,
        [package => 'protobuf']],
       [like_debian,
-       [package => 'libprotoc-dev']]],
+       [package => 'libprotoc-dev']],
+      [like_fedora,
+       [package => 'protobuf-c-devel']],
+     ],
 
      [cpanmod => ['Graphics::GnuplotIF', 'Gnuplot::Simple', 'Chart::Gnuplot'],
       [package => 'gnuplot']],
