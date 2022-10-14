@@ -2567,6 +2567,12 @@ sub mapping {
        [package => 'liblo-devel']],
      ],
 
+     ## even libwebsockets-dev in Ubuntu 22.04 and debian 11 is too old for the module (4.0.20 < 4.3.0)
+     #[cpanmod => 'Net::Libwebsockets',
+     # [like_debian,
+     #  [package => 'libwebsockets-dev']],
+     #],
+
      [cpanmod => 'Net::NATS::Streaming::PB',
       [os_freebsd,
        [package => 'protobuf']],
