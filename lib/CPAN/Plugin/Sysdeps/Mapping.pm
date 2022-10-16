@@ -642,6 +642,10 @@ sub mapping {
      [cpanmod => 'Couchbase',
       [os_freebsd,
        [package => 'libcouchbase']],
+      ## Requires also libcouchbase/api3.h which does not seem to exist for fedora
+      #[like_fedora,
+      # [linuxdistro => 'fedora', # not available for centos7, only for fedora36
+      #	[package => 'libcouchbase-devel']]],
      ],
 
      [cpanmod => 'Crypt::Cracklib',
