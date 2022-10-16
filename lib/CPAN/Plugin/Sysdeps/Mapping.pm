@@ -933,10 +933,7 @@ sub mapping {
 
      [cpanmod => 'Devel::IPerl',
       [like_debian,
-       [before_debian_stretch,
-	[package => [qw(libzmq3-dev ipython ipython-notebook libmagic-dev)]]], # as specified in https://metacpan.org/source/ZMUGHAL/Devel-IPerl-0.006/README.md
-       [package => [qw(libzmq3-dev ipython jupyter-console jupyter-notebook libmagic-dev)]],
-      ],
+       [package => [qw(libzmq3-dev jupyter-console jupyter-notebook)]]], # as documented in https://metacpan.org/release/ZMUGHAL/Devel-IPerl-0.012/source/README.md
      ],
 
      [cpanmod => 'Devel::Jemallctl',
