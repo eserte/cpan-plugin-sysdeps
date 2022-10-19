@@ -1593,7 +1593,10 @@ sub mapping {
       [like_debian,
        [package => 'libwebkitgtk-3.0-dev']],
       [like_fedora,
-       [package => 'webkitgtk3-devel']],
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^[7]\.}, # exists for centos 7, does not exist for fedora 36
+	package => 'webkitgtk3-devel'],
+       [package => []]],
      ],
 
      [cpanmod => 'Gtk3::WebKit2',
