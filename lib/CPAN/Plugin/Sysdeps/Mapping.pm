@@ -1589,9 +1589,13 @@ sub mapping {
 
      [cpanmod => 'Gtk3::WebKit',
       [os_freebsd,
-       [package => 'webkit-gtk3']],
+       [osvers => {'<', 11},
+	[package => 'webkit-gtk3']],
+       [package => []]], # does not exist in newer freebsd versions
       [like_debian,
-       [package => 'libwebkitgtk-3.0-dev']],
+       [before_debian_buster, # only available until ubuntu:bionic
+	[package => 'libwebkitgtk-3.0-dev']],
+       [package => []]],
       [like_fedora,
        [linuxdistro => 'centos',
 	linuxdistroversion => qr{^[7]\.}, # exists for centos 7, does not exist for fedora 36
