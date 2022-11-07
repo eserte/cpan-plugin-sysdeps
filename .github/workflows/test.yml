@@ -25,7 +25,7 @@ jobs:
         sudo rm -f /etc/apt/sources.list.d/*.list
         sudo apt-get update -qq
       if: "startsWith(matrix.os, 'ubuntu-')"
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Build and test
       run: |
         set -e
@@ -60,7 +60,7 @@ jobs:
           - dist:    ubuntu
             distver: 16.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Install cpanminus on Debian
       run: |
         set -e
@@ -104,7 +104,7 @@ jobs:
           - perlimage: 5.36.0-slim-bullseye
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: "build and test"
       run: |
         cpanm --quiet --installdeps --notest .
