@@ -2858,6 +2858,17 @@ sub mapping {
        [package => 'blas-static']],
      ],
 
+     [cpanmod => 'pEFL',
+      [like_debian,
+       [linuxdistrocodename => [qw(jessie)],
+	[package => 'libelementary-dev']],
+       [before_debian_buster,
+	[package => []]],
+       [package => 'libefl-all-dev']],
+      [like_fedora,
+       [linuxdistro => 'fedora', 
+	[package => 'efl-devel']]]],
+
      [cpanmod => 'PerlQt',
       [like_debian,
        [linuxdistrocodename => 'squeeze',
