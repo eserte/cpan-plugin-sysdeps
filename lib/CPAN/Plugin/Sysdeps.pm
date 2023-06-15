@@ -238,6 +238,7 @@ sub _detect_linux_distribution_fallback {
 		 9  => 'stretch',
 		 10 => 'buster',
 		 11 => 'bullseye',
+		 12 => 'bookworm',
 		}->{$info{linuxdistroversion}};
 	    return \%info;
 	} elsif ($line =~ m{^(Ubuntu) (\d+\.\d+)}) {
