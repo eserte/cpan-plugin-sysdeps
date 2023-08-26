@@ -3509,6 +3509,22 @@ sub mapping {
        [package => []]], # libcurl is in the base system
      ],
 
+     [cpanmod => 'WWW::Mechanize::Chrome',
+      [os_freebsd,
+       [package => 'chromium']],
+      [os_openbsd,
+	# doesn't work
+       [package => 'chromium']],
+      [like_debian,
+       [linuxdistrocodename => [qw(squeeze wheezy jessie precise)],
+	[package => []]], #
+       [package => 'chromium']],
+      [os_windows,
+       [package => 'chromium']],
+      [os_darwin,
+       [package => 'chromium']],
+     ],
+
      [cpanmod => 'WWW::Mechanize::PhantomJS',
       [os_freebsd,
        [package => 'phantomjs']],
