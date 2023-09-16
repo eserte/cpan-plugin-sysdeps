@@ -1932,6 +1932,15 @@ sub mapping {
        [package => []]], # ... and even worse: if t1lib is installed, then the Imager 1.008 test suite fails (https://rt.cpan.org/Ticket/Display.html?id=128145). So don't install it at all.
      ],
 
+     [cpanmod => 'Imager::zxing',
+      [os_freebsd,
+       [package => 'zxing-cpp']],
+      [like_debian,
+       [package => 'libzxingcore-dev']],
+      [like_fedora,
+       [package => 'zxing-cpp-devel']],
+     ],
+
      # modules just needing java and nothing else:
      [cpanmod => ['Inline::Java', 'Bio::AssemblyImprovement', 'DBD::JDBC'],
       [os_freebsd,
