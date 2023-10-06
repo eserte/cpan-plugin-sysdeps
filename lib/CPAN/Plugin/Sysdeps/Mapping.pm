@@ -3652,9 +3652,9 @@ sub mapping {
 
      [cpanmod => 'X11::XCB',
       [os_freebsd,
-       [package => 'xcb-util-wm']],
+       [package => ['expat', 'pkgconf', 'xcb-proto', 'xcb-util-wm']]],
       [like_debian,
-       [package => ['xsltproc', 'xcb-proto', 'libxcb-util0-dev', 'libxcb-xinerama0-dev', 'libxcb-icccm4-dev']]]],
+       [package => ['libxcb-ewmh-dev', 'libxcb-icccm4-dev', 'libxcb-randr0-dev', 'libxcb-render0-dev', 'libxcb-util-dev', 'libxcb-util0-dev', 'libxcb-xinerama0-dev', 'libxcb-xinput-dev', 'libxcb-xkb-dev', 'libxcb-xtest0-dev', 'libxcb1-dev', 'xcb-proto', 'xsltproc']]]],
 
      [cpanmod => 'X11::Xlib',
       [os_freebsd,
