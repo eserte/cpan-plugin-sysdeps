@@ -20,6 +20,7 @@ jobs:
          - os: 'ubuntu-20.04'
          - os: 'ubuntu-22.04'
          - os: 'windows-latest'
+         - os: 'macos-latest'
     steps:
     - name: apt hacks
       # /etc/apt/sources.list should be sufficient; all the other repositories are possibly problematic
@@ -34,18 +35,23 @@ jobs:
         sudo apt-get install -q --no-install-recommends cpanminus
         cpanm --sudo --quiet --notest --installdeps .
       if: "startsWith(matrix.os, 'ubuntu-')"
+    - name: "perl dependency installation (macos)"
+      run: |
+        brew install cpanminus
+        cpanm --sudo --quiet --notest --installdeps .
+      if: "startsWith(matrix.os, 'macos-')"
     - name: "perl dependency installation (windows)"
       run: |
         cpanm --quiet --installdeps --notest .
       if: "startsWith(matrix.os, 'windows-')"
 
-    - name: "Build and test (ubuntu)"
+    - name: "Build and test (ubuntu + macos)"
       run: |
         set -e
         perl Makefile.PL
         make distcheck
         HARNESS_TIMER=1 HARNESS_OPTIONS=j4:c make disttest
-      if: "startsWith(matrix.os, 'ubuntu-')"
+      if: "startsWith(matrix.os, 'ubuntu-') || startsWith(matrix.os, 'macos-')"
     - name: "Build and test (windows)"
       run: |
         c:\strawberry\perl\bin\perl Makefile.PL
