@@ -188,11 +188,71 @@ sub post_get {
 
 # Helpers/Internal functions/methods
 sub _detect_linux_distribution {
-    if (-x '/usr/bin/lsb_release') {
+    if (-r '/etc/os-release') {
+	_detect_linux_distribution_os_release();
+    } elsif (-x '/usr/bin/lsb_release') {
 	_detect_linux_distribution_lsb_release();
     } else {
 	_detect_linux_distribution_fallback();
     }
+}
+
+sub _detect_linux_distribution_os_release {
+    # /etc/os-release is defined at https://www.freedesktop.org/software/systemd/man/os-release.html
+    # if present it has everything needed to identify a Linux distribution
+    my %info;
+    my $osrelease_file = '/etc/os-release';
+    if (open my $fh, '<', $osrelease_file) {
+        # read /etc/os-release file into hash
+        my %osrelease;
+        while (<$fh>) {
+            chomp;
+            if (/^ ([A-Z0-9_]+) = "(.*)" $/x) {
+                $osrelease{$1} = $2;
+            } elsif (/^ ([A-Z0-9_]+) = '(.*)' $/x) {
+                $osrelease{$1} = $2;
+            } elsif (/^ ([A-Z0-9_]+) = (.*) $/x) {
+                $osrelease{$1} = $2;
+            }
+        }
+        close $fh
+            or die "Error closing handle for $osrelease_file: $!";
+
+        # extract data from os-release contents
+        if (exists $osrelease{ID}) {
+            # check if ID is a recognizable distro
+            if (__PACKAGE__->_is_linux_debian_like($osrelease{ID})
+                or __PACKAGE__->_is_linux_fedora_like($osrelease{ID}))
+            {
+                $info{linuxdistro} = $osrelease{ID};
+
+            # or check if ID_LIKE contains a recognizable distro
+            } elsif (exists $osrelease{ID_LIKE}) {
+                my @os_like = split /\s+/x, $osrelease{ID_LIKE};
+                foreach my $os_like (@os_like) {
+                    if (__PACKAGE__->_is_linux_debian_like($os_like)
+                        or __PACKAGE__->_is_linux_fedora_like($os_like))
+                    {
+                        $info{linuxdistro} = $os_like; # masquerade as the recognizable distro which this is like
+                        last;
+                    }
+                }
+            } else {
+                # fall back to ID since we have no info what this distro is
+                $info{linuxdistro} = $osrelease{ID};
+            }
+        } else {
+            # no ID, assume no useful data
+            return;
+        }
+        if (exists $osrelease{VERSION_ID}) {
+            $info{linuxdistroversion} = $osrelease{VERSION_ID};
+        }
+        if (exists $osrelease{VERSION_CODENAME}) {
+            $info{linuxdistrocodename} = $osrelease{VERSION_CODENAME};
+        }
+    }
+    return \%info;
 }
 
 sub _detect_linux_distribution_lsb_release {
@@ -406,18 +466,20 @@ sub _map_cpandist {
     ();
 }
 
+sub _locate_cmd {
+    my ($cmdname) = @_;
+    my $alt_path = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/opt/sbin:/opt/bin";
+    foreach my $pathdir (split /:/, ($ENV{PATH} // $alt_path)) {
+        my $trypath = "$pathdir/$cmdname";
+        if (-x $trypath) {
+            return $trypath;
+        }
+    }
+    return;
+}
+
 sub _detect_dnf {
-    my @cmd = ('dnf', '--help');
-    require IPC::Open3;
-    require Symbol;
-    my $err = Symbol::gensym();
-    my $fh;
-    return eval {
-	    if (my $pid = IPC::Open3::open3(undef, $fh, $err, @cmd)) {
-		    waitpid $pid, 0;
-		    return $? == 0;
-		}
-    };
+    return (_locate_cmd("dnf") ? 1 : 0);
 }
 
 sub _find_missing_deb_packages {
@@ -635,7 +697,7 @@ sub _install_packages_commands {
 	if ($self->_is_apt_installer) {
 	    push @install_cmd, '-y';
 	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
-	    push @install_cmd, '-y';
+	    push @install_cmd, '-y', '--skip-broken';
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
 	} elsif ($self->{installer} eq 'homebrew') {
@@ -716,6 +778,11 @@ systems and distributions are FreeBSD and Debian-like Linux
 distributions. There are also some module rules for Fedora-like Linux
 distributions, Windows through chocolatey, and Mac OS X through
 homebrew.
+
+It can also use I</etc/os-release>, present on most modern Linux systems,
+to deduce what distribution the current system is derived from, such as
+Debian, Fedora and CentOS derivatives. For example, Rocky and Alma Linux
+are recognized as derivatives of CentOS without explicitly-coded support.
 
 The plugin may be configured like this:
 
@@ -1035,6 +1102,8 @@ Max Maischein (CORION) - Windows/chocolatey support
 
 David Dick (DDICK) - OpenBSD, DragonFly BSD and Fedora support
 
+Ian Kluft (IKLUFT) - /etc/os-release support
+
 =head1 AUTHOR
 
 Slaven Rezic
@@ -1050,5 +1119,7 @@ at your option, any later version of Perl 5 you may have available.
 =head1 SEE ALSO
 
 L<cpan-sysdeps>, L<CPAN>, L<apt-get(1)>, L<aptitude(1)>, L<pkg(8)>, L<yum(1)>, L<dnf(1)>.
+
+FreeDesktop.org's os-release definition: L<https://www.freedesktop.org/software/systemd/man/os-release.html>
 
 =cut
