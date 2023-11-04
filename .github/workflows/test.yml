@@ -152,18 +152,19 @@ jobs:
 
   test_freebsd:
     name: Test on FreeBSD
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
         clean: false
         show-progress: false
-    - uses: vmactions/freebsd-vm@v0
+    - uses: cross-platform-actions/action@v0.20.0
       with:
-        usesh: true
-        prepare: |
-          pkg install -y perl5
+        operating_system: freebsd
+        version: '13.2'
         run: |
+          sudo pkg update
+          sudo pkg install -y perl5
           perl Makefile.PL
           make
           make test
