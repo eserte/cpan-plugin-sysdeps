@@ -1892,6 +1892,12 @@ sub mapping {
        [before_ubuntu_bionic,
 	[package => []]],
        [package => 'libheif-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos', # not available for 7
+	package => []],
+       [linuxdistro => 'fedora', linuxdistroversion => {'>=', 37}, # however, configure fails: "doesn't have a HEVC encoder"
+	[package => 'libheif-devel']],
+      ],
      ],
 
      [cpanmod => 'Imager::File::JPEG',
