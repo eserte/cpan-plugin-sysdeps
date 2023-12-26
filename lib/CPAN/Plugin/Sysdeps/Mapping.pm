@@ -1802,8 +1802,9 @@ sub mapping {
      ],
 
      [cpanmod => 'Image::Magick',  # typically needs manual work
-      [os_freebsd,
-       [package => 'ImageMagick']],
+      ## XXX needs to be either ImageMagick6 or ImageMagick7 nowadays, but does not install without manual work anyway
+      #[os_freebsd,
+      # [package => 'ImageMagick']],
       [like_debian,
        [package => 'libmagickcore-dev']]],
 
