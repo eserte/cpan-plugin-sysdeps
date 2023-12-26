@@ -3582,7 +3582,7 @@ sub mapping {
 
      [cpanmod => 'XML::LibXSLT',
       [os_freebsd,
-       [package => 'libxslt']],
+       [package => 'libxslt', 'pkgconf']], # pkg-config is required to find location of libxml2 header files
       [os_dragonfly,
        [package => 'libxslt']],
       [os_openbsd,
