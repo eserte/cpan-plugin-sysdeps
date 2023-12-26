@@ -973,7 +973,10 @@ sub mapping {
       [like_debian,
        [package => 'libusb-dev']],
       [like_fedora,
-       [package => 'libusb-devel']], # but testsuite segfaults
+	[linuxdistro => 'fedora',
+	 linuxdistroversion => {'>=', 39}, # what about older versions?
+	 package => 'libusb1-devel'],
+       [package => 'libusb-devel']],
      ],
 
      [cpanmod => 'Device::Velleman::K8055::libk8055',
