@@ -19,6 +19,9 @@ use constant before_debian_stretch => (linuxdistrocodename => [qw(squeeze precis
 use constant before_ubuntu_bionic  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch)]);
 use constant before_debian_buster  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic)]);
 use constant before_ubuntu_focal   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster)]);
+use constant before_ubuntu_bullseye=> (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal)]);
+use constant before_ubuntu_jammy   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye)]);
+use constant before_ubuntu_bookworm=> (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy)]);
 use constant like_fedora => (linuxdistro => '~fedora');
 #  package shortcuts
 use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
@@ -3345,6 +3348,21 @@ sub mapping {
        [package => 'libqrencode-dev']],
       [like_fedora,
        [package => 'qrencode-devel']],
+     ],
+
+     [cpanmod => 'Text::Treesitter',
+      [os_freebsd,
+       [osvers => {'<', 13},
+	[package => []]],
+       [package => 'tree-sitter']],
+      [like_debian,
+       [before_ubuntu_jammy,
+	[package => []]],
+       [package => 'libtree-sitter-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	[package => []]],
+       [package => 'libtree-sitter-devel']],
      ],
 
      [cpanmod => 'Text::VimColor',
