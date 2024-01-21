@@ -1132,11 +1132,14 @@ sub mapping {
      ],
 
      [cpanmod => 'Filesys::SmbClient',
-      ## XXX unclear which package is the correct one
+      ## XXX does not work out-of-the box, maybe needs some -I and -L settings
       #[os_freebsd,
-      # [package => 'samba-libsmbclient | samba41 | samba4']],
+      # [package => 'samba416 | samba413 | samba41 | samba4 | samba-libsmbclient']],
       [like_debian,
        [package => 'libsmbclient-dev']],
+      ## XXX does not seem to build, neither with centos7 nor with fedora39
+      #[like_fedora,
+      # [package => 'libsmbclient-devel']],
      ],
 
      [cpanmod => 'Finance::MICR::GOCR::Check',
