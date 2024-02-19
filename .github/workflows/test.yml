@@ -151,20 +151,49 @@ jobs:
         HARNESS_TIMER=1 HARNESS_OPTIONS=j4:c make disttest
 
   test_freebsd:
-    name: Test on FreeBSD
+    name: Test on FreeBSD ${{ matrix.osvers }}
     runs-on: macos-12
+    strategy:
+      matrix:
+        include:
+          - osvers: '13.2'
+          - osvers: '14.0'
     steps:
     - uses: actions/checkout@v4
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v0.20.0
+    - uses: cross-platform-actions/action@v0.23.0
       with:
         operating_system: freebsd
-        version: '13.2'
+        version: '${{ matrix.osvers }}'
         run: |
           sudo pkg update
           sudo pkg install -y perl5
+          perl Makefile.PL
+          make
+          make test
+
+  test_openbsd:
+    name: Test on OpenBSD ${{ matrix.osvers }}
+    runs-on: macos-12
+    strategy:
+      matrix:
+        include:
+          - osvers: 7.4
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        clean: false
+        show-progress: false
+    - uses: cross-platform-actions/action@v0.23.0
+      with:
+        operating_system: openbsd
+        version: '${{ matrix.osvers }}'
+        # note: "doas" is usually preferred over "sudo" in OpenBSD, but atm not available, see https://github.com/cross-platform-actions/action/issues/75
+        run: |
+          sudo pkg_add -u 
+          sudo pkg_add -i perl
           perl Makefile.PL
           make
           make test
