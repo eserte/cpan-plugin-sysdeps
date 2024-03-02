@@ -2874,6 +2874,14 @@ sub mapping {
       [like_debian,
        [package => 'libnetcdf-dev']]],
 
+     [cpanmod => 'PDL::Opt::GLPK',
+      [os_freebsd,
+       [package => 'glpk']],
+      [like_debian,
+       [package => 'libglpk-dev']],
+      [like_fedora,
+       [package => 'glpk-devel']]],
+
      [cpanmod => 'PDL::Opt::QP',
       [os_freebsd,
        [package => 'blas']],
