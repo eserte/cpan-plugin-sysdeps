@@ -1,5 +1,8 @@
 Revision history for Perl extension CPAN::Plugin::Sysdeps.
 
+0.75  2024-03-03
+	- more testing regarding /etc/os-release
+
 0.74  2024-03-02
 	- linux distro detection now using /etc/os-release
 	- mapping update
