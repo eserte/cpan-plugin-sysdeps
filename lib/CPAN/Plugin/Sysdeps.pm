@@ -15,6 +15,8 @@ use constant SUPPORTED_NUMERICAL_OPS_RX => do {
     qr{$rx};
 };
 
+our @OS_RELEASE_PATH_CANDIDATES = ('/etc/os-release', '/usr/lib/os-release');
+
 sub new {
     my($class, @args) = @_;
 
@@ -199,8 +201,7 @@ sub _detect_linux_distribution {
 
 sub _detect_linux_distribution_os_release {
     my %info;
-    my $candidate_files = ['/etc/os-release', '/usr/lib/os-release'];
-    for my $candidate_file (ref $candidate_files eq 'ARRAY' ? @$candidate_files : $candidate_files) {
+    for my $candidate_file (@OS_RELEASE_PATH_CANDIDATES) {
 	if (open my $fh, '<', $candidate_file) {
 	    my %c;
 	    while(<$fh>) {
@@ -211,6 +212,10 @@ sub _detect_linux_distribution_os_release {
 	    $info{linuxdistro} = $c{ID};
 	    $info{linuxdistroversion} = $c{VERSION_ID};
 	    $info{linuxdistrocodename} = $c{VERSION_CODENAME};
+	    # heuristics
+	    if (!defined $info{linuxdistrocodename} && $info{linuxdistro} eq 'debian' && $c{VERSION} =~ m{^\d+\s+\((.+)\)$}) {
+		$info{linuxdistrocodename} = $1;
+	    }
 	    return \%info;
 	}
     }
@@ -342,10 +347,10 @@ sub _map_cpandist {
     # also add support for numerical comparisons
     my $smartmatch = sub ($$) {
 	my($left, $right) = @_;
+	no warnings 'uninitialized';
 	if (ref $right eq 'Regexp') {
 	    return 1 if $left =~ $right;
 	} elsif (ref $right eq 'ARRAY') {
-	    no warnings 'uninitialized';
 	    return 1 if first { (!defined $left && !defined $_) || ($_ eq $left) } @$right;
 	} elsif (ref $right eq 'HASH') {
 	    for my $op (keys %$right) {
@@ -361,7 +366,6 @@ sub _map_cpandist {
 	    return 1;
 	} else {
 	    return 1 if !defined $left && !defined $right;
-	    no warnings 'uninitialized';
 	    return 1 if $left eq $right;
 	}
     };
