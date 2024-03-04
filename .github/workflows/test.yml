@@ -84,6 +84,11 @@ jobs:
             distver: 7
           - dist:    ubuntu
             distver: 16.04
+          - dist:    opensuse/tumbleweed
+            distver: latest
+          ## XXX very minimal system, misses even tar, so actions/checkout fails
+          #- dist:    opensuse/leap
+          #  distver: latest
     steps:
     - uses: actions/checkout@v3
     - name: apt hacks
@@ -115,6 +120,11 @@ jobs:
           yum -y install "perl(Test::More)" "perl(CPAN)"
         fi
       if: "matrix.dist == 'fedora' || matrix.dist == 'centos' || matrix.dist == 'rockylinux'"
+    - name: Install perl and more on OpenSUSE
+      run: |
+        set -e
+        zypper install -y make perl perl-App-cpanminus lsb-release
+      if: "matrix.dist == 'opensuse/tumbleweed' || matrix.dist == 'opensuse/leap'"
     - name: Build and test
       run: |
         set -e
