@@ -3741,6 +3741,15 @@ sub mapping {
        [package => 'libzmq3-dev'], # note: libzmq3-dev is ZMQ4.0 (!)
       ]],
 
+     [cpanmod => 'Zonemaster::LDNS',
+      [os_freebsd,
+       [package => ['libidn2']]], # untested
+      [like_debian,
+       [package => ['libidn2-dev', 'libssl-dev']]],
+      [like_fedora,
+       [package => ['libidn2-devel', 'openssl-devel']]],
+     ],
+
      [cpanmod => 'ZOOM::IRSpy',
       [os_freebsd,
        [package => 'yaz']],
