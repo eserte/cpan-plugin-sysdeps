@@ -84,6 +84,8 @@ jobs:
             distver: 7
           - dist:    ubuntu
             distver: 16.04
+          - dist:    ubuntu
+            distver: 24.04
           - dist:    opensuse/tumbleweed
             distver: latest
           ## XXX very minimal system, misses even tar, so actions/checkout fails
