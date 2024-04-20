@@ -24,7 +24,9 @@ use constant before_ubuntu_jammy   => (linuxdistrocodename => [qw(squeeze precis
 use constant before_ubuntu_bookworm=> (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy)]);
 use constant like_fedora => (linuxdistro => '~fedora');
 #  package shortcuts
-use constant freebsd_jpeg => 'jpeg | jpeg-turbo';
+use constant freebsd_old_jpeg => 'jpeg | jpeg-turbo'; # older freebsd (e.g. 8, 9)
+use constant freebsd_new_jpeg => 'jpeg-turbo | jpeg'; # newer freebsd (e.g. 13, 14, 15)
+use constant freebsd_new_jpeg_osvers => 13;
 
 sub mapping {
     (
@@ -1841,7 +1843,8 @@ sub mapping {
 
      [cpanmod => 'Image::Scale',
       [os_freebsd,
-       [package => ['png', freebsd_jpeg]]],
+       [osvers => {'<', freebsd_new_jpeg_osvers}, [package => ['png', freebsd_old_jpeg]]],
+       [package => ['png', freebsd_new_jpeg]]],
       [like_debian,
        [linuxdistrocodename => [qw(squeeze wheezy jessie precise xenial)],
 	[package => [qw(libjpeg-dev libpng12-dev)]]],
@@ -1865,7 +1868,8 @@ sub mapping {
 
      [cpanmod => 'Imager',
       [os_freebsd,
-       [package => [qw(freetype2 giflib png tiff), freebsd_jpeg]]], # in former days giflib-nox11 had to be specified
+       [osvers => {'<', freebsd_new_jpeg_osvers}, [package => [qw(freetype2 giflib png tiff), freebsd_old_jpeg]]], # in former days giflib-nox11 had to be specified
+       [package => [qw(freetype2 giflib png tiff), freebsd_new_jpeg]]],
       [like_debian,
        [linuxdistrocodename => [qw(wheezy precise)],
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
@@ -1913,7 +1917,8 @@ sub mapping {
 
      [cpanmod => 'Imager::File::JPEG',
       [os_freebsd,
-       [package => [freebsd_jpeg]]],
+       [osvers => {'<', freebsd_new_jpeg_osvers}, [package => [freebsd_old_jpeg]]],
+       [package => [freebsd_new_jpeg]]],
       [like_debian,
        [package => [qw(libjpeg-dev)]]],
       [like_fedora,
@@ -3412,7 +3417,8 @@ sub mapping {
       # freetype2 and libXft are optional, but highly recommended as it provides nicer fonts
       # jpeg and png is bundled in Tk, but usually the Tk version is older
       [os_freebsd,
-       [package => qw(freetype2 libXft libX11 png), freebsd_jpeg]],
+       [osvers => {'<', freebsd_new_jpeg_osvers}, [package => [qw(freetype2 libXft libX11 png), freebsd_old_jpeg]]],
+       [package => [qw(freetype2 libXft libX11 png), freebsd_new_jpeg]]],
       [like_debian,
        [package => [qw(libx11-dev libfreetype6-dev libxft-dev libpng-dev libz-dev libjpeg-dev)]]],
       [like_fedora,

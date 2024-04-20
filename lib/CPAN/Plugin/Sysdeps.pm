@@ -644,7 +644,7 @@ sub _filter_uninstalled_packages {
 		my @single_packages = split /\s*\|\s*/, $package_spec;
 		my @missing_in_packages_spec = $self->$find_missing_packages(@single_packages);
 		if (@missing_in_packages_spec == @single_packages) {
-		    push @missing_packages, $single_packages[0];
+		    push @missing_packages, $single_packages[0]; # XXX this could go wrong if the first alternative is not available at all; see problem with jpeg|jpeg-turbo in Mapping.pm
 		}
 	    } else {
 		push @plain_packages, $package_spec;
