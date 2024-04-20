@@ -703,14 +703,15 @@ sub mapping {
        [package => [qw(libmcrypt-devel libtool-ltdl-devel)]]],
      ],
 
-     [cpanmod => ['Crypt::OpenSSL::DSA', 'Crypt::OpenSSL::PKCS12', 'Crypt::OpenSSL::Random', 'Crypt::OpenSSL::RSA', 'Crypt::OpenSSL::X509', 'Net::SSLeay', 'IO::Socket::SSL'],
+     [cpanmod => ['Crypt::OpenSSL::DSA', 'Crypt::OpenSSL::PKCS12', 'Crypt::OpenSSL::Random', 'Crypt::OpenSSL::RSA', 'Crypt::OpenSSL::X509', 'IO::Socket::SSL'],
       # freebsd has all libssl in the base system
       [like_debian,
        [package => ['libssl-dev', 'zlib1g-dev']]],
       [like_fedora,
        [package => 'openssl-devel']],
       [os_windows,
-       [package => 'openssl.light']]], # XXX create openssl.dev
+       [package => 'openssl.light']], # XXX create openssl.dev
+     ],
 
      [cpanmod => 'Crypt::OpenSSL::X509',
       [os_darwin,
@@ -2699,6 +2700,16 @@ sub mapping {
       [like_fedora,
        [package => 'libssh2-devel']],
       # Net-SSH2-0.58 already installs the homebrew package for libssh2 itself
+     ],
+
+     [cpanmod => 'Net::SSLeay',
+      # freebsd has all libssl in the base system
+      [like_debian,
+       [package => ['libssl-dev', 'zlib1g-dev']]],
+      [like_fedora,
+       [package => ['openssl-devel', 'openssl', 'zlib-devel']]], # needs also the openssl binary besides the library/include files
+      [os_windows,
+       [package => 'openssl.light']], # XXX create openssl.dev
      ],
 
      [cpanmod => 'Net::WDNS',
