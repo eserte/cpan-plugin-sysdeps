@@ -19,9 +19,11 @@ use constant before_debian_stretch => (linuxdistrocodename => [qw(squeeze precis
 use constant before_ubuntu_bionic  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch)]);
 use constant before_debian_buster  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic)]);
 use constant before_ubuntu_focal   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster)]);
-use constant before_ubuntu_bullseye=> (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal)]);
+use constant before_debian_bullseye=> (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal)]);
 use constant before_ubuntu_jammy   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye)]);
-use constant before_ubuntu_bookworm=> (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy)]);
+use constant before_debian_bookworm=> (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy)]);
+use constant before_ubuntu_noble   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy bookworm)]);
+use constant before_debian_trixie  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy bookworm noble)]);
 use constant like_fedora => (linuxdistro => '~fedora');
 #  package shortcuts
 use constant freebsd_old_jpeg => 'jpeg | jpeg-turbo'; # older freebsd (e.g. 8, 9)

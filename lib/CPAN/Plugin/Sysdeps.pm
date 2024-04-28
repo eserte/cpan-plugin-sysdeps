@@ -266,6 +266,7 @@ sub _detect_linux_distribution_fallback {
 		 10 => 'buster',
 		 11 => 'bullseye',
 		 12 => 'bookworm',
+		 13 => 'trixie',
 		}->{$info{linuxdistroversion}};
 	    return \%info;
 	} elsif ($line =~ m{^(Ubuntu) (\d+\.\d+)}) {
@@ -278,6 +279,7 @@ sub _detect_linux_distribution_fallback {
 		 '18.04' => 'bionic',
 		 '20.04' => 'focal',
 		 '22.04' => 'jammy',
+		 '24.04' => 'noble',
 		}->{$info{linuxdistroversion}};
 	    return \%info;
 	} else {
