@@ -76,6 +76,8 @@ jobs:
             distver: bullseye
           - dist:    debian
             distver: bookworm
+          - dist:    debian
+            distver: trixie
           - dist:    fedora
             distver: 33
           - dist:    rockylinux
