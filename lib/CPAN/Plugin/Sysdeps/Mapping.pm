@@ -430,6 +430,8 @@ sub mapping {
       [os_darwin,
        # Make sure that a corresponding distroprefs file matches this library (see srezic-cpan-distroprefs).
        [package => 'berkeley-db']],
+      [like_fedora,
+       [package => 'libdb']],
      ],
 
      [cpanmod => 'Bio::HTS',
