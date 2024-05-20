@@ -876,9 +876,9 @@ sub mapping {
 
      [cpanmod => 'DBD::Firebird',
       [os_freebsd,
-       [package => 'firebird25-server']],
+       [package => 'firebird40-server | firebird30-server | firebird25-server']],
       [os_dragonfly,
-       [package => 'firebird25-server']],
+       [package => 'firebird40-server | firebird30-server | firebird25-server']],
       [like_debian,
        [before_debian_stretch,
 	[package => 'firebird-dev']],
