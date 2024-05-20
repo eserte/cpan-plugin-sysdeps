@@ -144,6 +144,18 @@ sub mapping {
        [package => 'nss-devel']],
      ],
 
+     [cpanmod => 'Alien::proj',
+      [os_freebsd,
+       [osvers => {'>=', 13},
+	[package => ['proj']]]],
+      [like_debian,
+       [before_ubuntu_focal, # Alien::proj needs at least version 6.1, see https://metacpan.org/release/SLAFFAN/Alien-proj-1.27/source/alienfile#L60 which is satisfied with https://packages.ubuntu.com/search?keywords=libproj-dev&searchon=names&suite=all&section=all and later. Building from source currently fails.
+	[package => ['g++']]],
+       [package => ['libproj-dev', 'g++']]],
+      [like_fedora,
+       [package => ['gcc-c++']]],
+     ],
+
      [cpanmod => 'Alien::ProtoBuf',
       # but why? shouldn't an alien module care about its own external library?
       [os_freebsd,
