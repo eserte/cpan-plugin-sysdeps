@@ -166,7 +166,7 @@ jobs:
 
   test_freebsd:
     name: Test on FreeBSD ${{ matrix.osvers }}
-    runs-on: macos-12
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         include:
@@ -177,7 +177,7 @@ jobs:
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v0.23.0
+    - uses: cross-platform-actions/action@v0.24.0
       with:
         operating_system: freebsd
         version: '${{ matrix.osvers }}'
@@ -190,7 +190,7 @@ jobs:
 
   test_openbsd:
     name: Test on OpenBSD ${{ matrix.osvers }}
-    runs-on: macos-12
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         include:
@@ -200,7 +200,7 @@ jobs:
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v0.23.0
+    - uses: cross-platform-actions/action@v0.24.0
       with:
         operating_system: openbsd
         version: '${{ matrix.osvers }}'
