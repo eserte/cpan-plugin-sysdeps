@@ -1249,7 +1249,10 @@ sub mapping {
       [like_fedora,
        [package => 'gd-devel']],
       [os_darwin,
-       [package => 'gd']]],
+       [package => 'gd']],
+      [os_windows,
+       [package => 'gd']],
+     ],
 
      [cpanmod => 'Gearman::XS',
       [os_freebsd,
