@@ -80,8 +80,12 @@ jobs:
             distver: trixie
           - dist:    fedora
             distver: 33
+          - dist:    fedora
+            distver: 40
           - dist:    rockylinux
             distver: 8
+          - dist:    rockylinux
+            distver: 9
           - dist:    centos
             distver: 7
           - dist:    ubuntu
