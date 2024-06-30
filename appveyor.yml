@@ -8,6 +8,8 @@ skip_tags: true
 #cache:
 #  - C:\strawberry
 
+image: "Visual Studio 2022"
+
 environment:
   matrix:
 ## ppm downloads do not work anymore, since beginning of June 2024
