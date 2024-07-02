@@ -86,8 +86,9 @@ jobs:
             distver: 8
           - dist:    rockylinux
             distver: 9
-          - dist:    centos
-            distver: 7
+          ## XXX disable until a mirrorlist replacement is found
+          #- dist:    centos
+          #  distver: 7
           - dist:    ubuntu
             distver: 16.04
           - dist:    ubuntu
