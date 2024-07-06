@@ -2487,6 +2487,16 @@ sub mapping {
        [package => 'libneo4j-client-dev']],
      ],
 
+     [cpanmod => 'Net::AMQP::RabbitMQ',
+      # freebsd has all libssl in the base system
+      [like_debian,
+       [package => ['libssl-dev']]],
+      [like_fedora,
+       [package => ['openssl-devel']]],
+      [os_windows,
+       [package => 'openssl.light']], # XXX create openssl.dev
+     ],
+
      [cpanmod => 'Net::Bluetooth',
       [like_debian,
        [package => 'libbluetooth-dev']],
