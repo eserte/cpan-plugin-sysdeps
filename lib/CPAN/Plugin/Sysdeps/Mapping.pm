@@ -1028,10 +1028,10 @@ sub mapping {
       [os_darwin,
        [package => 'ldns']]],
 
-     [cpanmod => 'DNS::Unbound',
+     [cpanmod => ['DNS::Unbound', 'Net::DNS::Resolver::Unbound'],
      #[cpandist => qr{^DNS-Unbound-\d},
       [os_freebsd,
-       [package => 'unbound']], # build problems: port's pkg-config file references ssl & crypto, but these are already in base system
+       [package => 'unbound']], # build problems with DNS::Unbound: port's pkg-config file references ssl & crypto, but these are already in base system
       [like_debian,
        [package => 'libunbound-dev']],
       [like_fedora,
