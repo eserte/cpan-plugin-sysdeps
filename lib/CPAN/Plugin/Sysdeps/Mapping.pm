@@ -2756,6 +2756,8 @@ sub mapping {
       [like_fedora,
        [linuxdistro => 'centos', linuxdistroversion => qr{^7\.}, # available only for CentOS6, not for 7
 	[package => []]],
+       [linuxdistro => 'rocky', # not available in Rocky 8, probably neither in other versions
+	[package => []]],
        [package => 'libyaz-devel']],
       [os_darwin,
        [package => 'yaz']],
