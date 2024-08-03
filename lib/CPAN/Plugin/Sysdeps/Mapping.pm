@@ -2957,7 +2957,7 @@ sub mapping {
        [package => 'pgplot']],
       [like_debian,
        [package => 'pgplot5']],
-      # no pgplot package for CentOS7
+      # fedora-like systems have a pgplot package in the (nonfree) RPM Fusion repository
      ],
 
      [cpanmod => 'Pod::Spelling',
