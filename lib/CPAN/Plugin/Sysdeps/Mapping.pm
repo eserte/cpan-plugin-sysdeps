@@ -794,7 +794,7 @@ sub mapping {
        [package => 'libu2f-server-dev']],
       [os_darwin,
        [package => 'libu2f-server']],
-      [linuxdistro => 'fedora', # not available for CentOS6 or 7
+      [linuxdistro => 'fedora', # not available for CentOS6 or 7 or rockylinux 9
        [package => 'libu2f-server-devel']],
      ],
 
