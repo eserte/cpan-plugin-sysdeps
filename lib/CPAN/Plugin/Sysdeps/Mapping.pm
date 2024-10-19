@@ -635,6 +635,11 @@ sub mapping {
      [cpanmod => 'Config::UCL',
       [os_freebsd,
        [package => 'libucl']],
+      [like_debian,
+       [package => 'libucl-dev']],
+      [like_fedora,
+       [linuxdistro => 'fedora',
+	[package => 'libucl-devel']]],
      ],
 
      [cpanmod => 'Convert::Recode',
