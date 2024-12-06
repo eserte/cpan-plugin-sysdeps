@@ -62,7 +62,7 @@ jobs:
 
   test_in_container_dists:
     name: Container tests with ${{ matrix.dist }}:${{ matrix.distver }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container: ${{ matrix.dist }}:${{ matrix.distver }}
     strategy:
       matrix:
@@ -147,7 +147,7 @@ jobs:
 
   test_in_container_perls:
     name: Test with perl ${{ matrix.perlimage }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container: perl:${{ matrix.perlimage }}
     strategy:
       matrix:
