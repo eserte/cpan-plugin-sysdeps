@@ -3743,6 +3743,8 @@ sub mapping {
       [os_freebsd,
        [package => ['expat', 'pkgconf', 'xcb-proto', 'xcb-util-wm']]],
       [like_debian,
+       [before_ubuntu_focal,
+	[package => []]],
        [package => ['libxcb-composite0-dev', 'libxcb-ewmh-dev', 'libxcb-icccm4-dev', 'libxcb-randr0-dev',
         'libxcb-render0-dev', 'libxcb-util-dev', 'libxcb-util0-dev', 'libxcb-xinerama0-dev', 'libxcb-xinput-dev',
         'libxcb-xkb-dev', 'libxcb-xtest0-dev', 'libxcb1-dev', 'xcb-proto', 'xsltproc']]]],
