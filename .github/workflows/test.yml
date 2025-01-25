@@ -179,14 +179,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - osvers: '13.3'
-          - osvers: '14.1'
+          - osvers: '13.4'
+          - osvers: '14.2'
     steps:
     - uses: actions/checkout@v4
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v0.25.0
+    - uses: cross-platform-actions/action@v0.26.0
       with:
         operating_system: freebsd
         version: '${{ matrix.osvers }}'
