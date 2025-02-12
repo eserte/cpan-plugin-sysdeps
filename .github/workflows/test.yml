@@ -208,7 +208,7 @@ jobs:
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v0.24.0
+    - uses: cross-platform-actions/action@v0.26.0
       with:
         operating_system: openbsd
         version: '${{ matrix.osvers }}'
