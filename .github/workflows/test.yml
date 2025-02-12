@@ -17,7 +17,6 @@ jobs:
     strategy:
      matrix:
        include:
-         - os: 'ubuntu-20.04'
          - os: 'ubuntu-22.04'
          - os: 'ubuntu-24.04'
          - os: 'windows-latest'
@@ -93,7 +92,7 @@ jobs:
           - dist:    ubuntu
             distver: 16.04
           - dist:    ubuntu
-            distver: 24.04
+            distver: 20.04
           - dist:    opensuse/tumbleweed
             distver: latest
           ## XXX very minimal system, misses even tar, so actions/checkout fails
