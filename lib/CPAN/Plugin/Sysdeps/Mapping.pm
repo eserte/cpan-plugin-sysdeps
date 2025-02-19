@@ -2064,6 +2064,17 @@ sub mapping {
        [package => 'slang-devel']], # module cannot detect lib location
      ],
 
+     [cpanmod => 'IO::Uring',
+      [like_debian,
+       [before_debian_bullseye,
+	[package => []]],
+       [package => 'liburing-dev']],
+      [like_fedora,
+       [linuxdistro => 'rocky', linuxdistroversion => qr{^8\.},
+	[package => []]],
+       [package => 'liburing-devel']],
+     ],
+
      [cpanmod => 'IPC::MMA',
       [os_freebsd,
        [package => 'mm']],
