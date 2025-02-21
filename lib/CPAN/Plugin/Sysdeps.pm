@@ -663,17 +663,6 @@ sub _install_packages_commands {
     my @pre_cmd;
     my @install_cmd;
 
-    # sudo or not?
-    if ($self->{installer} eq 'homebrew') {
-	# may run as unprivileged user
-    } elsif ($self->{installer} eq 'chocolatey') {
-	# no sudo on Windows systems?
-    } else {
-	if ($< != 0) {
-	    push @install_cmd, 'sudo';
-	}
-    }
-
     # the installer executable
     if ($self->{installer} eq 'homebrew') {
 	push @install_cmd, 'brew';
@@ -684,6 +673,7 @@ sub _install_packages_commands {
     # batch, default or interactive
     if ($self->{batch}) {
 	if ($self->_is_apt_installer) {
+	    unshift @install_cmd, 'env', 'DEBIAN_FRONTEND=noninteractive';
 	    push @install_cmd, '-y';
 	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
 	    push @install_cmd, '-y';
@@ -733,6 +723,17 @@ sub _install_packages_commands {
     }
 
     push @install_cmd, @packages;
+
+    # sudo or not?
+    if ($self->{installer} eq 'homebrew') {
+	# may run as unprivileged user
+    } elsif ($self->{installer} eq 'chocolatey') {
+	# no sudo on Windows systems? but see below
+    } else {
+	if ($< != 0) {
+	    unshift @install_cmd, 'sudo';
+	}
+    }
     
     if ($self->{os} eq 'MSWin32') {
         # Wrap the thing in our small powershell program

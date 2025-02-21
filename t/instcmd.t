@@ -36,7 +36,7 @@ if ($^O ne 'MSWin32') {
 	my @cmds = $p->_install_packages_commands(qw(libfoo libbar));
 	is scalar(@cmds), 1;
 	maybe_shift_sudo $cmds[-1];
-	is_deeply $cmds[-1], [qw(apt-get -y install libfoo libbar)];
+	is_deeply $cmds[-1], [qw(env DEBIAN_FRONTEND=noninteractive apt-get -y install libfoo libbar)];
     }
 
     {
