@@ -3130,6 +3130,7 @@ sub mapping {
      ],
 
      # module's Build.PL would try to install the required package itself, which fails in unattended non-root setups
+     # unfortunately this does not help --- the module tries always to run the apt/dnf/... commands, even if the package is already installed
      [cpanmod => 'Runtime::Debugger',
       [like_debian,
        [package => 'libreadline-dev']],
