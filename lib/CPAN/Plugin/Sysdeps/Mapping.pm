@@ -3129,6 +3129,14 @@ sub mapping {
        [package => 'rrdtool-devel']],
      ],
 
+     # module's Build.PL would try to install the required package itself, which fails in unattended non-root setups
+     [cpanmod => 'Runtime::Debugger',
+      [like_debian,
+       [package => 'libreadline-dev']],
+      [like_fedora,
+       [package => 'readline-devel']],
+     ],
+
      [cpanmod => 'Search::Namazu',
       [os_freebsd,
        [package => 'namazu2']],
