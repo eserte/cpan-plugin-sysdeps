@@ -225,6 +225,14 @@ sub mapping {
       [like_debian,
        [package => 'libgtk2.0-dev']]],
 
+     # needed because of https://github.com/PerlAlien/Alien-xz/issues/11
+     [cpanmod => 'Alien::xz',
+      [like_fedora,
+       [package => [qw(xz xz-devel)]]],
+      [like_debian,
+       [package => [qw(xz-utils liblzma-dev)]]],
+     ],
+
      [cpanmod => 'App::Stacktrace',
       # does not work with freebsd anyway
       [like_debian,
