@@ -926,8 +926,16 @@ has to be added. For such a user named C<cpansand> on a Debian-like
 system this could look like this (two rules for batch and non-batch
 mode):
 
+    Defaults env_keep += "DEBIAN_FRONTEND"
     cpansand ALL=(ALL) NOPASSWD: /usr/bin/apt-get -y install *
     cpansand ALL=(ALL) NOPASSWD: /usr/bin/apt-get install *
+
+For batch operation, it is advisable to run the following commandline
+before starting the smoker:
+
+    export DEBIAN_FRONTEND=noninteractive
+
+to avoid possible interactive configuration of some packages.
 
 =head2 USE WITHOUT CPAN.PM
 
