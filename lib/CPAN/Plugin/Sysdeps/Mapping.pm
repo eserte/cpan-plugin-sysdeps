@@ -1706,7 +1706,11 @@ sub mapping {
 	[package => []]], # not available in wheezy
        [package => 'htmldoc']],
       [like_fedora,
-       [linuxdistro => 'centos', linuxdistroversion => {'>=', 8, '<', 9}, # not available (maybe not yet?) for CentOS8
+       [linuxdistro => 'centos', linuxdistroversion => {'>=', 8}, # not available for CentOS8
+	[package => []]],
+       [linuxdistro => 'rocky', # not available for rockylinux
+	[package => []]],
+       [linuxdistro => 'fedora', # not available for (newer) fedora
 	[package => []]],
        [package => 'htmldoc']],
      ],
