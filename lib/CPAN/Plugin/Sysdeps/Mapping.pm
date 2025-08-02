@@ -1199,7 +1199,7 @@ sub mapping {
       [os_openbsd,
        [package => [ 'firefox' ]]],
       [like_debian,
-       [linuxdistrocodename => [qw(trusty xenial bionic eoan focal jammy)],
+       [linuxdistro => 'ubuntu',
 	[package => [qw(firefox xvfb xauth)]]], # there's no firefox-esr for Ubuntu
        [package => [ 'firefox-esr', 'xvfb', 'xauth' ]]],
       [like_fedora,
