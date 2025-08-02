@@ -97,6 +97,6 @@ if ($^O ne 'MSWin32') {
 	my $p = CPAN::Plugin::Sysdeps->new('chocolatey');
 	my @cmds = $p->_install_packages_commands(qw(libfoo libbar));
 	is scalar(@cmds), 1;
-	like $cmds[-1][0], qr{^powershell .*Start-Process 'chocolatey'.*'install libfoo libbar'};
+	like $cmds[-1][0], qr{^powershell .*Start-Process 'choco'.*'install libfoo libbar'};
     }
 }

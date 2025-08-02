@@ -615,7 +615,7 @@ sub _find_missing_chocolatey_packages {
 	    $1 => $2
 	} grep {
 	    /^(.*)\|(.*)$/
-	} `$self->{installer} list --localonly --limit-output`;
+	} `choco list --localonly --limit-output`;
     my @missing_packages = grep { ! $installed_packages{ $_ }} @packages;
     @missing_packages;
 }
@@ -677,6 +677,8 @@ sub _install_packages_commands {
     # the installer executable
     if ($self->{installer} eq 'homebrew') {
 	push @install_cmd, 'brew';
+    } elsif ($self->{installer} eq 'chocolatey') {
+	push @install_cmd, 'choco';
     } else {
 	push @install_cmd, $self->{installer};
     }
