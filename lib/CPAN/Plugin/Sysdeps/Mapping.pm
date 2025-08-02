@@ -1275,8 +1275,6 @@ sub mapping {
        [package => 'gd-devel']],
       [os_darwin,
        [package => 'gd']],
-      [os_windows,
-       [package => 'gd']],
      ],
 
      [cpanmod => 'Gearman::XS',
