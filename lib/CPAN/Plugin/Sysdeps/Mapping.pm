@@ -2236,8 +2236,7 @@ sub mapping {
        [package => 'libsoldout1-dev']], # passes with jessie, fails with xenial
      ],
 
-     [#cpanmod => 'Lingua::Identify::CLD2',
-      cpandist => qr{^Lingua-Identify-CLD2-\d}, # XXX until first stable release happens
+     [cpanmod => 'Lingua::Identify::CLD2',
       [os_freebsd,
        [package => 'cld2']],
       [like_debian,
