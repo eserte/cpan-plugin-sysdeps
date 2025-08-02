@@ -910,6 +910,21 @@ sub mapping {
        [package => 'firebird-devel']],
      ],
 
+     [cpanmod => 'DBD::MariaDB',
+      [os_freebsd,
+       [package => 'mysql80-client']], # same like used in https://www.freshports.org/databases/p5-DBD-MariaDB/
+      [os_openbsd,
+       [package => 'mariadb-connector-c']],
+      [like_debian,
+       [package => 'libmariadb-dev | libmariadbclient-dev | libmariadbd-dev | libmysqlclient-dev | libmysqld-dev']], # see https://metacpan.org/dist/DBD-MariaDB/view/lib/DBD/MariaDB/INSTALL.pod#PREREQUISITES
+      [like_fedora,
+       [package => 'mariadb-devel | mariadb-embedded-devel | mysql-devel | mysql-embedded-devel']], # see https://metacpan.org/dist/DBD-MariaDB/view/lib/DBD/MariaDB/INSTALL.pod#PREREQUISITES
+      [os_darwin,
+       [package => 'mysql-client | mysql-connector-c | mysql']],
+      [os_windows,
+       [package => 'mariadb-cli']],
+     ],
+
      [cpanmod => 'DBD::mysql',
       [os_freebsd,
        [package => 'mysql80-client | mysql57-client | mysql56-client | mysql55-client | mariadb103-client | mariadb102-client | mariadb101-client | mariadb100-client | mariadb55-client | percona56-client | percona55-client | mysql-connector-c']],
