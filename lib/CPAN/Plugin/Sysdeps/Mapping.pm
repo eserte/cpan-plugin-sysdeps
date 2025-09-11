@@ -3786,6 +3786,8 @@ sub mapping {
      [cpanmod => 'X11::XCB',
       [os_freebsd,
        [package => ['expat', 'pkgconf', 'xcb-proto', 'xcb-util-wm']]],
+      [like_fedora,
+       [package => ['expat-devel', 'libxcb-devel', 'xcb-util-devel', 'xcb-util-wm-devel', 'xcb-proto']]],
       [like_debian,
        [before_ubuntu_focal,
 	[package => []]],
