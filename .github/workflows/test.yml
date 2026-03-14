@@ -179,13 +179,13 @@ jobs:
       matrix:
         include:
           - osvers: '13.5'
-          - osvers: '14.2'
+          - osvers: '14.3'
     steps:
     - uses: actions/checkout@v6
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v0.28.0
+    - uses: cross-platform-actions/action@v0.32.0
       with:
         operating_system: freebsd
         version: '${{ matrix.osvers }}'
@@ -202,13 +202,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - osvers: 7.4
+          - osvers: 7.8
     steps:
     - uses: actions/checkout@v6
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v0.26.0
+    - uses: cross-platform-actions/action@v0.32.0
       with:
         operating_system: openbsd
         version: '${{ matrix.osvers }}'
