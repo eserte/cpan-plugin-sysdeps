@@ -181,7 +181,7 @@ jobs:
           - osvers: '13.5'
           - osvers: '14.2'
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         clean: false
         show-progress: false
@@ -204,7 +204,7 @@ jobs:
         include:
           - osvers: 7.4
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         clean: false
         show-progress: false
