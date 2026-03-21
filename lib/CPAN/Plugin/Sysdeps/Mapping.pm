@@ -25,6 +25,7 @@ use constant before_debian_bookworm=> (linuxdistrocodename => [qw(squeeze precis
 use constant before_ubuntu_noble   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy bookworm)]);
 use constant before_debian_trixie  => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy bookworm noble)]);
 use constant like_fedora => (linuxdistro => '~fedora');
+use constant like_alpine => (linuxdistro => '~alpine');
 #  package shortcuts
 use constant freebsd_old_jpeg => 'jpeg | jpeg-turbo'; # older freebsd (e.g. 8, 9)
 use constant freebsd_new_jpeg => 'jpeg-turbo | jpeg'; # newer freebsd (e.g. 13, 14, 15)
@@ -1273,6 +1274,8 @@ sub mapping {
        [package => 'libgd-dev']],
       [like_fedora,
        [package => 'gd-devel']],
+      [like_alpine,
+       [package => 'gd-dev']],
       [os_darwin,
        [package => 'gd']],
      ],
