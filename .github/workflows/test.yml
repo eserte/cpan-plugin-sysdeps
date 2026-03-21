@@ -93,6 +93,8 @@ jobs:
             distver: 16.04
           - dist:    ubuntu
             distver: 20.04
+          - dist:    alpine
+            distver: '3.20'
           - dist:    opensuse/tumbleweed
             distver: latest
           ## XXX very minimal system, misses even tar, so actions/checkout fails
@@ -135,6 +137,12 @@ jobs:
         set -e
         zypper install -y make perl perl-App-cpanminus lsb-release
       if: "matrix.dist == 'opensuse/tumbleweed' || matrix.dist == 'opensuse/leap'"
+    - name: Install perl and more on Alpine
+      run: |
+        set -e
+        apk update
+        apk add perl make perl-app-cpanminus wget
+      if: "matrix.dist == 'alpine'"
     - name: Build and test
       run: |
         set -e
