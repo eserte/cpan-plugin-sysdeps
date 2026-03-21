@@ -748,11 +748,9 @@ sub _install_packages_commands {
     }
 
     # the installer subcommand
-    if ($self->{installer} eq 'pkg_add') {
-	# no subcommand
-    } elsif ($self->{installer} eq 'apk') {
+    if ($self->{installer} eq 'apk') {
 	push @install_cmd, 'add';
-    } else {
+    } elsif ($self->{installer} ne 'pkg_add') {
         push @install_cmd, 'install';
     }
 
