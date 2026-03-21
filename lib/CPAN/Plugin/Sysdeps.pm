@@ -34,7 +34,7 @@ sub new {
 	    } else {
 		$options = $arg;
 	    }
-	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|pkg_add|yum|dnf|chocolatey|homebrew)$}) { # XXX are there more package installers?
+	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|pkg_add|yum|dnf|chocolatey|homebrew|apk)$}) { # XXX are there more package installers?
 	    $installer = $1;
 	} elsif ($arg eq 'batch') {
 	    $batch = 1;
@@ -116,6 +116,8 @@ sub new {
 		} else {
 		    $installer = 'yum';
 		}
+	    } elsif (__PACKAGE__->_is_linux_alpine_like($linuxdistro)) {
+		$installer = 'apk';
 	    } else {
 		die __PACKAGE__ . " has no support for linux distribution $linuxdistro $linuxdistroversion\n";
 	    }
@@ -301,6 +303,11 @@ sub _is_linux_fedora_like {
     $linuxdistro =~ m{^(fedora|redhat|centos|rocky)$};
 }
 
+sub _is_linux_alpine_like {
+    my(undef, $linuxdistro) = @_;
+    $linuxdistro =~ m{^(alpine)$};
+}
+
 sub _is_apt_installer { shift->{installer} =~m{^(apt-get|aptitude)$} }
 
 # Run a process in an elevated window, wait for its exit
@@ -404,12 +411,12 @@ sub _map_cpandist {
 		} elsif ($key eq 'osvers') {
 		    return 0 if !$smartmatch->($self->{osvers}, $match) && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'linuxdistro') {
-		    if ($match =~ m{^~(debian|fedora)$}) {
+		    if ($match =~ m{^~(debian|fedora|alpine)$}) {
 			my $method = "_is_linux_$1_like";
 			$self->_debug(' ' x $level . " translate $match to $method");
 			return 0 if !$self->$method($self->{linuxdistro}) && !$TRAVERSE_ONLY;
 		    } elsif ($match =~ m{^~}) {
-			die "'like' matches only for debian and fedora";
+			die "'like' matches only for debian, fedora, and alpine";
 		    } else {
 			return 0 if !$smartmatch->($self->{linuxdistro}, $match) && !$TRAVERSE_ONLY;
 		    }
@@ -620,6 +627,22 @@ sub _find_missing_chocolatey_packages {
     @missing_packages;
 }
 
+sub _find_missing_apk_packages {
+    my($self, @packages) = @_;
+    return () if !@packages;
+
+    my @missing_packages;
+    for my $package (@packages) {
+	my @cmd = ('apk', 'info', '-e', $package);
+	system @cmd;
+	if ($? != 0) {
+	    push @missing_packages, $package;
+	}
+    }
+
+    @missing_packages;
+}
+
 sub _filter_uninstalled_packages {
     my($self, @packages) = @_;
     my $find_missing_packages;
@@ -635,6 +658,8 @@ sub _filter_uninstalled_packages {
 	$find_missing_packages = '_find_missing_chocolatey_packages';
     } elsif ($self->{installer} eq 'homebrew') {
 	$find_missing_packages = '_find_missing_homebrew_packages';
+    } elsif ($self->{installer} eq 'apk') {
+	$find_missing_packages = '_find_missing_apk_packages';
     } else {
 	warn "check for installed packages is NYI for $self->{os}/$self->{linuxdistro}";
     }
@@ -693,6 +718,8 @@ sub _install_packages_commands {
 	    # see below
 	} elsif ($self->{installer} eq 'homebrew') {
 	    # batch by default
+	} elsif ($self->{installer} eq 'apk') {
+	    # batch by default
 	} else {
 	    warn "batch=1 NYI for $self->{installer}";
 	}
@@ -708,6 +735,8 @@ sub _install_packages_commands {
 	} elsif ($self->{installer} eq 'homebrew') {
 	    # the sh builtin echo does not understand -n -> use printf
 	    @pre_cmd = ('sh', '-c', 'printf %s "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
+	} elsif ($self->{installer} eq 'apk') {
+	    @pre_cmd = ('sh', '-c', 'printf %s "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
 	} else {
 	    warn "batch=0 NYI for $self->{installer}";
 	}
@@ -719,7 +748,11 @@ sub _install_packages_commands {
     }
 
     # the installer subcommand
-    if ($self->{installer} ne 'pkg_add') {
+    if ($self->{installer} eq 'pkg_add') {
+	# no subcommand
+    } elsif ($self->{installer} eq 'apk') {
+	push @install_cmd, 'add';
+    } else {
         push @install_cmd, 'install';
     }
 
