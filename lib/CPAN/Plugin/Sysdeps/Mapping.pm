@@ -2407,6 +2407,8 @@ sub mapping {
       [like_debian,
        [package => 'libmpfi-dev']],
       [like_fedora,
+       [linuxdistro => 'rocky', # not available for rockylinux
+	[package => []]],
        [package => 'mpfi-devel']],
      ],
 
