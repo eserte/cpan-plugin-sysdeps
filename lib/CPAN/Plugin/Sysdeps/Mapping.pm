@@ -846,7 +846,7 @@ sub mapping {
 
      [cpanmod => ['Data::UUID::LibUUID', 'UUID'],
       [os_freebsd,
-       [package => 'e2fsprogs-libuuid']],
+       [package => 'libuuid']],
       [os_openbsd,
        [package => 'ossp-uuid']],
       [like_debian,
