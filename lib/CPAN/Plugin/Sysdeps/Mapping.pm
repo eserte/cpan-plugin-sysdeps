@@ -1664,7 +1664,9 @@ sub mapping {
       [like_debian,
        [before_ubuntu_trusty, # at least not available in debian/wheezy
 	[package => []]],
-       [package => 'libwebkit2gtk-4.0-dev']],
+       [before_ubuntu_noble,
+	[package => 'libwebkit2gtk-4.0-dev']],
+       [package => 'libwebkit2gtk-4.1-dev']], # but does not work with Gtk3-WebKit2-0.013: Typelib file for namespace 'WebKit2', version '4.0' not found
       [like_fedora,
        [linuxdistro => 'centos',
 	linuxdistroversion => qr{^[67]\.},
