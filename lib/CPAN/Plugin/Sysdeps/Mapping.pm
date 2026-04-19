@@ -569,6 +569,34 @@ sub mapping {
        [package => 'libradosstriper-dev']],
      ],
 
+     [cpanmod => 'Chandra',
+      [like_debian,
+       [before_ubuntu_trusty, # at least not available in debian/wheezy
+	[package => []]],
+       [before_ubuntu_noble,
+	[package => 'libwebkit2gtk-4.0-dev']],
+       [package => 'libwebkit2gtk-4.1-dev']],
+      [like_fedora,
+       [linuxdistro => 'centos',
+	linuxdistroversion => qr{^[67]\.},
+	package => []], # N/A for centos6+7
+       [linuxdistro => 'rocky',
+	[package => 'webkit2gtk3-devel']], # at least rocky 9
+       [linuxdistro => 'fedora', linuxdistroversion => {'<', 37},
+	[package => 'webkit2gtk3-devel']],
+       [linuxdistro => 'fedora', linuxdistroversion => {'<', 38},
+	[package => 'webkit2gtk4.0-devel']],
+       [linuxdistro => 'fedora', 
+	[package => 'webkit2gtk4.1-devel']],
+       [package => []]],
+      ## XXX does not seem to exist, at least in standard alpine:3.21
+      #[like_alpine,
+      # [package => 'webkit2gtk-dev']],
+      [os_freebsd,
+       [osvers => {'>=', 13},
+	[package => 'webkit2-gtk_40']]], # XXX does not seem to be sufficient...
+     ],
+
      [cpanmod => 'Chipcard::PCSC',
       # XXX what about freebsd?
       [os_freebsd,
