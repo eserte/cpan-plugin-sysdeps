@@ -3273,6 +3273,13 @@ sub mapping {
        # not available in wheezy and later
       ]],
 
+     [cpanmod => 'SPVM',
+      # BSD make does not work anymore, see https://github.com/yuki-kimoto/SPVM/issues/856
+      [os_freebsd,   [package => 'gmake']],
+      [os_dragonfly, [package => 'gmake']],
+      [os_openbsd,   [package => 'gmake']],
+     ],
+
      [cpanmod => 'Store::CouchDB',
       # tests pass also without, but most tests are skipped
       [os_freebsd,
