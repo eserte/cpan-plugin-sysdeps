@@ -1106,6 +1106,18 @@ running the installer program (C<apt-get> or so) is made password-less
 in the F<sudoers> file, or run a wrapper like
 L<sudo_keeper|https://github.com/eserte/srezic-misc/blob/master/scripts/sudo_keeper>.
 
+=item * Install local directories using C<cpan .>
+
+C<CPAN.pm> has limited support for installing locally available
+directories. A possible use case is to do a C<git clone> of a module
+repository and install it directly from the cloned directory. However,
+in this scenario C<CPAN::Plugin::Sysdeps> has no information about the
+installed software, especially not the distribution name and its
+contained modules, and therefore cannot apply its mapping. To work
+around this limitation it's possible to set the environment variable
+C<CPAN_PLUGIN_SYSDEPS_MODULE> to the primary module of the
+distribution.
+
 =item * Error handling
 
 Failing things in the plugin are causing C<die()> calls. This can
