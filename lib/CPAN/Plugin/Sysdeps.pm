@@ -223,8 +223,7 @@ sub _detect_linux_distribution {
     }
 }
 
-sub _detect_linux_distribution_os_release {
-    my %info;
+sub _get_os_release {
     for my $candidate_file (@OS_RELEASE_PATH_CANDIDATES) {
 	if (open my $fh, '<', $candidate_file) {
 	    my %c;
@@ -233,15 +232,23 @@ sub _detect_linux_distribution_os_release {
 		    $c{$k} = $v;
 		}
 	    }
-	    $info{linuxdistro} = $c{ID};
-	    $info{linuxdistroversion} = $c{VERSION_ID};
-	    $info{linuxdistrocodename} = $c{VERSION_CODENAME};
-	    # heuristics
-	    if (!defined $info{linuxdistrocodename} && $info{linuxdistro} eq 'debian' && $c{VERSION} =~ m{^\d+\s+\((.+)\)$}) {
-		$info{linuxdistrocodename} = $1;
-	    }
-	    return \%info;
+	    return \%c;
 	}
+    }
+}
+
+sub _detect_linux_distribution_os_release {
+    my $c = _get_os_release();
+    if ($c) {
+	my %info;
+	$info{linuxdistro} = $c->{ID};
+	$info{linuxdistroversion} = $c->{VERSION_ID};
+	$info{linuxdistrocodename} = $c->{VERSION_CODENAME};
+	# heuristics
+	if (!defined $info{linuxdistrocodename} && $info{linuxdistro} eq 'debian' && $c->{VERSION} =~ m{^\d+\s+\((.+)\)$}) {
+	    $info{linuxdistrocodename} = $1;
+	}
+	return \%info;
     }
     undef;
 }
