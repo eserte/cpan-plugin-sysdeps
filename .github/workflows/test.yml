@@ -78,10 +78,12 @@ jobs:
             distver: bookworm
           - dist:    debian
             distver: trixie
+          - dist:    debian
+            distver: forky
           - dist:    fedora
             distver: 33
           - dist:    fedora
-            distver: 40
+            distver: 43
           - dist:    rockylinux
             distver: 8
           - dist:    rockylinux
@@ -93,8 +95,10 @@ jobs:
             distver: 16.04
           - dist:    ubuntu
             distver: 20.04
+          - dist:    ubuntu
+            distver: 26.04
           - dist:    alpine
-            distver: '3.20'
+            distver: '3.23'
           - dist:    opensuse/tumbleweed
             distver: latest
           ## XXX very minimal system, misses even tar, so actions/checkout fails
