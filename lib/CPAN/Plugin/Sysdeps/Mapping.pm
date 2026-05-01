@@ -1983,17 +1983,23 @@ sub mapping {
       [os_freebsd,
        [osvers => {'>=', 4, '<', 10},
 	[package => []]],
-       [package => 'libheif']], # but does not seem to work with freebsd 10, only with 11 and later
+       [package => ['libheif', 'pkgconf']]], # but does not seem to work with freebsd 10, only with 11 and later; pkg-config is required to find location of libheif library
       [like_debian,
        [before_ubuntu_bionic,
 	[package => []]],
-       [package => 'libheif-dev']],
+       [before_ubuntu_jammy,
+	[package => 'libheif-dev']],
+       [package => [qw(libheif-dev libx265-dev)]]], # module requires a HEVC encoder which is provided by libx265
       [like_fedora,
        [linuxdistro => 'centos', # not available for 7
 	package => []],
-       [linuxdistro => 'fedora', linuxdistroversion => {'>=', 37}, # however, configure fails: "doesn't have a HEVC encoder"
+       [linuxdistro => 'fedora', linuxdistroversion => {'>=', 37}, # however, configure fails: "doesn't have a HEVC encoder"; an x265 library does not seem to be available
 	[package => 'libheif-devel']],
       ],
+      [like_alpine,
+       [package => [qw(libheif-dev)]]],
+      [os_darwin,
+       [package => [qw(libheif)]]],
      ],
 
      [cpanmod => 'Imager::File::JPEG',
