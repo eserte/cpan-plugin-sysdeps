@@ -766,7 +766,7 @@ sub mapping {
        [package => [qw(libmcrypt-devel libtool-ltdl-devel)]]],
      ],
 
-     [cpanmod => ['Crypt::OpenSSL::DSA', 'Crypt::OpenSSL::PKCS12', 'Crypt::OpenSSL::Random', 'Crypt::OpenSSL::RSA', 'Crypt::OpenSSL::X509', 'IO::Socket::SSL'],
+     [cpanmod => ['Crypt::OpenSSL::DSA', 'Crypt::OpenSSL::PKCS12', 'Crypt::OpenSSL::Random', 'Crypt::OpenSSL::RSA', 'Crypt::OpenSSL::X509', 'IO::Socket::SSL', 'Crypt::OpenSSL3'],
       # freebsd has all libssl in the base system
       [like_debian,
        [package => ['libssl-dev', 'zlib1g-dev']]],
