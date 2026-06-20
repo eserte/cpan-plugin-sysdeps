@@ -184,15 +184,23 @@ jobs:
         make distcheck
         HARNESS_TIMER=1 HARNESS_OPTIONS=j4:c make disttest
 
-  test_freebsd:
-    name: Test on FreeBSD ${{ matrix.osvers }}
+  test_bsd:
+    name: Test on ${{ matrix.operating_system }} ${{ matrix.osvers }}
     runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: cpa.sh {0}
     strategy:
       matrix:
         include:
-          - osvers: '13.5'
-          - osvers: '14.4'
-          - osvers: '15.0'
+          - operating_system: freebsd
+            osvers: '13.5'
+          - operating_system: freebsd
+            osvers: '14.4'
+          - operating_system: freebsd
+            osvers: '15.0'
+          - operating_system: openbsd
+            osvers: '7.9'
     steps:
     - uses: actions/checkout@v6
       with:
@@ -200,35 +208,22 @@ jobs:
         show-progress: false
     - uses: cross-platform-actions/action@v1.2.0
       with:
-        operating_system: freebsd
+        operating_system: '${{ matrix.operating_system }}'
         version: '${{ matrix.osvers }}'
-        run: |
-          sudo pkg update
-          sudo pkg install -y perl5
-          perl Makefile.PL
-          make
-          make test
-
-  test_openbsd:
-    name: Test on OpenBSD ${{ matrix.osvers }}
-    runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        include:
-          - osvers: 7.9
-    steps:
-    - uses: actions/checkout@v6
-      with:
-        clean: false
-        show-progress: false
-    - uses: cross-platform-actions/action@v1.2.0
-      with:
-        operating_system: openbsd
-        version: '${{ matrix.osvers }}'
-        # note: "doas" is usually preferred over "sudo" in OpenBSD, but atm not available, see https://github.com/cross-platform-actions/action/issues/75
-        run: |
-          sudo pkg_add -u 
-          sudo pkg_add -i perl
-          perl Makefile.PL
-          make
-          make test
+    - name: Test on freebsd
+      if: "matrix.operating_system == 'freebsd'"
+      run: |
+        sudo pkg update
+        sudo pkg install -y perl5
+        perl Makefile.PL
+        make
+        make test
+    - name: Test on openbsd
+      if: "matrix.operating_system == 'openbsd'"
+      # note: "doas" is usually preferred over "sudo" in OpenBSD, but atm not available, see https://github.com/cross-platform-actions/action/issues/75
+      run: |
+        sudo pkg_add -u 
+        sudo pkg_add -i perl
+        perl Makefile.PL
+        make
+        make test
