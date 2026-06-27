@@ -1956,7 +1956,7 @@ sub mapping {
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev), 'libtiff5-dev | libtiff4-dev']]],
        [linuxdistrocodename => [qw(jessie xenial)],
 	[package => [qw(libfreetype6-dev libgif-dev libpng12-dev libjpeg-dev libtiff5-dev)]]],
-       [package => [qw(libfreetype6-dev libgif-dev libpng-dev libjpeg-dev libtiff5-dev)]],
+       [package => ['libfreetype-dev | libfreetype6-dev', qw(libgif-dev libpng-dev libjpeg-dev libtiff5-dev)]],
       ],
       [like_fedora,
        [package => [qw(freetype-devel giflib-devel libpng-devel libjpeg-turbo-devel libtiff-devel)]]],
@@ -2921,7 +2921,7 @@ sub mapping {
      [cpanmod => 'OpenGL::FTGL',
       [like_debian,
        # but does not work, lookup into wrong freetype directory
-       [package => ['libftgl-dev', 'libfreetype6-dev']]]],
+       [package => ['libftgl-dev', 'libfreetype-dev | libfreetype6-dev']]]],
 
      [cpanmod => 'OpenGL::GLFW',
       [os_freebsd,
@@ -3547,7 +3547,7 @@ sub mapping {
        [osvers => {'<', freebsd_new_jpeg_osvers}, [package => [qw(freetype2 libXft libX11 png), freebsd_old_jpeg]]],
        [package => [qw(freetype2 libXft libX11 png), freebsd_new_jpeg]]],
       [like_debian,
-       [package => [qw(libx11-dev libfreetype6-dev libxft-dev libpng-dev libz-dev libjpeg-dev)]]],
+       [package => ['libx11-dev', 'libfreetype-dev | libfreetype6-dev', qw(libxft-dev libpng-dev libz-dev libjpeg-dev)]]],
       [like_fedora,
        [package => [qw(libX11-devel libXft-devel libpng-devel zlib-devel libjpeg-devel)]]],
      ],
