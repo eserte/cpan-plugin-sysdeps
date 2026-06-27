@@ -1048,7 +1048,7 @@ system:
 
 On a Debian system the output will look like:
 
-    libfreetype6-dev
+    libfreetype-dev
     libgif-dev
     libpng12-dev
     libjpeg-dev
