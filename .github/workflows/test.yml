@@ -143,6 +143,7 @@ jobs:
     - name: Install perl and more on OpenSUSE
       run: |
         set -e
+        zypper --non-interactive refresh
         zypper install -y make perl perl-App-cpanminus lsb-release
       if: "matrix.dist == 'opensuse/tumbleweed' || matrix.dist == 'opensuse/leap'"
     - name: Install perl and more on Alpine
