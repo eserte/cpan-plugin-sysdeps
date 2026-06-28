@@ -34,7 +34,7 @@ sub new {
 	    } else {
 		$options = $arg;
 	    }
-	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|pkg_add|yum|dnf|chocolatey|homebrew|apk|zypper)$}) { # XXX are there more package installers?
+	} elsif ($arg =~ m{^(apt-get|aptitude|pkg|pkg_add|yum|dnf|chocolatey|homebrew|apk)$}) { # XXX are there more package installers?
 	    $installer = $1;
 	} elsif ($arg eq 'batch') {
 	    $batch = 1;
@@ -118,8 +118,6 @@ sub new {
 		}
 	    } elsif (__PACKAGE__->_is_linux_alpine_like($linuxdistro)) {
 		$installer = 'apk';
-	    } elsif (__PACKAGE__->_is_linux_suse_like($linuxdistro)) {
-		$installer = 'zypper';
 	    } else {
 		die __PACKAGE__ . " has no support for linux distribution $linuxdistro $linuxdistroversion\n";
 	    }
@@ -342,11 +340,6 @@ sub _is_linux_alpine_like {
     $linuxdistro =~ m{^(alpine)$};
 }
 
-sub _is_linux_suse_like {
-    my(undef, $linuxdistro) = @_;
-    $linuxdistro =~ m{^(opensuse.*|suse)$};
-}
-
 sub _is_apt_installer { shift->{installer} =~m{^(apt-get|aptitude)$} }
 
 # Run a process in an elevated window, wait for its exit
@@ -479,7 +472,7 @@ sub _map_cpandist {
 		} elsif ($key eq 'osvers') {
 		    return 0 if !$smartmatch->($self->{osvers}, $match) && !$TRAVERSE_ONLY;
 		} elsif ($key eq 'linuxdistro') {
-		    if ($match =~ m{^~(debian|fedora|alpine|suse)$}) {
+		    if ($match =~ m{^~(debian|fedora|alpine)$}) {
 			my $method = "_is_linux_$1_like";
 			$self->_debug(' ' x $level . " translate $match to $method");
 			return 0 if !$self->$method($self->{linuxdistro}) && !$TRAVERSE_ONLY;
@@ -716,7 +709,7 @@ sub _filter_uninstalled_packages {
     my $find_missing_packages;
     if      ($self->_is_apt_installer) {
 	$find_missing_packages = '_find_missing_deb_packages';
-    } elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf') || ($self->{installer} eq 'zypper')) {
+    } elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
 	$find_missing_packages = '_find_missing_rpm_packages';
     } elsif ($self->{os} eq 'freebsd' || $self->{os} eq 'dragonfly') {
 	$find_missing_packages = '_find_missing_freebsd_pkg_packages';
@@ -757,23 +750,13 @@ sub _install_packages_commands {
     my @install_cmd;
 
     # sudo or not?
-    my $sudo = '';
-    if ($< != 0) {
-	$sudo = 'sudo';
-    }
-
     if ($self->{installer} eq 'homebrew') {
 	# may run as unprivileged user
     } elsif ($self->{installer} eq 'chocolatey') {
 	# no sudo on Windows systems?
-    } elsif ($self->{installer} eq 'zypper') {
-	push @pre_cmd, [($sudo ? $sudo : ()), 'zypper', '--non-interactive', 'refresh'];
-	if ($sudo) {
-	    push @install_cmd, $sudo;
-	}
     } else {
-	if ($sudo) {
-	    push @install_cmd, $sudo;
+	if ($< != 0) {
+	    push @install_cmd, 'sudo';
 	}
     }
 
@@ -790,7 +773,7 @@ sub _install_packages_commands {
     if ($self->{batch}) {
 	if ($self->_is_apt_installer) {
 	    push @install_cmd, '-y';
-	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf') || ($self->{installer} eq 'zypper')) {
+	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
 	    push @install_cmd, '-y';
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
@@ -803,8 +786,8 @@ sub _install_packages_commands {
 	}
     } else {
 	if ($self->_is_apt_installer) {
-	    push @pre_cmd, ['sh', '-c', 'echo -n "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]'];
-	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf') || ($self->{installer} eq 'zypper')) {
+	    @pre_cmd = ('sh', '-c', 'echo -n "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
+	} elsif (($self->{installer} eq 'yum') || ($self->{installer} eq 'dnf')) {
 	    # interactive by default
 	} elsif ($self->{installer} eq 'pkg') { # FreeBSD's pkg
 	    # see below
@@ -812,9 +795,9 @@ sub _install_packages_commands {
 	    # Nothing to do here
 	} elsif ($self->{installer} eq 'homebrew') {
 	    # the sh builtin echo does not understand -n -> use printf
-	    push @pre_cmd, ['sh', '-c', 'printf %s "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]'];
+	    @pre_cmd = ('sh', '-c', 'printf %s "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
 	} elsif ($self->{installer} eq 'apk') {
-	    push @pre_cmd, ['sh', '-c', 'printf %s "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]'];
+	    @pre_cmd = ('sh', '-c', 'printf %s "Install package(s) '."@packages".'? (y/N) "; read yn; [ "$yn" = "y" ]');
 	} else {
 	    warn "batch=0 NYI for $self->{installer}";
 	}
@@ -850,7 +833,7 @@ sub _install_packages_commands {
         @install_cmd = _win32_run_elevated(@install_cmd);
     };
 
-    (@pre_cmd, \@install_cmd);
+    ((@pre_cmd ? \@pre_cmd : ()), \@install_cmd);
 }
 
 1;

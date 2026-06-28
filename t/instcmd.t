@@ -110,27 +110,6 @@ if ($^O ne 'MSWin32') {
 	maybe_shift_sudo $cmds[-1];
 	is_deeply $cmds[-1], [qw(apk add libfoo libbar)];
     }
-
-    {
-	my $p = CPAN::Plugin::Sysdeps->new('zypper');
-	my @cmds = $p->_install_packages_commands(qw(libfoo libbar));
-	# zypper has refresh as pre-command
-	is scalar(@cmds), 2;
-	maybe_shift_sudo $cmds[0];
-	is_deeply $cmds[0], [qw(zypper --non-interactive refresh)];
-	maybe_shift_sudo $cmds[1];
-	is_deeply $cmds[1], [qw(zypper install libfoo libbar)];
-    }
-
-    {
-	my $p = CPAN::Plugin::Sysdeps->new('batch', 'zypper');
-	my @cmds = $p->_install_packages_commands(qw(libfoo libbar));
-	is scalar(@cmds), 2;
-	maybe_shift_sudo $cmds[0];
-	is_deeply $cmds[0], [qw(zypper --non-interactive refresh)];
-	maybe_shift_sudo $cmds[1];
-	is_deeply $cmds[1], [qw(zypper -y install libfoo libbar)];
-    }
 } else {
     {
 	my $p = CPAN::Plugin::Sysdeps->new('chocolatey');
