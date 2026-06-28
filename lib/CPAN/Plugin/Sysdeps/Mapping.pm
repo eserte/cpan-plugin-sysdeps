@@ -28,6 +28,7 @@ use constant before_ubuntu_resolute=> (linuxdistrocodename => [qw(squeeze precis
 use constant before_debian_forky   => (linuxdistrocodename => [qw(squeeze precise wheezy trusty jessie xenial stretch bionic buster focal bullseye jammy bookworm noble trixie resolute)]);
 use constant like_fedora => (linuxdistro => '~fedora');
 use constant like_alpine => (linuxdistro => '~alpine');
+use constant like_suse   => (linuxdistro => '~suse');
 #  package shortcuts
 use constant freebsd_old_jpeg => 'jpeg | jpeg-turbo'; # older freebsd (e.g. 8, 9)
 use constant freebsd_new_jpeg => 'jpeg-turbo | jpeg'; # newer freebsd (e.g. 13, 14, 15)
@@ -1183,11 +1184,16 @@ sub mapping {
      ],
 
      [cpanmod => 'File::LibMagic',
-      # XXX what about freebsd?
+      [os_freebsd,
+       [package => 'file']],
       [like_debian,
        [package => 'libmagic-dev']],
       [like_fedora,
        [package => 'file-devel']],
+      [like_suse,
+       [package => 'file-devel']],
+      [like_alpine,
+       [package => 'file-dev']],
       [os_darwin,
        [package => 'libmagic']]],
 
