@@ -3699,6 +3699,8 @@ sub mapping {
        [package => 'libcurl-devel']],
       [os_darwin,
        [package => []]], # libcurl is in the base system
+      [like_alpine,
+       [package => [qw(curl-dev)]]],
      ],
 
      [cpanmod => 'WWW::Mechanize::Chrome',
