@@ -1183,11 +1183,13 @@ sub mapping {
      ],
 
      [cpanmod => 'File::LibMagic',
-      # XXX what about freebsd?
+      # freebsd: library is in the base system
       [like_debian,
        [package => 'libmagic-dev']],
       [like_fedora,
        [package => 'file-devel']],
+      [like_alpine,
+       [package => 'file-dev']],
       [os_darwin,
        [package => 'libmagic']]],
 
