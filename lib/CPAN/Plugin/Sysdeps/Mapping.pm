@@ -236,6 +236,15 @@ sub mapping {
        [package => [qw(xz-utils liblzma-dev)]]],
      ],
 
+     [cpanmod => 'Apache::LogFormat::Compiler',
+      [like_debian,
+       [linuxdistro => 'ubuntu',
+	[package => [qw(tzdata)]]], # not installed in minimal setups, which is causing test failures: https://github.com/kazeburo/Apache-LogFormat-Compiler/issues/17
+      ],
+      [like_alpine,
+       [package => [qw(tzdata)]]],
+     ],
+
      [cpanmod => 'App::Stacktrace',
       # does not work with freebsd anyway
       [like_debian,
