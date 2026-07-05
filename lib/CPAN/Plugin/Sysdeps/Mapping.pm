@@ -934,6 +934,8 @@ sub mapping {
 	package => 'db4-devel'],
        [package => 'libdb-devel'],
       ],
+      [like_alpine,
+       [package => 'db-dev']],
      ],
 
      [cpanmod => 'DBD::Firebird',
