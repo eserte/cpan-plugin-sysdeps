@@ -2036,6 +2036,8 @@ sub mapping {
        [package => 'libwebp-devel']], # but test or compilation failures with centos6+7; fedora28 works
       [os_darwin,
        [package => 'webp']],
+      [like_alpine,
+       [package => 'libwebp-dev']],
      ],
 
      [cpanmod => 'Imager::Font::T1',
