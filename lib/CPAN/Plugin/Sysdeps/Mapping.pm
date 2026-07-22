@@ -1973,6 +1973,8 @@ sub mapping {
       ],
       [like_fedora,
        [package => [qw(freetype-devel giflib-devel libpng-devel libjpeg-turbo-devel libtiff-devel)]]],
+      [like_alpine,
+       [package => [qw(freetype-dev giflib-dev libpng-dev libjpeg-turbo-dev tiff-dev)]]],
       [os_darwin,
        [package => [qw(freetype giflib libpng jpeg libtiff)]]],
      ],
