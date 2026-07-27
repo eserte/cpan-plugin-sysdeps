@@ -3814,6 +3814,8 @@ sub mapping {
        [package => 'libexpat1-dev']],
       [like_fedora,
        [package => 'expat-devel']],
+      [like_alpine,
+       [package => 'expat-dev']],
      ],
 
      [cpanmod => 'XML::Sablotron',
