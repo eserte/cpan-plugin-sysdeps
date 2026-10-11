@@ -202,9 +202,9 @@ jobs:
           - operating_system: freebsd
             osvers: '13.5'
           - operating_system: freebsd
-            osvers: '14.4'
+            osvers: '14.5'
           - operating_system: freebsd
-            osvers: '15.0'
+            osvers: '15.1'
           - operating_system: openbsd
             osvers: '7.9'
     steps:
@@ -212,7 +212,7 @@ jobs:
       with:
         clean: false
         show-progress: false
-    - uses: cross-platform-actions/action@v1.2.0
+    - uses: cross-platform-actions/action@v1.6.0
       with:
         operating_system: '${{ matrix.operating_system }}'
         version: '${{ matrix.osvers }}'
